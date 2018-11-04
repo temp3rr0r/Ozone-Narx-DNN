@@ -1,5 +1,14 @@
 
-# Created by https://www.gitignore.io/api/python,pycharm
+# Created by https://www.gitignore.io/api/python,pycharm,jupyternotebook
+# Edit at https://www.gitignore.io/?templates=python,pycharm,jupyternotebook
+
+### JupyterNotebook ###
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Remove previous ipynb_checkpoints
+#   git rm -r .ipynb_checkpoints/
+#
 
 ### PyCharm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -154,7 +163,6 @@ docs/_build/
 target/
 
 # Jupyter Notebook
-.ipynb_checkpoints
 
 # IPython
 profile_default/
@@ -193,6 +201,9 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+# Pyre type checker
+.pyre/
+
 ### Python Patch ###
 .venv/
 
@@ -208,5 +219,4 @@ dmypy.json
 pyvenv.cfg
 pip-selfcheck.json
 
-
-# End of https://www.gitignore.io/api/python,pycharm
+# End of https://www.gitignore.io/api/python,pycharm,jupyternotebook
