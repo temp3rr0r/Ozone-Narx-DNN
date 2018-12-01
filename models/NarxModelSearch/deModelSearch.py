@@ -23,6 +23,8 @@ dataManipulation = {
     "scale": 'normalize',
 }
 
+dataDetrend = False
+
 if __name__ == "__main__":
 
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
