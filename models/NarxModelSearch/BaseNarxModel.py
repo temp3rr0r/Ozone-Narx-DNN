@@ -184,7 +184,7 @@ def trainModel(x, *args):
     mean_smape = np.mean(smape_scores)
     std_smape = np.std(smape_scores)
     print('Cross validation Full Data SMAPE: {} +/- {}'.format(round(mean_smape * 100, 2), round(std_smape * 100, 2)))
-    min_smape = pd.read_pickle("foundModels/min_smape.pkl")['min_smape'][0]
+    # min_smape = pd.read_pickle("foundModels/min_smape.pkl")['min_smape'][0]
 
     mean_mse = np.mean(mse_scores)
     std_mse = np.std(mse_scores)
