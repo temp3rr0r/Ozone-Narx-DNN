@@ -279,7 +279,9 @@ def trainModel(x, *args):
         # holdoutMse, holdoutIoa, full_pso_parameters
         file.write("{},{},{},{},{},{},{},{},{},{},{},{}\n".format(str(int(time.time())), str(trainModel.counter),
             str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape[0]),
-            str(holdout_mape), str(holdout_mse), str(holdout_ioa), 0
+            str(holdout_mape), str(holdout_mse), str(holdout_ioa),
+            # 0
+            full_model_parameters
             #''.join(str(e) for e in full_de_parameters)  # TODO: do store full params
             ))
 

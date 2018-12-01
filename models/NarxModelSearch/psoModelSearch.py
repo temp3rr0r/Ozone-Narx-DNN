@@ -19,8 +19,8 @@ modelLabel = 'pso'
 dataManipulation = {
     "detrend": False,
     # "scale": None,
-    # "scale": 'standardize',
-    "scale": 'normalize',
+    "scale": 'standardize',
+    # "scale": 'normalize',
 }
 
 dataDetrend = False
@@ -37,13 +37,13 @@ if __name__ == "__main__":
 
     if dataManipulation["scale"] == 'standardize':
         r = np.genfromtxt("data/BETN073_ts_standardized.csv", delimiter=',')
-    if dataManipulation["scale"] == 'normalize':
+    elif dataManipulation["scale"] == 'normalize':
         r = np.genfromtxt("data/BETN073_ts_normalized.csv", delimiter=',')
     else:
         r = np.genfromtxt("data/BETN073.csv", delimiter=',')  # TODO: test with standardized data
     r = np.delete(r, [0], axis=1)  # Remove dates
 
-    r = np.delete(r, [1, 2, 3, 4, 5, 6], axis=1)  # Remove all other variables
+    # r = np.delete(r, [1, 2, 3, 4, 5, 6], axis=1)  # Remove all other variables
 
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0,0]))
