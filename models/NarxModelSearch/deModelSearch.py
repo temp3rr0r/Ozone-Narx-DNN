@@ -7,8 +7,8 @@ from ModelSearch import randomModelSearch, particleSwarmOptimizationModelSearch,
 import os
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-# os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
 
 # modelLabel = 'rand'
