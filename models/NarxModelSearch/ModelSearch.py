@@ -6,10 +6,11 @@ from pyswarm.pso import pso
 from scipy.optimize import basinhopping
 
 # Model Search Space bounds
-bounds = [(7, 512),  # batch_size
-          (100, 300), (0, 3),  # , 5)    # epoch_size, optimizer
-          (16, 256), (16, 256), (16, 256),  # TODO: 1024, 1024, 1024  # units
-          (0.01, 0.52), (0.01, 0.25), (0.01, 0.25),  # dropout
+bounds = [(7, 365),  # batch_size (~ #days: week, month, year)
+          (150, 500), (0, 3),  # , 5)    # epoch_size, optimizer
+          # (1023, 1024), (1023, 1024), (1023, 1024),  # TODO: 1024, 1024, 1024  # units
+          (32, 1024), (32, 256), (32, 512),
+          (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # dropout
           (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # recurrent_dropout
           (0.01, 1), (0.01, 1), (0.01, 1),  # gaussian noise std
           (0, 1), (0, 1), (0, 1),  # gaussian_noise
@@ -36,44 +37,21 @@ ub = [bounds[0][1],  # batch_size
       bounds[18][1], bounds[19][1], bounds[20][1]]  # batch normalization
 
 
-def randomModelSearch(x_data, y_data, iterations=100):
+def differentialEvolutionModelSearch(x_data, y_data, dataManipulation=None):
 
     args = (x_data, y_data)
     trainModel.counter = 0  # Function call counter
-    trainModel.label = 'rand'
-    for i in range(iterations):
-        trainModel(getRandomModel(), *args)
-
-def getRandomModel():
-    return [random.randint(lb[0], ub[0]),  # batch_size
-             random.randint(lb[1], ub[1]), random.randint(lb[2], ub[2]),  # epoch_size, optimizer
-             random.randint(lb[3], ub[3]), random.randint(lb[4], ub[4]), random.randint(lb[5], ub[5]),  # units
-             random.uniform(lb[6], ub[6]), random.uniform(lb[7], ub[7]), random.uniform(lb[8], ub[8]),  # dropout
-             random.uniform(lb[9], ub[9]), random.uniform(lb[10], ub[10]), random.uniform(lb[11], ub[11]),  # recurrent_dropout
-             random.uniform(lb[12], ub[12]), random.uniform(lb[13], ub[13]), random.uniform(lb[14], ub[14]),  # gaussian noise std
-             random.randint(lb[15], ub[15]), random.randint(lb[16], ub[16]), random.randint(lb[17], ub[17]), # gaussian_noise
-             random.randint(lb[18], ub[18]), random.randint(lb[19], ub[19]), random.randint(lb[20], ub[20])]
-
-def printOptimum(xopt1, fopt1):
-    print('The optimum is at:')
-    print('    {}'.format(xopt1))
-    print('Optimal function value:')
-    print('    myfunc: {}'.format(fopt1))
-
-
-def differentialEvolutionModelSearch(x_data, y_data):
-
-    args = (x_data, y_data)
-    trainModel.counter = 0  # Function call counter
+    trainModel.dataManipulation = dataManipulation
     trainModel.label = 'de'
     xopt1, fopt1 = differential_evolution(trainModel, bounds, args=args)  # TODO: test DE params
     printOptimum(xopt1, fopt1)
 
 
-def particleSwarmOptimizationModelSearch(x_data, y_data):
+def particleSwarmOptimizationModelSearch(x_data, y_data, dataManipulation=None):
 
     args = (x_data, y_data)
     trainModel.counter = 0  # Function call counter
+    trainModel.dataManipulation = dataManipulation
     trainModel.label = 'pso'
     xopt1, fopt1 = pso(trainModel, lb, ub, args=args)
     # TODO: test larger swarm, more iterations
@@ -83,7 +61,7 @@ def particleSwarmOptimizationModelSearch(x_data, y_data):
     printOptimum(xopt1, fopt1)
 
 
-def basinHoppingpModelSearch(x_data, y_data):
+def basinHoppingpModelSearch(x_data, y_data, dataManipulation=None):
 
     args = (x_data, y_data)
     x0 = getRandomModel()
@@ -95,6 +73,35 @@ def basinHoppingpModelSearch(x_data, y_data):
     # minimizer_kwargs = dict(method="SLSQP", bounds=bounds, args=y_test)
 
     trainModel.counter = 0  # Function call counter
+    trainModel.dataManipulation = dataManipulation
     trainModel.label = 'bh'
     res = basinhopping(trainModel, x0, minimizer_kwargs=minimizer_kwargs)
     print(res)
+
+
+def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
+
+    args = (x_data, y_data)
+    trainModel.counter = 0  # Function call counter
+    trainModel.dataManipulation = dataManipulation
+    trainModel.label = 'rand'
+    for i in range(iterations):
+        trainModel(getRandomModel(), *args)
+
+
+def getRandomModel():
+    return [random.randint(lb[0], ub[0]),  # batch_size
+             random.randint(lb[1], ub[1]), random.randint(lb[2], ub[2]),  # epoch_size, optimizer
+             random.randint(lb[3], ub[3]), random.randint(lb[4], ub[4]), random.randint(lb[5], ub[5]),  # units
+             random.uniform(lb[6], ub[6]), random.uniform(lb[7], ub[7]), random.uniform(lb[8], ub[8]),  # dropout
+             random.uniform(lb[9], ub[9]), random.uniform(lb[10], ub[10]), random.uniform(lb[11], ub[11]),  # recurrent_dropout
+             random.uniform(lb[12], ub[12]), random.uniform(lb[13], ub[13]), random.uniform(lb[14], ub[14]),  # gaussian noise std
+             random.randint(lb[15], ub[15]), random.randint(lb[16], ub[16]), random.randint(lb[17], ub[17]), # gaussian_noise
+             random.randint(lb[18], ub[18]), random.randint(lb[19], ub[19]), random.randint(lb[20], ub[20])]
+
+
+def printOptimum(xopt1, fopt1):
+    print('The optimum is at:')
+    print('    {}'.format(xopt1))
+    print('Optimal function value:')
+    print('    myfunc: {}'.format(fopt1))

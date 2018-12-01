@@ -19,6 +19,7 @@ from sklearn.model_selection import TimeSeriesSplit
 def trainModel(x, *args):
     trainModel.counter += 1
     modelLabel = trainModel.label
+    dataManipulation = trainModel.dataManipulation
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -107,10 +108,14 @@ def trainModel(x, *args):
         model.compile(loss='mean_squared_error',
                       optimizer=optimizer)
 
+        # TODO: do not store model on every step
+        # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
+        #               ReduceLROnPlateau(patience=3, verbose=1),
+        #               ModelCheckpoint(filepath='foundModels/best_model_{}.h5'.format(modelLabel), monitor='val_loss',
+        #                               save_best_only=True)]
+
         early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
-                      ReduceLROnPlateau(patience=3, verbose=1),
-                      ModelCheckpoint(filepath='foundModels/best_model_{}.h5'.format(modelLabel), monitor='val_loss',
-                                      save_best_only=True)]
+                      ReduceLROnPlateau(patience=3, verbose=1)]
 
         try:
             history = model.fit(x_data[train], y_data[train],
@@ -138,12 +143,36 @@ def trainModel(x, *args):
             return sys.float_info.max
 
         prediction = model.predict(x_data[validation])
+        y_validation = y_data[validation]
 
-        # Undo standardization
+        # TODO: test Undo standardization
         # y_test = (y_data[test] * sensor_std) + sensor_mean
         # prediction = (prediction * sensor_std) + sensor_mean
+        if dataManipulation["scale"] == 'standardize':
+            sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
+            sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
+            if trainModel.counter == 1:
+                print("Un-standardizing...")
+                print("sensor_mean:")
+                print(sensor_mean)
+                print(np.array(sensor_mean)[0])
+            sensor_mean = np.array(sensor_mean)
+            sensor_std = np.array(sensor_std)
+            prediction = (prediction * sensor_std[0]) + sensor_mean[0]
+            y_validation = (y_validation * sensor_std[0]) + sensor_mean[0]
+        elif dataManipulation["scale"] == 'normalize':
+            sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
+            sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
+            if trainModel.counter == 1:
+                print("Un-normalizing...")
+                print("sensor_min:")
+                print(sensor_min)
+                print(np.array(sensor_min)[0])
+            sensor_min = np.array(sensor_min)
+            sensor_max = np.array(sensor_max)
+            prediction = prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            y_validation = y_validation * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
 
-        y_validation = y_data[validation]
         # Calc mse/rmse
         mse = mean_squared_error(prediction, y_validation)
         print('Validation MSE: %.3f' % mse)
@@ -165,6 +194,24 @@ def trainModel(x, *args):
         # full_expected_ts = (y_data * sensor_std) + sensor_mean
         # full_prediction = (full_prediction * sensor_std) + sensor_mean
         full_expected_ts = y_data
+
+        # TODO: test Undo standardization
+        # y_test = (y_data[test] * sensor_std) + sensor_mean
+        # prediction = (prediction * sensor_std) + sensor_mean
+        if dataManipulation["scale"] == 'standardize':
+            sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
+            sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
+            sensor_mean = np.array(sensor_mean)
+            sensor_std = np.array(sensor_std)
+            full_prediction = (full_prediction * sensor_std[0]) + sensor_mean[0]
+            full_expected_ts = (full_expected_ts * sensor_std[0]) + sensor_mean[0]
+        elif dataManipulation["scale"] == 'normalize':
+            sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
+            sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
+            sensor_min = np.array(sensor_min)
+            sensor_max = np.array(sensor_max)
+            full_prediction = full_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            full_expected_ts = full_expected_ts * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
 
         full_rmse = sqrt(mean_squared_error(full_prediction, full_expected_ts))
         print('Full Data RMSE: %.3f' % full_rmse)
@@ -192,6 +239,23 @@ def trainModel(x, *args):
     min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
 
     holdout_prediction = model.predict(x_data_holdout)
+
+    # TODO: test Undo standardization
+    if dataManipulation["scale"] == 'standardize':
+        sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
+        sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
+        sensor_mean = np.array(sensor_mean)
+        sensor_std = np.array(sensor_std)
+        holdout_prediction = (holdout_prediction * sensor_std[0]) + sensor_mean[0]
+        y_data_holdout = (y_data_holdout * sensor_std[0]) + sensor_mean[0]
+    elif dataManipulation["scale"] == 'normalize':
+        sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
+        sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
+        sensor_min = np.array(sensor_min)
+        sensor_max = np.array(sensor_max)
+        holdout_prediction = holdout_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+        y_data_holdout = y_data_holdout * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
     print('Holdout Data RMSE: %.3f' % holdout_rmse)
     holdout_prediction.resize((holdout_prediction.shape[0], 1))
@@ -205,27 +269,19 @@ def trainModel(x, *args):
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
     print('Holdout Data MSE: {}'.format(holdout_mse))
     # Index Of Agreement: https://cirpwiki.info/wiki/Statistics#Index_of_Agreement
-    #  IA = 1 - mean((xc(:)-xm(:)).^2)/max(mean((abs(xc(:)-mean(xm(:)))+abs(xm(:)-mean(xm(:)))).^2),eps)
-    # x_m: measured values, x_c: final calculated values
-    # holdout_ioa = 1 - ((holdout_mse) /
-    #                    (np.fabs(holdout_prediction - np.mean(holdout_prediction))
-    #                     + np.fabs(y_data_holdout - np.mean(y_data_holdout))) ** 2)
     holdout_ioa = 1 - (np.sum((y_data_holdout - holdout_prediction) ** 2)) / (np.sum(
         (np.abs(holdout_prediction - np.mean(y_data_holdout)) + np.abs(y_data_holdout - np.mean(y_data_holdout))) ** 2))
     print('Holdout Data IOA: {}'.format(holdout_ioa))
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
-        # TODO: data to store:
+        # Data to store:
         # datetime, iteration, cvMseMean, cvMseStd,
         # cvSmapeMean, cvSmapeStd, holdoutRmse, holdoutSmape, holdoutMape,
-        # holdoutMse, holdoutIoa, full_rand_parameters
+        # holdoutMse, holdoutIoa, full_pso_parameters
         file.write("{},{},{},{},{},{},{},{},{},{},{},{}\n".format(str(int(time.time())), str(trainModel.counter),
-                                                                  str(mean_mse), str(std_mse), str(mean_smape),
-                                                                  str(std_smape), str(holdout_rmse),
-                                                                  str(holdout_smape[0]),
-                                                                  str(holdout_mape), str(holdout_mse), str(holdout_ioa),
-                                                                  0
-                                                                  # ''.join(str(e) for e in full_rand_parameters)
-                                                                  ))
+            str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape[0]),
+            str(holdout_mape), str(holdout_mse), str(holdout_ioa), 0
+            #''.join(str(e) for e in full_de_parameters)  # TODO: do store full params
+            ))
 
     if mean_mse < min_mse:
         print("New min_mse: {}".format(mean_mse))
@@ -281,16 +337,6 @@ def trainModel(x, *args):
         # pyplot.grid(True)
         # pyplot.legend()
         # pyplot.show()
-
-
-        print("New min_mse: {}".format(mean_mse))
-        original_df1 = pd.DataFrame({"min_mse": [mean_mse]})
-        original_df1.to_pickle("foundModels/min_mse.pkl")
-        original_df2 = pd.DataFrame({"full_{}_parameters".format(modelLabel): [full_model_parameters]})
-        original_df2.to_pickle("foundModels/full_{}_parameters.pkl".format(modelLabel))
-        model.summary()  # print layer shapes and model parameters
-
-        'foundModels/best_model_{}.h5'.format(modelLabel)
 
         # Store model
         # serialize model to JSON
