@@ -59,12 +59,10 @@ def trainModel(x, *args):
     print("\tbatch_size: {}, epoch_size: {} Optimizer: {}, LSTM Unit sizes: {} Batch Normalization/Gaussian Noise: {}"
           .format(x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
 
-    # x_data, x_data_holdout = x_data[:-365, :], x_data[-365:, :]
-    # y_data, y_data_holdout = y_data[:-365, :], y_data[-365:, :]
     x_data, x_data_holdout = x_data[:-365], x_data[-365:]
     y_data, y_data_holdout = y_data[:-365], y_data[-365:]
 
-    totalFolds = 10
+    totalFolds = 2
     timeSeriesCrossValidation = TimeSeriesSplit(n_splits=totalFolds)
     # timeSeriesCrossValidation = KFold(n_splits=totalFolds)
 
@@ -104,7 +102,8 @@ def trainModel(x, *args):
             model.add(GaussianNoise(noise_stddev3))
         if useBatchNormalization3 == 1:
             model.add(BatchNormalization())
-        model.add(Dense(1))  # TODO: make 2x dense for prediction of 2 stuff (test[2,:]? Soil Sun + soil moisture%?
+        # model.add(Dense(1))  # TODO: make 2x dense for prediction of 2 stuff (test[2,:]? Soil Sun + soil moisture%?
+        model.add(Dense(y_data.shape[1]))  # TODO: make 2x dense for prediction of 2 stuff (test[2,:]? Soil Sun + soil moisture%?
         model.compile(loss='mean_squared_error',
                       optimizer=optimizer)
 
@@ -145,7 +144,7 @@ def trainModel(x, *args):
         prediction = model.predict(x_data[validation])
         y_validation = y_data[validation]
 
-        # TODO: test Undo standardization
+        # TODO: test Undo standardization for 4 params
         # y_test = (y_data[test] * sensor_std) + sensor_mean
         # prediction = (prediction * sensor_std) + sensor_mean
         if dataManipulation["scale"] == 'standardize':
@@ -157,11 +156,13 @@ def trainModel(x, *args):
                 print(sensor_mean)
                 print("sensor_std:")
                 print(sensor_std)
-                print(np.array(sensor_mean)[0])
+                print(np.array(sensor_mean)[0:y_data.shape[1]])
             sensor_mean = np.array(sensor_mean)
             sensor_std = np.array(sensor_std)
-            prediction = (prediction * sensor_std[0]) + sensor_mean[0]
-            y_validation = (y_validation * sensor_std[0]) + sensor_mean[0]
+            # prediction = (prediction * sensor_std[0]) + sensor_mean[0]  # TODO: 4 vars mul
+            # y_validation = (y_validation * sensor_std[0]) + sensor_mean[0]
+            prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+            y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif dataManipulation["scale"] == 'normalize':
             sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
             sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
@@ -171,11 +172,13 @@ def trainModel(x, *args):
                 print(sensor_min)
                 print("sensor_max:")
                 print(sensor_max)
-                print(np.array(sensor_min)[0])
+                print(np.array(sensor_min)[0:y_data.shape[1]])
             sensor_min = np.array(sensor_min)
             sensor_max = np.array(sensor_max)
-            prediction = prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-            y_validation = y_validation * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            # prediction = prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            # y_validation = y_validation * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            prediction = prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+            y_validation = y_validation * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
         # Calc mse/rmse
         mse = mean_squared_error(prediction, y_validation)
@@ -184,47 +187,35 @@ def trainModel(x, *args):
         rmse = sqrt(mse)
         print('Validation RMSE: %.3f' % rmse)
 
-        prediction.resize((prediction.shape[0], 1))
-        y_validation.resize((prediction.shape[0], 1))
-        smape = (2.0 / prediction.shape[0]) * \
-                sum(np.nan_to_num(np.fabs(prediction - y_validation)
-                                  / (prediction + y_validation)))  # Symmetric Mean Absolute Percent Error (SMAPE)
+        smape = 0.01 * (100 / len(y_validation) * np.sum(2 * np.abs(prediction - y_validation) /
+                                                         (np.abs(y_validation) + np.abs(prediction))))
         print('Validation SMAPE: {}'.format(smape))
         smape_scores.append(smape)
 
         full_x = x_data.copy()
         full_y = y_data.copy()
         full_prediction = model.predict(x_data)
-        # full_expected_ts = (y_data * sensor_std) + sensor_mean
-        # full_prediction = (full_prediction * sensor_std) + sensor_mean
         full_expected_ts = y_data
 
         # TODO: test Undo standardization
         # y_test = (y_data[test] * sensor_std) + sensor_mean
         # prediction = (prediction * sensor_std) + sensor_mean
         if dataManipulation["scale"] == 'standardize':
-            sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
-            sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
-            sensor_mean = np.array(sensor_mean)
-            sensor_std = np.array(sensor_std)
-            full_prediction = (full_prediction * sensor_std[0]) + sensor_mean[0]
-            full_expected_ts = (full_expected_ts * sensor_std[0]) + sensor_mean[0]
+            # full_prediction = (full_prediction * sensor_std[0]) + sensor_mean[0]
+            # full_expected_ts = (full_expected_ts * sensor_std[0]) + sensor_mean[0]
+            full_prediction = (full_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+            full_expected_ts = (full_expected_ts * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif dataManipulation["scale"] == 'normalize':
-            sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
-            sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
-            sensor_min = np.array(sensor_min)
-            sensor_max = np.array(sensor_max)
-            full_prediction = full_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-            full_expected_ts = full_expected_ts * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            # full_prediction = full_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            # full_expected_ts = full_expected_ts * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+            full_prediction = full_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+            full_expected_ts = full_expected_ts * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
         full_rmse = sqrt(mean_squared_error(full_prediction, full_expected_ts))
         print('Full Data RMSE: %.3f' % full_rmse)
 
-        full_prediction.resize((full_prediction.shape[0], 1))
-        full_expected_ts.resize((full_prediction.shape[0], 1))
-        full_smape = (2.0 / full_prediction.shape[0]) * \
-                     sum(np.nan_to_num(np.fabs(full_prediction - full_expected_ts))
-                         / (full_prediction + full_expected_ts))  # Symmetric Mean Absolute Percent Error (SMAPE)
+        full_smape = 0.01 * (100 / len(full_expected_ts) * np.sum(
+            2 * np.abs(full_prediction - full_expected_ts) / (np.abs(full_expected_ts) + np.abs(full_prediction))))
         print('Full Data SMAPE: {}'.format(full_smape))
 
 
@@ -246,27 +237,21 @@ def trainModel(x, *args):
 
     # TODO: test Undo standardization
     if dataManipulation["scale"] == 'standardize':
-        sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
-        sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
-        sensor_mean = np.array(sensor_mean)
-        sensor_std = np.array(sensor_std)
-        holdout_prediction = (holdout_prediction * sensor_std[0]) + sensor_mean[0]
-        y_data_holdout = (y_data_holdout * sensor_std[0]) + sensor_mean[0]
+        # holdout_prediction = (holdout_prediction * sensor_std[0]) + sensor_mean[0]
+        # y_data_holdout = (y_data_holdout * sensor_std[0]) + sensor_mean[0]
+        holdout_prediction = (holdout_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+        y_data_holdout = (y_data_holdout * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
     elif dataManipulation["scale"] == 'normalize':
-        sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
-        sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
-        sensor_min = np.array(sensor_min)
-        sensor_max = np.array(sensor_max)
-        holdout_prediction = holdout_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-        y_data_holdout = y_data_holdout * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+        # holdout_prediction = holdout_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+        # y_data_holdout = y_data_holdout * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
+        holdout_prediction = holdout_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+        y_data_holdout = y_data_holdout * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
     print('Holdout Data RMSE: %.3f' % holdout_rmse)
-    holdout_prediction.resize((holdout_prediction.shape[0], 1))
-    y_data_holdout.resize((holdout_prediction.shape[0], 1))
-    holdout_smape = (2.0 / holdout_prediction.shape[0]) * \
-                    sum(np.nan_to_num(np.fabs(holdout_prediction - y_data_holdout))
-                        / (holdout_prediction + y_data_holdout))  # Symmetric Mean Absolute Percent Error (SMAPE)
+    holdout_smape = 0.01 * (100/len(y_data_holdout) * np.sum(2 * np.abs(holdout_prediction - y_data_holdout) /
+                                                             (np.abs(y_data_holdout) + np.abs(holdout_prediction))))
+
     print('Holdout Data SMAPE: {}'.format(holdout_smape))
     holdout_mape = np.mean(np.abs((y_data_holdout - holdout_prediction) / y_data_holdout))
     print('Holdout Data MAPE: {}'.format(holdout_mape))
@@ -282,7 +267,7 @@ def trainModel(x, *args):
         # cvSmapeMean, cvSmapeStd, holdoutRmse, holdoutSmape, holdoutMape,
         # holdoutMse, holdoutIoa, full_pso_parameters
         file.write("{},{},{},{},{},{},{},{},{},{},{},{}\n".format(str(int(time.time())), str(trainModel.counter),
-            str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape[0]),
+            str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape),
             str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
 
     if mean_mse < min_mse:
@@ -303,7 +288,7 @@ def trainModel(x, *args):
         pyplot.ylabel("MSE")
         pyplot.grid(True)
         pyplot.legend()
-        # pyplot.show()
+        pyplot.show()
         pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, trainModel.counter))
 
         # Plot validation data
@@ -318,7 +303,8 @@ def trainModel(x, *args):
         # pyplot.show()
 
         # Plot test data
-        pyplot.figure(figsize=(12, 10))  # Resolution 800 x 600
+        # pyplot.figure(figsize=(12, 10))  # Resolution 800 x 600
+        pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
         pyplot.title("{} (iter: {}): Test data (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
                                                                                        np.round(holdout_rmse, 2),
                                                                                        np.round(holdout_mape * 100, 2),
@@ -329,7 +315,7 @@ def trainModel(x, *args):
         pyplot.ylabel("Sensor Value")
         pyplot.grid(True)
         pyplot.legend()
-        # pyplot.show()
+        pyplot.show()
         pyplot.savefig("foundModels/{}Iter{}Test.png".format(modelLabel, trainModel.counter))
 
         # Plot full data

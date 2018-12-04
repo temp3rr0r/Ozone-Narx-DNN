@@ -11,16 +11,16 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
 
-modelLabel = 'rand'
-# modelLabel = 'de'
+# modelLabel = 'rand'
+modelLabel = 'de'
 # modelLabel = 'pso'
 # modelLabel = 'bh'
 
 dataManipulation = {
     "detrend": False,
     # "scale": None,
-    # "scale": 'standardize',
-    "scale": 'normalize',
+    "scale": 'standardize',
+    # "scale": 'normalize',
 }
 
 dataDetrend = False
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     elif dataManipulation["scale"] == 'normalize':
         r = np.genfromtxt("data/BETN073_ts_normalized.csv", delimiter=',')
     else:
-        r = np.genfromtxt("data/BETN073.csv", delimiter=',')  # TODO: test with standardized data
+        r = np.genfromtxt("data/BETN073_ts.csv", delimiter=',')  # TODO: test with standardized data
     r = np.delete(r, [0], axis=1)  # Remove dates
 
     # r = np.delete(r, [1, 2, 3, 4, 5, 6], axis=1)  # Remove all other variables
@@ -56,12 +56,15 @@ if __name__ == "__main__":
     x_data = r[:, 4:maxLen + 1]
     y_data = r[:, 0:4]
 
-    print('x_train shape:', x_data.shape)
+    print('x_data shape:', x_data.shape)
+
+    print("y_data shape:")
+    print(y_data.shape)
 
     y_data = np.array(y_data)
     x_data_3d = x_data.reshape(x_data.shape[0], 1, x_data.shape[1])  # reshape input to 3D[samples, timesteps, features]
 
-    if not os.path.exists("logs/min_mse.pkl"):
+    if not os.path.exists("foundModels/min_mse.pkl"):
         min_mse = sys.float_info.max
         print("Previous min_mse: {}".format(min_mse))
         original_df = pd.DataFrame({"min_mse": [min_mse]})
