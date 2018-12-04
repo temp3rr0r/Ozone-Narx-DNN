@@ -295,7 +295,7 @@ def trainModel(x, *args):
         model.summary()  # print layer shapes and model parameters
 
         # Plot history
-        pyplot.figure(1, figsize=(8, 6))  # Resolution 800 x 600
+        pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
         pyplot.title("{} (iter: {}): Training History Last Fold".format(modelLabel, trainModel.counter))
         pyplot.plot(history.history['loss'], label='loss')
         pyplot.plot(history.history['val_loss'], label='val_loss')
@@ -307,7 +307,7 @@ def trainModel(x, *args):
         pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, trainModel.counter))
 
         # Plot validation data
-        # pyplot.figure(2, figsize=(8, 6))  # Resolution 800 x 600
+        # pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
         # pyplot.title("{} (iter: {}): Validation(last fold) data (RMSE: {}, SMAPE: {}%)".format(modelLabel, trainLstm.counter, np.round(rmse, 2), np.round(smape * 100, 2)))
         # pyplot.plot(prediction, label='prediction')
         # pyplot.plot(y_validation, label='expected')
@@ -318,7 +318,7 @@ def trainModel(x, *args):
         # pyplot.show()
 
         # Plot test data
-        pyplot.figure(3, figsize=(12, 10))  # Resolution 800 x 600
+        pyplot.figure(figsize=(12, 10))  # Resolution 800 x 600
         pyplot.title("{} (iter: {}): Test data (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
                                                                                        np.round(holdout_rmse, 2),
                                                                                        np.round(holdout_mape * 100, 2),

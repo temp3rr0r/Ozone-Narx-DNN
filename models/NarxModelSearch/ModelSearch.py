@@ -4,6 +4,7 @@ from scipy.optimize import differential_evolution
 from BaseNarxModel import trainModel
 from pyswarm.pso import pso
 from scipy.optimize import basinhopping
+import numpy as np
 
 # Model Search Space bounds
 bounds = [(7, 365),  # batch_size (~ #days: week, month, year)
@@ -87,7 +88,7 @@ def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
     trainModel.dataManipulation = dataManipulation
     trainModel.label = 'rand'
     for i in range(iterations):
-        trainModel(getRandomModel(), *args)
+        trainModel(np.array(getRandomModel()), *args)
 
 
 def getRandomModel():
