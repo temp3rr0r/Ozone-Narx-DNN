@@ -303,10 +303,11 @@ def trainModel(x, *args):
         pyplot.ylabel("MSE")
         pyplot.grid(True)
         pyplot.legend()
-        pyplot.show()
+        # pyplot.show()
+        pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, trainModel.counter))
 
         # Plot validation data
-        # pyplot.figure(1, figsize=(8, 6))  # Resolution 800 x 600
+        # pyplot.figure(2, figsize=(8, 6))  # Resolution 800 x 600
         # pyplot.title("{} (iter: {}): Validation(last fold) data (RMSE: {}, SMAPE: {}%)".format(modelLabel, trainLstm.counter, np.round(rmse, 2), np.round(smape * 100, 2)))
         # pyplot.plot(prediction, label='prediction')
         # pyplot.plot(y_validation, label='expected')
@@ -317,7 +318,7 @@ def trainModel(x, *args):
         # pyplot.show()
 
         # Plot test data
-        pyplot.figure(1, figsize=(12, 10))  # Resolution 800 x 600
+        pyplot.figure(3, figsize=(12, 10))  # Resolution 800 x 600
         pyplot.title("{} (iter: {}): Test data (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
                                                                                        np.round(holdout_rmse, 2),
                                                                                        np.round(holdout_mape * 100, 2),
@@ -328,10 +329,11 @@ def trainModel(x, *args):
         pyplot.ylabel("Sensor Value")
         pyplot.grid(True)
         pyplot.legend()
-        pyplot.show()
+        # pyplot.show()
+        pyplot.savefig("foundModels/{}Iter{}Test.png".format(modelLabel, trainModel.counter))
 
         # Plot full data
-        # pyplot.figure(1, figsize=(16, 12))  # Resolution 800 x 600
+        # pyplot.figure(4, figsize=(16, 12))  # Resolution 800 x 600
         # pyplot.title("{} (iter: {}): Full data (RMSE: {}, SMAPE: {}%)".format(.format(modelLabel), trainLstm.counter, np.round(full_rmse, 2), np.round(full_smape * 100, 2)))
         # pyplot.plot(full_prediction, label='prediction')
         # pyplot.plot(full_expected_ts, label='expected')
