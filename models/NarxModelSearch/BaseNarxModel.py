@@ -286,6 +286,7 @@ def trainModel(x, *args):
             str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
 
     if mean_mse < min_mse:
+        min_mse = mean_mse
         print("New min_mse: {}".format(mean_mse))
         original_df1 = pd.DataFrame({"min_mse": [mean_mse]})
         original_df1.to_pickle("foundModels/min_mse.pkl")

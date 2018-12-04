@@ -3,14 +3,28 @@
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="After 300+ pos &amp; de runs.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaseNarxModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/deModelSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter6.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/psoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/psoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,40 +35,40 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1543857221406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$deModelSearch.coverage" NAME="deModelSearch Coverage Results" MODIFIED="1543864517349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$deModelSearch.coverage" NAME="deModelSearch Coverage Results" MODIFIED="1543924653359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$heuristicModelSearch.coverage" NAME="heuristicModelSearch Coverage Results" MODIFIED="1543670158856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543864519845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543924656066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1490049371">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="csv" value="12" />
           <entry key="pkl" value="6" />
-          <entry key="py" value="33" />
+          <entry key="py" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSV" value="12" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="33" />
+          <entry key="Python" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="12" />
-          <entry key="py" value="1512" />
+          <entry key="py" value="1554" />
           <entry key="txt" value="214" />
         </counts>
       </usages-collector>
@@ -62,7 +76,7 @@
         <counts>
           <entry key="CSV" value="12" />
           <entry key="PLAIN_TEXT" value="226" />
-          <entry key="Python" value="1512" />
+          <entry key="Python" value="1554" />
         </counts>
       </usages-collector>
     </session>
@@ -72,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            <state relative-caret-position="289">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -84,8 +98,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/psoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            <state relative-caret-position="153">
+              <caret line="9" column="62" lean-forward="true" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -138,7 +152,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/heuristicModelSearch.py" />
-        <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/data/BETN073_ts.csv" />
         <option value="$PROJECT_DIR$/data/BETN073_ts_normalized.csv" />
         <option value="$PROJECT_DIR$/data/BETN073_ts_standardized.csv" />
@@ -146,9 +159,10 @@
         <option value="$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101_ts.csv" />
         <option value="$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101_ts_normalized.csv" />
         <option value="$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101_ts_standardized.csv" />
-        <option value="$PROJECT_DIR$/BaseNarxModel.py" />
+        <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/deModelSearch.py" />
         <option value="$PROJECT_DIR$/psoModelSearch.py" />
+        <option value="$PROJECT_DIR$/BaseNarxModel.py" />
       </list>
     </option>
   </component>
@@ -158,11 +172,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="3864" />
-    <option name="height" value="2136" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1032" />
+    <option name="y" value="453" />
+    <option name="width" value="1932" />
+    <option name="height" value="1062" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -187,7 +201,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,6 +212,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,6 +235,28 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.psoModelSearch">
+    <configuration name="ModelSearch" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="NarxModelSearch" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ModelSearch.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -313,11 +349,13 @@
       <item itemvalue="Python.psoModelSearch" />
       <item itemvalue="Python.deModelSearch" />
       <item itemvalue="Python.tsStandardizeNormalize" />
+      <item itemvalue="Python.ModelSearch" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.psoModelSearch" />
         <item itemvalue="Python.deModelSearch" />
+        <item itemvalue="Python.ModelSearch" />
         <item itemvalue="Python.tsStandardizeNormalize" />
       </list>
     </recent_temporary>
@@ -380,13 +418,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.117693834" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.059244532" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.25619194" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.25464398" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3993808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -400,8 +439,8 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="SciView" order="3" sideWeight="0.4965278" visible="true" weight="0.4667992" />
-      <window_info anchor="right" x="0" y="0" width="593" height="1224" id="Documentation" order="4" sideWeight="0.5034722" side_tool="true" weight="0.37574553" />
+      <window_info active="true" anchor="right" id="SciView" order="3" sideWeight="0.49221185" visible="true" weight="0.4548708" />
+      <window_info anchor="right" x="0" y="0" width="593" height="1224" id="Documentation" order="4" sideWeight="0.5077882" side_tool="true" weight="0.4548708" />
       <window_info anchor="right" id="Database" order="5" />
     </layout>
     <layout-to-restore>
@@ -443,17 +482,6 @@
     <MESSAGE value="Now standardizing &amp; normalizing is correct." />
     <MESSAGE value="After 300+ pos &amp; de runs." />
     <option name="LAST_COMMIT_MESSAGE" value="After 300+ pos &amp; de runs." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/BaseNarxModel.py</url>
-          <line>26</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/numpy/lib/_datasource.py">
@@ -514,20 +542,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+    <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37">
-          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-408">
+          <caret line="288" column="26" selection-start-line="288" selection-start-column="26" selection-end-line="288" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
+    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2873">
-          <caret line="172" column="32" selection-start-line="172" selection-start-column="32" selection-end-line="172" selection-end-column="32" />
+        <state relative-caret-position="-788">
+          <caret line="14" column="57" lean-forward="true" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -536,8 +561,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -546,8 +571,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/psoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        <state relative-caret-position="153">
+          <caret line="9" column="62" lean-forward="true" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

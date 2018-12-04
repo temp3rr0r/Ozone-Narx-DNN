@@ -19,8 +19,8 @@ modelLabel = 'de'
 dataManipulation = {
     "detrend": False,
     # "scale": None,
-    "scale": 'standardize',
-    # "scale": 'normalize',
+    # "scale": 'standardize',
+    "scale": 'normalize',
 }
 
 dataDetrend = False
