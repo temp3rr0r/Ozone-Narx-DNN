@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="Back to 10 folds. Pso default">
+      <change afterPath="$PROJECT_DIR$/deMimoModelSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/psoMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/psoMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,11 +14,12 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$deMimoModelSearch.coverage" NAME="deMimoModelSearch Coverage Results" MODIFIED="1543972447134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deModelSearch.coverage" NAME="deModelSearch Coverage Results" MODIFIED="1543933613580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1543958992344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$heuristicModelSearch.coverage" NAME="heuristicModelSearch Coverage Results" MODIFIED="1543670158856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543946255376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1543971428554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1543972426758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1490049371">
@@ -45,7 +37,7 @@
           <entry key="csv" value="12" />
           <entry key="pkl" value="6" />
           <entry key="png" value="2" />
-          <entry key="py" value="50" />
+          <entry key="py" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -53,22 +45,22 @@
           <entry key="CSV" value="12" />
           <entry key="Image" value="2" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="50" />
+          <entry key="Python" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="12" />
-          <entry key="py" value="2720" />
-          <entry key="txt" value="343" />
+          <entry key="py" value="2722" />
+          <entry key="txt" value="430" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="355" />
-          <entry key="Python" value="2720" />
+          <entry key="PLAIN_TEXT" value="442" />
+          <entry key="Python" value="2722" />
         </counts>
       </usages-collector>
     </session>
@@ -78,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            <state relative-caret-position="272">
+              <caret line="16" column="17" lean-forward="true" selection-end-line="92" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -88,10 +80,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/deMimoModelSearch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
+            <state relative-caret-position="1156">
+              <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -162,8 +166,9 @@
         <option value="$PROJECT_DIR$/psoModelSearch.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
-        <option value="$PROJECT_DIR$/psoMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/BaseNarxModel.py" />
+        <option value="$PROJECT_DIR$/psoMimoModelSearch.py" />
+        <option value="$PROJECT_DIR$/deMimoModelSearch.py" />
       </list>
     </option>
   </component>
@@ -235,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.psoMimoModelSearch">
+  <component name="RunManager" selected="Python.deMimoModelSearch">
     <configuration name="BaseNarxModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -277,20 +282,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="deModelSearch" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="deMimoModelSearch" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/deModelSearch.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/deMimoModelSearch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -364,18 +366,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.psoModelSearch" />
-      <item itemvalue="Python.deModelSearch" />
       <item itemvalue="Python.tsStandardizeNormalize" />
       <item itemvalue="Python.psoMimoModelSearch" />
       <item itemvalue="Python.BaseNarxModel" />
+      <item itemvalue="Python.deMimoModelSearch" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.deMimoModelSearch" />
         <item itemvalue="Python.psoMimoModelSearch" />
         <item itemvalue="Python.BaseNarxModel" />
         <item itemvalue="Python.tsStandardizeNormalize" />
         <item itemvalue="Python.psoModelSearch" />
-        <item itemvalue="Python.deModelSearch" />
       </list>
     </recent_temporary>
   </component>
@@ -474,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543970578211</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Storing fitness images, fixed a small label bug.">
+      <created>1543972200463</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1543972200463</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -490,12 +499,12 @@
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09622266" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09622266" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972136" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.29411766" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.29411766" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3993808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -556,7 +565,8 @@
     <MESSAGE value="Added 4 station 51 var data." />
     <MESSAGE value="Works well 4 station 51 var data?" />
     <MESSAGE value="Works well 4 station 51 var data. Yes. Printing out 4x time-series." />
-    <option name="LAST_COMMIT_MESSAGE" value="Works well 4 station 51 var data. Yes. Printing out 4x time-series." />
+    <MESSAGE value="Storing fitness images, fixed a small label bug." />
+    <option name="LAST_COMMIT_MESSAGE" value="Storing fitness images, fixed a small label bug." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/numpy/lib/_datasource.py">
@@ -674,20 +684,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
+    <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        <state relative-caret-position="1156">
+          <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
+    <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
+        <state relative-caret-position="272">
+          <caret line="16" column="17" lean-forward="true" selection-end-line="92" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

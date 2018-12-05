@@ -62,7 +62,7 @@ def trainModel(x, *args):
     x_data, x_data_holdout = x_data[:-365], x_data[-365:]
     y_data, y_data_holdout = y_data[:-365], y_data[-365:]
 
-    totalFolds = 2
+    totalFolds = 10
     timeSeriesCrossValidation = TimeSeriesSplit(n_splits=totalFolds)
     # timeSeriesCrossValidation = KFold(n_splits=totalFolds)
 
