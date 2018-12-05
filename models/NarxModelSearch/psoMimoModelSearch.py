@@ -53,8 +53,10 @@ if __name__ == "__main__":
     print('TimeSteps: {}'.format(r.shape[0]))
 
     # TODO: y_data 4 stations NOT 1
-    x_data = r[:, 4:maxLen + 1]
-    y_data = r[:, 0:4]
+    # TODO: MIMO outputs
+    mimoOutputs = 4
+    x_data = r[:, mimoOutputs:maxLen + 1]
+    y_data = r[:, 0:mimoOutputs]
 
     print('x_data shape:', x_data.shape)
 

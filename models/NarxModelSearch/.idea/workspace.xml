@@ -4,194 +4,17 @@
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BETN073_ts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/BETN073_ts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter22History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter31History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter31Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter33History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter33Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter4History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter5History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter71History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter71Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter7History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deIter7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter37.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter41.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter42.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter43.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter44.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter46.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter47.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter52.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter53.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter54.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter55.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter56.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter57.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter59.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter61.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter62.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter63.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter65.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter66.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter67.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter68.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter69.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter70.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter71.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter72.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter73.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter74.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter75.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter77.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter78.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter79.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter80.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter81.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter82.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter83.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter84.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter37.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter41.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter42.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter43.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter44.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter46.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter47.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/psoMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/psoMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -206,7 +29,7 @@
     <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1543958992344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$heuristicModelSearch.coverage" NAME="heuristicModelSearch Coverage Results" MODIFIED="1543670158856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543946255376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1543962674113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1543970392337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1490049371">
@@ -239,15 +62,15 @@
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="12" />
-          <entry key="py" value="2220" />
-          <entry key="txt" value="291" />
+          <entry key="py" value="2566" />
+          <entry key="txt" value="307" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="303" />
-          <entry key="Python" value="2220" />
+          <entry key="PLAIN_TEXT" value="319" />
+          <entry key="Python" value="2566" />
         </counts>
       </usages-collector>
     </session>
@@ -257,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="42" column="87" selection-start-line="42" selection-start-column="87" selection-end-line="42" selection-end-column="87" />
+            <state relative-caret-position="153">
+              <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -269,8 +92,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1906">
-              <caret line="249" column="1" selection-start-line="249" selection-start-column="1" selection-end-line="249" selection-end-column="1" />
+            <state relative-caret-position="278">
+              <caret line="327" column="47" selection-start-line="327" selection-start-column="47" selection-end-line="327" selection-end-column="47" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -289,9 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>png</find>
-      <find>plot</find>
-      <find>plot model ar</find>
       <find>iter</find>
       <find>min_smp</find>
       <find>min_sm</find>
@@ -319,6 +139,9 @@
       <find>mape</find>
       <find>smape</find>
       <find>y_data.shape[1]-1</find>
+      <find>index of</find>
+      <find>.size</find>
+      <find>Validation</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -639,23 +462,39 @@
       <option name="project" value="LOCAL" />
       <updated>1543959178964</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Works well 4 station 51 var data?">
+      <created>1543962789353</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1543962789353</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16222665" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09622266" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.2012384" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32972136" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.29411766" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3993808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32972136" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
@@ -665,7 +504,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" sideWeight="0.49221185" visible="true" weight="0.34353876" />
+      <window_info anchor="right" id="SciView" order="3" sideWeight="0.49221185" visible="true" weight="0.3836978" />
       <window_info anchor="right" x="0" y="0" width="593" height="1224" id="Documentation" order="4" sideWeight="0.5077882" side_tool="true" weight="0.4548708" />
       <window_info anchor="right" id="Database" order="5" />
     </layout>
@@ -710,7 +549,8 @@
     <MESSAGE value="Before tesla v100 runs." />
     <MESSAGE value="Storing pyplot images." />
     <MESSAGE value="Added 4 station 51 var data." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added 4 station 51 var data." />
+    <MESSAGE value="Works well 4 station 51 var data?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Works well 4 station 51 var data?" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -841,8 +681,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="42" column="87" selection-start-line="42" selection-start-column="87" selection-end-line="42" selection-end-column="87" />
+        <state relative-caret-position="153">
+          <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -851,8 +691,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1906">
-          <caret line="249" column="1" selection-start-line="249" selection-start-column="1" selection-end-line="249" selection-end-column="1" />
+        <state relative-caret-position="278">
+          <caret line="327" column="47" selection-start-line="327" selection-start-column="47" selection-end-line="327" selection-end-column="47" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

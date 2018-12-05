@@ -318,6 +318,45 @@ def trainModel(x, *args):
         pyplot.show()
         pyplot.savefig("foundModels/{}Iter{}Test.png".format(modelLabel, trainModel.counter))
 
+        print("type(holdout_prediction):")
+        print(type(holdout_prediction))
+        print("holdout_prediction.shape")
+        print(holdout_prediction.shape)
+        print("holdout_prediction.size")
+        print(holdout_prediction.size)
+
+        for i in range(holdout_prediction.shape[1]):
+            pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
+            pyplot.title(
+                "{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
+                                                                                              i,
+                                                                                  np.round(holdout_rmse, 2),
+                                                                                  np.round(holdout_mape * 100, 2),
+                                                                                  np.round(holdout_ioa * 100, 2)))
+            pyplot.plot(holdout_prediction[:,i], label='prediction')
+            pyplot.plot(y_data_holdout[:,i], label='expected')
+            pyplot.xlabel("Time step")
+            pyplot.ylabel("Sensor Value")
+            pyplot.grid(True)
+            pyplot.legend()
+            pyplot.show()
+
+        # for i in range(holdout_prediction.size[0]):
+        #     pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
+        #     pyplot.title(
+        #         "{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
+        #                                                                                       i,
+        #                                                                           np.round(holdout_rmse, 2),
+        #                                                                           np.round(holdout_mape * 100, 2),
+        #                                                                           np.round(holdout_ioa * 100, 2)))
+        #     pyplot.plot(holdout_prediction[i, :], label='prediction')
+        #     pyplot.plot(y_data_holdout[i, :], label='expected')
+        #     pyplot.xlabel("Time step")
+        #     pyplot.ylabel("Sensor Value")
+        #     pyplot.grid(True)
+        #     pyplot.legend()
+        #     pyplot.show()
+
         # Plot full data
         # pyplot.figure(4, figsize=(16, 12))  # Resolution 800 x 600
         # pyplot.title("{} (iter: {}): Full data (RMSE: {}, SMAPE: {}%)".format(.format(modelLabel), trainLstm.counter, np.round(full_rmse, 2), np.round(full_smape * 100, 2)))
