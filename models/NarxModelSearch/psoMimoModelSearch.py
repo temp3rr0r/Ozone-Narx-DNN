@@ -43,7 +43,8 @@ if __name__ == "__main__":
         r = np.genfromtxt("data/BETN073_ts.csv", delimiter=',')  # TODO: test with standardized data
     r = np.delete(r, [0], axis=1)  # Remove dates
 
-    # r = np.delete(r, [1, 2, 3, 4, 5, 6], axis=1)  # Remove all other variables
+    # TODO: test 1 station only printouts
+    # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0,0]))
@@ -52,9 +53,9 @@ if __name__ == "__main__":
     print('Variables: {}'.format(maxLen))
     print('TimeSteps: {}'.format(r.shape[0]))
 
-    # TODO: y_data 4 stations NOT 1
-    # TODO: MIMO outputs
+    # y_data 4 stations NOT 1
     mimoOutputs = 4
+    # mimoOutputs = 1  # TODO: test 1 station only printouts
     x_data = r[:, mimoOutputs:maxLen + 1]
     y_data = r[:, 0:mimoOutputs]
 

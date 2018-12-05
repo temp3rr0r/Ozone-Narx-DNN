@@ -102,10 +102,8 @@ def trainModel(x, *args):
             model.add(GaussianNoise(noise_stddev3))
         if useBatchNormalization3 == 1:
             model.add(BatchNormalization())
-        # model.add(Dense(1))  # TODO: make 2x dense for prediction of 2 stuff (test[2,:]? Soil Sun + soil moisture%?
-        model.add(Dense(y_data.shape[1]))  # TODO: make 2x dense for prediction of 2 stuff (test[2,:]? Soil Sun + soil moisture%?
-        model.compile(loss='mean_squared_error',
-                      optimizer=optimizer)
+        model.add(Dense(y_data.shape[1]))
+        model.compile(loss='mean_squared_error', optimizer=optimizer)
 
         # TODO: do not store model on every step
         # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
@@ -144,9 +142,6 @@ def trainModel(x, *args):
         prediction = model.predict(x_data[validation])
         y_validation = y_data[validation]
 
-        # TODO: test Undo standardization for 4 params
-        # y_test = (y_data[test] * sensor_std) + sensor_mean
-        # prediction = (prediction * sensor_std) + sensor_mean
         if dataManipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
             sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
@@ -159,8 +154,6 @@ def trainModel(x, *args):
                 print(np.array(sensor_mean)[0:y_data.shape[1]])
             sensor_mean = np.array(sensor_mean)
             sensor_std = np.array(sensor_std)
-            # prediction = (prediction * sensor_std[0]) + sensor_mean[0]  # TODO: 4 vars mul
-            # y_validation = (y_validation * sensor_std[0]) + sensor_mean[0]
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif dataManipulation["scale"] == 'normalize':
@@ -175,8 +168,6 @@ def trainModel(x, *args):
                 print(np.array(sensor_min)[0:y_data.shape[1]])
             sensor_min = np.array(sensor_min)
             sensor_max = np.array(sensor_max)
-            # prediction = prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-            # y_validation = y_validation * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
             prediction = prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             y_validation = y_validation * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
@@ -197,17 +188,10 @@ def trainModel(x, *args):
         full_prediction = model.predict(x_data)
         full_expected_ts = y_data
 
-        # TODO: test Undo standardization
-        # y_test = (y_data[test] * sensor_std) + sensor_mean
-        # prediction = (prediction * sensor_std) + sensor_mean
         if dataManipulation["scale"] == 'standardize':
-            # full_prediction = (full_prediction * sensor_std[0]) + sensor_mean[0]
-            # full_expected_ts = (full_expected_ts * sensor_std[0]) + sensor_mean[0]
             full_prediction = (full_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             full_expected_ts = (full_expected_ts * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif dataManipulation["scale"] == 'normalize':
-            # full_prediction = full_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-            # full_expected_ts = full_expected_ts * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
             full_prediction = full_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             full_expected_ts = full_expected_ts * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
@@ -226,7 +210,6 @@ def trainModel(x, *args):
     mean_smape = np.mean(smape_scores)
     std_smape = np.std(smape_scores)
     print('Cross validation Full Data SMAPE: {} +/- {}'.format(round(mean_smape * 100, 2), round(std_smape * 100, 2)))
-    # min_smape = pd.read_pickle("foundModels/min_smape.pkl")['min_smape'][0]
 
     mean_mse = np.mean(mse_scores)
     std_mse = np.std(mse_scores)
@@ -235,17 +218,14 @@ def trainModel(x, *args):
 
     holdout_prediction = model.predict(x_data_holdout)
 
-    # TODO: test Undo standardization
     if dataManipulation["scale"] == 'standardize':
-        # holdout_prediction = (holdout_prediction * sensor_std[0]) + sensor_mean[0]
-        # y_data_holdout = (y_data_holdout * sensor_std[0]) + sensor_mean[0]
         holdout_prediction = (holdout_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         y_data_holdout = (y_data_holdout * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
     elif dataManipulation["scale"] == 'normalize':
-        # holdout_prediction = holdout_prediction * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-        # y_data_holdout = y_data_holdout * (sensor_max[0] - sensor_min[0]) + sensor_min[0]
-        holdout_prediction = holdout_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
-        y_data_holdout = y_data_holdout * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+        holdout_prediction = holdout_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) \
+                             + sensor_min[0:y_data.shape[1]]
+        y_data_holdout = y_data_holdout * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) \
+                         + sensor_min[0:y_data.shape[1]]
 
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
     print('Holdout Data RMSE: %.3f' % holdout_rmse)
@@ -271,7 +251,6 @@ def trainModel(x, *args):
             str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
 
     if mean_mse < min_mse:
-        min_mse = mean_mse
         print("New min_mse: {}".format(mean_mse))
         original_df1 = pd.DataFrame({"min_mse": [mean_mse]})
         original_df1.to_pickle("foundModels/min_mse.pkl")
@@ -288,95 +267,30 @@ def trainModel(x, *args):
         pyplot.ylabel("MSE")
         pyplot.grid(True)
         pyplot.legend()
-        pyplot.show()
+        # pyplot.show()
         pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, trainModel.counter))
 
-        # Plot validation data
-        # pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
-        # pyplot.title("{} (iter: {}): Validation(last fold) data (RMSE: {}, SMAPE: {}%)".format(modelLabel, trainLstm.counter, np.round(rmse, 2), np.round(smape * 100, 2)))
-        # pyplot.plot(prediction, label='prediction')
-        # pyplot.plot(y_validation, label='expected')
-        # pyplot.xlabel("Time step")
-        # pyplot.ylabel("Sensor Value")
-        # pyplot.grid(True)
-        # pyplot.legend()
-        # pyplot.show()
-
         # Plot test data
-        # pyplot.figure(figsize=(12, 10))  # Resolution 800 x 600
-        pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
-        pyplot.title("{} (iter: {}): Test data (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
-                                                                                       np.round(holdout_rmse, 2),
-                                                                                       np.round(holdout_mape * 100, 2),
-                                                                                       np.round(holdout_ioa * 100, 2)))
-        pyplot.plot(holdout_prediction, label='prediction')
-        pyplot.plot(y_data_holdout, label='expected')
-        pyplot.xlabel("Time step")
-        pyplot.ylabel("Sensor Value")
-        pyplot.grid(True)
-        pyplot.legend()
-        pyplot.show()
-        pyplot.savefig("foundModels/{}Iter{}Test.png".format(modelLabel, trainModel.counter))
-
-        print("type(holdout_prediction):")
-        print(type(holdout_prediction))
-        print("holdout_prediction.shape")
-        print(holdout_prediction.shape)
-        print("holdout_prediction.size")
-        print(holdout_prediction.size)
-
         for i in range(holdout_prediction.shape[1]):
             pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
-            pyplot.title(
-                "{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
-                                                                                              i,
-                                                                                  np.round(holdout_rmse, 2),
-                                                                                  np.round(holdout_mape * 100, 2),
-                                                                                  np.round(holdout_ioa * 100, 2)))
+            pyplot.title("{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)"
+                    .format(modelLabel, trainModel.counter, i, np.round(holdout_rmse, 2),
+                            np.round(holdout_mape * 100, 2), np.round(holdout_ioa * 100, 2)))
             pyplot.plot(holdout_prediction[:,i], label='prediction')
             pyplot.plot(y_data_holdout[:,i], label='expected')
             pyplot.xlabel("Time step")
             pyplot.ylabel("Sensor Value")
             pyplot.grid(True)
             pyplot.legend()
-            pyplot.show()
-
-        # for i in range(holdout_prediction.size[0]):
-        #     pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
-        #     pyplot.title(
-        #         "{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)".format(modelLabel, trainModel.counter,
-        #                                                                                       i,
-        #                                                                           np.round(holdout_rmse, 2),
-        #                                                                           np.round(holdout_mape * 100, 2),
-        #                                                                           np.round(holdout_ioa * 100, 2)))
-        #     pyplot.plot(holdout_prediction[i, :], label='prediction')
-        #     pyplot.plot(y_data_holdout[i, :], label='expected')
-        #     pyplot.xlabel("Time step")
-        #     pyplot.ylabel("Sensor Value")
-        #     pyplot.grid(True)
-        #     pyplot.legend()
-        #     pyplot.show()
-
-        # Plot full data
-        # pyplot.figure(4, figsize=(16, 12))  # Resolution 800 x 600
-        # pyplot.title("{} (iter: {}): Full data (RMSE: {}, SMAPE: {}%)".format(.format(modelLabel), trainLstm.counter, np.round(full_rmse, 2), np.round(full_smape * 100, 2)))
-        # pyplot.plot(full_prediction, label='prediction')
-        # pyplot.plot(full_expected_ts, label='expected')
-        # pyplot.xlabel("Time step")
-        # pyplot.ylabel("Sensor Value")
-        # pyplot.grid(True)
-        # pyplot.legend()
-        # pyplot.show()
+            # pyplot.show()
+            pyplot.savefig("foundModels/{}Iter{}Series{}Test.png".format(modelLabel,trainModel.counter, i))
 
         # Store model
-        # serialize model to JSON
-        model_json = model.to_json()
+        model_json = model.to_json() # serialize model to JSON
         with open("foundModels/bestModelArchitecture.json".format(modelLabel), "w") as json_file:
             json_file.write(model_json)
             print("Saved model to disk")
-
-        # serialize weights to HDF5
-        model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel))
+        model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel)) # serialize weights to HDF5
         print("Saved weights to disk")
 
     del model  # Manually delete model
