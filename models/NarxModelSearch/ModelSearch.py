@@ -2,6 +2,7 @@ from __future__ import print_function
 import random
 from scipy.optimize import differential_evolution
 from BaseNarxModel import trainModel
+import BaseNarxModelMpi as baseMpi
 from pyswarm.pso import pso
 from scipy.optimize import basinhopping
 import numpy as np
@@ -89,6 +90,17 @@ def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
     trainModel.label = 'rand'
     for i in range(iterations):
         trainModel(np.array(getRandomModel()), *args)
+
+def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
+
+    iterations = dataManipulation["iterations"]
+    args = (x_data, y_data)
+    baseMpi.trainModel.counter = 0  # Function call counter
+    baseMpi.trainModel.label = 'rand'
+    for i in range(iterations):
+        dataManipulation["iteration"] = i
+        baseMpi.trainModel.dataManipulation = dataManipulation
+        baseMpi.trainModel(np.array(getRandomModel()), *args)
 
 
 def getRandomModel():
