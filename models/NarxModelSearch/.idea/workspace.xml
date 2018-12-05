@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="Back to 10 folds. Pso default">
-      <change afterPath="$PROJECT_DIR$/deMimoModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BaseNarxModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/psoMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/psoMimoModelSearch.py" afterDir="false" />
+    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/randMimoModelSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,11 +26,11 @@
     <session id="1490049371">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="2" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.5" value="4" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,7 +38,7 @@
           <entry key="csv" value="12" />
           <entry key="pkl" value="6" />
           <entry key="png" value="2" />
-          <entry key="py" value="51" />
+          <entry key="py" value="52" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -45,7 +46,7 @@
           <entry key="CSV" value="12" />
           <entry key="Image" value="2" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="51" />
+          <entry key="Python" value="52" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -70,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="17" lean-forward="true" selection-end-line="92" />
+            <state relative-caret-position="442">
+              <caret line="26" lean-forward="true" selection-end-line="92" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -80,6 +81,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/randMimoModelSearch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
@@ -94,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+            <state relative-caret-position="901">
+              <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -169,6 +182,7 @@
         <option value="$PROJECT_DIR$/BaseNarxModel.py" />
         <option value="$PROJECT_DIR$/psoMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/deMimoModelSearch.py" />
+        <option value="$PROJECT_DIR$/randMimoModelSearch.py" />
       </list>
     </option>
   </component>
@@ -179,10 +193,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1032" />
-    <option name="y" value="453" />
-    <option name="width" value="1932" />
-    <option name="height" value="1062" />
+    <option name="x" value="1203" />
+    <option name="y" value="528" />
+    <option name="width" value="2255" />
+    <option name="height" value="1239" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -207,6 +221,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -218,7 +233,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -245,6 +259,9 @@
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -286,6 +303,9 @@
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -305,6 +325,9 @@
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -483,7 +506,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543972200463</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Back to 10 folds. Pso default">
+      <created>1543972494566</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1543972494566</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -499,12 +529,12 @@
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09622266" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11332008" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972136" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.29411766" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" weight="0.34019697" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3993808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -518,8 +548,8 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" sideWeight="0.49221185" visible="true" weight="0.40994036" />
-      <window_info anchor="right" x="0" y="0" width="593" height="1224" id="Documentation" order="4" sideWeight="0.5077882" side_tool="true" weight="0.4548708" />
+      <window_info active="true" anchor="right" id="SciView" order="3" sideWeight="0.49148607" visible="true" weight="0.47952285" />
+      <window_info anchor="right" x="0" y="0" width="593" height="1224" id="Documentation" order="4" sideWeight="0.5085139" side_tool="true" visible="true" weight="0.47952285" />
       <window_info anchor="right" id="Database" order="5" />
     </layout>
     <layout-to-restore>
@@ -566,7 +596,8 @@
     <MESSAGE value="Works well 4 station 51 var data?" />
     <MESSAGE value="Works well 4 station 51 var data. Yes. Printing out 4x time-series." />
     <MESSAGE value="Storing fitness images, fixed a small label bug." />
-    <option name="LAST_COMMIT_MESSAGE" value="Storing fitness images, fixed a small label bug." />
+    <MESSAGE value="Back to 10 folds. Pso default" />
+    <option name="LAST_COMMIT_MESSAGE" value="Back to 10 folds. Pso default" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/numpy/lib/_datasource.py">
@@ -595,9 +626,7 @@
     <entry file="file://$PROJECT_DIR$/data/BETN073_ts_max.pkl">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/BETN073.csv">
-      <provider selected="true" editor-type-id="csv-text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/data/BETN073.csv" />
     <entry file="file://$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101_ts_normalized.csv" />
     <entry file="file://$PROJECT_DIR$/data/BETN073_ts.csv">
       <provider selected="true" editor-type-id="csv-text-editor" />
@@ -613,19 +642,12 @@
     <entry file="file://$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101_ts_max.pkl" />
     <entry file="file://$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101_ts.csv" />
     <entry file="file://$PROJECT_DIR$/data/BETN073_51vars_19900101To2000101.csv" />
-    <entry file="file://$PROJECT_DIR$/deIter1History.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deIter1Test.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/deIter1History.png" />
+    <entry file="file://$PROJECT_DIR$/deIter1Test.png" />
     <entry file="file://$PROJECT_DIR$/deModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-85">
           <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -661,9 +683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="44" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -686,18 +705,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="17" lean-forward="true" selection-end-line="92" />
+        <state relative-caret-position="901">
+          <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -708,6 +717,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" lean-forward="true" selection-end-line="92" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
