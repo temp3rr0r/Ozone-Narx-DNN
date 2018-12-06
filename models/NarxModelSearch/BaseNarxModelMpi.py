@@ -17,9 +17,14 @@ from sklearn.model_selection import TimeSeriesSplit
 
 
 def trainModel(x, *args):
+
+    startTime = time.time()  # training time per model
+
     trainModel.counter += 1
     modelLabel = trainModel.label
+    modelFolds = trainModel.folds
     dataManipulation = trainModel.dataManipulation
+    master = dataManipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -62,7 +67,7 @@ def trainModel(x, *args):
     x_data, x_data_holdout = x_data[:-365], x_data[-365:]
     y_data, y_data_holdout = y_data[:-365], y_data[-365:]
 
-    totalFolds = 10
+    totalFolds = modelFolds
     timeSeriesCrossValidation = TimeSeriesSplit(n_splits=totalFolds)
     # timeSeriesCrossValidation = KFold(n_splits=totalFolds)
 
@@ -298,16 +303,17 @@ def trainModel(x, *args):
     K.clear_session()  # Manually clear_session with keras 2.1.6
     gc.collect()
 
-    # TODO: send results to master
-    data = {"worked": 33}
+    endTime = time.time()
+    data = {"worked": endTime - startTime}
     data["rank"] = dataManipulation["rank"]
     data["agentToReceive"] = 1
     data["mean_mse"] = mean_mse
-    # dataManipulation['mean_mse'] = mean_mse
+    data["agentToSend"] = full_model_parameters
+    data["agentToReceive"] = full_model_parameters
     #     data['agentToSend'] = islandAgents[agentReplaceIndex]  # TODO: agent genotype -> phenotype
     # dataManipulation['agentToSend'] = full_model_parameters  # TODO: agent genotype -> phenotype
     comm = dataManipulation["comm"]
-    req = comm.isend(data, dest=data["master"], tag=1)
+    req = comm.isend(data, dest=master, tag=1)
     req.wait()
     #     agent = comm.recv(source=0, tag=2)
     #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject island agent

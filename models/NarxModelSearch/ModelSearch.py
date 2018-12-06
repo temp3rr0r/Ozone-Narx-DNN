@@ -91,12 +91,29 @@ def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
     for i in range(iterations):
         trainModel(np.array(getRandomModel()), *args)
 
+def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
+
+    iterations = dataManipulation["iterations"]
+    args = (x_data, y_data)
+    baseMpi.trainModel.counter = 0  # Function call counter
+    baseMpi.trainModel.label = 'pso'
+    baseMpi.trainModel.folds = dataManipulation["folds"]
+    baseMpi.trainModel.dataManipulation = dataManipulation
+    # xopt1, fopt1 = pso(trainModel, lb, ub, args=args)  # TODO: test other than default params
+    xopt1, fopt1 = pso(baseMpi.trainModel, lb, ub, maxiter=iterations, swarmsize=20, args=args)
+    # TODO: test larger swarm, more iterations
+    # pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
+    #     swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100, minstep=1e-8,
+    #     minfunc=1e-8, debug=False)
+    printOptimum(xopt1, fopt1)
+
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
 
     iterations = dataManipulation["iterations"]
     args = (x_data, y_data)
     baseMpi.trainModel.counter = 0  # Function call counter
     baseMpi.trainModel.label = 'rand'
+    baseMpi.trainModel.folds = dataManipulation["folds"]
     for i in range(iterations):
         dataManipulation["iteration"] = i
         baseMpi.trainModel.dataManipulation = dataManipulation

@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
-    differentialEvolutionModelSearch, basinHoppingpModelSearch
+    differentialEvolutionModelSearch, basinHoppingpModelSearch, particleSwarmOptimizationModelSearchMpi
 import os
 import time
 from mpi4py import MPI
@@ -22,9 +22,12 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "master": 0
+    "master": 0,
+    "folds": 2,
+    "iterations": 1
 }
 dataDetrend = False
+master = 0
 
 def loadData():
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
@@ -88,7 +91,6 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-eaIterations = 4
 data = {'params': [0.3, 1.5, 500, 30, 500]}
 islands = ['rand', 'pso', 'de']
 
@@ -96,21 +98,23 @@ if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
     startTime = time.time()
     totalSecondsWork = 0
+    mean_mse_threshold = 300.0
 
     for worker in range(1, size):  # Init workers
-        comm.send({"command": "init", "island": islands[len(islands) % 3]}, dest=worker, tag=0)
+        comm.send({"command": "init", "island": islands[worker % 3]}, dest=worker, tag=0)
         print("-- Rank {}. Sending data: {} to {}...".format(rank, data, worker))
 
-    for messageId in range((size - 1) * eaIterations):
+    for messageId in range((size - 1) * dataManipulation["iterations"]):
         req = comm.irecv(tag=1)
         data = req.wait()
         print("-- Rank {}. Data Received: {} from {}!".format(rank, data, worker))
         comm.send({"agentToReceive": swappedAgent}, dest=data["rank"], tag=2)
         swappedAgent = data["agentToSend"]
         totalSecondsWork += data["worked"]
-        if data["mean_mse"] >= 0.95:
-            print("Abort: mean_mse = {}".format(data["mean_mse"]))
-            comm.Abort()
+        print("mean_mse: {}".format(data["mean_mse"]))
+        if data["mean_mse"] <= mean_mse_threshold:
+            print("Abort: mean_mse = {} less than ".format(data["mean_mse"]))
+            # comm.Abort()
         # TODO: block for func call sync
         # TODO: stop condition if mean_mse >= 0.95
     endTime = time.time()
@@ -143,16 +147,15 @@ else:  # Worker Node
         islandAgents = np.array([rank] * 20)  # Populate agents
         dataManipulation["rank"] = rank
         dataManipulation["island"] = island
-        dataManipulation["iterations"] = eaIterations
         dataManipulation["comm"] = comm
-        dataManipulation['worked'] = 33
 
-        # TODO: impement MPI versions
+        # TODO: implement MPI versions
         if island == 'rand':
             randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'pso':
             # particleSwarmOptimizationModelSearch(x_data_3d, y_data, dataManipulation)
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
+            # particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'de':
             # differentialEvolutionModelSearch(x_data_3d, y_data, dataManipulation)
             randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
