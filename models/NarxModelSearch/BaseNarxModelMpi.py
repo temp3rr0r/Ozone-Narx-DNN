@@ -24,6 +24,7 @@ def trainModel(x, *args):
     modelLabel = trainModel.label
     modelFolds = trainModel.folds
     dataManipulation = trainModel.dataManipulation
+    rank = dataManipulation["rank"]
     master = dataManipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
@@ -248,10 +249,11 @@ def trainModel(x, *args):
     print('Holdout Data IOA: {}'.format(holdout_ioa))
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
         # Data to store:
-        # datetime, iteration, cvMseMean, cvMseStd,
+        # datetime, iteration, gpu, cvMseMean, cvMseStd
         # cvSmapeMean, cvSmapeStd, holdoutRmse, holdoutSmape, holdoutMape,
         # holdoutMse, holdoutIoa, full_pso_parameters
-        file.write("{},{},{},{},{},{},{},{},{},{},{},{}\n".format(str(int(time.time())), str(trainModel.counter),
+        file.write("{},{},{},{},{},{},{},{},{},{},{},{}\n"
+                   .format(str(int(time.time())), str(trainModel.counter), str(rank - 1),
             str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape),
             str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
 
@@ -305,7 +307,7 @@ def trainModel(x, *args):
 
     endTime = time.time()
     data = {"worked": endTime - startTime}
-    data["rank"] = dataManipulation["rank"]
+    data["rank"] = rank
     data["agentToReceive"] = 1
     data["mean_mse"] = mean_mse
     data["agentToSend"] = full_model_parameters

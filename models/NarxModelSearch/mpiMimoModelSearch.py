@@ -28,6 +28,8 @@ dataManipulation = {
 }
 dataDetrend = False
 master = 0
+# iterations = 3
+iterations = dataManipulation["iterations"]
 
 def loadData():
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
@@ -104,7 +106,8 @@ if rank == 0:  # Master Node
         comm.send({"command": "init", "island": islands[worker % 3]}, dest=worker, tag=0)
         print("-- Rank {}. Sending data: {} to {}...".format(rank, data, worker))
 
-    for messageId in range((size - 1) * dataManipulation["iterations"]):
+    # iterations = dataManipulation["iterations"]
+    for messageId in range((size - 1) * iterations):
         req = comm.irecv(tag=1)
         data = req.wait()
         print("-- Rank {}. Data Received: {} from {}!".format(rank, data, worker))
@@ -126,11 +129,11 @@ if rank == 0:  # Master Node
 
 else:  # Worker Node
 
-    if rank == 1:
+    if rank == 1:  # TODO: rank per gpu
         os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
     elif rank == 2:
         os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
-
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(rank - 1)  # Use the 1070Ti or 970
 
     print("waiting({})...".format(rank))
 
@@ -151,14 +154,15 @@ else:  # Worker Node
 
         # TODO: implement MPI versions
         if island == 'rand':
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
+            particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'pso':
-            # particleSwarmOptimizationModelSearch(x_data_3d, y_data, dataManipulation)
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
-            # particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
+            particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'de':
             # differentialEvolutionModelSearch(x_data_3d, y_data, dataManipulation)
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'bh':
             # basinHoppingpModelSearch(x_data_3d, y_data, dataManipulation)
             randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
