@@ -14,7 +14,7 @@ os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/gra
 
 # modelLabel = 'rand'
 # modelLabel = 'de'
-modelLabel = 'pso'
+modelLabel = 'pso'  # TODO: PSO: 3 iterations x 20 swarmsize = 80 total iterations
 # modelLabel = 'bh'
 
 dataManipulation = {
@@ -23,8 +23,8 @@ dataManipulation = {
     "scale": 'standardize',
     # "scale": 'normalize',
     "master": 0,
-    "folds": 2,
-    "iterations": 1
+    "folds": 10,
+    "iterations": 3
 }
 dataDetrend = False
 master = 0
@@ -107,9 +107,22 @@ if rank == 0:  # Master Node
         print("-- Rank {}. Sending data: {} to {}...".format(rank, data, worker))
 
     # iterations = dataManipulation["iterations"]
+    swapCounter = 0
+    swapEvery = 5
+    agentBuffer = 0
     for messageId in range((size - 1) * iterations):
+
+        swapCounter += 1
         req = comm.irecv(tag=1)
         data = req.wait()
+
+        dataToFitnessFunction = {"swapAgent": False, "agent": None}
+        if swapCounter > swapEvery:  # TODO: decide to swap that agent
+            swapCounter = 0
+            agentBuffer = data["agent"]
+            dataToFitnessFunction["swapAgent"] = True
+            dataToFitnessFunction["agent"] = agentBuffer
+
         print("-- Rank {}. Data Received: {} from {}!".format(rank, data, worker))
         comm.send({"agentToReceive": swappedAgent}, dest=data["rank"], tag=2)
         swappedAgent = data["agentToSend"]
@@ -133,7 +146,8 @@ else:  # Worker Node
         os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
     elif rank == 2:
         os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
-    # os.environ["CUDA_VISIBLE_DEVICES"] = str(rank - 1)  # Use the 1070Ti or 970
+
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(rank - 1)  # Use the 1070Ti or 970  # TODO: auto set gpu per rank
 
     print("waiting({})...".format(rank))
 

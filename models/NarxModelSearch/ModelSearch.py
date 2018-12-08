@@ -49,6 +49,27 @@ def differentialEvolutionModelSearch(x_data, y_data, dataManipulation=None):
     xopt1, fopt1 = differential_evolution(trainModel, bounds, args=args)  # TODO: test DE params
     printOptimum(xopt1, fopt1)
 
+def trainModel2(x, *args):
+    trainModel.counter += 1
+    modelLabel = trainModel.label
+    dataManipulation = trainModel.dataManipulation
+    x_data, y_data = args
+    return 540.2 * x[0]
+
+def trainModel3(x, *args):
+# def trainModel3(x, *args):
+    trainModel.counter += 1
+    modelLabel = trainModel.label
+    dataManipulation = trainModel.dataManipulation
+    x_data, y_data = args
+
+    # particleInject = particleEject + 0.2
+    particleInject = {"swapAgent" : False}
+    if np.random.randint(0, 10) > 2:
+        particleInject["swapAgent"] = True
+    particleInject["agent"] = np.zeros_like(x) + 0.1
+
+    return 540.2 * x[0], particleInject
 
 def particleSwarmOptimizationModelSearch(x_data, y_data, dataManipulation=None):
 
@@ -56,7 +77,8 @@ def particleSwarmOptimizationModelSearch(x_data, y_data, dataManipulation=None):
     trainModel.counter = 0  # Function call counter
     trainModel.dataManipulation = dataManipulation
     trainModel.label = 'pso'
-    xopt1, fopt1 = pso(trainModel, lb, ub, args=args)
+    # xopt1, fopt1 = pso(trainModel, lb, ub, args=args, particle_output=True)  # TODO: test return particle
+    xopt1, fopt1 = pso(trainModel3, lb, ub, args=args)
     # TODO: test larger swarm, more iterations
     # pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     #     swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100, minstep=1e-8,
