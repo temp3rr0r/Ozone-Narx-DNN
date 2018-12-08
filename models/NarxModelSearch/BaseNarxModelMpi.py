@@ -122,7 +122,7 @@ def trainModel(x, *args):
 
         try:
             history = model.fit(x_data[train], y_data[train],
-                                verbose=1,
+                                verbose=0,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -130,7 +130,7 @@ def trainModel(x, *args):
         except ValueError:
             print("Value Error exception: Model fit exception. Trying again...")
             history = model.fit(x_data[train], y_data[train],
-                                verbose=1,
+                                verbose=0,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -151,13 +151,13 @@ def trainModel(x, *args):
         if dataManipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
             sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
-            if trainModel.counter == 1:
-                print("Un-standardizing...")
-                print("sensor_mean:")
-                print(sensor_mean)
-                print("sensor_std:")
-                print(sensor_std)
-                print(np.array(sensor_mean)[0:y_data.shape[1]])
+            # if trainModel.counter == 1:
+            #     print("Un-standardizing...")
+            #     print("sensor_mean:")
+            #     print(sensor_mean)
+            #     print("sensor_std:")
+            #     print(sensor_std)
+            #     print(np.array(sensor_mean)[0:y_data.shape[1]])
             sensor_mean = np.array(sensor_mean)
             sensor_std = np.array(sensor_std)
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
@@ -165,13 +165,13 @@ def trainModel(x, *args):
         elif dataManipulation["scale"] == 'normalize':
             sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
             sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
-            if trainModel.counter == 1:
-                print("Un-normalizing...")
-                print("sensor_min:")
-                print(sensor_min)
-                print("sensor_max:")
-                print(sensor_max)
-                print(np.array(sensor_min)[0:y_data.shape[1]])
+            # if trainModel.counter == 1:
+            #     print("Un-normalizing...")
+            #     print("sensor_min:")
+            #     print(sensor_min)
+            #     print("sensor_max:")
+            #     print(sensor_max)
+            #     print(np.array(sensor_min)[0:y_data.shape[1]])
             sensor_min = np.array(sensor_min)
             sensor_max = np.array(sensor_max)
             prediction = prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
@@ -321,4 +321,10 @@ def trainModel(x, *args):
     #     agent = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
     #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject island agent
 
-    return mean_mse, 33
+    agentOut = {"swapAgent": False}
+    if True:
+        agentOut["swapAgent"] = True
+        agentOut["agent"] = x
+
+    return mean_mse, agentOut
+    # return mean_mse

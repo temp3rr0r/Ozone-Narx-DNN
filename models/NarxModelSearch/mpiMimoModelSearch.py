@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
-    differentialEvolutionModelSearch, basinHoppingpModelSearch, particleSwarmOptimizationModelSearchMpi
+    differentialEvolutionModelSearchMpi, basinHoppingpModelSearch, particleSwarmOptimizationModelSearchMpi
 import os
 import time
 from mpi4py import MPI
@@ -24,8 +24,10 @@ dataManipulation = {
     # "scale": 'normalize',
     "master": 0,
     "folds": 2,
-    "iterations": 3
+    "iterations": 3,
+    "agents": 4
 }
+
 dataDetrend = False
 master = 0
 # iterations = 3
@@ -50,6 +52,8 @@ def loadData():
 
     # TODO: test 1 station only printouts
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
+
+    r = r[1:800,:]  # TODO: greately decrease r for testing
 
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0, 0]))
@@ -143,9 +147,9 @@ if rank == 0:  # Master Node
 else:  # Worker Node
 
     if rank == 1:  # TODO: rank per gpu
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
+        os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 1070Ti only
     elif rank == 2:
-        os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 970 only
 
     # os.environ["CUDA_VISIBLE_DEVICES"] = str(rank - 1)  # Use the 1070Ti or 970  # TODO: auto set gpu per rank
 
@@ -170,29 +174,21 @@ else:  # Worker Node
         if island == 'rand':
             # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
             particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'pso':
             # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
             particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'de':
-            # differentialEvolutionModelSearch(x_data_3d, y_data, dataManipulation)
+            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
             # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
             particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'bh':
             # basinHoppingpModelSearch(x_data_3d, y_data, dataManipulation)
             randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
 
-        # for i in range(eaIterations):  # Iterate EA
-        #     timeWorked = 0
-        #     if island == "de":
-        #         timeWorked = randint(1, 4)
-        #     elif island == "pso":
-        #         timeWorked = randint(1, 5)
-        #     else:
-        #         timeWorked = randint(2, 4)
-        #     time.sleep(timeWorked)
-        #
-        #     agentReplaceIndex = randint(0, len(islandAgents) - 1)
-        #
+
         #     data['worked'] = timeWorked
         #     data['mean_mse'] = np.array(random.uniform(0.7, 0.95))
         #     data['iteration'] = i

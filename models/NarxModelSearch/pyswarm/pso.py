@@ -151,11 +151,9 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         for i in range(S):
             # fx[i] = obj(x[i, :])
             fx[i], agentIn = obj(x[i, :])  # TODO: if last particle, do return 2 particles
-            print("OK1========")
-            print("agentIn")
-            print(agentIn)
             if agentIn["swapAgent"] == True:
-                # particleSwapId = np.random.randint(0, S)
+                print("previous agent: {}".format(x[i, :]))
+                print("agent injection: {}".format(agentIn["agent"]))
                 x[i, :] = agentIn["agent"]  # Inject particle
             fs[i] = is_feasible(x[i, :])
 
@@ -201,7 +199,8 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 # fx[i] = obj(x[i, :])
                 fx[i], agentIn = obj(x[i, :])  # TODO: if last particle, do return 2 particles
                 if agentIn["swapAgent"] == True:
-                    # particleSwapId = np.random.randint(0, S)
+                    print("previous agent: {}".format(x[i, :]))
+                    print("agent injection: {}".format(agentIn["agent"]))
                     x[i, :] = agentIn["agent"]  # Inject particle
                 fs[i] = is_feasible(x[i, :])
 
