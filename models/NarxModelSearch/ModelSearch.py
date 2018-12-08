@@ -122,7 +122,7 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
     # xopt1, fopt1 = pso(trainModel, lb, ub, args=args)  # TODO: test other than default params
-    xopt1, fopt1 = pso(baseMpi.trainModel, lb, ub, maxiter=iterations, swarmsize=20, args=args)
+    xopt1, fopt1 = pso(baseMpi.trainModel, lb, ub, maxiter=iterations, swarmsize=5, args=args)
     # TODO: test larger swarm, more iterations
     # pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     #     swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100, minstep=1e-8,

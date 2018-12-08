@@ -23,7 +23,7 @@ dataManipulation = {
     "scale": 'standardize',
     # "scale": 'normalize',
     "master": 0,
-    "folds": 10,
+    "folds": 2,
     "iterations": 3
 }
 dataDetrend = False

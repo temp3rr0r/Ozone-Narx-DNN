@@ -122,7 +122,7 @@ def trainModel(x, *args):
 
         try:
             history = model.fit(x_data[train], y_data[train],
-                                verbose=2,
+                                verbose=1,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -130,7 +130,7 @@ def trainModel(x, *args):
         except ValueError:
             print("Value Error exception: Model fit exception. Trying again...")
             history = model.fit(x_data[train], y_data[train],
-                                verbose=2,
+                                verbose=1,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -321,4 +321,4 @@ def trainModel(x, *args):
     #     agent = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
     #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject island agent
 
-    return mean_mse
+    return mean_mse, 33
