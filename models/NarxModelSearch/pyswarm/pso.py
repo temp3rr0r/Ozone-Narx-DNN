@@ -149,11 +149,9 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         fs = np.array(mp_pool.map(is_feasible, x))
     else:
         for i in range(S):
-            # fx[i] = obj(x[i, :])
-            fx[i], agentIn = obj(x[i, :])  # TODO: if last particle, do return 2 particles
+            # fx[i] = obj(x[i, :])  # TODO: inject agent
+            fx[i], agentIn = obj(x[i, :])
             if agentIn["swapAgent"] == True:
-                print("previous agent: {}".format(x[i, :]))
-                print("agent injection: {}".format(agentIn["agent"]))
                 x[i, :] = agentIn["agent"]  # Inject particle
             fs[i] = is_feasible(x[i, :])
 
@@ -196,14 +194,11 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             fs = np.array(mp_pool.map(is_feasible, x))
         else:
             for i in range(S):
-                # fx[i] = obj(x[i, :])
+                # fx[i] = obj(x[i, :])  # TODO: inject agent
                 fx[i], agentIn = obj(x[i, :])
                 if agentIn["swapAgent"] == True:
-                    print("previous agent: {}".format(x[i, :]))
-                    print("agent injection: {}".format(agentIn["agent"]))
                     x[i, :] = agentIn["agent"]  # Inject particle
                 fs[i] = is_feasible(x[i, :])
-
 
         # Store particle's best position (if constraints are satisfied)
         i_update = np.logical_and((fx < fp), fs)

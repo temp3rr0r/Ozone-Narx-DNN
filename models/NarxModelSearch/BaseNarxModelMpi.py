@@ -122,7 +122,7 @@ def trainModel(x, *args):
 
         try:
             history = model.fit(x_data[train], y_data[train],
-                                verbose=0,
+                                verbose=2,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -130,7 +130,7 @@ def trainModel(x, *args):
         except ValueError:
             print("Value Error exception: Model fit exception. Trying again...")
             history = model.fit(x_data[train], y_data[train],
-                                verbose=0,
+                                verbose=2,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -338,9 +338,9 @@ def trainModel(x, *args):
 
     # TODO: master to worker
     agentToEa = {"swapAgent": False, "agent": None}
-    # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    req = comm.irecv(source=0, tag=2)
-    dataMasterToWorker = req.wait()
+    dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    # req = comm.irecv(source=0, tag=2)
+    # dataMasterToWorker = req.wait()
 
     swapAgent = dataMasterToWorker["swapAgent"]
     if swapAgent:

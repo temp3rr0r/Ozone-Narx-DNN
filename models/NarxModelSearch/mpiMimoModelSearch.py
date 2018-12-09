@@ -2,7 +2,8 @@ from __future__ import print_function
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
-    differentialEvolutionModelSearchMpi, basinHoppingpModelSearchMpi, particleSwarmOptimizationModelSearchMpi, bounds
+    differentialEvolutionModelSearchMpi, basinHoppingpModelSearchMpi, particleSwarmOptimizationModelSearchMpi, \
+    bounds, getRandomModel
 import os
 import time
 from mpi4py import MPI
@@ -24,8 +25,8 @@ dataManipulation = {
     # "scale": 'normalize',
     "master": 0,
     "folds": 2,
-    "iterations": 1,
-    "agents": 3
+    "iterations": 2,
+    "agents": 4
 }
 dataDetrend = False  # TODO: de-trend
 # master = 0
@@ -51,7 +52,7 @@ def loadData():
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     r = r[1:(365+60):]  # TODO: greately decrease r for testing (365 days + 2 x X amount) and remove 40 vars
-    r = np.delete(r, range(5, 45), axis=1)
+    r = np.delete(r, range(5, 50), axis=1)
 
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0, 0]))
@@ -119,7 +120,7 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-islands = ['rand', 'de', 'pso']
+islands = ['rand', 'rand', 'de']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
@@ -130,25 +131,25 @@ if rank == 0:  # Master Node
     for worker in range(1, size):  # Init workers
         initDataToWorkers = {"command": "init", "island": islands[worker % 3]}
         comm.send(initDataToWorkers, dest=worker, tag=0)
-        print("-- Rank {}. Sending data: {} to {}...".format(rank, initDataToWorkers, worker))
+        print("--- Rank {}. Sending data: {} to {}...".format(rank, initDataToWorkers, worker))
 
     # iterations = dataManipulation["iterations"]
     swapCounter = 0
     swapEvery = 5
-    agentBuffer = 0
+    agentBuffer = getRandomModel()
 
     totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
-    for messageId in range(totalMessageCount):  # TODO: bh iters
-    # for messageId in range(7):  # TODO 1000-1200 bh
+    for messageId in range(totalMessageCount):
+    # for messageId in range(7):  # TODO 1000-1200 bh iters
         swapCounter += 1
 
         # Worker to master
         req = comm.irecv(tag=1)
         dataWorkerToMaster = req.wait()
-        # print("-- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
+        # print("--- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
         totalSecondsWork += dataWorkerToMaster["worked"]
-        # print("mean_mse: {}".format(dataWorkerToMaster["mean_mse"]))
+        print("mean_mse: {}".format(dataWorkerToMaster["mean_mse"]))
         # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold
             # print("Abort: mean_mse = {} less than ".format(dataWorkerToMaster["mean_mse"]))
             # comm.Abort()  # TODO: block for func call sync
@@ -156,17 +157,15 @@ if rank == 0:  # Master Node
         # Master to worker
         dataMasterToWorker = {"swapAgent": False, "agent": None}
         if swapCounter > swapEvery:  # TODO: decide to swap that agent
-            print("Swapping...")
+            print("========= Swapping...")
             swapCounter = 0
             dataMasterToWorker["swapAgent"] = True
             dataMasterToWorker["agent"] = agentBuffer
             agentBuffer = dataWorkerToMaster["agent"]
         comm.send(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async
-        # req = comm.isend(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)
-        # req.wait()
 
     endTime = time.time()
-    print("-- Total work: %d secs in %.2f secs, speedup: %.2f / %d" % (
+    print("--- Total work: %d secs in %.2f secs, speedup: %.2f / %d" % (
         totalSecondsWork, round(endTime - startTime, 2),
         totalSecondsWork / round(endTime - startTime, 2), size - 1))
     # comm.Disconnect()
@@ -187,8 +186,8 @@ else:  # Worker Node
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
-        print("-- Rank {}. Data Received: {}!".format(rank, initData))
-        print("-- Island: {}".format(island))
+        print("--- Rank {}. Data Received: {}!".format(rank, initData))
+        print("--- Island: {}".format(island))
 
         x_data_3d, y_data = loadData()
 
@@ -196,7 +195,6 @@ else:  # Worker Node
         dataManipulation["island"] = island
         dataManipulation["comm"] = comm
 
-        # TODO: implement MPI versions
         if island == 'rand':
             randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'pso':

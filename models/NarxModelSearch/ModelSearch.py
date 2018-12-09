@@ -122,12 +122,13 @@ def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
 
-    # def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5,
-    #                  minimizer_kwargs=None, take_step=None, accept_test=None,
-    #                  callback=None, interval=50, disp=False, niter_success=None,
-    #                  seed=None):
+    #def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5, minimizer_kwargs=None, take_step=None, accept_test=None,
+    #                  callback=None, interval=50, disp=False, niter_success=None,seed=None):
 
-    res = basinhopping(baseMpi.trainModel3, x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
+    res = basinhopping(
+        # baseMpi.trainModel3,
+        baseMpi.trainModel3,  #  TODO: call fast dummy func
+        x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
     print(res)
 
 def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
@@ -148,10 +149,10 @@ def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
     baseMpi.trainModel.label = 'de'
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
-    # xopt1, fopt1 = differential_evolution(baseMpi.trainModel, bounds, args=args,  #  TODO: call fast dummy func
     polish = False
     xopt1 = differential_evolution(
-        baseMpi.trainModel2,
+        baseMpi.trainModel,
+        # baseMpi.trainModel2,  #  TODO: call fast dummy func
         bounds, args=args,popsize=agents, maxiter=iterations, polish=polish)  # TODO: test DE params
     printOptimum(xopt1, xopt1)
 
@@ -164,9 +165,10 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
     baseMpi.trainModel.label = 'pso'
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
-    xopt1, fopt1 = pso(baseMpi.trainModel2, lb, ub, maxiter=iterations,  # TODO: call fast dummy func
-                       swarmsize=agents, args=args)  # TODO: test other than default params
-    print("==========Agents: {}".format(agents))
+    xopt1, fopt1 = pso(
+        # baseMpi.trainModel2,   # TODO: call fast dummy func
+        baseMpi.trainModel,
+        lb, ub, maxiter=iterations, swarmsize=agents, args=args)  # TODO: test other than default params
     printOptimum(xopt1, fopt1)
 
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
@@ -179,8 +181,8 @@ def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
     for i in range(iterations):
         dataManipulation["iteration"] = i
         baseMpi.trainModel.dataManipulation = dataManipulation
-        # baseMpi.trainModel(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
-        baseMpi.trainModel2(np.array(getRandomModel()), *args)
+        baseMpi.trainModel(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
+        # baseMpi.trainModel2(np.array(getRandomModel()), *args)
 
 
 def getRandomModel():
