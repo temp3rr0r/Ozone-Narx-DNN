@@ -117,14 +117,17 @@ def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
 def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
 
     iterations = dataManipulation["iterations"]
+    agents = dataManipulation["agents"]
     args = (x_data, y_data)
     baseMpi.trainModel.counter = 0  # Function call counter
     baseMpi.trainModel.label = 'de'
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
-    xopt1, fopt1 = differential_evolution(baseMpi.trainModel, bounds, args=args,
-                                          maxiter=iterations)  # TODO: test DE params
-    printOptimum(xopt1, fopt1)
+    # xopt1, fopt1 = differential_evolution(baseMpi.trainModel, bounds, args=args,  #  TODO: call fast dummy func
+    polish = False
+    xopt1 = differential_evolution(baseMpi.trainModel3, bounds, args=args,
+                                          popsize=agents, maxiter=iterations, polish=polish)  # TODO: test DE params
+    printOptimum(xopt1, xopt1)
 
 def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
 
@@ -135,7 +138,8 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
     baseMpi.trainModel.label = 'pso'
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
-    xopt1, fopt1 = pso(baseMpi.trainModel, lb, ub, maxiter=iterations,
+    # xopt1, fopt1 = pso(baseMpi.trainModel, lb, ub, maxiter=iterations,  # TODO: call fast dummy func
+    xopt1, fopt1 = pso(baseMpi.trainModel2, lb, ub, maxiter=iterations,
                        swarmsize=agents, args=args)  # TODO: test other than default params
     print("==========Agents: {}".format(agents))
     printOptimum(xopt1, fopt1)
@@ -150,7 +154,8 @@ def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
     for i in range(iterations):
         dataManipulation["iteration"] = i
         baseMpi.trainModel.dataManipulation = dataManipulation
-        baseMpi.trainModel(np.array(getRandomModel()), *args)
+        # baseMpi.trainModel(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
+        baseMpi.trainModel2(np.array(getRandomModel()), *args)
 
 
 def getRandomModel():

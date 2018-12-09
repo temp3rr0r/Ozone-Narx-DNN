@@ -197,7 +197,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         else:
             for i in range(S):
                 # fx[i] = obj(x[i, :])
-                fx[i], agentIn = obj(x[i, :])  # TODO: if last particle, do return 2 particles
+                fx[i], agentIn = obj(x[i, :])
                 if agentIn["swapAgent"] == True:
                     print("previous agent: {}".format(x[i, :]))
                     print("agent injection: {}".format(agentIn["agent"]))

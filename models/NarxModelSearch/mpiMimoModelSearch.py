@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
-    differentialEvolutionModelSearchMpi, basinHoppingpModelSearch, particleSwarmOptimizationModelSearchMpi
+    differentialEvolutionModelSearchMpi, basinHoppingpModelSearch, particleSwarmOptimizationModelSearchMpi, bounds
 import os
 import time
 from mpi4py import MPI
@@ -24,13 +24,12 @@ dataManipulation = {
     # "scale": 'normalize',
     "master": 0,
     "folds": 2,
-    "iterations": 3,
-    "agents": 4
+    "iterations": 4,
+    "agents": 6
 }
 
 dataDetrend = False
 master = 0
-# iterations = 3
 iterations = dataManipulation["iterations"]
 
 def loadData():
@@ -53,7 +52,8 @@ def loadData():
     # TODO: test 1 station only printouts
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
-    r = r[1:800,:]  # TODO: greately decrease r for testing
+    r = r[1:(365+60):]  # TODO: greately decrease r for testing (365 days + 2 x X amount) and remove 40 vars
+    r = np.delete(r, range(5, 45), axis=1)
 
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0, 0]))
@@ -92,56 +92,91 @@ def loadData():
 
     return x_data_3d, y_data
 
+
+def getTotalMessageCount(islands, size, dataManipulation):
+
+    totalMessageCount = 0
+    psoMessageCount = (iterations + 1) * dataManipulation["agents"]
+    randMessageCount = iterations
+    deMessageCount = (# (dataManipulation["iterations"] + 1)
+        2 * dataManipulation["agents"] * len(bounds))
+
+    for i in range(1, size):
+        if islands[i] == "pso":
+            totalMessageCount += psoMessageCount
+        elif islands[i] == "de":
+            totalMessageCount += deMessageCount
+        elif islands[i] == "rand":
+            totalMessageCount += randMessageCount
+
+    return totalMessageCount
+
+
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-data = {'params': [0.3, 1.5, 500, 30, 500]}
-islands = ['rand', 'pso', 'de']
+islands = ['rand', 'de', 'pso']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
     startTime = time.time()
     totalSecondsWork = 0
-    mean_mse_threshold = 300.0
+    mean_mse_threshold = 3000.0
 
     for worker in range(1, size):  # Init workers
-        comm.send({"command": "init", "island": islands[worker % 3]}, dest=worker, tag=0)
-        print("-- Rank {}. Sending data: {} to {}...".format(rank, data, worker))
+        initDataToWorkers = {"command": "init", "island": islands[worker % 3]}
+        comm.send(initDataToWorkers, dest=worker, tag=0)
+        print("-- Rank {}. Sending data: {} to {}...".format(rank, initDataToWorkers, worker))
 
     # iterations = dataManipulation["iterations"]
     swapCounter = 0
-    swapEvery = 5
+    swapEvery = 2
     agentBuffer = 0
-    for messageId in range((size - 1) * iterations):
 
+    for messageId in range(getTotalMessageCount(islands, size, dataManipulation)):
         swapCounter += 1
+
+        # dataToFitnessFunction = {"swapAgent": False, "agent": None}
+        # if swapCounter > swapEvery:  # TODO: decide to swap that agent
+        #     swapCounter = 0
+        #     agentBuffer = data["agent"]
+        #     dataToFitnessFunction["swapAgent"] = True
+        #     dataToFitnessFunction["agent"] = agentBuffer
+        #
+        # print("-- Rank {}. Data Received: {} from {}!".format(rank, data, worker))
+        # comm.send({"agentToReceive": swappedAgent}, dest=data["rank"], tag=2)
+        # swappedAgent = data["agentToSend"]
+        # totalSecondsWork += data["worked"]
+        # print("mean_mse: {}".format(data["mean_mse"]))
+
+        # TODO: worker to master
         req = comm.irecv(tag=1)
-        data = req.wait()
+        dataWorkerToMaster = req.wait()
+        # print("-- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
+        totalSecondsWork += dataWorkerToMaster["worked"]
+        # print("mean_mse: {}".format(dataWorkerToMaster["mean_mse"]))
+        # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold
+            # print("Abort: mean_mse = {} less than ".format(dataWorkerToMaster["mean_mse"]))
+            # comm.Abort()  # TODO: block for func call sync
 
-        dataToFitnessFunction = {"swapAgent": False, "agent": None}
+        # TODO: master to worker
+        dataMasterToWorker = {"swapAgent": False, "agent": None}
         if swapCounter > swapEvery:  # TODO: decide to swap that agent
+            # print("==========Swapping...")
             swapCounter = 0
-            agentBuffer = data["agent"]
-            dataToFitnessFunction["swapAgent"] = True
-            dataToFitnessFunction["agent"] = agentBuffer
+            dataMasterToWorker["swapAgent"] = True
+            dataMasterToWorker["agent"] = agentBuffer
+            agentBuffer = dataWorkerToMaster["agent"]
+        comm.send(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async
+        # req = comm.isend(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)
+        # req.wait()
 
-        print("-- Rank {}. Data Received: {} from {}!".format(rank, data, worker))
-        comm.send({"agentToReceive": swappedAgent}, dest=data["rank"], tag=2)
-        swappedAgent = data["agentToSend"]
-        totalSecondsWork += data["worked"]
-        print("mean_mse: {}".format(data["mean_mse"]))
-        if data["mean_mse"] <= mean_mse_threshold:
-            print("Abort: mean_mse = {} less than ".format(data["mean_mse"]))
-            # comm.Abort()
-        # TODO: block for func call sync
-        # TODO: stop condition if mean_mse >= 0.95
     endTime = time.time()
     print("-- Total work: %d secs in %.2f secs, speedup: %.2f / %d" % (
         totalSecondsWork, round(endTime - startTime, 2),
         totalSecondsWork / round(endTime - startTime, 2), size - 1))
-
     # comm.Disconnect()
 
 else:  # Worker Node
@@ -160,45 +195,27 @@ else:  # Worker Node
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
-        print("-- Rank {}. Data Received: {}!".format(rank, data))
+        print("-- Rank {}. Data Received: {}!".format(rank, initData))
         print("-- Island: {}".format(island))
 
         x_data_3d, y_data = loadData()
 
-        islandAgents = np.array([rank] * 20)  # Populate agents
+        islandAgents = np.array([rank] * 5)  # Populate agents
         dataManipulation["rank"] = rank
         dataManipulation["island"] = island
         dataManipulation["comm"] = comm
 
         # TODO: implement MPI versions
         if island == 'rand':
-            # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
-            particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
             # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'pso':
-            # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
             particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
             # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'de':
-            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
-            # randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
-            particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'bh':
             # basinHoppingpModelSearch(x_data_3d, y_data, dataManipulation)
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
-            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
-
-
-        #     data['worked'] = timeWorked
-        #     data['mean_mse'] = np.array(random.uniform(0.7, 0.95))
-        #     data['iteration'] = i
-        #     data['agentToSend'] = islandAgents[agentReplaceIndex]  # TODO: agent genotype -> phenotype
-        #
-        #     req = comm.isend(data, dest=master, tag=1)
-        #     req.wait()
-        #
-        #     agent = comm.recv(source=0, tag=2)
-        #
-        #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject speciated agent
+            differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
 
         print("-- Done({}). Agents: {}.".format(island, islandAgents))

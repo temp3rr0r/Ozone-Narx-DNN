@@ -305,26 +305,118 @@ def trainModel(x, *args):
     K.clear_session()  # Manually clear_session with keras 2.1.6
     gc.collect()
 
+    # endTime = time.time()
+    # data = {"worked": endTime - startTime}
+    # data["rank"] = rank
+    # data["agentToReceive"] = 1
+    # data["mean_mse"] = mean_mse
+    # data["agentToSend"] = full_model_parameters
+    # data["agentToReceive"] = full_model_parameters
+    # #     data['agentToSend'] = islandAgents[agentReplaceIndex]  # TODO: agent genotype -> phenotype
+    # # dataManipulation['agentToSend'] = full_model_parameters  # TODO: agent genotype -> phenotype
+    # comm = dataManipulation["comm"]
+    # req = comm.isend(data, dest=master, tag=1)
+    # req.wait()
+    #
+    # #     agent = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    # #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject island agent
+    #
+    # agentOut = {"swapAgent": False}
+    # if True:
+    #     agentOut["swapAgent"] = True
+    #     agentOut["agent"] = x
+    #
+    # return mean_mse, agentOut
+    # # return mean_mse
+
     endTime = time.time()
-    data = {"worked": endTime - startTime}
-    data["rank"] = rank
-    data["agentToReceive"] = 1
-    data["mean_mse"] = mean_mse
-    data["agentToSend"] = full_model_parameters
-    data["agentToReceive"] = full_model_parameters
-    #     data['agentToSend'] = islandAgents[agentReplaceIndex]  # TODO: agent genotype -> phenotype
-    # dataManipulation['agentToSend'] = full_model_parameters  # TODO: agent genotype -> phenotype
+    # TODO: worker to master
+    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
     comm = dataManipulation["comm"]
-    req = comm.isend(data, dest=master, tag=1)
+    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
     req.wait()
 
-    #     agent = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject island agent
+    # TODO: master to worker
+    agentToEa = {"swapAgent": False, "agent": None}
+    # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    req = comm.irecv(source=0, tag=2)
+    dataMasterToWorker = req.wait()
 
-    agentOut = {"swapAgent": False}
-    if True:
-        agentOut["swapAgent"] = True
-        agentOut["agent"] = x
+    swapAgent = dataMasterToWorker["swapAgent"]
+    if swapAgent:
+        outAgent = dataMasterToWorker["agent"]
+        agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
 
-    return mean_mse, agentOut
-    # return mean_mse
+    return mean_mse, agentToEa
+
+
+def trainModel2(x, *args):
+
+    startTime = time.time()  # training time per model
+
+    trainModel.counter += 1
+    modelLabel = trainModel.label
+    modelFolds = trainModel.folds
+    dataManipulation = trainModel.dataManipulation
+    rank = dataManipulation["rank"]
+    master = dataManipulation["master"]
+    x_data, y_data = args
+    full_model_parameters = x.copy()
+
+    timeToSleep = np.random.uniform(0, 0.01)
+    time.sleep(timeToSleep)
+    mean_mse = 333.33 + timeToSleep
+
+    trainModel.counter += 1
+    endTime = time.time()
+    # TODO: worker to master
+    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
+    comm = dataManipulation["comm"]
+    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
+    req.wait()
+
+    # TODO: master to worker
+    agentToEa = {"swapAgent": False, "agent": None}
+    dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    # req = comm.irecv(source=0, tag=2)
+    # dataMasterToWorker = req.wait()
+
+    swapAgent = dataMasterToWorker["swapAgent"]
+    if swapAgent:
+        outAgent = dataMasterToWorker["agent"]
+        agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
+
+    return mean_mse, agentToEa
+
+def trainModel3(x, *args):
+
+    startTime = time.time()  # training time per model
+
+    trainModel.counter += 1
+    dataManipulation = trainModel.dataManipulation
+    rank = dataManipulation["rank"]
+    master = dataManipulation["master"]
+
+    timeToSleep = np.random.uniform(0, 0.04)
+    time.sleep(timeToSleep)
+    mean_mse = 333.33 + timeToSleep
+
+    endTime = time.time()
+    # TODO: worker to master
+    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
+    comm = dataManipulation["comm"]
+    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
+    req.wait()
+
+    # TODO: master to worker
+    agentToEa = {"swapAgent": False, "agent": None}
+    dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    # req = comm.irecv(source=0, tag=2)
+    # dataMasterToWorker = req.wait()
+
+    swapAgent = dataMasterToWorker["swapAgent"]
+    if swapAgent:
+        outAgent = dataMasterToWorker["agent"]
+        agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
+
+    return mean_mse
