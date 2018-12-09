@@ -4,36 +4,13 @@
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter7.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/randModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/randModelIter1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/randModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/randModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/100runsDefault/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/100runsDefault/deRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/100runsDefault/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/100runsDefault/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/100runsDefault/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/100runsDefault/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyswarm/pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyswarm/pso.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +45,7 @@
           <entry key="csv" value="12" />
           <entry key="pkl" value="6" />
           <entry key="png" value="2" />
-          <entry key="py" value="125" />
+          <entry key="py" value="128" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -76,22 +53,22 @@
           <entry key="CSV" value="12" />
           <entry key="Image" value="2" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="125" />
+          <entry key="Python" value="128" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="33" />
-          <entry key="py" value="9559" />
-          <entry key="txt" value="1087" />
+          <entry key="py" value="9686" />
+          <entry key="txt" value="1112" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="1120" />
-          <entry key="Python" value="9559" />
+          <entry key="PLAIN_TEXT" value="1145" />
+          <entry key="Python" value="9686" />
         </counts>
       </usages-collector>
     </session>
@@ -99,25 +76,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+        <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="791">
-              <caret line="95" column="86" lean-forward="true" selection-start-line="95" selection-start-column="86" selection-end-line="95" selection-end-column="86" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-                <marker date="1544323445704" expanded="true" signature="2406:3028" ph="..." />
-                <marker date="1544323445704" expanded="true" signature="4387:4392" ph="..." />
-                <marker date="1544323445704" expanded="true" signature="5771:5777" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="149" column="51" selection-start-line="149" selection-start-column="51" selection-end-line="149" selection-end-column="51" />
+            <state relative-caret-position="221">
+              <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -126,12 +88,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaseNarxModel.py">
+        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3697">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="247">
+              <caret line="151" column="13" selection-start-line="151" selection-start-column="13" selection-end-line="151" selection-end-column="13" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
+                <marker date="1544325016259" expanded="true" signature="2406:3028" ph="..." />
+                <marker date="1544325016259" expanded="true" signature="4387:4392" ph="..." />
+                <marker date="1544325016259" expanded="true" signature="5771:5777" ph="..." />
               </folding>
             </state>
           </provider>
@@ -140,10 +105,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="132" column="41" selection-start-line="132" selection-start-column="41" selection-end-line="132" selection-end-column="41" />
+            <state relative-caret-position="672">
+              <caret line="340" column="47" lean-forward="true" selection-start-line="340" selection-start-column="47" selection-end-line="340" selection-end-column="47" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="706">
+              <caret line="181" column="19" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+                <element signature="e#910#3495#0" />
               </folding>
             </state>
           </provider>
@@ -631,7 +609,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544320913178</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Before trying 3x rand.">
+      <created>1544323638050</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1544323638050</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView">
@@ -726,7 +711,8 @@
     <MESSAGE value="Before agent swapping in DE." />
     <MESSAGE value="DE agent swap call works. Before actually swapping an agent within DE." />
     <MESSAGE value="Replaced agent params and trial (scaled/unscaled params). Before testing with full trainModel func." />
-    <option name="LAST_COMMIT_MESSAGE" value="Replaced agent params and trial (scaled/unscaled params). Before testing with full trainModel func." />
+    <MESSAGE value="Before trying 3x rand." />
+    <option name="LAST_COMMIT_MESSAGE" value="Before trying 3x rand." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -873,16 +859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1029">
-          <caret line="86" column="39" lean-forward="true" selection-start-line="86" selection-start-column="39" selection-end-line="86" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/scipy/optimize/_basinhopping.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -937,10 +913,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+    <entry file="file://$PROJECT_DIR$/psoMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="132" column="41" selection-start-line="132" selection-start-column="41" selection-end-line="132" selection-end-column="41" />
+        <state relative-caret-position="221">
+          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -949,23 +925,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="791">
-          <caret line="95" column="86" lean-forward="true" selection-start-line="95" selection-start-column="86" selection-end-line="95" selection-end-column="86" />
+        <state relative-caret-position="247">
+          <caret line="151" column="13" selection-start-line="151" selection-start-column="13" selection-end-line="151" selection-end-column="13" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-            <marker date="1544323445704" expanded="true" signature="2406:3028" ph="..." />
-            <marker date="1544323445704" expanded="true" signature="4387:4392" ph="..." />
-            <marker date="1544323445704" expanded="true" signature="5771:5777" ph="..." />
+            <marker date="1544325016259" expanded="true" signature="2406:3028" ph="..." />
+            <marker date="1544325016259" expanded="true" signature="4387:4392" ph="..." />
+            <marker date="1544325016259" expanded="true" signature="5771:5777" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="340" column="47" lean-forward="true" selection-start-line="340" selection-start-column="47" selection-end-line="340" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="149" column="51" selection-start-line="149" selection-start-column="51" selection-end-line="149" selection-end-column="51" />
+        <state relative-caret-position="706">
+          <caret line="181" column="19" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#910#3495#0" />
           </folding>
         </state>
       </provider>

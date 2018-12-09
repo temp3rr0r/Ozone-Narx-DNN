@@ -372,8 +372,10 @@ def trainModel2(x, *args):
     # TODO: worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
     comm = dataManipulation["comm"]
-    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
+    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
     req.wait()
+    # comm.send(dataWorkerToMaster, dest=master, tag=1)
+
 
     # TODO: master to worker
     agentToEa = {"swapAgent": False, "agent": None}

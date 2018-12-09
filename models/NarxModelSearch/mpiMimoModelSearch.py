@@ -7,10 +7,8 @@ from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSear
 import os
 import time
 from mpi4py import MPI
-from random import randint
 import numpy as np
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
 
 # modelLabel = 'rand'
@@ -112,7 +110,7 @@ def getTotalMessageCount(islands, size, dataManipulation):
         elif islands[i] == "bh":
             totalMessageCount += bhMessageCount
 
-    return totalMessageCount
+    return int(totalMessageCount)
 
 
 comm = MPI.COMM_WORLD
@@ -120,7 +118,7 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-islands = ['rand', 'rand', 'de']
+islands = ['rand', 'rand', 'rand']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
@@ -140,13 +138,17 @@ if rank == 0:  # Master Node
 
     totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
+    # for messageId in range(totalMessageCount * (size - 1)):
     for messageId in range(totalMessageCount):
     # for messageId in range(7):  # TODO 1000-1200 bh iters
         swapCounter += 1
 
         # Worker to master
-        req = comm.irecv(tag=1)
+
+        req = comm.irecv(tag=1)  # TODO: test sync
         dataWorkerToMaster = req.wait()
+        # dataWorkerToMaster = comm.recv(tag=1)
+
         # print("--- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
         totalSecondsWork += dataWorkerToMaster["worked"]
         print("mean_mse: {}".format(dataWorkerToMaster["mean_mse"]))
@@ -155,8 +157,9 @@ if rank == 0:  # Master Node
             # comm.Abort()  # TODO: block for func call sync
 
         # Master to worker
+
         dataMasterToWorker = {"swapAgent": False, "agent": None}
-        if swapCounter > swapEvery:  # TODO: decide to swap that agent
+        if swapCounter > swapEvery:
             print("========= Swapping...")
             swapCounter = 0
             dataMasterToWorker["swapAgent"] = True
@@ -172,10 +175,13 @@ if rank == 0:  # Master Node
 
 else:  # Worker Node
 
-    if rank == 1:  # TODO: rank per gpu
-        os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 1070Ti only
+
+    if rank == 1:  # Rank per gpu
+        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
     elif rank == 2:
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 970 only
+        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
 
     # os.environ["CUDA_VISIBLE_DEVICES"] = str(rank - 1)  # Use the 1070Ti or 970  # TODO: auto set gpu per rank
 
