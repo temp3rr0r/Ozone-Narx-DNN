@@ -472,8 +472,12 @@ class DifferentialEvolutionSolver(object):
             self.population_energies[index], agentIn = self.func(parameters, *self.args)
             if agentIn["swapAgent"]:
                 parameters = agentIn["agent"]
-                print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
+                # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
                 self.population[index] = self._unscale_parameters(parameters)
+                if agentIn["agent"][0] == 266:
+                    print("======DE: swapped in DE agent")
+                elif agentIn["agent"][0] == 133:
+                    print("******DE: swapped in PSO agent")
                 # if agentIn["agent"] != 0 and agentIn["agent"] is not None:
                 #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
                 #     # print("bfr parameters: {}".format(parameters))
@@ -535,6 +539,10 @@ class DifferentialEvolutionSolver(object):
                     parameters = agentIn["agent"]
                     trial = self._unscale_parameters(parameters)
                     self.population[candidate] = trial
+                    if agentIn["agent"][0] == 266:
+                        print("======DE: swapped in DE agent")
+                    elif agentIn["agent"][0] == 133:
+                        print("******DE: swapped in PSO agent")
                     # if agentIn["agent"] != 0 and agentIn["agent"] is not None:
                     #     # print("candidate: {}".format(candidate))
                     #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))

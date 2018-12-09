@@ -21,10 +21,11 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
+    "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
-    "folds": 2,
-    "iterations": 2,
-    "agents": 4
+    "folds": 10,
+    "iterations": 20,
+    "agents": 5
 }
 dataDetrend = False  # TODO: de-trend
 # master = 0
@@ -49,8 +50,9 @@ def loadData():
     # TODO: test 1 station only printouts
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
-    r = r[1:(365+60):]  # TODO: greately decrease r for testing (365 days + 2 x X amount) and remove 40 vars
-    r = np.delete(r, range(5, 50), axis=1)
+    # TODO: greately decrease r for testing (365 days + 2 x X amount) and remove 40 vars
+    # r = r[1:(365+60):]
+    # r = np.delete(r, range(5, 50), axis=1)
 
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0, 0]))
@@ -92,6 +94,7 @@ def loadData():
 
 def getTotalMessageCount(islands, size, dataManipulation):
 
+    # TODO: should all have close to equal iterations. rand most importantly
     totalMessageCount = 0
     iterations = dataManipulation["iterations"]
     psoMessageCount = (iterations + 1) * dataManipulation["agents"]
@@ -118,7 +121,7 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-islands = ['rand', 'rand', 'rand']
+islands = ['rand', 'pso', 'de', 'rand']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
@@ -133,7 +136,6 @@ if rank == 0:  # Master Node
 
     # iterations = dataManipulation["iterations"]
     swapCounter = 0
-    swapEvery = 5
     agentBuffer = getRandomModel()
 
     totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
@@ -159,13 +161,15 @@ if rank == 0:  # Master Node
         # Master to worker
 
         dataMasterToWorker = {"swapAgent": False, "agent": None}
-        if swapCounter > swapEvery:
+        if swapCounter > dataManipulation["swapEvery"]:
             print("========= Swapping...")
             swapCounter = 0
             dataMasterToWorker["swapAgent"] = True
             dataMasterToWorker["agent"] = agentBuffer
             agentBuffer = dataWorkerToMaster["agent"]
         comm.send(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async
+        # req = comm.isend(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async
+        # req.wait()
 
     endTime = time.time()
     print("--- Total work: %d secs in %.2f secs, speedup: %.2f / %d" % (

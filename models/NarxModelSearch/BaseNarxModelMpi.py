@@ -358,6 +358,13 @@ def trainModel2(x, *args):
     modelLabel = trainModel.label
     modelFolds = trainModel.folds
     dataManipulation = trainModel.dataManipulation
+    island = dataManipulation["island"]
+    if island == "de":
+        x[0] = 266
+        x[1] = 266
+    elif island == "pso":
+        x[0] = 133
+        x[1] = 133
     rank = dataManipulation["rank"]
     master = dataManipulation["master"]
     x_data, y_data = args
@@ -372,16 +379,15 @@ def trainModel2(x, *args):
     # TODO: worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
     comm = dataManipulation["comm"]
-    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
-    req.wait()
-    # comm.send(dataWorkerToMaster, dest=master, tag=1)
-
+    # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
+    # req.wait()
+    comm.send(dataWorkerToMaster, dest=master, tag=1)
 
     # TODO: master to worker
     agentToEa = {"swapAgent": False, "agent": None}
-    dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    # req = comm.irecv(source=0, tag=2)
-    # dataMasterToWorker = req.wait()
+    # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    req = comm.irecv(source=0, tag=2)
+    dataMasterToWorker = req.wait()
 
     swapAgent = dataMasterToWorker["swapAgent"]
     if swapAgent:
