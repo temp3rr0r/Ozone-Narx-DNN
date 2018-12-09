@@ -9,7 +9,10 @@ import time
 from mpi4py import MPI
 import numpy as np
 
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
+# os.environ["PATH"] += os.pathsep + 'C:/ProgramData/Anaconda3/pkgs/graphviz-2.38.0-h6538335_1009/Library/bin/graphviz'
 
 # modelLabel = 'rand'
 # modelLabel = 'de'
@@ -178,20 +181,23 @@ if rank == 0:  # Master Node
 
 else:  # Worker Node
 
-
-    if rank == 1:  # Rank per gpu
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
-    elif rank == 2:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
-
-    # os.environ["CUDA_VISIBLE_DEVICES"] = str(rank - 1)  # Use the 1070Ti or 970  # TODO: auto set gpu per rank
-
     print("waiting({})...".format(rank))
 
     initData = comm.recv(source=0, tag=0)  # Block wait the init command by the master
     if initData["command"] == "init":
+
+        if rank == 1:  # Rank per gpu
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
+        elif rank == 2:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
+        elif rank == 3:  # Rank per gpu
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "2"  # Use the 1070Ti only
+        elif rank == 4:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "3"  # Use the 970 only
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master

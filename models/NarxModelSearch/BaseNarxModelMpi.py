@@ -301,10 +301,10 @@ def trainModel(x, *args):
         print("Saved weights to disk")
 
     # TODO: test not deleting model
-    # del model  # Manually delete model
-    # from keras import backend as K
-    # K.clear_session()  # Manually clear_session with keras 2.1.6
-    # gc.collect()
+    del model  # Manually delete model
+    from keras import backend as K
+    K.clear_session()  # Manually clear_session with keras 2.1.6
+    gc.collect()
 
     # endTime = time.time()
     # data = {"worked": endTime - startTime}
