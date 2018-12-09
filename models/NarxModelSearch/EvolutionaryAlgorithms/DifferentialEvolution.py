@@ -471,7 +471,13 @@ class DifferentialEvolutionSolver(object):
             # self.population_energies[index] = self.func(parameters, *self.args)  # TODO: store agentIn
             self.population_energies[index], agentIn = self.func(parameters, *self.args)
             if agentIn["swapAgent"]:
-                print("agentIn: {}".format(agentIn))
+                    # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
+                    # print("bfr parameters: {}".format(parameters))
+                    # print("bfr self.population[index]: {}".format(self.population[index]))
+                    parameters = agentIn["agent"]
+                    self.population[index] = self._unscale_parameters(parameters)
+                    # print("aftr parameters: {}".format(parameters))
+                    # print("aftr self.population[index]: {}".format(self.population[index]))
             nfev += 1
 
             if nfev > self.maxfun:
@@ -522,8 +528,15 @@ class DifferentialEvolutionSolver(object):
                 # energy = self.func(parameters, *self.args)  # TODO: agentIn
                 energy, agentIn = self.func(parameters, *self.args)
                 if agentIn["swapAgent"]:
-                    print("agentIn: {}".format(agentIn))
-
+                    # print("candidate: {}".format(candidate))
+                    # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
+                    # print("self.population[candidate]: {}".format(self.population[candidate]))
+                    # print("bfr parameters: {}".format(parameters))
+                    # print("bfr trial: {}".format(trial))
+                    parameters = agentIn["agent"]
+                    trial = self._unscale_parameters(parameters)
+                    # print("after parameters: {}".format(parameters))
+                    # print("after trial: {}".format(trial))
                 nfev += 1
 
                 # if the energy of the trial candidate is lower than the
