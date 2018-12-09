@@ -1,19 +1,561 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
+    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="After storing the csv results from the p3.8xlarge (4x V100 gpus).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter5History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter5Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter5Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter5Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter5Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter101.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter102.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter104.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter27.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter41.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter43.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter45.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter46.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter47.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter51.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter52.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter53.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter54.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter55.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter56.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter57.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter58.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter59.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter61.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter62.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter63.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter65.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter66.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter67.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter68.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter69.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter70.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter71.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter72.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter73.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter74.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter77.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter78.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter79.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter80.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter81.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter82.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter83.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter84.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter85.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter86.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter87.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter90.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter91.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter92.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter95.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter97.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter98.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter30History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter30Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter30Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter30Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter30Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter64History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter64Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter64Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter64Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter64Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter101.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter27.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter41.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter43.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter45.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter46.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter47.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter51.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter52.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter53.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter54.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter55.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter56.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter57.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter58.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter59.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter61.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter62.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter63.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter65.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter66.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter67.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter68.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter69.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter70.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter71.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter72.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter73.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter74.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter77.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter78.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter79.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter80.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter81.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter82.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter83.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter84.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter85.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter86.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter87.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter90.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter91.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter92.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter95.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter97.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter98.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter99.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter282History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter282Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter282Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter282Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter282Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter101.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter102.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter104.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter105.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter106.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter107.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter108.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter109.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter110.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter111.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter112.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter113.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter114.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter115.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter116.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter117.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter118.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter119.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter120.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter121.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter122.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter123.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter124.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter125.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter126.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter127.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter129.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter130.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter131.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter132.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter133.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter134.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter135.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter136.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter137.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter138.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter139.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter140.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter141.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter142.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter143.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter144.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter145.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter146.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter147.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter148.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter149.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter151.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter152.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter153.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter154.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter155.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter156.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter157.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter158.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter159.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter160.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter161.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter162.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter163.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter164.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter165.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter166.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter167.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter168.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter169.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter170.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter171.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter172.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter173.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter174.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter175.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter176.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter177.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter178.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter179.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter180.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter181.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter182.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter183.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter184.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter185.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter186.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter187.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter188.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter189.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter190.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter191.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter193.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter194.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter195.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter196.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter197.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter198.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter199.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter200.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter201.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter202.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter203.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter204.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter205.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter206.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter207.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter208.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter209.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter210.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter211.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter212.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter213.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter214.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter215.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter216.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter217.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter218.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter219.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter220.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter221.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter222.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter223.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter224.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter225.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter226.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter227.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter228.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter229.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter230.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter231.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter232.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter233.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter234.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter235.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter236.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter237.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter238.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter239.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter241.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter242.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter243.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter244.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter245.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter246.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter247.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter248.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter249.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter250.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter251.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter252.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter253.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter254.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter255.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter257.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter258.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter259.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter260.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter261.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter262.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter263.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter264.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter265.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter266.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter267.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter268.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter269.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter27.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter270.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter271.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter272.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter273.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter274.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter275.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter276.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter277.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter278.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter279.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter280.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter281.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter282.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter283.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter284.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter285.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter286.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter287.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter288.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter289.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter290.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter291.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter292.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter293.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter294.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter295.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter296.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter297.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter298.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter299.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter300.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter41.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter43.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter45.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter46.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter47.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter51.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter52.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter53.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter54.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter55.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter56.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter57.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter58.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter59.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter61.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter62.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter63.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter65.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter66.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter67.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter68.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter69.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter70.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter71.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter72.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter73.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter74.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter77.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter78.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter79.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter80.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter81.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter82.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter83.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter84.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter85.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter86.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter87.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter90.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter91.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter92.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter95.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter97.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter98.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter99.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/100runsDefault/deRuns.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/100runsDefault/psoRuns.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/100runsDefault/randRuns.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/5agents20iters4islandsEvery10/deRuns.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/5agents20iters4islandsEvery10/psoRuns.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/5agents20iters4islandsEvery10/randRuns.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyswarm/pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyswarm/pso.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,28 +605,27 @@
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="33" />
-          <entry key="py" value="10225" />
-          <entry key="txt" value="1182" />
+          <entry key="py" value="10258" />
+          <entry key="txt" value="1296" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="1215" />
-          <entry key="Python" value="10225" />
+          <entry key="PLAIN_TEXT" value="1329" />
+          <entry key="Python" value="10258" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1671">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="-17">
+              <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="6" selection-end-column="9" />
               <folding>
-                <element signature="e#0#37#0" expanded="true" />
                 <element signature="e#3520#4327#0" />
               </folding>
             </state>
@@ -103,8 +644,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="541" selection-start-line="541" selection-end-line="544" selection-end-column="65" />
+            <state relative-caret-position="510">
+              <caret line="534" column="64" selection-start-line="534" selection-start-column="64" selection-end-line="534" selection-end-column="64" />
               <folding>
                 <element signature="e#117#181#0" expanded="true" />
               </folding>
@@ -115,8 +656,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="579">
-              <caret line="306" column="18" lean-forward="true" selection-start-line="303" selection-start-column="6" selection-end-line="306" selection-end-column="18" />
+            <state relative-caret-position="3315">
+              <caret line="306" column="16" selection-start-line="303" selection-start-column="4" selection-end-line="306" selection-end-column="16" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -124,10 +665,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
+            <state relative-caret-position="2414">
               <caret line="142" column="62" selection-start-line="142" selection-start-column="62" selection-end-line="142" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -203,11 +744,11 @@
         <option value="$PROJECT_DIR$/randMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/BaseNarxModel.py" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/__init__.py" />
-        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py" />
         <option value="$PROJECT_DIR$/pyswarm/pso.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
       </list>
     </option>
   </component>
@@ -645,7 +1186,21 @@
       <option name="project" value="LOCAL" />
       <updated>1544350896867</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Bfr testing async islands on 1xk80 ec2.">
+      <created>1544352263938</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1544352263938</updated>
+    </task>
+    <task id="LOCAL-00030" summary="After storing the csv results from the p3.8xlarge (4x V100 gpus).">
+      <created>1544368605822</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1544368605822</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView">
@@ -715,8 +1270,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed data reading bug." />
-    <MESSAGE value="Renamed min/max pickle files properly." />
     <MESSAGE value="Now standardizing &amp; normalizing is correct." />
     <MESSAGE value="After 300+ pos &amp; de runs." />
     <MESSAGE value="Before tesla v100 runs." />
@@ -740,7 +1293,9 @@
     <MESSAGE value="Before trying 3x rand." />
     <MESSAGE value="Before trying full run." />
     <MESSAGE value="Async island agent swapping seems to work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Async island agent swapping seems to work." />
+    <MESSAGE value="Bfr testing async islands on 1xk80 ec2." />
+    <MESSAGE value="After storing the csv results from the p3.8xlarge (4x V100 gpus)." />
+    <option name="LAST_COMMIT_MESSAGE" value="After storing the csv results from the p3.8xlarge (4x V100 gpus)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -919,17 +1474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1671">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-            <element signature="e#3520#4327#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pyswarm/pso.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -939,30 +1483,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="541" selection-start-line="541" selection-end-line="544" selection-end-column="65" />
+        <state relative-caret-position="510">
+          <caret line="534" column="64" selection-start-line="534" selection-start-column="64" selection-end-line="534" selection-end-column="64" />
           <folding>
             <element signature="e#117#181#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="306" column="18" lean-forward="true" selection-start-line="303" selection-start-column="6" selection-end-line="306" selection-end-column="18" />
+        <state relative-caret-position="2414">
+          <caret line="142" column="62" selection-start-line="142" selection-start-column="62" selection-end-line="142" selection-end-column="62" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="142" column="62" selection-start-line="142" selection-start-column="62" selection-end-line="142" selection-end-column="62" />
+        <state relative-caret-position="3315">
+          <caret line="306" column="16" selection-start-line="303" selection-start-column="4" selection-end-line="306" selection-end-column="16" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="6" selection-end-column="9" />
+          <folding>
+            <element signature="e#3520#4327#0" />
           </folding>
         </state>
       </provider>
