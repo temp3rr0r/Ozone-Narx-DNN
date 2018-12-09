@@ -105,6 +105,31 @@ def basinHoppingpModelSearch(x_data, y_data, dataManipulation=None):
     print(res)
 
 
+def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
+
+    iterations = dataManipulation["iterations"]
+    args = (x_data, y_data)
+    x0 = getRandomModel()
+    bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
+
+    # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
+    minimizer_kwargs = dict(method="TNC", bounds=bounds, args=args)  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
+    # minimizer_kwargs = dict(method="L-BFGS-B", bounds=bounds, args=y_test)  # use method L-BFGS-B because the problem is smooth and bounded
+    # minimizer_kwargs = dict(method="SLSQP", bounds=bounds, args=y_test)
+
+    baseMpi.trainModel.counter = 0  # Function call counter
+    baseMpi.trainModel.label = 'bh'
+    baseMpi.trainModel.folds = dataManipulation["folds"]
+    baseMpi.trainModel.dataManipulation = dataManipulation
+
+    # def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5,
+    #                  minimizer_kwargs=None, take_step=None, accept_test=None,
+    #                  callback=None, interval=50, disp=False, niter_success=None,
+    #                  seed=None):
+
+    res = basinhopping(baseMpi.trainModel3, x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
+    print(res)
+
 def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
 
     args = (x_data, y_data)
@@ -138,8 +163,7 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
     baseMpi.trainModel.label = 'pso'
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
-    # xopt1, fopt1 = pso(baseMpi.trainModel, lb, ub, maxiter=iterations,  # TODO: call fast dummy func
-    xopt1, fopt1 = pso(baseMpi.trainModel2, lb, ub, maxiter=iterations,
+    xopt1, fopt1 = pso(baseMpi.trainModel2, lb, ub, maxiter=iterations,  # TODO: call fast dummy func
                        swarmsize=agents, args=args)  # TODO: test other than default params
     print("==========Agents: {}".format(agents))
     printOptimum(xopt1, fopt1)

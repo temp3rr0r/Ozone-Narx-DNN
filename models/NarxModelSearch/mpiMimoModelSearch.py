@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
-    differentialEvolutionModelSearchMpi, basinHoppingpModelSearch, particleSwarmOptimizationModelSearchMpi, bounds
+    differentialEvolutionModelSearchMpi, basinHoppingpModelSearchMpi, particleSwarmOptimizationModelSearchMpi, bounds
 import os
 import time
 from mpi4py import MPI
@@ -24,13 +24,11 @@ dataManipulation = {
     # "scale": 'normalize',
     "master": 0,
     "folds": 2,
-    "iterations": 4,
-    "agents": 6
+    "iterations": 1,
+    "agents": 3
 }
-
-dataDetrend = False
-master = 0
-iterations = dataManipulation["iterations"]
+dataDetrend = False  # TODO: de-trend
+# master = 0
 
 def loadData():
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
@@ -96,8 +94,10 @@ def loadData():
 def getTotalMessageCount(islands, size, dataManipulation):
 
     totalMessageCount = 0
+    iterations = dataManipulation["iterations"]
     psoMessageCount = (iterations + 1) * dataManipulation["agents"]
     randMessageCount = iterations
+    bhMessageCount = 0  # TODO: basinHopping count
     deMessageCount = (# (dataManipulation["iterations"] + 1)
         2 * dataManipulation["agents"] * len(bounds))
 
@@ -108,6 +108,8 @@ def getTotalMessageCount(islands, size, dataManipulation):
             totalMessageCount += deMessageCount
         elif islands[i] == "rand":
             totalMessageCount += randMessageCount
+        elif islands[i] == "bh":
+            totalMessageCount += bhMessageCount
 
     return totalMessageCount
 
@@ -132,26 +134,16 @@ if rank == 0:  # Master Node
 
     # iterations = dataManipulation["iterations"]
     swapCounter = 0
-    swapEvery = 2
+    swapEvery = 5
     agentBuffer = 0
 
-    for messageId in range(getTotalMessageCount(islands, size, dataManipulation)):
+    totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
+    print("--- Expecting {} total messages...".format(totalMessageCount))
+    for messageId in range(totalMessageCount):  # TODO: bh iters
+    # for messageId in range(7):  # TODO 1000-1200 bh
         swapCounter += 1
 
-        # dataToFitnessFunction = {"swapAgent": False, "agent": None}
-        # if swapCounter > swapEvery:  # TODO: decide to swap that agent
-        #     swapCounter = 0
-        #     agentBuffer = data["agent"]
-        #     dataToFitnessFunction["swapAgent"] = True
-        #     dataToFitnessFunction["agent"] = agentBuffer
-        #
-        # print("-- Rank {}. Data Received: {} from {}!".format(rank, data, worker))
-        # comm.send({"agentToReceive": swappedAgent}, dest=data["rank"], tag=2)
-        # swappedAgent = data["agentToSend"]
-        # totalSecondsWork += data["worked"]
-        # print("mean_mse: {}".format(data["mean_mse"]))
-
-        # TODO: worker to master
+        # Worker to master
         req = comm.irecv(tag=1)
         dataWorkerToMaster = req.wait()
         # print("-- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
@@ -161,10 +153,10 @@ if rank == 0:  # Master Node
             # print("Abort: mean_mse = {} less than ".format(dataWorkerToMaster["mean_mse"]))
             # comm.Abort()  # TODO: block for func call sync
 
-        # TODO: master to worker
+        # Master to worker
         dataMasterToWorker = {"swapAgent": False, "agent": None}
         if swapCounter > swapEvery:  # TODO: decide to swap that agent
-            # print("==========Swapping...")
+            print("Swapping...")
             swapCounter = 0
             dataMasterToWorker["swapAgent"] = True
             dataMasterToWorker["agent"] = agentBuffer
@@ -200,22 +192,18 @@ else:  # Worker Node
 
         x_data_3d, y_data = loadData()
 
-        islandAgents = np.array([rank] * 5)  # Populate agents
         dataManipulation["rank"] = rank
         dataManipulation["island"] = island
         dataManipulation["comm"] = comm
 
         # TODO: implement MPI versions
         if island == 'rand':
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)  # TODO: test mpi pso
-            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'pso':
             particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
-            # differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'de':
             differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
         elif island == 'bh':
-            # basinHoppingpModelSearch(x_data_3d, y_data, dataManipulation)
-            differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            basinHoppingpModelSearchMpi(x_data_3d, y_data, dataManipulation)
 
-        print("-- Done({}). Agents: {}.".format(island, islandAgents))
+        print("--- Done({})!".format(island))
