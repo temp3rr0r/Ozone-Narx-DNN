@@ -27,7 +27,7 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
-    "iterations": 20,
+    "iterations": 40,
     "agents": 5
 }
 dataDetrend = False  # TODO: de-trend
@@ -123,7 +123,7 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-islands = ['rand', 'pso', 'de', 'rand']
+islands = ['de', 'de', 'de', 'de']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent

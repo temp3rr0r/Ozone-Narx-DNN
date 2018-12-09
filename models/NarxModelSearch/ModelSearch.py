@@ -150,10 +150,17 @@ def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
     polish = False
+    strategy = "best1bin"
+    if dataManipulation["rank"] == 1:
+        strategy = "best2exp"
+    elif dataManipulation["rank"] == 2:
+        strategy = "rand2exp"
+    print("--- Using strategy: {}".format(strategy))
+
     xopt1 = differential_evolution(
         # baseMpi.trainModel2,  #  TODO: call fast dummy func
-        baseMpi.trainModel,
-        bounds, args=args,popsize=agents, maxiter=iterations, polish=polish)  # TODO: test DE params
+        baseMpi.trainModel, bounds, args=args,popsize=agents, maxiter=iterations,
+        polish=polish, strategy=strategy)  # TODO: test DE params
     printOptimum(xopt1, xopt1)
 
 def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
