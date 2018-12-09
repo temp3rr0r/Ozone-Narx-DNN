@@ -300,10 +300,11 @@ def trainModel(x, *args):
         model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel)) # serialize weights to HDF5
         print("Saved weights to disk")
 
-    del model  # Manually delete model
-    from keras import backend as K
-    K.clear_session()  # Manually clear_session with keras 2.1.6
-    gc.collect()
+    # TODO: test not deleting model
+    # del model  # Manually delete model
+    # from keras import backend as K
+    # K.clear_session()  # Manually clear_session with keras 2.1.6
+    # gc.collect()
 
     # endTime = time.time()
     # data = {"worked": endTime - startTime}
