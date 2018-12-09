@@ -468,10 +468,10 @@ class DifferentialEvolutionSolver(object):
         # calculate energies to start with
         for index, candidate in enumerate(self.population):
             parameters = self._scale_parameters(candidate)
-            self.population_energies[index] = self.func(parameters, *self.args)  # TODO: store agentIn
-            # self.population_energies[index], agentIn = self.func(parameters, *self.args)
-            # print("OK2===========")
-            # print("agentIn: {}".format(agentIn))
+            # self.population_energies[index] = self.func(parameters, *self.args)  # TODO: store agentIn
+            self.population_energies[index], agentIn = self.func(parameters, *self.args)
+            if agentIn["swapAgent"]:
+                print("agentIn: {}".format(agentIn))
             nfev += 1
 
             if nfev > self.maxfun:
@@ -519,10 +519,10 @@ class DifferentialEvolutionSolver(object):
                 parameters = self._scale_parameters(trial)
 
                 # determine the energy of the objective function
-                energy = self.func(parameters, *self.args)  # TODO: agentIn
-                # energy, agentIn = self.func(parameters, *self.args)
-                # print("OK3===========")
-                # print("agentIn: {}".format(agentIn))
+                # energy = self.func(parameters, *self.args)  # TODO: agentIn
+                energy, agentIn = self.func(parameters, *self.args)
+                if agentIn["swapAgent"]:
+                    print("agentIn: {}".format(agentIn))
 
                 nfev += 1
 

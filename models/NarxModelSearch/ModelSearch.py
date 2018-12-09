@@ -150,8 +150,9 @@ def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
     baseMpi.trainModel.dataManipulation = dataManipulation
     # xopt1, fopt1 = differential_evolution(baseMpi.trainModel, bounds, args=args,  #  TODO: call fast dummy func
     polish = False
-    xopt1 = differential_evolution(baseMpi.trainModel3, bounds, args=args,
-                                          popsize=agents, maxiter=iterations, polish=polish)  # TODO: test DE params
+    xopt1 = differential_evolution(
+        baseMpi.trainModel2,
+        bounds, args=args,popsize=agents, maxiter=iterations, polish=polish)  # TODO: test DE params
     printOptimum(xopt1, xopt1)
 
 def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):

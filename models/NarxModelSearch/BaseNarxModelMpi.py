@@ -387,36 +387,3 @@ def trainModel2(x, *args):
         agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
 
     return mean_mse, agentToEa
-
-def trainModel3(x, *args):
-
-    startTime = time.time()  # training time per model
-
-    trainModel.counter += 1
-    dataManipulation = trainModel.dataManipulation
-    rank = dataManipulation["rank"]
-    master = dataManipulation["master"]
-
-    timeToSleep = np.random.uniform(0, 0.04)
-    time.sleep(timeToSleep)
-    mean_mse = 333.33 + timeToSleep
-
-    endTime = time.time()
-    # TODO: worker to master
-    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
-    comm = dataManipulation["comm"]
-    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
-    req.wait()
-
-    # TODO: master to worker
-    agentToEa = {"swapAgent": False, "agent": None}
-    dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    # req = comm.irecv(source=0, tag=2)
-    # dataMasterToWorker = req.wait()
-
-    swapAgent = dataMasterToWorker["swapAgent"]
-    if swapAgent:
-        outAgent = dataMasterToWorker["agent"]
-        agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
-
-    return mean_mse
