@@ -1,40 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="DE x2 runs.">
+    <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="Added the 4x v100 stored models from ec2.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter3History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter3Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter3Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter3Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter3Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../Time-Series Forecasting Models.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +24,28 @@
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543946255376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1544225892058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="493">
+                    <caret line="304" column="32" selection-start-line="304" selection-start-column="18" selection-end-line="304" selection-end-column="32" />
+                    <folding>
+                      <element signature="e#117#181#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1490049371">
       <usages-collector id="statistics.lifecycle.project">
@@ -69,7 +62,7 @@
           <entry key="csv" value="12" />
           <entry key="pkl" value="6" />
           <entry key="png" value="2" />
-          <entry key="py" value="137" />
+          <entry key="py" value="138" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -77,33 +70,33 @@
           <entry key="CSV" value="12" />
           <entry key="Image" value="2" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="137" />
+          <entry key="Python" value="138" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="39" />
-          <entry key="py" value="10434" />
-          <entry key="txt" value="1406" />
+          <entry key="py" value="10468" />
+          <entry key="txt" value="1536" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="1445" />
-          <entry key="Python" value="10434" />
+          <entry key="PLAIN_TEXT" value="1575" />
+          <entry key="Python" value="10468" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3536">
-              <caret line="217" column="26" selection-start-line="217" selection-start-column="26" selection-end-line="217" selection-end-column="26" />
+            <state relative-caret-position="335">
+              <caret line="125" column="64" lean-forward="true" selection-start-line="125" selection-start-column="64" selection-end-line="125" selection-end-column="64" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -114,20 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="353" column="13" lean-forward="true" selection-start-line="353" selection-start-column="13" selection-end-line="353" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="160" column="24" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
+            <state relative-caret-position="366">
+              <caret line="353" column="13" selection-start-line="353" selection-start-column="13" selection-end-line="353" selection-end-column="13" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -136,12 +117,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
+        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="15" column="58" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="58" />
+            <state relative-caret-position="301">
+              <caret line="138" column="29" lean-forward="true" selection-start-line="138" selection-start-column="29" selection-end-line="138" selection-end-column="29" />
               <folding>
-                <element signature="e#117#181#0" expanded="true" />
+                <element signature="e#0#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -216,8 +197,8 @@
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/__init__.py" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py" />
         <option value="$PROJECT_DIR$/pyswarm/pso.py" />
-        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
       </list>
     </option>
@@ -691,7 +672,21 @@
       <option name="project" value="LOCAL" />
       <updated>1544394694185</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="After DE x2 runs (gpu 0 stopped at iteration 5). Prepared for 4x v100 runs.">
+      <created>1544426735783</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1544426735783</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Added the 4x v100 stored models from ec2.">
+      <created>1544427696912</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1544427696912</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TodoView">
@@ -707,7 +702,7 @@
     <frame x="-8" y="0" width="1282" height="1416" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2405892" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2405892" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -762,8 +757,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Before tesla v100 runs." />
-    <MESSAGE value="Storing pyplot images." />
     <MESSAGE value="Added 4 station 51 var data." />
     <MESSAGE value="Works well 4 station 51 var data?" />
     <MESSAGE value="Works well 4 station 51 var data. Yes. Printing out 4x time-series." />
@@ -787,7 +780,9 @@
     <MESSAGE value="After storing the csv results from the p3.8xlarge (4x V100 gpus)." />
     <MESSAGE value="Re-ordered older data storage. Re-ordered cuda device assignment. Bfr running from scratch." />
     <MESSAGE value="DE x2 runs." />
-    <option name="LAST_COMMIT_MESSAGE" value="DE x2 runs." />
+    <MESSAGE value="After DE x2 runs (gpu 0 stopped at iteration 5). Prepared for 4x v100 runs." />
+    <MESSAGE value="Added the 4x v100 stored models from ec2." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the 4x v100 stored models from ec2." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -973,10 +968,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3536">
-          <caret line="217" column="26" selection-start-line="217" selection-start-column="26" selection-end-line="217" selection-end-column="26" />
+        <state relative-caret-position="366">
+          <caret line="353" column="13" selection-start-line="353" selection-start-column="13" selection-end-line="353" selection-end-column="13" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -985,28 +980,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="15" column="58" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="58" />
+        <state relative-caret-position="493">
+          <caret line="304" column="32" selection-start-line="304" selection-start-column="18" selection-end-line="304" selection-end-column="32" />
           <folding>
             <element signature="e#117#181#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="353" column="13" lean-forward="true" selection-start-line="353" selection-start-column="13" selection-end-line="353" selection-end-column="13" />
+        <state relative-caret-position="301">
+          <caret line="138" column="29" lean-forward="true" selection-start-line="138" selection-start-column="29" selection-end-line="138" selection-end-column="29" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="160" column="24" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
+        <state relative-caret-position="335">
+          <caret line="125" column="64" lean-forward="true" selection-start-line="125" selection-start-column="64" selection-end-line="125" selection-end-column="64" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

@@ -123,7 +123,7 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-islands = ['de', 'de', 'de', 'de']
+islands = ['de', 'de', 'de', 'de', 'de', 'de', 'de', 'de', 'de']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
@@ -188,16 +188,28 @@ else:  # Worker Node
 
         if rank == 1:  # Rank per gpu
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use the 1070Ti only
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0"
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Use the 970 only
-        elif rank == 3:  # Rank per gpu
+            os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+        elif rank == 3:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "2"  # Use the 1070Ti only
+            os.environ["CUDA_VISIBLE_DEVICES"] = "2"
         elif rank == 4:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "3"  # Use the 970 only
+            os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+        elif rank == 5:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "4"
+        elif rank == 6:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "5"
+        elif rank == 7:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+        elif rank == 8:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "7"
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
