@@ -351,7 +351,7 @@ def trainModel(x, *args):
     return mean_mse, agentToEa
 
 
-def trainModel2(x, *args):
+def trainModelTester(x, *args):
 
     startTime = time.time()  # training time per model
 

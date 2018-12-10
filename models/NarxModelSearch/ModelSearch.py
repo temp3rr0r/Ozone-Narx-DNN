@@ -155,6 +155,10 @@ def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
         strategy = "best2exp"
     elif dataManipulation["rank"] == 2:
         strategy = "rand2exp"
+    elif dataManipulation["rank"] == 3:
+        strategy = "rand1exp"
+    elif dataManipulation["rank"] == 4:
+        strategy = "best1exp"
     print("--- Using strategy: {}".format(strategy))
 
     xopt1 = differential_evolution(
