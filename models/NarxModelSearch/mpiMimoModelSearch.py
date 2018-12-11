@@ -124,7 +124,8 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'de', 'pso', 'pso', 'de', 'de', 'rand']
+# islands = ['rand', 'pso', 'de', 'de', 'pso', 'pso', 'de', 'de', 'rand']
+islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
@@ -193,12 +194,12 @@ else:  # Worker Node
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-        # elif rank == 3:
-        #     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        #     os.environ["CUDA_VISIBLE_DEVICES"] = "2"
-        # elif rank == 4:
-        #     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        #     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+        elif rank == 3:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+        elif rank == 4:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master

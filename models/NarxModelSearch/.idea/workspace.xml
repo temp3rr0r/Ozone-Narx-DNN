@@ -3,333 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deIter1Series3Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/100runsDefault/logs/deRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/100runsDefault/logs/psoRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/100runsDefault/logs/randRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter23History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter23Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter23Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter23Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter23Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter2Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter2Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter2Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter3History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter3Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter3Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter3Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter3Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter77History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter77Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter77Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter77Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deIter77Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter37.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter41.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter42.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter43.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter44.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter46.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter47.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter52.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter53.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter54.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter55.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter56.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter57.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter59.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter61.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter62.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter63.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter65.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter66.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter67.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter68.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter69.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter70.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter71.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter72.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter73.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter74.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter75.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter77.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter78.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter79.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter80.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter81.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter82.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter83.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter84.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter85.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter86.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter87.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter88.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter89.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter91.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter92.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/deModelIter93.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/full_de_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/foundModels/min_mse.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/logs/deRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/logs/psoRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2de5agents20iters2islandsEvery10Rand2expBest2exp/invalidGpu0StoppedAt5/logs/randRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10/logs/deRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10/logs/psoRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10/logs/randRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter19History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter19Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter19Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter19Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter19Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/full_de_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/full_pso_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/min_mse.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter10History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter10Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter10Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter10Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter10Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter6History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter6Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter6Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter6Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoIter6Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter37.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter41.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter42.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter43.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter44.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/foundModels/psoModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/logs/deRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/logs/psoRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters2islandsEvery10b/logs/randRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter12History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter12Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter12Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter12Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter12Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter4History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter4Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter4Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter4Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deIter4Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/full_de_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/full_pso_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/min_mse.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/foundModels/psoModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/logs/deRuns.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/psoDe5agents20iters4islandsEvery10/logs/psoRuns.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -352,12 +40,13 @@
     <session id="1490049371">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="5" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -380,15 +69,15 @@
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="39" />
-          <entry key="py" value="11004" />
-          <entry key="txt" value="1653" />
+          <entry key="py" value="11028" />
+          <entry key="txt" value="1741" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="1692" />
-          <entry key="Python" value="11004" />
+          <entry key="PLAIN_TEXT" value="1780" />
+          <entry key="Python" value="11028" />
         </counts>
       </usages-collector>
     </session>
@@ -398,9 +87,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="3" selection-end-column="68" />
+            <state relative-caret-position="595">
+              <caret line="192" column="52" lean-forward="true" selection-start-line="192" selection-start-column="52" selection-end-line="192" selection-end-column="52" />
               <folding>
+                <element signature="e#0#37#0" expanded="true" />
                 <element signature="e#1157#3749#0" />
                 <element signature="e#3816#4623#0" />
               </folding>
@@ -411,7 +101,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2924">
+            <state relative-caret-position="2788">
               <caret line="172" selection-start-line="172" selection-end-line="172" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -502,10 +192,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
-    <option name="y" value="841" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="x" value="-11" />
+    <option name="y" value="-11" />
+    <option name="width" value="3863" />
+    <option name="height" value="2136" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -993,7 +683,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544429385923</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Added 2x GPU, 2x CPU island run results. Bfr running full cpu-only islands.">
+      <created>1544522798131</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1544522798131</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1006,9 +703,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4930" y="242" width="1111" height="1212" extended-state="0" />
+    <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23836657" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10059642" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1063,7 +761,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Works well 4 station 51 var data. Yes. Printing out 4x time-series." />
     <MESSAGE value="Storing fitness images, fixed a small label bug." />
     <MESSAGE value="Back to 10 folds. Pso default" />
     <MESSAGE value="100 runs de &amp; pso done. Before starting 100 rand runs." />
@@ -1088,7 +785,8 @@
     <MESSAGE value="Added the 4x v100 stored models from ec2." />
     <MESSAGE value="Prepared for 8x v100 run (ec2: p3.16xlarge) with DE (All DE exp strategies &amp; 2 binomial )." />
     <MESSAGE value="Prepared back for 4x v100 run (ec2: p3.8xlarge) with DE (4 DE exp strategies)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Prepared back for 4x v100 run (ec2: p3.8xlarge) with DE (4 DE exp strategies)." />
+    <MESSAGE value="Added 2x GPU, 2x CPU island run results. Bfr running full cpu-only islands." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added 2x GPU, 2x CPU island run results. Bfr running full cpu-only islands." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1247,9 +945,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3697">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1288,29 +983,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="353" column="13" selection-start-line="353" selection-start-column="13" selection-end-line="353" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="192" column="52" lean-forward="true" selection-start-line="192" selection-start-column="52" selection-end-line="192" selection-end-column="52" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#1157#3749#0" />
+            <element signature="e#3816#4623#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2924">
+        <state relative-caret-position="2788">
           <caret line="172" selection-start-line="172" selection-end-line="172" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="3" selection-end-column="68" />
-          <folding>
-            <element signature="e#1157#3749#0" />
-            <element signature="e#3816#4623#0" />
           </folding>
         </state>
       </provider>
