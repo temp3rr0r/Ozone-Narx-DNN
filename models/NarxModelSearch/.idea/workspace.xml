@@ -3,20 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,15 +55,15 @@
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="39" />
-          <entry key="py" value="11028" />
-          <entry key="txt" value="1741" />
+          <entry key="py" value="11057" />
+          <entry key="txt" value="1783" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="12" />
-          <entry key="PLAIN_TEXT" value="1780" />
-          <entry key="Python" value="11028" />
+          <entry key="PLAIN_TEXT" value="1822" />
+          <entry key="Python" value="11057" />
         </counts>
       </usages-collector>
     </session>
@@ -88,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="595">
-              <caret line="192" column="52" lean-forward="true" selection-start-line="192" selection-start-column="52" selection-end-line="192" selection-end-column="52" />
+              <caret line="187" column="86" lean-forward="true" selection-start-line="187" selection-start-column="86" selection-end-line="187" selection-end-column="86" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
                 <element signature="e#1157#3749#0" />
@@ -690,7 +676,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544522798131</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Saved last data, prepared for 4x gpu run.">
+      <created>1544536671835</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1544536671836</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TodoView">
@@ -704,7 +697,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10059642" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -761,7 +753,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Storing fitness images, fixed a small label bug." />
     <MESSAGE value="Back to 10 folds. Pso default" />
     <MESSAGE value="100 runs de &amp; pso done. Before starting 100 rand runs." />
     <MESSAGE value="Started implementing mpi version." />
@@ -786,7 +777,8 @@
     <MESSAGE value="Prepared for 8x v100 run (ec2: p3.16xlarge) with DE (All DE exp strategies &amp; 2 binomial )." />
     <MESSAGE value="Prepared back for 4x v100 run (ec2: p3.8xlarge) with DE (4 DE exp strategies)." />
     <MESSAGE value="Added 2x GPU, 2x CPU island run results. Bfr running full cpu-only islands." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added 2x GPU, 2x CPU island run results. Bfr running full cpu-only islands." />
+    <MESSAGE value="Saved last data, prepared for 4x gpu run." />
+    <option name="LAST_COMMIT_MESSAGE" value="Saved last data, prepared for 4x gpu run." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -989,7 +981,7 @@
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
-          <caret line="192" column="52" lean-forward="true" selection-start-line="192" selection-start-column="52" selection-end-line="192" selection-end-column="52" />
+          <caret line="187" column="86" lean-forward="true" selection-start-line="187" selection-start-column="86" selection-end-line="187" selection-end-column="86" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
             <element signature="e#1157#3749#0" />
