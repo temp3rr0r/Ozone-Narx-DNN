@@ -1,16 +1,16 @@
 from __future__ import print_function
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
     differentialEvolutionModelSearchMpi, basinHoppingpModelSearchMpi, particleSwarmOptimizationModelSearchMpi, \
     bounds, getRandomModel
-import os
 import time
 from mpi4py import MPI
 import numpy as np
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
 # os.environ["PATH"] += os.pathsep + 'C:/ProgramData/Anaconda3/pkgs/graphviz-2.38.0-h6538335_1009/Library/bin/graphviz'
 
@@ -123,7 +123,8 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-islands = ['de', 'de', 'de', 'de']
+# islands = ['bh', 'pso', 'de', 'rand']
+islands = ['rand', 'pso', 'de', 'de', 'pso', 'pso', 'de', 'de', 'rand']
 
 if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
@@ -192,12 +193,12 @@ else:  # Worker Node
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-        elif rank == 3:
-            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "2"
-        elif rank == 4:
-            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+        # elif rank == 3:
+        #     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        #     os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+        # elif rank == 4:
+        #     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        #     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master

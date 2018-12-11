@@ -150,15 +150,25 @@ def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
     polish = False
-    strategy = "best1bin"
-    if dataManipulation["rank"] == 1:
+    strategy = "best1bin"  # Dispatch of mutation strategy (Binomial or Exponential)
+    if dataManipulation["rank"] % 10 == 1:
+        strategy = "best1bin"
+    elif dataManipulation["rank"] % 10 == 2:
         strategy = "best2exp"
-    elif dataManipulation["rank"] == 2:
+    elif dataManipulation["rank"] % 10 == 3:
         strategy = "rand2exp"
-    elif dataManipulation["rank"] == 3:
+    elif dataManipulation["rank"] % 10 == 4:
+        strategy = "best2bin"
+    elif dataManipulation["rank"] % 10 == 5:
+        strategy = "rand2bin"
+    elif dataManipulation["rank"] % 10 == 6:
+        strategy = "randtobest1exp"
+    elif dataManipulation["rank"] % 10 == 7:
+        strategy = "randtobest1bin"
+    elif dataManipulation["rank"] % 10 == 8:
+        strategy = "rand1bin"
+    elif dataManipulation["rank"] % 10 == 9:
         strategy = "best1exp"
-    elif dataManipulation["rank"] == 4:
-        strategy = "rand1exp"
     print("--- Using strategy: {}".format(strategy))
 
     xopt1 = differential_evolution(
@@ -176,10 +186,52 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
     baseMpi.trainModel.label = 'pso'
     baseMpi.trainModel.folds = dataManipulation["folds"]
     baseMpi.trainModel.dataManipulation = dataManipulation
+
+    omega = 0.5  # Particle velocity
+    phip = 0.5  # Search away from particle's best known position (scaling factor)
+    phig = 0.5  # Search away swarm's best known position (scaling factor)
+    if dataManipulation["rank"] % 10 == 1:
+        omega = 0.5
+        phip = 0.5
+        phig = 0.5
+    elif dataManipulation["rank"] % 10 == 2:
+        omega = 0.75
+        phip = 0.75
+        phig = 0.75
+    elif dataManipulation["rank"] % 10 == 3:
+        omega = 0.25
+        phip = 0.25
+        phig = 0.25
+    elif dataManipulation["rank"] % 10 == 4:
+        omega = 0.95
+        phip = 0.95
+        phig = 0.95
+    elif dataManipulation["rank"] % 10 == 5:
+        omega = 0.05
+        phip = 0.05
+        phig = 0.05
+    elif dataManipulation["rank"] % 10 == 6:
+        omega = 0.85
+        phip = 0.85
+        phig = 0.85
+    elif dataManipulation["rank"] % 10 == 7:
+        omega = 0.15
+        phip = 0.15
+        phig = 0.15
+    elif dataManipulation["rank"] % 10 == 8:
+        omega = 0.99
+        phip = 0.99
+        phig = 0.99
+    elif dataManipulation["rank"] % 10 == 9:
+        omega = 0.01
+        phip = 0.01
+        phig = 0.01
+
     xopt1, fopt1 = pso(
         # baseMpi.trainModel2,   # TODO: call fast dummy func
         baseMpi.trainModel,
-        lb, ub, maxiter=iterations, swarmsize=agents, args=args)  # TODO: test other than default params
+        lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip,
+        phig=phig,args=args)  # TODO: test other than default params
     printOptimum(xopt1, fopt1)
 
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
