@@ -24,7 +24,7 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 4,  # 50000  # Do swap island agent every iterations
+    "swapEvery": 50000,  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
     "iterations": 40,
@@ -54,13 +54,17 @@ def loadData():
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-    # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
+    r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
 
     # TODO: greately decrease r for testing (365 days + 2 x X amount) and remove 40 vars
     # r = r[1:(365+60):]
     # r = np.delete(r, range(5, 50), axis=1)
 
-    # print("\nStart Array r:\n {}".format(r[::5]))
+    # TODO: greately decrease r for testing: 2000-2009 training, 2010 for testing
+    row2001_01_01 = 3653 - 1
+    r = r[row2001_01_01:None,:]
+    # print("r[0, 0]", r[0, 0])
+
     print("\nStart Array r:\n {}".format(r[0, 0]))
 
     maxLen = r.shape[1] - 1
@@ -68,9 +72,8 @@ def loadData():
     print('TimeSteps: {}'.format(r.shape[0]))
 
     # y_data 4 stations NOT 1
-    mimoOutputs = 4  # TODO: 1 station BETN073
-    # mimoOutputs = 1
-    # mimoOutputs = 1  # TODO: test 1 station only printouts
+    # mimoOutputs = 4  # TODO: 1 station BETN073
+    mimoOutputs = 1  # TODO: test 1 station only printouts
     x_data = r[:, mimoOutputs:maxLen + 1]
     y_data = r[:, 0:mimoOutputs]
 
@@ -128,8 +131,10 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
-# islands = ['rand'] * 32
+# islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
+islands = ['rand'] * 32
+
+loadData()  # TODO: temp test
 
 if rank == 0:  # Master Node
 
