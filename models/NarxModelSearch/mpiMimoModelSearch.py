@@ -24,7 +24,7 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 50000,  # Do swap island agent every iterations
+    "swapEvery": 4,  # 50000  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
     "iterations": 40,
@@ -129,7 +129,7 @@ name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
 islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
-islands = ['rand'] * 32
+# islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
