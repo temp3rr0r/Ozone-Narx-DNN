@@ -2,8 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Time-Series Forecasting Models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BETN073_ts_standardized.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/BETN073_ts_standardized.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter2History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter4History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +33,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1544715999422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1544718980931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$randMimoModelSearch.coverage" NAME="randMimoModelSearch Coverage Results" MODIFIED="1544049216774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deMimoModelSearch.coverage" NAME="deMimoModelSearch Coverage Results" MODIFIED="1543972447134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -56,7 +76,7 @@
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="39" />
-          <entry key="py" value="11455" />
+          <entry key="py" value="11530" />
           <entry key="txt" value="1783" />
         </counts>
       </usages-collector>
@@ -64,7 +84,7 @@
         <counts>
           <entry key="CSV" value="12" />
           <entry key="PLAIN_TEXT" value="1822" />
-          <entry key="Python" value="11455" />
+          <entry key="Python" value="11530" />
         </counts>
       </usages-collector>
     </session>
@@ -74,8 +94,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="578">
+              <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -142,7 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>validation MSE</find>
       <find>Validation</find>
       <find>time</find>
       <find>folds</find>
@@ -172,6 +191,7 @@
       <find>y_val</find>
       <find>ioa</find>
       <find>index</find>
+      <find>loaddata</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -741,7 +761,7 @@
     <frame x="3833" y="235" width="2208" height="1218" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11953489" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11953489" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -843,33 +863,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>138</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>136</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>81</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="43" />
+          <line>68</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1059,8 +1054,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="578">
+          <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

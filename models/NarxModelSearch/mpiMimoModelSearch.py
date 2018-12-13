@@ -24,14 +24,13 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 50000,  # Do swap island agent every iterations
+    "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
     "iterations": 40,
     "agents": 5
 }
 dataDetrend = False  # TODO: de-trend
-# master = 0
 
 def loadData():
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
@@ -61,9 +60,11 @@ def loadData():
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greately decrease r for testing: 2000-2009 training, 2010 for testing
-    row2001_01_01 = 3653 - 1
-    r = r[row2001_01_01:None,:]
-    # print("r[0, 0]", r[0, 0])
+    row2000_01_01 = 3653 - 1
+    row2010_12_31 = 7670
+    r = r[row2000_01_01:row2010_12_31,:]
+    print("r[0, 0]", r[0, 0])
+    print("r[-1, 0]", r[-1, 0])
 
     print("\nStart Array r:\n {}".format(r[0, 0]))
 
@@ -131,10 +132,8 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
-islands = ['rand'] * 32
-
-loadData()  # TODO: temp test
+islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
+# islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
