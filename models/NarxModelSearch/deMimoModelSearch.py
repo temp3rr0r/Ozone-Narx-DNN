@@ -46,6 +46,7 @@ if __name__ == "__main__":
     # TODO: test 1 station only printouts
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
+
     # print("\nStart Array r:\n {}".format(r[::5]))
     print("\nStart Array r:\n {}".format(r[0,0]))
 

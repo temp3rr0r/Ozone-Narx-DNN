@@ -268,8 +268,8 @@ def trainModel(x, *args):
         # Plot history
         pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
         pyplot.title("{} (iter: {}): Training History Last Fold".format(modelLabel, trainModel.counter))
-        pyplot.plot(history.history['loss'], label='loss')
         pyplot.plot(history.history['val_loss'], label='val_loss')
+        pyplot.plot(history.history['loss'], label='loss')
         pyplot.xlabel("Training Epoch")
         pyplot.ylabel("MSE")
         pyplot.grid(True)
