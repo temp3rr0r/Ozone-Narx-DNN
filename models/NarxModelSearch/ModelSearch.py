@@ -4,6 +4,7 @@ import random
 from EvolutionaryAlgorithms.DifferentialEvolution import differential_evolution
 from BaseNarxModel import trainModel
 import BaseNarxModelMpi as baseMpi
+# import rnnBaseNarxModelMpi as baseMpi
 from pyswarm.pso import pso
 from scipy.optimize import basinhopping
 import numpy as np
