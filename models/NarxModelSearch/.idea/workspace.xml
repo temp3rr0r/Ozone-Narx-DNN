@@ -2,37 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randModelIter6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter2Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter6.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -115,8 +111,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="26" column="60" lean-forward="true" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
+            <state relative-caret-position="340">
+              <caret line="80" column="29" lean-forward="true" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -1005,8 +1001,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="26" column="60" lean-forward="true" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
+        <state relative-caret-position="340">
+          <caret line="80" column="29" lean-forward="true" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
