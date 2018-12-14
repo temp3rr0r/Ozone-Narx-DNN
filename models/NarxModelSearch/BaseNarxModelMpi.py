@@ -284,8 +284,8 @@ def trainModel(x, *args):
             pyplot.title("{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)"
                     .format(modelLabel, trainModel.counter, i, np.round(holdout_rmse, 2),
                             np.round(holdout_mape * 100, 2), np.round(holdout_ioa * 100, 2)))
-            pyplot.plot(holdout_prediction[:,i], label='prediction')
             pyplot.plot(y_data_holdout[:,i], label='expected')
+            pyplot.plot(holdout_prediction[:,i], label='prediction')
             pyplot.xlabel("Time step")
             pyplot.ylabel("Sensor Value")
             pyplot.grid(True)
@@ -304,7 +304,7 @@ def trainModel(x, *args):
     # Memory handling
     del model  # Manually delete model
     from keras import backend as K
-    tf.reset_default_graph()  # TODO: check if it helps
+    tf.reset_default_graph()
     K.clear_session()  # Manually clear_session with keras 2.1.6
     gc.collect()
 
