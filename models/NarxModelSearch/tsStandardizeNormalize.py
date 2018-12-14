@@ -1,8 +1,10 @@
 import pandas as pd
-fromFileName = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+# fromFileName = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+fromFileName = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
 # fromFileName = "BETN073"
 ts = pd.DataFrame.from_csv("data/{}.csv".format(fromFileName), header=None)
 toFileName = "BETN073"  # TODO: temp
+# toFileName = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"  # TODO: temp
 # toFileName = fromFileName
 
 # Normalize/Standardize data before filling them

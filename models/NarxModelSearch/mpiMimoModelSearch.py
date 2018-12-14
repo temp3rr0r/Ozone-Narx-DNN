@@ -53,7 +53,7 @@ def loadData():
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-    r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
+    # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
 
     # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
     # r = r[1:(365+60):]
@@ -65,8 +65,8 @@ def loadData():
     # r = r[row2000_01_01:row2010_12_31,:]
 
     # TODO: greatly decrease r length for testing: 1990-2009 training, 2010 for testing
-    row2010_12_31 = 7670  # TODO: train on that scale
-    r = r[0:row2010_12_31, :]
+    # row2010_12_31 = 7670  # TODO: train on that scale
+    # r = r[0:row2010_12_31, :]
     print("\nStart Array r:\n {}".format(r[0, 0]))
 
     print("r[0, 0]", r[0, 0])
@@ -80,7 +80,7 @@ def loadData():
 
     # y_data 4 stations NOT 1
     # mimoOutputs = 4  # TODO: 1 station BETN073
-    mimoOutputs = 1  # TODO: test 1 station only printouts
+    mimoOutputs = 24  # TODO: test 1 station only printouts
     x_data = r[:, mimoOutputs:maxLen + 1]
     y_data = r[:, 0:mimoOutputs]
 
