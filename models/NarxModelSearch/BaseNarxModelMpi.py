@@ -11,6 +11,7 @@ from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormali
 from keras.utils import plot_model
 from IPython.display import SVG
 from keras.utils.vis_utils import model_to_dot
+import tensorflow as tf
 import pandas as pd
 import gc
 from sklearn.model_selection import TimeSeriesSplit
@@ -300,9 +301,10 @@ def trainModel(x, *args):
         model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel)) # serialize weights to HDF5
         print("Saved weights to disk")
 
-    # TODO: test not deleting model
+    # Memory handling
     del model  # Manually delete model
     from keras import backend as K
+    tf.reset_default_graph()  # TODO: check if it helps
     K.clear_session()  # Manually clear_session with keras 2.1.6
     gc.collect()
 
