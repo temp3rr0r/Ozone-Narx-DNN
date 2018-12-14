@@ -5,7 +5,7 @@ import numpy as np
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.models import Sequential
 from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormalization
 from keras.utils import plot_model
@@ -82,52 +82,16 @@ def trainModel(x, *args):
         # create model
         model = Sequential()
         lstm_kwargs = {'units': 64,
-                       # 'dropout': dropout1,
-                       # 'recurrent_dropout': recurrent_dropout1,
                        'return_sequences': False,
                        'implementation': 2}
         model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
         x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-
-        # if use_gaussian_noise1 == 1:
-        #     model.add(GaussianNoise(noise_stddev1))
-        # if useBatchNormalization1 == 1:
-        #     model.add(BatchNormalization())
-        # lstm_kwargs['units'] = units2
-        # lstm_kwargs['dropout'] = dropout2
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise2 == 1:
-        #     model.add(GaussianNoise(noise_stddev2))
-        # if useBatchNormalization2 == 1:
-        #     model.add(BatchNormalization())
-        # lstm_kwargs['units'] = units3
-        # lstm_kwargs['dropout'] = dropout3
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        # lstm_kwargs['return_sequences'] = False
-        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise3 == 1:
-        #     model.add(GaussianNoise(noise_stddev3))
-        # if useBatchNormalization3 == 1:
-        #     model.add(BatchNormalization())
         model.add(Dense(y_data.shape[1]))
         model.compile(loss='mean_squared_error', optimizer='sgd')
+        # TODO: "Old school" RNN?
 
-        # TODO: RNN
-        # model = Sequential()
-        # rnn_kwargs = {'units': 64, 'return_sequences': False, 'implementation': 2,
-        #               'input_shape': (x_data_3d.shape[1], x_data_3d.shape[2]), 'activation': 'sigmoid'}
-        # model.add(SimpleRNN(**rnn_kwargs))
-        # model.add(Dense(1, activation='sigmoid'))
-        # model.compile(loss='mean_squared_error', optimizer='sgd')
-
-        # TODO: do not store model on every step
-        # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
-        #               ReduceLROnPlateau(patience=3, verbose=1),
-        #               ModelCheckpoint(filepath='foundModels/best_model_{}.h5'.format(modelLabel), monitor='val_loss',
-        #                               save_best_only=True)]
-
-        early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto')]
+        early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
+                      TerminateOnNaN()]
 
         try:
             history = model.fit(x_data[train], y_data[train],

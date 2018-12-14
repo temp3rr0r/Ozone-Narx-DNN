@@ -5,7 +5,7 @@ import numpy as np
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.models import Sequential
 from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormalization
 from keras.utils import plot_model
@@ -118,7 +118,7 @@ def trainModel(x, *args):
         #                               save_best_only=True)]
 
         early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
-                      ReduceLROnPlateau(patience=3, verbose=1)]
+                      ReduceLROnPlateau(patience=3, verbose=1), TerminateOnNaN()]
 
         try:
             history = model.fit(x_data[train], y_data[train],
