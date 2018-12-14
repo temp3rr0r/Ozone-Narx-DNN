@@ -53,13 +53,13 @@ def loadData():
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-    r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
+    # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
 
-    # TODO: greately decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
+    # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
     # r = r[1:(365+60):]
     # r = np.delete(r, range(5, 50), axis=1)
 
-    # TODO: greately decrease r length for testing: 2000-2009 training, 2010 for testing
+    # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
     # row2000_01_01 = 3653 - 1
     # row2010_12_31 = 7670
     # r = r[row2000_01_01:row2010_12_31,:]
