@@ -1,6 +1,6 @@
 from __future__ import print_function
 import os
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 import sys
 import pandas as pd
@@ -27,10 +27,11 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
-    "iterations": 400,  # 40
+    "iterations": 40,  # 40
     "agents": 5
 }
 dataDetrend = False  # TODO: de-trend
+
 
 def loadData():
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
@@ -60,9 +61,9 @@ def loadData():
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    # row2000_01_01 = 3653 - 1
-    # row2010_12_31 = 7670
-    # r = r[row2000_01_01:row2010_12_31, :]
+    row2000_01_01 = 3653 - 1
+    row2010_12_31 = 7670
+    r = r[row2000_01_01:row2010_12_31, :]
 
     # TODO: greatly decrease r length for testing: 1990-2009 training, 2010 for testing
     # row2010_12_31 = 7670  # TODO: train on that scale
@@ -140,8 +141,8 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
-islands = ['rand'] * 32
+islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
+# islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
