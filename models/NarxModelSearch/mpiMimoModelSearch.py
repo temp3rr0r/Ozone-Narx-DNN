@@ -62,9 +62,9 @@ def loadData(directory, filePrefix, mimoOutputs):
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    row2000_01_01 = 3653 - 1
-    row2010_12_31 = 7670
-    r = r[row2000_01_01:row2010_12_31, :]
+    # row2000_01_01 = 3653 - 1
+    # row2010_12_31 = 7670
+    # r = r[row2000_01_01:row2010_12_31, :]
 
     # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
     # row2010_12_31 = 7670
