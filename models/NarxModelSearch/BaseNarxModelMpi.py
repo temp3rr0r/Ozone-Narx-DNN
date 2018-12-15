@@ -5,8 +5,9 @@ import numpy as np
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.models import Sequential
+
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormalization
 from keras.utils import plot_model
 from IPython.display import SVG
@@ -109,8 +110,65 @@ def trainModel(x, *args):
             model.add(GaussianNoise(noise_stddev3))
         if useBatchNormalization3 == 1:
             model.add(BatchNormalization())
+        model.add(Dense(units3))  # TODO: test with 2 extra dense layers
+        model.add(Dense(y_data.shape[1]))
         model.add(Dense(y_data.shape[1]))
         model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+        # model = Sequential()
+        # lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+        #                'return_sequences': True,
+        #                'implementation': 2}
+        # model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
+        # x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+        # if use_gaussian_noise1 == 1:
+        #     model.add(GaussianNoise(noise_stddev1))
+        # if useBatchNormalization1 == 1:
+        #     model.add(BatchNormalization())
+        # lstm_kwargs['units'] = units2
+        # lstm_kwargs['dropout'] = dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise2 == 1:
+        #     model.add(GaussianNoise(noise_stddev2))
+        # if useBatchNormalization2 == 1:
+        #     model.add(BatchNormalization())
+        # lstm_kwargs['units'] = units3
+        # lstm_kwargs['dropout'] = dropout3
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise3 == 1:
+        #     model.add(GaussianNoise(noise_stddev3))
+        # if useBatchNormalization3 == 1:
+        #     model.add(BatchNormalization())
+        # # TODO: double the architecture width
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise1 == 1:
+        #     model.add(GaussianNoise(noise_stddev1))
+        # if useBatchNormalization1 == 1:
+        #     model.add(BatchNormalization())
+        # lstm_kwargs['units'] = units2
+        # lstm_kwargs['dropout'] = dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise2 == 1:
+        #     model.add(GaussianNoise(noise_stddev2))
+        # if useBatchNormalization2 == 1:
+        #     model.add(BatchNormalization())
+        # lstm_kwargs['units'] = units3
+        # lstm_kwargs['dropout'] = dropout3
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        # lstm_kwargs['return_sequences'] = False
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise3 == 1:
+        #     model.add(GaussianNoise(noise_stddev3))
+        # if useBatchNormalization3 == 1:
+        #     model.add(BatchNormalization())
+        # # TODO: add extra 1x dense layers: last lstm unit size + final shape size
+        # model.add(Dense(units3))
+        # model.add(Dense(y_data.shape[1]))
+        # model.add(Dense(y_data.shape[1]))
+        # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
         # TODO: do not store model on every step
         # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),

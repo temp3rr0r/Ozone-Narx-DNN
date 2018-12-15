@@ -27,7 +27,7 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
-    "iterations": 40,
+    "iterations": 400,  # 40
     "agents": 5
 }
 dataDetrend = False  # TODO: de-trend
@@ -62,7 +62,7 @@ def loadData():
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
     # row2000_01_01 = 3653 - 1
     # row2010_12_31 = 7670
-    # r = r[row2000_01_01:row2010_12_31,:]
+    # r = r[row2000_01_01:row2010_12_31, :]
 
     # TODO: greatly decrease r length for testing: 1990-2009 training, 2010 for testing
     # row2010_12_31 = 7670  # TODO: train on that scale
@@ -80,6 +80,7 @@ def loadData():
 
     # y_data 4 stations NOT 1
     # mimoOutputs = 4  # TODO: 1 station BETN073
+    # mimoOutputs = 1
     mimoOutputs = 24  # TODO: test 1 station only printouts
     x_data = r[:, mimoOutputs:maxLen + 1]
     y_data = r[:, 0:mimoOutputs]
@@ -132,14 +133,15 @@ def getTotalMessageCount(islands, size, dataManipulation):
 
     return int(totalMessageCount)
 
+
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
-# islands = ['rand'] * 32
+# islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
+islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
