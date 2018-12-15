@@ -1,11 +1,9 @@
 from __future__ import print_function
 import random
-# from scipy.optimize import differential_evolution
 from EvolutionaryAlgorithms.DifferentialEvolution import differential_evolution
-from BaseNarxModel import trainModel
 import BaseNarxModelMpi as baseMpi
 # import NaiveRnnBaseNarxModelMpi as baseMpi
-from pyswarm.pso import pso
+from EvolutionaryAlgorithms.pyswarm.pso import pso
 from scipy.optimize import basinhopping
 import numpy as np
 

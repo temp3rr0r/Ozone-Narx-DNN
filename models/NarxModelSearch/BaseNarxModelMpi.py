@@ -28,6 +28,9 @@ def trainModel(x, *args):
     dataManipulation = trainModel.dataManipulation
     rank = dataManipulation["rank"]
     master = dataManipulation["master"]
+    directory = dataManipulation["directory"]
+    filePrefix = dataManipulation["filePrefix"]
+
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -87,7 +90,7 @@ def trainModel(x, *args):
                        'return_sequences': True,
                        'implementation': 2}
         model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
-        x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+            x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
 
         if use_gaussian_noise1 == 1:
             model.add(GaussianNoise(noise_stddev1))
@@ -208,8 +211,8 @@ def trainModel(x, *args):
         y_validation = y_data[validation]
 
         if dataManipulation["scale"] == 'standardize':
-            sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
-            sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
+            sensor_mean = pd.read_pickle(directory + filePrefix + "_ts_mean.pkl")
+            sensor_std = pd.read_pickle(directory + filePrefix + "_ts_std.pkl")
             # if trainModel.counter == 1:
             #     print("Un-standardizing...")
             #     print("sensor_mean:")
@@ -222,8 +225,8 @@ def trainModel(x, *args):
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif dataManipulation["scale"] == 'normalize':
-            sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
-            sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
+            sensor_min = pd.read_pickle(directory + filePrefix + "_ts_min.pkl")
+            sensor_max = pd.read_pickle(directory + filePrefix + "_ts_max.pkl")
             # if trainModel.counter == 1:
             #     print("Un-normalizing...")
             #     print("sensor_min:")
@@ -266,7 +269,6 @@ def trainModel(x, *args):
         full_smape = 0.01 * (100 / len(full_expected_ts) * np.sum(
             2 * np.abs(full_prediction - full_expected_ts) / (np.abs(full_expected_ts) + np.abs(full_prediction))))
         print('Full Data SMAPE: {}'.format(full_smape))
-
 
     # Plot model architecture
     plot_model(model, show_shapes=True, to_file='foundModels/{}ModelIter{}.png'.format(modelLabel, trainModel.counter))
@@ -356,7 +358,7 @@ def trainModel(x, *args):
         with open("foundModels/bestModelArchitecture.json".format(modelLabel), "w") as json_file:
             json_file.write(model_json)
             print("Saved model to disk")
-        model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel)) # serialize weights to HDF5
+        model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel))  # serialize weights to HDF5
         print("Saved weights to disk")
 
     # Memory handling
@@ -391,13 +393,13 @@ def trainModel(x, *args):
     # # return mean_mse
 
     endTime = time.time()
-    # TODO: worker to master
+    # Worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
     comm = dataManipulation["comm"]
     req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
     req.wait()
 
-    # TODO: master to worker
+    # Master to worker
     agentToEa = {"swapAgent": False, "agent": None}
     dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
     # req = comm.irecv(source=0, tag=2)
@@ -406,7 +408,7 @@ def trainModel(x, *args):
     swapAgent = dataMasterToWorker["swapAgent"]
     if swapAgent:
         outAgent = dataMasterToWorker["agent"]
-        agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
+        agentToEa = {"swapAgent": True, "agent": outAgent}
 
     return mean_mse, agentToEa
 
