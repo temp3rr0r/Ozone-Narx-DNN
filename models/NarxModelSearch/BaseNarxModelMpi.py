@@ -401,7 +401,7 @@ def trainModel(x, *args):
 
     # Master to worker
     agentToEa = {"swapAgent": False, "agent": None}
-    dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    dataMasterToWorker = comm.recv(source=master, tag=2)  # TODO: blocking or non-blocking?
     # req = comm.irecv(source=0, tag=2)
     # dataMasterToWorker = req.wait()
 

@@ -16,7 +16,7 @@ os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/gra
 
 # modelLabel = 'rand'
 # modelLabel = 'de'
-modelLabel = 'pso'  # TODO: PSO: 3 iterations x 20 swarmsize = 80 total iterations
+modelLabel = 'pso'
 # modelLabel = 'bh'
 
 dataManipulation = {
@@ -27,7 +27,7 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
     "folds": 10,
-    "iterations": 40,  # 40
+    "iterations": 40,
     "agents": 5
 }
 dataDetrend = False  # TODO: de-trend
@@ -153,7 +153,6 @@ if rank == 0:  # Master Node
         comm.send(initDataToWorkers, dest=worker, tag=0)
         print("--- Rank {}. Sending data: {} to {}...".format(rank, initDataToWorkers, worker))
 
-    # iterations = dataManipulation["iterations"]
     swapCounter = 0
     agentBuffer = getRandomModel()
 

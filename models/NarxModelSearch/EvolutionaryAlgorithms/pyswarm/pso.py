@@ -151,7 +151,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         for i in range(S):
             # fx[i] = obj(x[i, :])  # TODO: inject agent
             fx[i], agentIn = obj(x[i, :])
-            if agentIn["swapAgent"] == True:
+            if agentIn["swapAgent"]:
                 # if agentIn["agent"][0] == 266:
                 #     print("******PSO: swapped in DE agent")
                 # elif agentIn["agent"][0] == 133:
@@ -200,7 +200,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             for i in range(S):
                 # fx[i] = obj(x[i, :])  # TODO: inject agent
                 fx[i], agentIn = obj(x[i, :])
-                if agentIn["swapAgent"] == True:
+                if agentIn["swapAgent"]:
                     # if agentIn["agent"][0] == 266:
                     #     print("******PSO: swapped in DE agent")
                     # elif agentIn["agent"][0] == 133:

@@ -171,10 +171,12 @@ def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
     print("--- Using strategy: {}".format(strategy))
 
     xopt1 = differential_evolution(
-        # baseMpi.trainModel2,  #  TODO: call fast dummy func
-        baseMpi.trainModel, bounds, args=args,popsize=agents, maxiter=iterations,
+        # baseMpi.trainModelTester,  # TODO: call fast dummy func
+        baseMpi.trainModel,
+        bounds, args=args, popsize=agents, maxiter=iterations,
         polish=polish, strategy=strategy)  # TODO: test DE params
     printOptimum(xopt1, xopt1)
+
 
 def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
 
@@ -227,10 +229,10 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
         phig = 0.01
 
     xopt1, fopt1 = pso(
-        # baseMpi.trainModel2,   # TODO: call fast dummy func
+        # baseMpi.trainModelTester,   # TODO: call fast dummy func
         baseMpi.trainModel,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip,
-        phig=phig,args=args)  # TODO: test other than default params
+        phig=phig, args=args)  # TODO: test other than default params
     printOptimum(xopt1, fopt1)
 
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
@@ -243,7 +245,7 @@ def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
     for i in range(iterations):
         dataManipulation["iteration"] = i
         baseMpi.trainModel.dataManipulation = dataManipulation
-        # baseMpi.trainModel2(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
+        # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
         baseMpi.trainModel(np.array(getRandomModel()), *args)
 
 
