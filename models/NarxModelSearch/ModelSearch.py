@@ -40,70 +40,6 @@ ub = [bounds[0][1],  # batch_size
       bounds[18][1], bounds[19][1], bounds[20][1]]  # batch normalization
 
 
-def differentialEvolutionModelSearch(x_data, y_data, dataManipulation=None):
-
-    args = (x_data, y_data)
-    trainModel.counter = 0  # Function call counter
-    trainModel.dataManipulation = dataManipulation
-    trainModel.label = 'de'
-    xopt1, fopt1 = differential_evolution(trainModel, bounds, args=args)  # TODO: test DE params
-    printOptimum(xopt1, fopt1)
-
-def trainModel2(x, *args):
-    trainModel.counter += 1
-    modelLabel = trainModel.label
-    dataManipulation = trainModel.dataManipulation
-    x_data, y_data = args
-    return 540.2 * x[0]
-
-def trainModel3(x, *args):
-# def trainModel3(x, *args):
-    trainModel.counter += 1
-    modelLabel = trainModel.label
-    dataManipulation = trainModel.dataManipulation
-    x_data, y_data = args
-
-    # particleInject = particleEject + 0.2
-    particleInject = {"swapAgent" : False}
-    if np.random.randint(0, 10) > 2:
-        particleInject["swapAgent"] = True
-    particleInject["agent"] = np.zeros_like(x) + 0.1
-
-    return 540.2 * x[0], particleInject
-
-def particleSwarmOptimizationModelSearch(x_data, y_data, dataManipulation=None):
-
-    args = (x_data, y_data)
-    trainModel.counter = 0  # Function call counter
-    trainModel.dataManipulation = dataManipulation
-    trainModel.label = 'pso'
-    # xopt1, fopt1 = pso(trainModel, lb, ub, args=args, particle_output=True)  # TODO: test return particle
-    xopt1, fopt1 = pso(trainModel3, lb, ub, args=args)
-    # TODO: test larger swarm, more iterations
-    # pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
-    #     swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100, minstep=1e-8,
-    #     minfunc=1e-8, debug=False)
-    printOptimum(xopt1, fopt1)
-
-
-def basinHoppingpModelSearch(x_data, y_data, dataManipulation=None):
-
-    args = (x_data, y_data)
-    x0 = getRandomModel()
-    bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
-
-    # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
-    minimizer_kwargs = dict(method="TNC", bounds=bounds, args=args)  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
-    # minimizer_kwargs = dict(method="L-BFGS-B", bounds=bounds, args=y_test)  # use method L-BFGS-B because the problem is smooth and bounded
-    # minimizer_kwargs = dict(method="SLSQP", bounds=bounds, args=y_test)
-
-    trainModel.counter = 0  # Function call counter
-    trainModel.dataManipulation = dataManipulation
-    trainModel.label = 'bh'
-    res = basinhopping(trainModel, x0, minimizer_kwargs=minimizer_kwargs)
-    print(res)
-
-
 def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
 
     iterations = dataManipulation["iterations"]
@@ -125,19 +61,11 @@ def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
     #                  callback=None, interval=50, disp=False, niter_success=None,seed=None):
 
     res = basinhopping(
-        # baseMpi.trainModel3,
-        baseMpi.trainModel3,  #  TODO: call fast dummy func
+        # baseMpi.trainModel,
+        baseMpi.trainModelTester,  # TODO: call fast dummy func
         x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
     print(res)
 
-def randomModelSearch(x_data, y_data, dataManipulation=None, iterations=100):
-
-    args = (x_data, y_data)
-    trainModel.counter = 0  # Function call counter
-    trainModel.dataManipulation = dataManipulation
-    trainModel.label = 'rand'
-    for i in range(iterations):
-        trainModel(np.array(getRandomModel()), *args)
 
 def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
 

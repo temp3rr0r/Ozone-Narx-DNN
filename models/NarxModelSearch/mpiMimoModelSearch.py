@@ -4,7 +4,7 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called a
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 import sys
 import pandas as pd
-from ModelSearch import randomModelSearchMpi, particleSwarmOptimizationModelSearch, \
+from ModelSearch import randomModelSearchMpi, \
     differentialEvolutionModelSearchMpi, basinHoppingpModelSearchMpi, particleSwarmOptimizationModelSearchMpi, \
     bounds, getRandomModel
 import time
@@ -33,8 +33,9 @@ dataManipulation = {
 dataDetrend = False  # TODO: de-trend
 
 
-def loadData(directory, filePrefix):
-    # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences rather than single values.
+def loadData(directory, filePrefix, mimoOutputs):
+    # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences
+    # TODO: rather than single values.
     # TODO: masking layer? Skips timesteps
 
     # TODO: GridSearch CV http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
@@ -49,10 +50,6 @@ def loadData(directory, filePrefix):
     else:
         r = np.genfromtxt(directory + filePrefix + "_ts.csv", delimiter=',')
     r = np.delete(r, [0], axis=1)  # Remove dates
-
-    mimoOutputs = 4  # 4 stations
-    # mimoOutputs = 1  # 1 station
-    # mimoOutputs = 24  # All 24 rural stations BETN
 
     # TODO: test 1 station only printouts
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
@@ -220,10 +217,20 @@ else:  # Worker Node
         print("--- Rank {}. Data Received: {}!".format(rank, initData))
         print("--- Island: {}".format(island))
 
-        dataManipulation["directory"] = "data/4stations51vars/"
-        dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+        # dataManipulation["directory"] = "data/4stations51vars/"
+        # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+        # dataManipulation["mimoOutputs"] = 4
 
-        x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"])
+        # dataManipulation["directory"] = "data/4stations51vars/"
+        # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+        # dataManipulation["mimoOutputs"] = 24
+
+        dataManipulation["directory"] = "data/6vars/"
+        dataManipulation["filePrefix"] = "BETN073"
+        dataManipulation["mimoOutputs"] = 1
+
+        x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
+                                     dataManipulation["mimoOutputs"])
 
         dataManipulation["rank"] = rank
         dataManipulation["island"] = island

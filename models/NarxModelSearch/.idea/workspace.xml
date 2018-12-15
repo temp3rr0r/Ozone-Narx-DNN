@@ -2,23 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsStandardizeNormalize.py" beforeDir="false" afterPath="$PROJECT_DIR$/tsStandardizeNormalize.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +56,7 @@
           <entry key="ipynb" value="1" />
           <entry key="pkl" value="6" />
           <entry key="png" value="5" />
-          <entry key="py" value="182" />
+          <entry key="py" value="186" />
           <entry key="tex" value="2" />
         </counts>
       </usages-collector>
@@ -67,14 +66,14 @@
           <entry key="IPNB" value="1" />
           <entry key="Image" value="5" />
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Python" value="182" />
+          <entry key="Python" value="186" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="46" />
-          <entry key="py" value="12624" />
+          <entry key="py" value="12754" />
           <entry key="txt" value="1803" />
         </counts>
       </usages-collector>
@@ -82,7 +81,7 @@
         <counts>
           <entry key="CSV" value="12" />
           <entry key="PLAIN_TEXT" value="1849" />
-          <entry key="Python" value="12624" />
+          <entry key="Python" value="12754" />
         </counts>
       </usages-collector>
     </session>
@@ -92,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+            <state relative-caret-position="5848">
+              <caret line="344" column="42" selection-start-line="344" selection-start-column="42" selection-end-line="344" selection-end-column="42" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -102,52 +101,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="155" column="61" lean-forward="true" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NaiveRnnBaseNarxModelMpi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+            <state relative-caret-position="694">
+              <caret line="231" column="37" selection-start-line="231" selection-start-column="37" selection-end-line="231" selection-end-column="37" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -166,8 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>func</find>
-      <find>self.func</find>
       <find>, gpu</find>
       <find>verbo</find>
       <find>verbose</find>
@@ -196,6 +151,8 @@
       <find>ranks</find>
       <find>rand</find>
       <find>betn</find>
+      <find>del</find>
+      <find>del model</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -226,12 +183,12 @@
         <option value="$PROJECT_DIR$/rnnNarModel.py" />
         <option value="$PROJECT_DIR$/rnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/NaiveRnnBaseNarxModelMpi.py" />
-        <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
-        <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
-        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
+        <option value="$PROJECT_DIR$/ModelSearch.py" />
+        <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
       </list>
     </option>
   </component>
@@ -791,13 +748,13 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.1436464" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.3141798" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3141798" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005964" side_tool="true" weight="0.3216511" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32972136" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.37845305" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3781279" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -873,33 +830,28 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ModelSearch.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>42</line>
+          <line>43</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>74</line>
+          <line>75</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>84</line>
+          <line>85</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>91</line>
+          <line>92</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>93</line>
+          <line>94</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
@@ -1030,16 +982,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="650" column="42" lean-forward="true" selection-start-line="650" selection-start-column="42" selection-end-line="650" selection-end-column="42" />
-          <folding>
-            <element signature="e#117#181#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -1057,16 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
@@ -1074,10 +1006,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="155" column="61" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4323">
+          <caret line="470" column="85" selection-start-line="470" selection-start-column="85" selection-end-line="470" selection-end-column="85" />
+          <folding>
+            <element signature="e#117#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
+        <state relative-caret-position="680">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1086,18 +1035,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+        <state relative-caret-position="5848">
+          <caret line="344" column="42" selection-start-line="344" selection-start-column="42" selection-end-line="344" selection-end-column="42" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="155" column="61" lean-forward="true" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
+        <state relative-caret-position="694">
+          <caret line="231" column="37" selection-start-line="231" selection-start-column="37" selection-end-line="231" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

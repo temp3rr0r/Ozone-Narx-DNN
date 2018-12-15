@@ -113,8 +113,8 @@ def trainModel(x, *args):
             model.add(GaussianNoise(noise_stddev3))
         if useBatchNormalization3 == 1:
             model.add(BatchNormalization())
-        model.add(Dense(units3))  # TODO: test with 2 extra dense layers
-        model.add(Dense(y_data.shape[1]))
+        # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
+        # model.add(Dense(y_data.shape[1]))
         model.add(Dense(y_data.shape[1]))
         model.compile(loss='mean_squared_error', optimizer=optimizer)
 
@@ -200,8 +200,10 @@ def trainModel(x, *args):
         except:
             print("Exception: Returning max float value for this iteration.")
 
+            # Memory handling
             del model  # Manually delete model
             from keras import backend as K
+            tf.reset_default_graph()  # TODO: check if causes issues
             K.clear_session()  # Manually clear_session with keras 2.1.6
             gc.collect()
 
@@ -215,10 +217,8 @@ def trainModel(x, *args):
             sensor_std = pd.read_pickle(directory + filePrefix + "_ts_std.pkl")
             # if trainModel.counter == 1:
             #     print("Un-standardizing...")
-            #     print("sensor_mean:")
-            #     print(sensor_mean)
-            #     print("sensor_std:")
-            #     print(sensor_std)
+            #     print("sensor_mean:", sensor_mean)
+            #     print("sensor_std:", sensor_std)
             #     print(np.array(sensor_mean)[0:y_data.shape[1]])
             sensor_mean = np.array(sensor_mean)
             sensor_std = np.array(sensor_std)
@@ -229,10 +229,8 @@ def trainModel(x, *args):
             sensor_max = pd.read_pickle(directory + filePrefix + "_ts_max.pkl")
             # if trainModel.counter == 1:
             #     print("Un-normalizing...")
-            #     print("sensor_min:")
-            #     print(sensor_min)
-            #     print("sensor_max:")
-            #     print(sensor_max)
+            #     print("sensor_min:", sensor_min)
+            #     print("sensor_max:", sensor_max)
             #     print(np.array(sensor_min)[0:y_data.shape[1]])
             sensor_min = np.array(sensor_min)
             sensor_max = np.array(sensor_max)
@@ -344,8 +342,8 @@ def trainModel(x, *args):
             pyplot.title("{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)"
                     .format(modelLabel, trainModel.counter, i, np.round(holdout_rmse, 2),
                             np.round(holdout_mape * 100, 2), np.round(holdout_ioa * 100, 2)))
-            pyplot.plot(y_data_holdout[:,i], label='expected')
-            pyplot.plot(holdout_prediction[:,i], label='prediction')
+            pyplot.plot(y_data_holdout[:, i], label='expected')
+            pyplot.plot(holdout_prediction[:, i], label='prediction')
             pyplot.xlabel("Time step")
             pyplot.ylabel("Sensor Value")
             pyplot.grid(True)
@@ -364,33 +362,9 @@ def trainModel(x, *args):
     # Memory handling
     del model  # Manually delete model
     from keras import backend as K
-    tf.reset_default_graph()
+    tf.reset_default_graph()  # TODO: check if causes issues
     K.clear_session()  # Manually clear_session with keras 2.1.6
     gc.collect()
-
-    # endTime = time.time()
-    # data = {"worked": endTime - startTime}
-    # data["rank"] = rank
-    # data["agentToReceive"] = 1
-    # data["mean_mse"] = mean_mse
-    # data["agentToSend"] = full_model_parameters
-    # data["agentToReceive"] = full_model_parameters
-    # #     data['agentToSend'] = islandAgents[agentReplaceIndex]  # TODO: agent genotype -> phenotype
-    # # dataManipulation['agentToSend'] = full_model_parameters  # TODO: agent genotype -> phenotype
-    # comm = dataManipulation["comm"]
-    # req = comm.isend(data, dest=master, tag=1)
-    # req.wait()
-    #
-    # #     agent = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    # #     islandAgents[agentReplaceIndex] = agent["agentToReceive"]  # TODO: inject island agent
-    #
-    # agentOut = {"swapAgent": False}
-    # if True:
-    #     agentOut["swapAgent"] = True
-    #     agentOut["agent"] = x
-    #
-    # return mean_mse, agentOut
-    # # return mean_mse
 
     endTime = time.time()
     # Worker to master
@@ -402,8 +376,6 @@ def trainModel(x, *args):
     # Master to worker
     agentToEa = {"swapAgent": False, "agent": None}
     dataMasterToWorker = comm.recv(source=master, tag=2)  # TODO: blocking or non-blocking?
-    # req = comm.irecv(source=0, tag=2)
-    # dataMasterToWorker = req.wait()
 
     swapAgent = dataMasterToWorker["swapAgent"]
     if swapAgent:
@@ -439,14 +411,14 @@ def trainModelTester(x, *args):
 
     trainModel.counter += 1
     endTime = time.time()
-    # TODO: worker to master
+    # Worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
     comm = dataManipulation["comm"]
     # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
     # req.wait()
     comm.send(dataWorkerToMaster, dest=master, tag=1)
 
-    # TODO: master to worker
+    # Master to worker
     agentToEa = {"swapAgent": False, "agent": None}
     # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
     req = comm.irecv(source=0, tag=2)
@@ -455,6 +427,6 @@ def trainModelTester(x, *args):
     swapAgent = dataMasterToWorker["swapAgent"]
     if swapAgent:
         outAgent = dataMasterToWorker["agent"]
-        agentToEa = {"swapAgent": True, "agent": outAgent}  # TODO: agent phenotype -> genotype
+        agentToEa = {"swapAgent": True, "agent": outAgent}
 
     return mean_mse, agentToEa
