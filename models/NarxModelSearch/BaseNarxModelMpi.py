@@ -90,7 +90,9 @@ def trainModel(x, *args):
         lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
                        'return_sequences': True,
                        'implementation': 2,
-                       'kernel_regularizer': l2(0.01)  # TODO: test with kernel_regularizer=l2(0.01) or l1
+                       # 'kernel_regularizer': l2(0.01),
+                       # 'activity_regularizer': l2(0.01),
+                       # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
                        }
         model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
             x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
@@ -183,10 +185,12 @@ def trainModel(x, *args):
         #                               save_best_only=True)]
 
         early_stop = [EarlyStopping(monitor='val_loss', min_delta=0,
-                                    # patience=5, verbose=1, mode='auto'),  # TODO: test with large patience
-                                    patience=25, verbose=1, mode='min'),
+                                    # patience=25, verbose=1, mode='min'),
+                                    patience=5, verbose=1, mode='auto'),  # TODO: test with large patience
         ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7,
-                          patience=5, verbose=1), TerminateOnNaN()]
+                          patience=3,
+                          # patience=5,
+                          verbose=1), TerminateOnNaN()]
 
         try:
             history = model.fit(x_data[train], y_data[train],

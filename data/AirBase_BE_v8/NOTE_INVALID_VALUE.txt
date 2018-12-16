@@ -1,0 +1,1 @@
+Station BETN070 has one zero value, set to 0.000 and "valid". This causes issues to the MAPE metric (infinity). Was changed to "invalid" (0 status).

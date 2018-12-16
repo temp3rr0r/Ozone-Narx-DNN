@@ -2,431 +2,71 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../data/Data Gathering.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/Data Gathering.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deIter11Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series10Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series10Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series11Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series11Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series12Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series12Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series13Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series13Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series14Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series14Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series15Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series15Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series16Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series16Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series17Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series17Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series18Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series18Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series19Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series19Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series20Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series20Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series21Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series21Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series22Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series22Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series23Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series23Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series4Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series4Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series5Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series5Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series6Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series6Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series7Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series7Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series8Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series8Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series9Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoIter1Series9Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series10Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series11Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series12Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series13Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series14Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series15Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series16Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series17Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series18Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series19Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series20Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series21Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series22Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series23Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series4Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series5Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series6Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series7Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series8Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deIter1Series9Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_de_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series10Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series11Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series12Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series13Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series14Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series15Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series16Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series17Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series18Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series19Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series20Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series21Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series22Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series23Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series4Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series5Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series6Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series7Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series8Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series9Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter1Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deIter7Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter10.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter6.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter7.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter8.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter9.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/deModelIter9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/full_de_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/full_pso_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/full_pso_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series10Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series10Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series11Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series11Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series12Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series12Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series13Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series13Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series14Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series14Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series15Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series15Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series16Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series16Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series17Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series17Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series18Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series18Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series19Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series19Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series20Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series20Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series21Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series21Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series22Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series22Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series23Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series23Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series3Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series4Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series4Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series5Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series5Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series6Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series6Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series7Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series7Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series8Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series8Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series9Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter1Series9Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter2Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoIter5Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/foundModels/psoModelIter5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10years/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/bestModelArchitecture.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series10Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series10Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series11Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series11Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series12Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series12Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series13Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series13Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series14Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series14Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series15Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series15Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series16Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series16Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series17Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series17Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series18Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series18Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series19Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series19Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series20Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series20Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series21Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series21Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series22Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series22Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series23Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series23Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series3Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series4Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series4Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series5Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series5Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series6Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series6Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series7Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series7Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series8Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series8Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series9Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter1Series9Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter25Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deIter6Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter10.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter6.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter7.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter8.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter9.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/deModelIter9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/full_de_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/full_de_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/full_pso_parameters.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/full_pso_parameters.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1History.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1History.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series0Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series0Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series10Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series10Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series11Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series11Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series12Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series12Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series13Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series13Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series14Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series14Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series15Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series15Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series16Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series16Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series17Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series17Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series18Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series18Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series19Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series19Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series1Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series1Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series20Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series20Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series21Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series21Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series22Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series22Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series23Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series23Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series2Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series2Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series3Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series3Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series4Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series4Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series5Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series5Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series6Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series6Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series7Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series7Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series8Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series8Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series9Test.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoIter1Series9Test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter1.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter3.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter4.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter5.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/foundModels/psoModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/runs/2gpu24stationNarx10yearsNoCloseStationValues/logs/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsStandardizeNormalize.py" beforeDir="false" afterPath="$PROJECT_DIR$/tsStandardizeNormalize.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -440,7 +80,7 @@
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deMimoModelSearch.coverage" NAME="deMimoModelSearch Coverage Results" MODIFIED="1543972447134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deModelSearch.coverage" NAME="deModelSearch Coverage Results" MODIFIED="1543933613580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1544905258440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1544964598700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$heuristicModelSearch.coverage" NAME="heuristicModelSearch Coverage Results" MODIFIED="1543670158856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543946255376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1544225892058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -454,9 +94,9 @@
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.open.time.5" value="9" />
+          <entry key="project.open.time.5" value="10" />
           <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="19" />
+          <entry key="project.opened" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -465,7 +105,7 @@
           <entry key="ipynb" value="1" />
           <entry key="pkl" value="6" />
           <entry key="png" value="5" />
-          <entry key="py" value="187" />
+          <entry key="py" value="188" />
           <entry key="tex" value="2" />
         </counts>
       </usages-collector>
@@ -475,14 +115,14 @@
           <entry key="IPNB" value="1" />
           <entry key="Image" value="5" />
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Python" value="187" />
+          <entry key="Python" value="188" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="12" />
           <entry key="dummy" value="46" />
-          <entry key="py" value="12989" />
+          <entry key="py" value="13043" />
           <entry key="txt" value="1803" />
         </counts>
       </usages-collector>
@@ -490,18 +130,18 @@
         <counts>
           <entry key="CSV" value="12" />
           <entry key="PLAIN_TEXT" value="1849" />
-          <entry key="Python" value="12989" />
+          <entry key="Python" value="13043" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="108" column="43" selection-start-line="108" selection-start-column="43" selection-end-line="108" selection-end-column="43" />
+            <state relative-caret-position="2822">
+              <caret line="184" column="61" selection-start-line="184" selection-start-column="61" selection-end-line="184" selection-end-column="61" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -510,10 +150,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="733">
-              <caret line="224" column="83" selection-start-line="224" selection-start-column="42" selection-end-line="224" selection-end-column="83" />
+            <state relative-caret-position="784">
+              <caret line="231" column="62" selection-start-line="231" selection-start-column="62" selection-end-line="231" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -560,8 +209,8 @@
       <find>betn</find>
       <find>del</find>
       <find>del model</find>
-      <find>del</find>
       <find>del m</find>
+      <find>kernel</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -593,11 +242,11 @@
         <option value="$PROJECT_DIR$/rnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/NaiveRnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
-        <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
-        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
+        <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
       </list>
     </option>
   </component>
@@ -607,10 +256,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-11" />
-    <option name="y" value="-11" />
-    <option name="width" value="3863" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
+    <option name="width" value="3864" />
     <option name="height" value="2136" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -636,6 +285,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -647,7 +297,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1138,12 +787,12 @@
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10735586" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10815109" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900834" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" weight="0.28822985" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.28814873" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.1436464" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1379,20 +1028,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
           <caret line="67" selection-start-line="67" selection-end-line="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="224" column="83" selection-start-line="224" selection-start-column="42" selection-end-line="224" selection-end-column="83" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1401,8 +1036,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="108" column="43" selection-start-line="108" selection-start-column="43" selection-end-line="108" selection-end-column="43" />
+        <state relative-caret-position="2822">
+          <caret line="184" column="61" selection-start-line="184" selection-start-column="61" selection-end-line="184" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="784">
+          <caret line="231" column="62" selection-start-line="231" selection-start-column="62" selection-end-line="231" selection-end-column="62" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
