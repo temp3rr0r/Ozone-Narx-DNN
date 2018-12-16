@@ -229,9 +229,9 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "BETN073"
         # dataManipulation["mimoOutputs"] = 1
 
-        dataManipulation["directory"] = "data/25stations51vars/"
-        dataManipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To20121231"
-        dataManipulation["mimoOutputs"] = 25
+        dataManipulation["directory"] = "data/46stations51vars/"
+        dataManipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
+        dataManipulation["mimoOutputs"] = 46
 
         x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
                                      dataManipulation["mimoOutputs"])
