@@ -361,6 +361,10 @@ def trainModel(x, *args):
             # pyplot.show()
             pyplot.savefig("foundModels/{}Iter{}Series{}Test.png".format(modelLabel,trainModel.counter, i))
 
+            pyplot.close()  # TODO: test close plot
+
+        pyplot.close("all")  # TODO: test close all plots
+
         # Store model
         model_json = model.to_json() # serialize model to JSON
         with open("foundModels/bestModelArchitecture.json".format(modelLabel), "w") as json_file:
