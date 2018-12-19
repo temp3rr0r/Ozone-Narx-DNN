@@ -11,7 +11,7 @@ import numpy as np
 bounds = [(7, 365),  # batch_size (~ #days: week, month, year)
           (150, 500), (0, 3),  # , 5)    # epoch_size, optimizer
           # (1023, 1024), (1023, 1024), (1023, 1024),  # TODO: 1024, 1024, 1024  # units
-          (256, 4096), (64, 4096), (256, 4096),
+          (32, 512), (32, 256), (32, 512),
           # (32, 512), (32, 196), (32, 384),
           (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # dropout
           (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # recurrent_dropout
@@ -157,10 +157,10 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
         phig = 0.01
 
     xopt1, fopt1 = pso(
-        # baseMpi.trainModelTester,   # TODO: call fast dummy func
-        baseMpi.trainModel,
+        baseMpi.trainModelTester,   # TODO: call fast dummy func
+        # baseMpi.trainModel,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip,
-        phig=phig, args=args)  # TODO: test other than default params
+        phig=phig, args=args, rank=dataManipulation["rank"])  # TODO: test other than default params
     printOptimum(xopt1, fopt1)
 
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):

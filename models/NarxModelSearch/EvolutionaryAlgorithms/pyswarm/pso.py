@@ -1,7 +1,7 @@
 from functools import partial
 import numpy as np
-
-
+# import uuid
+import os
 def _obj_wrapper(func, args, kwargs, x):
     return func(x, *args, **kwargs)
 
@@ -25,7 +25,7 @@ def _cons_f_ieqcons_wrapper(f_ieqcons, args, kwargs, x):
 def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
         minstep=1e-8, minfunc=1e-8, debug=False, processes=1,
-        particle_output=False):
+        particle_output=False, rank=0):
     """
     Perform a particle swarm optimization (PSO)
 
@@ -143,21 +143,83 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     # Initialize the particle's position
     x = lb + x * (ub - lb)
 
+    # TODO: UUID
+    # psoUuid = str(uuid.uuid4().hex)[:5]
+    psoUuid = "rank" + str(rank)
+    import pickle
+
     # Calculate objective and constraints for each particle
     if processes > 1:
         fx = np.array(mp_pool.map(obj, x))
         fs = np.array(mp_pool.map(is_feasible, x))
     else:
-        for i in range(S):
-            # fx[i] = obj(x[i, :])  # TODO: inject agent
-            fx[i], agentIn = obj(x[i, :])
-            if agentIn["swapAgent"]:
-                # if agentIn["agent"][0] == 266:
-                #     print("******PSO: swapped in DE agent")
-                # elif agentIn["agent"][0] == 133:
-                #     print("======PSO: swapped in PSO agent")
-                x[i, :] = agentIn["agent"]  # Inject particle
-            fs[i] = is_feasible(x[i, :])
+        # for i in range(S):
+        i = 0
+        while i < S:
+
+            # TODO: replace "for i" with "while i < S"
+            # TODO: Read pickle
+            if os.path.exists("foundModels/psoLastInitState_{}.pkl".format(psoUuid)):
+                with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "rb") as f:
+                    pickleState1Dictionary = pickle.load(f)
+                    # Now you can use the dump object as the original one
+                    func = pickleState1Dictionary["func"]
+                    cons = pickleState1Dictionary["cons"]
+                    D = pickleState1Dictionary["D"]
+                    S = pickleState1Dictionary["S"]
+                    agentIn = pickleState1Dictionary["agentIn"]
+                    args = pickleState1Dictionary["args"]
+                    f_ieqcons = pickleState1Dictionary["f_ieqcons"]
+                    fg = pickleState1Dictionary["fg"]
+                    fs = pickleState1Dictionary["fs"]
+                    fx = pickleState1Dictionary["fx"]
+                    g = pickleState1Dictionary["g"]
+                    i = pickleState1Dictionary["i"]
+                    ieqcons = pickleState1Dictionary["ieqcons"]
+                    is_feasible = pickleState1Dictionary["is_feasible"]
+                    kwargs = pickleState1Dictionary["kwargs"]
+                    lb = pickleState1Dictionary["lb"]
+                    maxiter = pickleState1Dictionary["maxiter"]
+                    minfunc = pickleState1Dictionary["minfunc"]
+                    minstep = pickleState1Dictionary["minstep"]
+                    obj = pickleState1Dictionary["obj"]
+                    omega = pickleState1Dictionary["omega"]
+                    p = pickleState1Dictionary["p"]
+                    particle_output = pickleState1Dictionary["particle_output"]
+                    phig = pickleState1Dictionary["phig"]
+                    phip = pickleState1Dictionary["phip"]
+                    processes = pickleState1Dictionary["processes"]
+                    swarmsize = pickleState1Dictionary["swarmsize"]
+                    ub = pickleState1Dictionary["ub"]
+                    v = pickleState1Dictionary["v"]
+                    vhigh = pickleState1Dictionary["vhigh"]
+                    vlow = pickleState1Dictionary["vlow"]
+                    x = pickleState1Dictionary["x"]
+
+            if i < S:
+                # fx[i] = obj(x[i, :])  # TODO: inject agent
+                fx[i], agentIn = obj(x[i, :])
+
+                if agentIn["swapAgent"]:
+                    # if agentIn["agent"][0] == 266:
+                    #     print("******PSO: swapped in DE agent")
+                    # elif agentIn["agent"][0] == 133:
+                    #     print("======PSO: swapped in PSO agent")
+                    x[i, :] = agentIn["agent"]  # Inject particle
+                fs[i] = is_feasible(x[i, :])
+
+                i += 1
+
+                # TODO: save pickle
+                with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "wb") as f:
+                    pickleState1Dictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn, "args": args,
+                                              "f_ieqcons": f_ieqcons, "fg": fg, "fs": fs, "fx": fx, "g": g, "i": i,
+                                              "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
+                                              "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
+                                              "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
+                                              "phip": phip, "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
+                                              "vhigh": vhigh, "vlow": vlow, "x": x}
+                    pickle.dump(pickleState1Dictionary, f, pickle.HIGHEST_PROTOCOL)
 
     # Store particle's best position (if constraints are satisfied)
     i_update = np.logical_and((fx < fp), fs)
@@ -197,16 +259,71 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             fx = np.array(mp_pool.map(obj, x))
             fs = np.array(mp_pool.map(is_feasible, x))
         else:
-            for i in range(S):
-                # fx[i] = obj(x[i, :])  # TODO: inject agent
-                fx[i], agentIn = obj(x[i, :])
-                if agentIn["swapAgent"]:
-                    # if agentIn["agent"][0] == 266:
-                    #     print("******PSO: swapped in DE agent")
-                    # elif agentIn["agent"][0] == 133:
-                    #     print("======PSO: swapped in PSO agent")
-                    x[i, :] = agentIn["agent"]  # Inject particle
-                fs[i] = is_feasible(x[i, :])
+            # for i in range(S):
+            while i < S:
+
+                # TODO: Read pickle
+                if os.path.exists("foundModels/psoLastIterationState_{}.pkl".format(psoUuid)):
+                    with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "rb") as f:
+                        pickleState1Dictionary = pickle.load(f)
+                        # Now you can use the dump object as the original one
+                        func = pickleState1Dictionary["func"]
+                        cons = pickleState1Dictionary["cons"]
+                        D = pickleState1Dictionary["D"]
+                        S = pickleState1Dictionary["S"]
+                        agentIn = pickleState1Dictionary["agentIn"]
+                        args = pickleState1Dictionary["args"]
+                        f_ieqcons = pickleState1Dictionary["f_ieqcons"]
+                        fg = pickleState1Dictionary["fg"]
+                        fs = pickleState1Dictionary["fs"]
+                        fx = pickleState1Dictionary["fx"]
+                        g = pickleState1Dictionary["g"]
+                        i = pickleState1Dictionary["i"]
+                        ieqcons = pickleState1Dictionary["ieqcons"]
+                        is_feasible = pickleState1Dictionary["is_feasible"]
+                        kwargs = pickleState1Dictionary["kwargs"]
+                        lb = pickleState1Dictionary["lb"]
+                        maxiter = pickleState1Dictionary["maxiter"]
+                        minfunc = pickleState1Dictionary["minfunc"]
+                        minstep = pickleState1Dictionary["minstep"]
+                        obj = pickleState1Dictionary["obj"]
+                        omega = pickleState1Dictionary["omega"]
+                        p = pickleState1Dictionary["p"]
+                        particle_output = pickleState1Dictionary["particle_output"]
+                        phig = pickleState1Dictionary["phig"]
+                        phip = pickleState1Dictionary["phip"]
+                        processes = pickleState1Dictionary["processes"]
+                        swarmsize = pickleState1Dictionary["swarmsize"]
+                        ub = pickleState1Dictionary["ub"]
+                        v = pickleState1Dictionary["v"]
+                        vhigh = pickleState1Dictionary["vhigh"]
+                        vlow = pickleState1Dictionary["vlow"]
+                        x = pickleState1Dictionary["x"]
+
+                if i < S:
+                    # fx[i] = obj(x[i, :])  # TODO: inject agent
+                    fx[i], agentIn = obj(x[i, :])
+
+                    if agentIn["swapAgent"]:
+                        # if agentIn["agent"][0] == 266:
+                        #     print("******PSO: swapped in DE agent")
+                        # elif agentIn["agent"][0] == 133:
+                        #     print("======PSO: swapped in PSO agent")
+                        x[i, :] = agentIn["agent"]  # Inject particle
+                    fs[i] = is_feasible(x[i, :])
+
+                    i += 1
+
+                    # TODO: save pickle
+                    with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
+                        pickleState1Dictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn, "args": args,
+                                                  "f_ieqcons": f_ieqcons, "fg": fg, "fs": fs, "fx": fx, "g": g, "i": i,
+                                                  "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
+                                                  "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
+                                                  "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
+                                                  "phip": phip, "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
+                                                  "vhigh": vhigh, "vlow": vlow, "x": x}
+                        pickle.dump(pickleState1Dictionary, f, pickle.HIGHEST_PROTOCOL)
 
         # Store particle's best position (if constraints are satisfied)
         i_update = np.logical_and((fx < fp), fs)

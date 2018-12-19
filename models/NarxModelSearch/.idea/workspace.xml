@@ -2,227 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0120000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0160000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0270000700100dymax.1-1-2008.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0290000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0350000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0400000700100dymax.1-1-1996.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0410000700100dymax.1-1-1996.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0430000700100dymax.1-1-1998.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0450000700100dymax.1-1-2003.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0460000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0510000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0520000700100dymax.1-1-2005.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0540000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0600000700100dymax.1-1-2011.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0630000700100dymax.1-1-2005.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0660000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0700000700100dymax.1-1-1998.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0730000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0850000700100dymax.1-1-1998.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN0930000700100dymax.1-1-1998.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN1000000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN1130000700100dymax.1-1-1996.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN1210000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETN1320000700100dymax.1-1-1996.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR0010000700100dymax.1-1-1997.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR0120000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR2010000700100dymax.1-1-1994.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR2220000700100dymax.1-1-2005.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR2400000700100dymax.1-1-1992.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR5010000700100dymax.1-1-1994.31-12-1994" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR5020000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR7010000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR7100000700100dymax.1-1-2003.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR7400000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR8010000700100dymax.1-1-1995.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR8110000700100dymax.1-1-2003.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR8310000700100dymax.1-1-1990.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETR8410000700100dymax.1-1-2003.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/AirBase_BE_v7/OzoneBelgium2/BETWOL10000700100dymax.1-1-1999.31-12-2011" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../data/Ozone and Weather data gathering (All BE stations - 46).ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/Ozone and Weather data gathering (All BE stations - 46).ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../data/Data Gathering.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/Data Gathering.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models OLD.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/deModelIter9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series24Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series25Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series26Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series27Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series28Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series29Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series30Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series31Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series32Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series33Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series34Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series35Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series36Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series37Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series38Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series39Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series40Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series41Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series42Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series43Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series44Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series45Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter11Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series24Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series25Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series26Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series27Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series28Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series29Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series30Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series31Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series32Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series33Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series34Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series35Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series36Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series37Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series38Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series39Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series40Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series41Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series42Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series43Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series44Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series45Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series10Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series11Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series12Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series13Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series14Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series15Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series16Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series17Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series18Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series19Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series1Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series20Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series21Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series22Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series23Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series24Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series25Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series26Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series27Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series28Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series29Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series2Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series30Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series31Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series32Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series33Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series34Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series35Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series36Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series37Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series38Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series39Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series3Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series40Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series41Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series42Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series43Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series44Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series45Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series4Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series5Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series6Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series7Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series8Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Series9Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoModelIter9.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -231,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1544828714482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1545185459602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$randMimoModelSearch.coverage" NAME="randMimoModelSearch Coverage Results" MODIFIED="1544049216774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deMimoModelSearch.coverage" NAME="deMimoModelSearch Coverage Results" MODIFIED="1543972447134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -290,16 +78,50 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="299290928">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="1520" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="1520" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+        <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="812">
-              <caret line="363" column="51" lean-forward="true" selection-start-line="363" selection-start-column="51" selection-end-line="363" selection-end-column="51" />
+            <state relative-caret-position="3714">
+              <caret line="317" column="65" selection-start-line="317" selection-start-column="43" selection-end-line="317" selection-end-column="65" />
               <folding>
-                <element signature="e#0#37#0" expanded="true" />
+                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#96#127#0" />
+                <element signature="e#169#196#0" />
+                <element signature="e#230#250#0" />
+                <element signature="e#310#367#0" />
+                <element signature="e#431#477#0" />
               </folding>
             </state>
           </provider>
@@ -308,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="102" column="94" lean-forward="true" selection-start-line="102" selection-start-column="94" selection-end-line="102" selection-end-column="94" />
+            <state relative-caret-position="280">
+              <caret line="219" selection-start-line="219" selection-end-line="219" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -318,10 +140,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="60" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+            <state relative-caret-position="249">
+              <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="162" selection-start-line="162" selection-end-line="162" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="597">
+              <caret line="503" selection-start-line="503" selection-end-line="503" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -337,10 +183,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>like</find>
-      <find>differ</find>
-      <find>sensor_std</find>
-      <find>print</find>
       <find>maxiter</find>
       <find>self.fun</find>
       <find>particle</find>
@@ -367,6 +209,10 @@
       <find>kernel</find>
       <find>pyplot</find>
       <find>plot</find>
+      <find>func</find>
+      <find>.func</find>
+      <find>exists</find>
+      <find>min_mse</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -398,11 +244,11 @@
         <option value="$PROJECT_DIR$/rnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/NaiveRnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
-        <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
-        <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/ModelSearch.py" />
+        <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
       </list>
     </option>
   </component>
@@ -412,7 +258,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="y" value="-12" />
     <option name="width" value="3864" />
@@ -441,6 +287,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -448,16 +295,31 @@
               <item name="NarxModelSearch" type="b2602c69:ProjectViewProjectNode" />
               <item name="NarxModelSearch" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="NarxModelSearch" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NarxModelSearch" type="462c0819:PsiDirectoryNode" />
+              <item name="EvolutionaryAlgorithms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NarxModelSearch" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NarxModelSearch" type="462c0819:PsiDirectoryNode" />
+              <item name="EvolutionaryAlgorithms" type="462c0819:PsiDirectoryNode" />
+              <item name="pyswarm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NarxModelSearch" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NarxModelSearch" type="462c0819:PsiDirectoryNode" />
+              <item name="foundModels" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ECMWFWeatherData" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -479,7 +341,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tsStandardizeNormalize">
+  <component name="RunManager" selected="Python.mpiMimoModelSearch">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -621,8 +483,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.tsStandardizeNormalize" />
         <item itemvalue="Python.mpiMimoModelSearch" />
+        <item itemvalue="Python.tsStandardizeNormalize" />
         <item itemvalue="Python.psoMimoModelSearch" />
         <item itemvalue="Python.randMimoModelSearch" />
         <item itemvalue="Python.deMimoModelSearch" />
@@ -940,15 +802,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="2575" height="1424" extended-state="7" />
+    <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10894632" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11053678" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32900834" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32842758" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.28814873" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.1436464" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3841983" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3141798" />
@@ -956,8 +819,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005964" side_tool="true" weight="0.3216511" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32972136" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3781279" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32920218" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.37800154" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1028,34 +891,129 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>158</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
           <line>43</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>71</line>
-          <option name="timeStamp" value="40" />
+          <line>142</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>81</line>
-          <option name="timeStamp" value="42" />
+          <line>211</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>304</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>97</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>107</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>131</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>151</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>154</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>155</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/BaseNarxModelMpi.py</url>
+          <line>467</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/BaseNarxModelMpi.py</url>
+          <line>503</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/BaseNarxModelMpi.py</url>
+          <line>483</line>
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>161</line>
+          <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="43" />
+          <line>147</line>
+          <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>90</line>
-          <option name="timeStamp" value="44" />
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>165</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>163</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>213</line>
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>317</line>
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>265</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>200</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>176</line>
+          <option name="timeStamp" value="112" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>177</line>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>147</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>146</line>
+          <option name="timeStamp" value="115" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1113,20 +1071,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/randMimoModelSearch.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/scipy/optimize/_minimize.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="421">
@@ -1165,53 +1109,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
+    <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="155" column="61" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
+        <state relative-caret-position="85">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4323">
-          <caret line="470" column="85" selection-start-line="470" selection-start-column="85" selection-end-line="470" selection-end-column="85" />
+        <state relative-caret-position="36">
+          <caret line="153" column="71" lean-forward="true" selection-start-line="153" selection-start-column="71" selection-end-line="153" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="249">
+          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="60" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="102" column="94" lean-forward="true" selection-start-line="102" selection-start-column="94" selection-end-line="102" selection-end-column="94" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="812">
-          <caret line="363" column="51" lean-forward="true" selection-start-line="363" selection-start-column="51" selection-end-line="363" selection-end-column="51" />
+        <state relative-caret-position="597">
+          <caret line="503" selection-start-line="503" selection-end-line="503" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="219" selection-start-line="219" selection-end-line="219" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3714">
+          <caret line="317" column="65" selection-start-line="317" selection-start-column="43" selection-end-line="317" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#96#127#0" />
+            <element signature="e#169#196#0" />
+            <element signature="e#230#250#0" />
+            <element signature="e#310#367#0" />
+            <element signature="e#431#477#0" />
           </folding>
         </state>
       </provider>

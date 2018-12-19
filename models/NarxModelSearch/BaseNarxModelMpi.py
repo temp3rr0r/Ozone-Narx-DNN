@@ -31,6 +31,7 @@ def trainModel(x, *args):
     master = dataManipulation["master"]
     directory = dataManipulation["directory"]
     filePrefix = dataManipulation["filePrefix"]
+    island = dataManipulation["island"]
 
     x_data, y_data = args
     full_model_parameters = x.copy()
@@ -85,72 +86,17 @@ def trainModel(x, *args):
         current_fold += 1
         print("Current Fold: {}/{}".format(current_fold, totalFolds))
 
-        # create model
-        model = Sequential()
-        lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
-                       'return_sequences': True,
-                       'implementation': 2,
-                       # 'kernel_regularizer': l2(0.01),
-                       # 'activity_regularizer': l2(0.01),
-                       # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
-                       }
-        model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
-            x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-
-        if use_gaussian_noise1 == 1:
-            model.add(GaussianNoise(noise_stddev1))
-        if useBatchNormalization1 == 1:
-            model.add(BatchNormalization())
-        lstm_kwargs['units'] = units2
-        lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise2 == 1:
-            model.add(GaussianNoise(noise_stddev2))
-        if useBatchNormalization2 == 1:
-            model.add(BatchNormalization())
-        lstm_kwargs['units'] = units3
-        lstm_kwargs['dropout'] = dropout3
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        lstm_kwargs['return_sequences'] = False
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise3 == 1:
-            model.add(GaussianNoise(noise_stddev3))
-        if useBatchNormalization3 == 1:
-            model.add(BatchNormalization())
-        # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
-        # model.add(Dense(y_data.shape[1]))
-        model.add(Dense(y_data.shape[1]))
-        model.compile(loss='mean_squared_error', optimizer=optimizer)
-
+        # # create model  # TODO: 3 moar layers (6)
         # model = Sequential()
         # lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
         #                'return_sequences': True,
-        #                'implementation': 2}
+        #                'implementation': 2,
+        #                # 'kernel_regularizer': l2(0.01),
+        #                # 'activity_regularizer': l2(0.01),
+        #                # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+        #                }
         # model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
-        # x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-        # if use_gaussian_noise1 == 1:
-        #     model.add(GaussianNoise(noise_stddev1))
-        # if useBatchNormalization1 == 1:
-        #     model.add(BatchNormalization())
-        # lstm_kwargs['units'] = units2
-        # lstm_kwargs['dropout'] = dropout2
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise2 == 1:
-        #     model.add(GaussianNoise(noise_stddev2))
-        # if useBatchNormalization2 == 1:
-        #     model.add(BatchNormalization())
-        # lstm_kwargs['units'] = units3
-        # lstm_kwargs['dropout'] = dropout3
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise3 == 1:
-        #     model.add(GaussianNoise(noise_stddev3))
-        # if useBatchNormalization3 == 1:
-        #     model.add(BatchNormalization())
-        # # TODO: double the architecture width
-        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
         # if use_gaussian_noise1 == 1:
         #     model.add(GaussianNoise(noise_stddev1))
         # if useBatchNormalization1 == 1:
@@ -172,11 +118,77 @@ def trainModel(x, *args):
         #     model.add(GaussianNoise(noise_stddev3))
         # if useBatchNormalization3 == 1:
         #     model.add(BatchNormalization())
-        # # TODO: add extra 1x dense layers: last lstm unit size + final shape size
-        # model.add(Dense(units3))
-        # model.add(Dense(y_data.shape[1]))
+        # # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
+        # # model.add(Dense(y_data.shape[1]))
         # model.add(Dense(y_data.shape[1]))
         # model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+        # create model
+        model = Sequential()
+        lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+                       'return_sequences': True,
+                       'implementation': 2,
+                       # 'kernel_regularizer': l2(0.01),
+                       # 'activity_regularizer': l2(0.01),
+                       # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+                       }
+        model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
+            x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+        if use_gaussian_noise1 == 1:
+            model.add(GaussianNoise(noise_stddev1))
+        if useBatchNormalization1 == 1:
+            model.add(BatchNormalization())
+
+        lstm_kwargs['units'] = units2
+        lstm_kwargs['dropout'] = dropout2
+        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        if use_gaussian_noise2 == 1:
+            model.add(GaussianNoise(noise_stddev2))
+        if useBatchNormalization2 == 1:
+            model.add(BatchNormalization())
+
+        lstm_kwargs['units'] = units3
+        lstm_kwargs['dropout'] = dropout3
+        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        if use_gaussian_noise3 == 1:
+            model.add(GaussianNoise(noise_stddev3))
+        if useBatchNormalization3 == 1:
+            model.add(BatchNormalization())
+
+        lstm_kwargs['units'] = units1
+        lstm_kwargs['dropout'] = dropout1
+        lstm_kwargs['recurrent_dropout'] = recurrent_dropout1
+        model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        if use_gaussian_noise1 == 1:
+            model.add(GaussianNoise(noise_stddev2))
+        if useBatchNormalization1 == 1:
+            model.add(BatchNormalization())
+
+        lstm_kwargs['units'] = units2
+        lstm_kwargs['dropout'] = dropout2
+        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        if use_gaussian_noise2 == 1:
+            model.add(GaussianNoise(noise_stddev3))
+        if useBatchNormalization2 == 1:
+            model.add(BatchNormalization())
+
+        lstm_kwargs['units'] = units3
+        lstm_kwargs['dropout'] = dropout3
+        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        lstm_kwargs['return_sequences'] = False
+        model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        if use_gaussian_noise3 == 1:
+            model.add(GaussianNoise(noise_stddev3))
+        if useBatchNormalization3 == 1:
+            model.add(BatchNormalization())
+
+        # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
+        model.add(Dense(y_data.shape[1]))
+        model.compile(loss='mean_squared_error', optimizer=optimizer)
+
 
         # TODO: do not store model on every step
         # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
@@ -186,10 +198,11 @@ def trainModel(x, *args):
 
         early_stop = [EarlyStopping(monitor='val_loss', min_delta=0,
                                     # patience=25, verbose=1, mode='min'),
-                                    patience=5, verbose=1, mode='auto'),  # TODO: test with large patience
+                                    # patience=5, verbose=1, mode='auto'),  # TODO: test with large patience
+                                    patience=10, verbose=1, mode='auto'),
         ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7,
-                          patience=3,
-                          # patience=5,
+                          # patience=3,  # TODO: 5
+                          patience=5,
                           verbose=1), TerminateOnNaN()]
 
         try:
@@ -382,7 +395,10 @@ def trainModel(x, *args):
 
     endTime = time.time()
     # Worker to master
-    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
+    # dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
+    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
+                          "island": island, "iteration": trainModel.counter}
+
     comm = dataManipulation["comm"]
     req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
     req.wait()
@@ -398,8 +414,13 @@ def trainModel(x, *args):
 
     return mean_mse, agentToEa
 
+def ackley(x):
+    arg1 = -0.2 * np.sqrt(0.5 * (x[0] ** 2 + x[1] ** 2))
+    arg2 = 0.5 * (np.cos(2. * np.pi * x[0]) + np.cos(2. * np.pi * x[1]))
+    return -20. * np.exp(arg1) - np.exp(arg2) + 20. + np.e
 
-def trainModelTester(x, *args):
+
+def trainModelTester2(x, *args):
 
     startTime = time.time()  # training time per model
 
@@ -408,25 +429,22 @@ def trainModelTester(x, *args):
     modelFolds = trainModel.folds
     dataManipulation = trainModel.dataManipulation
     island = dataManipulation["island"]
-    if island == "de":
-        x[0] = 266
-        x[1] = 266
-    elif island == "pso":
-        x[0] = 133
-        x[1] = 133
     rank = dataManipulation["rank"]
     master = dataManipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
-    timeToSleep = np.random.uniform(0, 0.01)
-    time.sleep(timeToSleep)
-    mean_mse = 333.33 + timeToSleep
+    # TODO: func to optimize
+    # timeToSleep = np.random.uniform(0, 0.01)
+    # time.sleep(timeToSleep)
+    # mean_mse = 333.33 + timeToSleep
+    mean_mse = ackley([x[12], x[13]])
 
     trainModel.counter += 1
     endTime = time.time()
     # Worker to master
-    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
+    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
+                          "island": island, "iteration": trainModel.counter}
     comm = dataManipulation["comm"]
     # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
     # req.wait()
@@ -444,3 +462,43 @@ def trainModelTester(x, *args):
         agentToEa = {"swapAgent": True, "agent": outAgent}
 
     return mean_mse, agentToEa
+
+def trainModelTester(x, *args):
+
+    startTime = time.time()  # training time per model
+
+    trainModel.counter += 1
+    modelLabel = trainModel.label
+    modelFolds = trainModel.folds
+    dataManipulation = trainModel.dataManipulation
+    island = dataManipulation["island"]
+    rank = dataManipulation["rank"]
+    master = dataManipulation["master"]
+    x_data, y_data = args
+    full_model_parameters = x.copy()
+
+    # TODO: func to optimize
+    mean_mse = ackley([x[12], x[13]])
+
+    trainModel.counter += 1
+    endTime = time.time()
+    # Worker to master
+    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
+                          "island": island, "iteration": trainModel.counter}
+    # comm = dataManipulation["comm"]
+    # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
+    # req.wait()
+    # comm.send(dataWorkerToMaster, dest=master, tag=1)
+
+    # Master to worker
+    agentToEa = {"swapAgent": False, "agent": None}
+    # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
+    # req = comm.irecv(source=0, tag=2)
+    # dataMasterToWorker = req.wait()
+
+    # swapAgent = dataMasterToWorker["swapAgent"]
+    # if swapAgent:
+    #     outAgent = dataMasterToWorker["agent"]
+    #     agentToEa = {"swapAgent": True, "agent": outAgent}
+
+    return mean_mse, {"swapAgent": True, "agent": x}

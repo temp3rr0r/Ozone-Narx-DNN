@@ -26,9 +26,10 @@ dataManipulation = {
     # "scale": 'normalize',
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
-    "folds": 10,
+    "folds": 2,
     "iterations": 40,
-    "agents": 5
+    "agents": 5,
+    "storeCheckpoints": 0
 }
 dataDetrend = False  # TODO: de-trend
 
@@ -135,8 +136,11 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'pso', 'de', 'pso', 'de'] * 3
+# islands = ['', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+islands = ['', 'pso', 'de', 'rand', 'pso', 'de'] * 4
 # islands = ['rand'] * 32
+
+rank = 1  # TODO: test
 
 if rank == 0:  # Master Node
 
@@ -152,6 +156,9 @@ if rank == 0:  # Master Node
 
     swapCounter = 0
     agentBuffer = getRandomModel()
+    overallMinMse = 10e8  # TODO: formalize it
+    evaluations = 0
+    bestIsland = ""
 
     totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
@@ -168,7 +175,13 @@ if rank == 0:  # Master Node
 
         # print("--- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
         totalSecondsWork += dataWorkerToMaster["worked"]
-        print("mean_mse: {}".format(dataWorkerToMaster["mean_mse"]))
+        print("mean_mse: {} ({}: {})".format(dataWorkerToMaster["mean_mse"], dataWorkerToMaster["island"], dataWorkerToMaster["iteration"]))
+        evaluations += 1
+        if dataWorkerToMaster["mean_mse"] < overallMinMse:
+            overallMinMse = dataWorkerToMaster["mean_mse"]
+            bestIsland = dataWorkerToMaster["island"]
+            print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
+                overallMinMse, dataWorkerToMaster["island"], dataWorkerToMaster["iteration"], evaluations))
         # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold
             # print("Abort: mean_mse = {} less than ".format(dataWorkerToMaster["mean_mse"]))
             # comm.Abort()  # TODO: block for func call sync
@@ -187,12 +200,24 @@ if rank == 0:  # Master Node
         # req.wait()
 
     endTime = time.time()
+    print("--- Overall min MSE (total evals: {}): {} ({})".format(evaluations, overallMinMse, bestIsland))
     print("--- Total work: %d secs in %.2f secs, speedup: %.2f / %d" % (
         totalSecondsWork, round(endTime - startTime, 2),
         totalSecondsWork / round(endTime - startTime, 2), size - 1))
     # comm.Disconnect()
 
 else:  # Worker Node
+
+    # TODO: test self
+    dataManipulation["directory"] = "data/46stations51vars/"
+    dataManipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
+    dataManipulation["mimoOutputs"] = 46
+    x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
+                                 dataManipulation["mimoOutputs"])
+    dataManipulation["rank"] = rank
+    dataManipulation["island"] = "pso"
+    dataManipulation["comm"] = comm
+    particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
 
     print("waiting({})...".format(rank))
 
@@ -205,12 +230,12 @@ else:  # Worker Node
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-        # elif rank == 3:
-        #     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        #     os.environ["CUDA_VISIBLE_DEVICES"] = "2"
-        # elif rank == 4:
-        #     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        #     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+        elif rank == 3:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+        elif rank == 4:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
