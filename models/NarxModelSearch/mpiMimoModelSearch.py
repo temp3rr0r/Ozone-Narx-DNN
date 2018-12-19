@@ -139,8 +139,9 @@ name = MPI.Get_processor_name()
 # islands = ['', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 islands = ['', 'pso', 'de', 'rand', 'pso', 'de'] * 4
 # islands = ['rand'] * 32
+islands = ['pso'] * 32
 
-rank = 1  # TODO: test
+rank = 1  # TODO tesst
 
 if rank == 0:  # Master Node
 
@@ -208,7 +209,7 @@ if rank == 0:  # Master Node
 
 else:  # Worker Node
 
-    # TODO: test self
+    # TODO: test
     dataManipulation["directory"] = "data/46stations51vars/"
     dataManipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
     dataManipulation["mimoOutputs"] = 46
@@ -221,7 +222,7 @@ else:  # Worker Node
 
     print("waiting({})...".format(rank))
 
-    initData = comm.recv(source=0, tag=0)  # Block wait the init command by the master
+    # initData = comm.recv(source=0, tag=0)  # Block wait the init command by the master
     if initData["command"] == "init":
 
         if rank == 1:  # Rank per gpu

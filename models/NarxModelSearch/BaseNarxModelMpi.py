@@ -420,7 +420,7 @@ def ackley(x):
     return -20. * np.exp(arg1) - np.exp(arg2) + 20. + np.e
 
 
-def trainModelTester2(x, *args):
+def trainModelTester(x, *args):
 
     startTime = time.time()  # training time per model
 
@@ -463,7 +463,7 @@ def trainModelTester2(x, *args):
 
     return mean_mse, agentToEa
 
-def trainModelTester(x, *args):
+def trainModelTester2(x, *args):
 
     startTime = time.time()  # training time per model
 
@@ -478,6 +478,8 @@ def trainModelTester(x, *args):
     full_model_parameters = x.copy()
 
     # TODO: func to optimize
+    timeToSleep = np.random.uniform(2, 5)
+    time.sleep(timeToSleep)
     mean_mse = ackley([x[12], x[13]])
 
     trainModel.counter += 1

@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../data/Data Gathering.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/Data Gathering.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/psoLastInitState_rank1.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoLastInitState_rank1.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1545185459602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1545186236595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$randMimoModelSearch.coverage" NAME="randMimoModelSearch Coverage Results" MODIFIED="1544049216774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deMimoModelSearch.coverage" NAME="deMimoModelSearch Coverage Results" MODIFIED="1543972447134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -98,12 +94,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1520" />
+          <entry key="py" value="1799" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1520" />
+          <entry key="Python" value="1799" />
         </counts>
       </usages-collector>
     </session>
@@ -113,8 +109,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3714">
-              <caret line="317" column="65" selection-start-line="317" selection-start-column="43" selection-end-line="317" selection-end-column="65" />
+            <state relative-caret-position="286">
+              <caret line="329" column="59" lean-forward="true" selection-start-line="329" selection-start-column="59" selection-end-line="329" selection-end-column="59" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
                 <element signature="e#96#127#0" />
@@ -130,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="219" selection-start-line="219" selection-end-line="219" />
+            <state relative-caret-position="308">
+              <caret line="220" column="4" selection-start-line="220" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -140,19 +136,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="162" selection-start-line="162" selection-end-line="162" />
+            <state relative-caret-position="803">
+              <caret line="159" column="29" selection-start-line="159" selection-start-column="29" selection-end-line="159" selection-end-column="29" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -163,8 +150,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="503" selection-start-line="503" selection-end-line="503" />
+            <state relative-caret-position="126">
+              <caret line="422" column="20" selection-start-line="422" selection-start-column="20" selection-end-line="422" selection-end-column="20" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -245,9 +232,9 @@
         <option value="$PROJECT_DIR$/NaiveRnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
-        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
+        <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
       </list>
     </option>
@@ -810,8 +797,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32842758" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.28814873" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3841983" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" weight="0.28814873" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3841983" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3141798" />
@@ -896,48 +883,23 @@
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>142</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>211</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>304</line>
+          <line>310</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>97</line>
+          <line>96</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>107</line>
+          <line>106</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>131</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>151</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>154</line>
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>155</line>
+          <line>152</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -947,42 +909,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/BaseNarxModelMpi.py</url>
-          <line>503</line>
+          <line>505</line>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/BaseNarxModelMpi.py</url>
-          <line>483</line>
+          <line>485</line>
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>161</line>
+          <line>158</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>147</line>
+          <line>148</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>165</line>
+          <line>162</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>163</line>
+          <line>160</line>
           <option name="timeStamp" value="103" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>213</line>
+          <line>211</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>317</line>
+          <line>323</line>
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -992,28 +954,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>200</line>
+          <line>198</line>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>176</line>
+          <line>174</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>177</line>
+          <line>175</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>147</line>
-          <option name="timeStamp" value="114" />
+          <line>267</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>146</line>
-          <option name="timeStamp" value="115" />
+          <line>260</line>
+          <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>258</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>308</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
+          <line>261</line>
+          <option name="timeStamp" value="120" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1123,13 +1100,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1137,10 +1107,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="803">
+          <caret line="159" column="29" selection-start-line="159" selection-start-column="29" selection-end-line="159" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="503" selection-start-line="503" selection-end-line="503" />
+        <state relative-caret-position="126">
+          <caret line="422" column="20" selection-start-line="422" selection-start-column="20" selection-end-line="422" selection-end-column="20" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1149,18 +1136,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="219" selection-start-line="219" selection-end-line="219" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="162" selection-start-line="162" selection-end-line="162" />
+        <state relative-caret-position="308">
+          <caret line="220" column="4" selection-start-line="220" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1169,8 +1146,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3714">
-          <caret line="317" column="65" selection-start-line="317" selection-start-column="43" selection-end-line="317" selection-end-column="65" />
+        <state relative-caret-position="286">
+          <caret line="329" column="59" lean-forward="true" selection-start-line="329" selection-start-column="59" selection-end-line="329" selection-end-column="59" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
             <element signature="e#96#127#0" />

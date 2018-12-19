@@ -1,6 +1,5 @@
 from functools import partial
 import numpy as np
-# import uuid
 import os
 def _obj_wrapper(func, args, kwargs, x):
     return func(x, *args, **kwargs)
@@ -143,8 +142,6 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     # Initialize the particle's position
     x = lb + x * (ub - lb)
 
-    # TODO: UUID
-    # psoUuid = str(uuid.uuid4().hex)[:5]
     psoUuid = "rank" + str(rank)
     import pickle
 
@@ -171,6 +168,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     args = pickleState1Dictionary["args"]
                     f_ieqcons = pickleState1Dictionary["f_ieqcons"]
                     fg = pickleState1Dictionary["fg"]
+                    fp = pickleState1Dictionary["fp"]
                     fs = pickleState1Dictionary["fs"]
                     fx = pickleState1Dictionary["fx"]
                     g = pickleState1Dictionary["g"]
@@ -213,7 +211,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 # TODO: save pickle
                 with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "wb") as f:
                     pickleState1Dictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn, "args": args,
-                                              "f_ieqcons": f_ieqcons, "fg": fg, "fs": fs, "fx": fx, "g": g, "i": i,
+                                              "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g, "i": i,
                                               "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
                                               "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
                                               "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
@@ -260,8 +258,10 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             fs = np.array(mp_pool.map(is_feasible, x))
         else:
             # for i in range(S):
+            i = 0
             while i < S:
 
+                # TODO: extra vars to store?
                 # TODO: Read pickle
                 if os.path.exists("foundModels/psoLastIterationState_{}.pkl".format(psoUuid)):
                     with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "rb") as f:
@@ -275,12 +275,16 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         args = pickleState1Dictionary["args"]
                         f_ieqcons = pickleState1Dictionary["f_ieqcons"]
                         fg = pickleState1Dictionary["fg"]
+                        fp = pickleState1Dictionary["fp"]
                         fs = pickleState1Dictionary["fs"]
                         fx = pickleState1Dictionary["fx"]
                         g = pickleState1Dictionary["g"]
                         i = pickleState1Dictionary["i"]
+                        i_min = pickleState1Dictionary["i_min"]
+                        i_update = pickleState1Dictionary["i_update"]
                         ieqcons = pickleState1Dictionary["ieqcons"]
                         is_feasible = pickleState1Dictionary["is_feasible"]
+                        it = pickleState1Dictionary["it"]
                         kwargs = pickleState1Dictionary["kwargs"]
                         lb = pickleState1Dictionary["lb"]
                         maxiter = pickleState1Dictionary["maxiter"]
@@ -291,6 +295,8 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         p = pickleState1Dictionary["p"]
                         particle_output = pickleState1Dictionary["particle_output"]
                         phig = pickleState1Dictionary["phig"]
+                        rg = pickleState1Dictionary["rg"]
+                        rp = pickleState1Dictionary["rp"]
                         phip = pickleState1Dictionary["phip"]
                         processes = pickleState1Dictionary["processes"]
                         swarmsize = pickleState1Dictionary["swarmsize"]
@@ -317,11 +323,15 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     # TODO: save pickle
                     with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
                         pickleState1Dictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn, "args": args,
-                                                  "f_ieqcons": f_ieqcons, "fg": fg, "fs": fs, "fx": fx, "g": g, "i": i,
-                                                  "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
+                                                  "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g, "i": i,
+                                                  "i_min": i_min, "i_update": i_update, "it": it,
+                                                  "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs,
+                                                  "maskl": maskl, "masku": masku,
+                                                  "lb": lb,
                                                   "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
                                                   "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
-                                                  "phip": phip, "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
+                                                  "phip": phip, "rg": rg, "rp": rp,
+                                                  "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
                                                   "vhigh": vhigh, "vlow": vlow, "x": x}
                         pickle.dump(pickleState1Dictionary, f, pickle.HIGHEST_PROTOCOL)
 
