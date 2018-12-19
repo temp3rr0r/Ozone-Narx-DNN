@@ -196,11 +196,9 @@ def trainModel(x, *args):
         #                               save_best_only=True)]
 
         early_stop = [EarlyStopping(monitor='val_loss', min_delta=0,
-                                    # patience=25, verbose=1, mode='min'),
-                                    # patience=5, verbose=1, mode='auto'),  # TODO: test with large patience
+                                    # patience=25, verbose=1, mode='min'),  # TODO: test with large patience
                                     patience=10, verbose=1, mode='auto'),
         ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7,
-                          # patience=3,  # TODO: 5
                           patience=5,
                           verbose=1), TerminateOnNaN()]
 
@@ -291,7 +289,7 @@ def trainModel(x, *args):
         print('Full Data SMAPE: {}'.format(full_smape))
 
     # Plot model architecture
-    plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, rank, trainModel.counter))
+    plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, trainModel.counter, rank))
     SVG(model_to_dot(model).create(prog='dot', format='svg'))
 
     mean_smape = np.mean(smape_scores)
@@ -358,7 +356,7 @@ def trainModel(x, *args):
         pyplot.legend()
         # pyplot.show()
         pyplot.savefig("foundModels/{}Iter{}Rank{}History.png".format(modelLabel, trainModel.counter, rank))
-        pyplot.close()  # TODO: test close plot
+        pyplot.close()
 
         # Plot test data
         for i in range(holdout_prediction.shape[1]):
@@ -373,7 +371,7 @@ def trainModel(x, *args):
             pyplot.grid(True)
             pyplot.legend()
             # pyplot.show()
-            pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}Test.png".format(modelLabel,trainModel.counter, rank, i))
+            pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}Test.png".format(modelLabel, trainModel.counter, rank, i))
             pyplot.close()
         pyplot.close("all")
 
@@ -388,28 +386,26 @@ def trainModel(x, *args):
     # Memory handling
     del model  # Manually delete model
     from keras import backend as K
-    tf.reset_default_graph()  # TODO: check if causes issues
+    tf.reset_default_graph()
     K.clear_session()  # Manually clear_session with keras 2.1.6
     gc.collect()
 
     endTime = time.time()
+
     # Worker to master
-    # dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
                           "island": island, "iteration": trainModel.counter}
-
     comm = dataManipulation["comm"]
-    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
+    req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # Send data async to master
     req.wait()
 
     # Master to worker
     agentToEa = {"swapAgent": False, "agent": None}
-    dataMasterToWorker = comm.recv(source=master, tag=2)  # TODO: blocking or non-blocking?
-
+    dataMasterToWorker = comm.recv(source=master, tag=2)  # Receive data sync (blocking) from master
     swapAgent = dataMasterToWorker["swapAgent"]
     if swapAgent:
         outAgent = dataMasterToWorker["agent"]
-        agentToEa = {"swapAgent": True, "agent": outAgent}
+        agentToEa = {"swapAgent": True, "agent": outAgent}  # Send agent copy
 
     return mean_mse, agentToEa
 

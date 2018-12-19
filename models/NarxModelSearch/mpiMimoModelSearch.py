@@ -136,7 +136,8 @@ name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
 # islands = ['', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
-islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
+# islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
+islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
 # islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
@@ -263,6 +264,19 @@ else:  # Worker Node
         dataManipulation["rank"] = rank
         dataManipulation["island"] = island
         dataManipulation["comm"] = comm
+
+        # TODO: add/test (single or multi-agent) optimizers:
+        # TODO: - Reinforcement Learning
+        # TODO: - Bayesian Optimization (no derivatives needed)
+        # TODO: - (traditional) Genetic Algorithms
+        # TODO: - XGBoost
+        # TODO: - Ant Colony Optimization (layer types only or bounded numerical if possible)
+        # TODO: - Inductive Learning Programming (Known ts-DL layers/techniques (legends) =(progol)=>
+        # TODO:     ML learned rules =(prolog)=> candidate layers
+        # TODO: - Differentiable optimizers (convex solvers, other gradient solvers)
+        # TODO: - RBF (if ez to implement) optimizers
+        # TODO: - Memetic (?) algorithms
+        # TODO: - Tabu search (?)
 
         if island == 'rand':
             randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
