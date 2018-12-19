@@ -311,10 +311,6 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     fx[i], agentIn = obj(x[i, :])
 
                     if agentIn["swapAgent"]:
-                        # if agentIn["agent"][0] == 266:
-                        #     print("******PSO: swapped in DE agent")
-                        # elif agentIn["agent"][0] == 133:
-                        #     print("======PSO: swapped in PSO agent")
                         x[i, :] = agentIn["agent"]  # Inject particle
                     fs[i] = is_feasible(x[i, :])
 

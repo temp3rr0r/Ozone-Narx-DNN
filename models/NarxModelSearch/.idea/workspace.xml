@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoLastInitState_rank1.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/psoLastInitState_rank1.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,23 +92,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1799" />
+          <entry key="py" value="1804" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1799" />
+          <entry key="Python" value="1804" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="329" column="59" lean-forward="true" selection-start-line="329" selection-start-column="59" selection-end-line="329" selection-end-column="59" />
+            <state relative-caret-position="221">
+              <caret line="312" column="44" selection-start-line="312" selection-start-column="44" selection-end-line="312" selection-end-column="44" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
                 <element signature="e#96#127#0" />
@@ -123,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="220" column="4" selection-start-line="220" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
+            <state relative-caret-position="390">
+              <caret line="250" lean-forward="true" selection-start-line="250" selection-end-line="250" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -138,8 +136,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="803">
-              <caret line="159" column="29" selection-start-line="159" selection-start-column="29" selection-end-line="159" selection-end-column="29" />
+            <state relative-caret-position="242">
+              <caret line="105" column="30" lean-forward="true" selection-start-line="105" selection-start-column="30" selection-end-line="105" selection-end-column="30" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -150,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="422" column="20" selection-start-line="422" selection-start-column="20" selection-end-line="422" selection-end-column="20" />
+            <state relative-caret-position="228">
+              <caret line="419" column="58" lean-forward="true" selection-start-line="419" selection-start-column="58" selection-end-line="419" selection-end-column="58" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -170,7 +168,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>maxiter</find>
       <find>self.fun</find>
       <find>particle</find>
       <find>&quot;--</find>
@@ -198,8 +195,9 @@
       <find>plot</find>
       <find>func</find>
       <find>.func</find>
-      <find>exists</find>
       <find>min_mse</find>
+      <find>exists</find>
+      <find>initData</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -233,9 +231,9 @@
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
-        <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
       </list>
     </option>
   </component>
@@ -924,7 +922,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>148</line>
+          <line>146</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -944,7 +942,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py</url>
-          <line>323</line>
+          <line>319</line>
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1114,10 +1112,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="312" column="44" selection-start-line="312" selection-start-column="44" selection-end-line="312" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#96#127#0" />
+            <element signature="e#169#196#0" />
+            <element signature="e#230#250#0" />
+            <element signature="e#310#367#0" />
+            <element signature="e#431#477#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="159" column="29" selection-start-line="159" selection-start-column="29" selection-end-line="159" selection-end-column="29" />
+        <state relative-caret-position="242">
+          <caret line="105" column="30" lean-forward="true" selection-start-line="105" selection-start-column="30" selection-end-line="105" selection-end-column="30" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1126,8 +1139,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="422" column="20" selection-start-line="422" selection-start-column="20" selection-end-line="422" selection-end-column="20" />
+        <state relative-caret-position="228">
+          <caret line="419" column="58" lean-forward="true" selection-start-line="419" selection-start-column="58" selection-end-line="419" selection-end-column="58" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1136,25 +1149,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="220" column="4" selection-start-line="220" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
+        <state relative-caret-position="390">
+          <caret line="250" lean-forward="true" selection-start-line="250" selection-end-line="250" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="329" column="59" lean-forward="true" selection-start-line="329" selection-start-column="59" selection-end-line="329" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#96#127#0" />
-            <element signature="e#169#196#0" />
-            <element signature="e#230#250#0" />
-            <element signature="e#310#367#0" />
-            <element signature="e#431#477#0" />
           </folding>
         </state>
       </provider>

@@ -157,8 +157,8 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
         phig = 0.01
 
     xopt1, fopt1 = pso(
-        baseMpi.trainModelTester,   # TODO: call fast dummy func
-        # baseMpi.trainModel,
+        # baseMpi.trainModelTester,   # TODO: call fast dummy func
+        baseMpi.trainModel,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip,
         phig=phig, args=args, rank=dataManipulation["rank"])  # TODO: test other than default params
     printOptimum(xopt1, fopt1)
