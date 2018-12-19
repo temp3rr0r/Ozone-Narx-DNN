@@ -27,8 +27,8 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
     "folds": 2,
-    "iterations": 40,
-    "agents": 5,
+    "iterations": 200,
+    "agents": 20,
     "storeCheckpoints": 0
 }
 dataDetrend = False  # TODO: de-trend
@@ -137,9 +137,8 @@ name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
 # islands = ['', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
-islands = ['', 'pso', 'de', 'rand', 'pso', 'de'] * 4
+islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand'] * 32
-islands = ['pso'] * 32
 
 if rank == 0:  # Master Node
 
@@ -224,6 +223,19 @@ else:  # Worker Node
         elif rank == 4:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+        elif rank == 5:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "4"
+        elif rank == 6:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "5"
+        elif rank == 7:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+        elif rank == 8:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
