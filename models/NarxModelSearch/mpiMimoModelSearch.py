@@ -26,7 +26,7 @@ dataManipulation = {
     # "scale": 'normalize',
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
-    "folds": 3,
+    "folds": 2,
     "iterations": 40,
     "agents": 5,
     "storeCheckpoints": 0

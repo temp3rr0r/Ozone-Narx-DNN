@@ -265,7 +265,6 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             i = 0
             while i < S:
 
-                # TODO: extra vars to store?
                 # TODO: Read pickle
                 if os.path.exists("foundModels/psoLastIterationState_{}.pkl".format(psoUuid)):
                     with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "rb") as f:
@@ -309,7 +308,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         vhigh = pickleStateIterationsDictionary["vhigh"]
                         vlow = pickleStateIterationsDictionary["vlow"]
                         x = pickleStateIterationsDictionary["x"]
-                        print("-- Checkpoint Iteration End (it: {}) stored (rank: {}, i: {}): last x: {}".format(
+                        print("-- Checkpoint Iteration (it: {}) recovered (rank: {}, i: {}): last x: {}".format(
                             it, rank, i, x[i - 1, :]))
 
                 if i < S:
@@ -320,7 +319,6 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         x[i, :] = agentIn["agent"]  # Inject particle
                     fs[i] = is_feasible(x[i, :])
 
-                    i += 1
 
                     # TODO: save pickle
                     with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
@@ -345,6 +343,9 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         print(
                             "-- Checkpoint Iteration (it: {}) stored (rank: {}, i: {}): last x: {}".format(
                                 it, rank, i, x[i - 1, :]))
+                    i += 1
+
+
         # Store particle's best position (if constraints are satisfied)
         i_update = np.logical_and((fx < fp), fs)
         p[i_update, :] = x[i_update, :].copy()
@@ -380,9 +381,11 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
 
         if debug:
             print('Best after iteration {:}: {:} {:}'.format(it, g, fg))
-        it += 1
 
-        # TODO: save pickle (to store the updated it
+        it += 1
+        i = 0
+
+        # TODO: save pickle (to store the updated "it") # TODO: do not store "it"
         with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
             pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
                                                "args": args,
@@ -400,6 +403,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
             print("-- Checkpoint Iteration End (it: {}) stored (rank: {}, i: {}): last x: {}".format(
                 it, rank, i, x[i - 1, :]))
+
 
     print('Stopping search: maximum iterations reached --> {:}'.format(maxiter))
 
