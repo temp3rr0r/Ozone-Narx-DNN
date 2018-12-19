@@ -8,7 +8,7 @@ from scipy.optimize import basinhopping
 import numpy as np
 
 # Model Search Space bounds
-bounds = [(7, 365),  # batch_size (~ #days: week, month, year)
+bounds = [(7, 2 * 31),  # batch_size (~ #days: week, month, year)  # TODO: reduced batch size to try avoiding OOM
           (150, 500), (0, 3),  # , 5)    # epoch_size, optimizer
           # (1023, 1024), (1023, 1024), (1023, 1024),  # TODO: 1024, 1024, 1024  # units
           (32, 512), (32, 256), (32, 512),
