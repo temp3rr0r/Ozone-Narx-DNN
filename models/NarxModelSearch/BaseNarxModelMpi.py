@@ -189,7 +189,6 @@ def trainModel(x, *args):
         model.add(Dense(y_data.shape[1]))
         model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-
         # TODO: do not store model on every step
         # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
         #               ReduceLROnPlateau(patience=3, verbose=1),
@@ -226,7 +225,7 @@ def trainModel(x, *args):
             # Memory handling
             del model  # Manually delete model
             from keras import backend as K
-            tf.reset_default_graph()  # TODO: check if causes issues
+            tf.reset_default_graph()
             K.clear_session()  # Manually clear_session with keras 2.1.6
             gc.collect()
 
@@ -292,7 +291,7 @@ def trainModel(x, *args):
         print('Full Data SMAPE: {}'.format(full_smape))
 
     # Plot model architecture
-    plot_model(model, show_shapes=True, to_file='foundModels/{}ModelIter{}.png'.format(modelLabel, trainModel.counter))
+    plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, rank, trainModel.counter))
     SVG(model_to_dot(model).create(prog='dot', format='svg'))
 
     mean_smape = np.mean(smape_scores)
@@ -343,8 +342,9 @@ def trainModel(x, *args):
         print("New min_mse: {}".format(mean_mse))
         original_df1 = pd.DataFrame({"min_mse": [mean_mse]})
         original_df1.to_pickle("foundModels/min_mse.pkl")
-        original_df2 = pd.DataFrame({"full_{}_parameters".format(modelLabel): [full_model_parameters]})
-        original_df2.to_pickle("foundModels/full_{}_parameters.pkl".format(modelLabel))
+
+        original_df2 = pd.DataFrame({"full_{}_rank{}_parameters".format(modelLabel, rank): [full_model_parameters]})
+        original_df2.to_pickle("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, rank))
         model.summary()  # print layer shapes and model parameters
 
         # Plot history
@@ -357,7 +357,8 @@ def trainModel(x, *args):
         pyplot.grid(True)
         pyplot.legend()
         # pyplot.show()
-        pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, trainModel.counter))
+        pyplot.savefig("foundModels/{}Iter{}Rank{}History.png".format(modelLabel, trainModel.counter, rank))
+        pyplot.close()  # TODO: test close plot
 
         # Plot test data
         for i in range(holdout_prediction.shape[1]):
@@ -372,11 +373,9 @@ def trainModel(x, *args):
             pyplot.grid(True)
             pyplot.legend()
             # pyplot.show()
-            pyplot.savefig("foundModels/{}Iter{}Series{}Test.png".format(modelLabel,trainModel.counter, i))
-
-            pyplot.close()  # TODO: test close plot
-
-        pyplot.close("all")  # TODO: test close all plots
+            pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}Test.png".format(modelLabel,trainModel.counter, rank, i))
+            pyplot.close()
+        pyplot.close("all")
 
         # Store model
         model_json = model.to_json() # serialize model to JSON
@@ -462,6 +461,7 @@ def trainModelTester(x, *args):
         agentToEa = {"swapAgent": True, "agent": outAgent}
 
     return mean_mse, agentToEa
+
 
 def trainModelTester2(x, *args):
 

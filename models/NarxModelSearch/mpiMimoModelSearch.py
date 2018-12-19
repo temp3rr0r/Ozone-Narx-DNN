@@ -26,7 +26,7 @@ dataManipulation = {
     # "scale": 'normalize',
     "swapEvery": 5,  # Do swap island agent every iterations
     "master": 0,
-    "folds": 2,
+    "folds": 10,
     "iterations": 200,
     "agents": 20,
     "storeCheckpoints": 0
@@ -34,7 +34,7 @@ dataManipulation = {
 dataDetrend = False  # TODO: de-trend
 
 
-def loadData(directory, filePrefix, mimoOutputs):
+def loadData(directory, filePrefix, mimoOutputs, rank=1):
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences
     # TODO: rather than single values.
     # TODO: masking layer? Skips timesteps
@@ -98,9 +98,8 @@ def loadData(directory, filePrefix, mimoOutputs):
         min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
         print("Previous min_mse: {}".format(min_mse))
 
-        if os.path.exists("foundModels/full_{}_parameters.pkl".format(modelLabel)):
-            full_model_parameters = pd.read_pickle("foundModels/full_{}_parameters.pkl"
-                                                   .format(modelLabel))['full_{}_parameters'.format(modelLabel)][0]
+        if os.path.exists("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, rank)):
+            full_model_parameters = pd.read_pickle("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, rank))['full_{}_rank{}_parameters'.format(modelLabel, rank)][0]
             print("Previous full_{}_parameters: {}".format(modelLabel, full_model_parameters))
 
     return x_data_3d, y_data
