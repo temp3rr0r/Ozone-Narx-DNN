@@ -319,6 +319,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         x[i, :] = agentIn["agent"]  # Inject particle
                     fs[i] = is_feasible(x[i, :])
 
+                    i += 1
 
                     # TODO: save pickle
                     with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
@@ -343,7 +344,6 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                         print(
                             "-- Checkpoint Iteration (it: {}) stored (rank: {}, i: {}): last x: {}".format(
                                 it, rank, i, x[i - 1, :]))
-                    i += 1
 
 
         # Store particle's best position (if constraints are satisfied)
