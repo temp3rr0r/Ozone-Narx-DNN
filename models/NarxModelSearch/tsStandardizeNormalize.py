@@ -1,8 +1,9 @@
 import pandas as pd
 # fromFileName = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
-fromFileName = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
+# fromFileName = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
+fromFileName = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 # fromFileName = "BETN073"
-ts = pd.DataFrame.from_csv("data/{}.csv".format(fromFileName), header=None)
+ts = pd.DataFrame.from_csv("data/{}.csv".format(fromFileName))
 # toFileName = "BETN073"
 # toFileName = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
 toFileName = fromFileName

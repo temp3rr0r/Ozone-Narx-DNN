@@ -1,1 +1,5 @@
 Station BETN070 has one zero value, set to 0.000 and "valid". This causes issues to the MAPE metric (infinity). Was changed to "invalid" (0 status).
+
+The 2x data files for Stations BETR21 and BETR22 were merged into one, for the csv-to-dataframe reading process.
+
+Also, the data officially start from 1995. Removed invalid (statuses: { 0, -1 }) readings of 1994+.

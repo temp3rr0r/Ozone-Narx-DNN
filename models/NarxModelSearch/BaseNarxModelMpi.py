@@ -10,6 +10,7 @@ from keras.regularizers import l2
 
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormalization
+# TODO: Do use the faster (and less features) CudnnLSTM, cudnnGRU
 from keras.utils import plot_model
 from IPython.display import SVG
 from keras.utils.vis_utils import model_to_dot
