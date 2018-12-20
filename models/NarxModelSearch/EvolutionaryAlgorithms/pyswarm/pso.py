@@ -24,7 +24,7 @@ def _cons_f_ieqcons_wrapper(f_ieqcons, args, kwargs, x):
 def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
         minstep=1e-8, minfunc=1e-8, debug=False, processes=1,
-        particle_output=False, rank=0):
+        particle_output=False, rank=0, storeCheckpoints=False):
     """
     Perform a particle swarm optimization (PSO)
 
@@ -156,45 +156,46 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
 
             # TODO: replace "for i" with "while i < S"
             # TODO: Read pickle
-            if os.path.exists("foundModels/psoLastInitState_{}.pkl".format(psoUuid)):
-                with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "rb") as f:
-                    pickleStateInitDictionary = pickle.load(f)
-                    # Now you can use the dump object as the original one
-                    func = pickleStateInitDictionary["func"]
-                    cons = pickleStateInitDictionary["cons"]
-                    D = pickleStateInitDictionary["D"]
-                    S = pickleStateInitDictionary["S"]
-                    agentIn = pickleStateInitDictionary["agentIn"]
-                    args = pickleStateInitDictionary["args"]
-                    f_ieqcons = pickleStateInitDictionary["f_ieqcons"]
-                    fg = pickleStateInitDictionary["fg"]
-                    fp = pickleStateInitDictionary["fp"]
-                    fs = pickleStateInitDictionary["fs"]
-                    fx = pickleStateInitDictionary["fx"]
-                    g = pickleStateInitDictionary["g"]
-                    i = pickleStateInitDictionary["i"]
-                    ieqcons = pickleStateInitDictionary["ieqcons"]
-                    is_feasible = pickleStateInitDictionary["is_feasible"]
-                    kwargs = pickleStateInitDictionary["kwargs"]
-                    lb = pickleStateInitDictionary["lb"]
-                    maxiter = pickleStateInitDictionary["maxiter"]
-                    minfunc = pickleStateInitDictionary["minfunc"]
-                    minstep = pickleStateInitDictionary["minstep"]
-                    obj = pickleStateInitDictionary["obj"]
-                    omega = pickleStateInitDictionary["omega"]
-                    p = pickleStateInitDictionary["p"]
-                    particle_output = pickleStateInitDictionary["particle_output"]
-                    phig = pickleStateInitDictionary["phig"]
-                    phip = pickleStateInitDictionary["phip"]
-                    processes = pickleStateInitDictionary["processes"]
-                    swarmsize = pickleStateInitDictionary["swarmsize"]
-                    ub = pickleStateInitDictionary["ub"]
-                    v = pickleStateInitDictionary["v"]
-                    vhigh = pickleStateInitDictionary["vhigh"]
-                    vlow = pickleStateInitDictionary["vlow"]
-                    x = pickleStateInitDictionary["x"]
-                    print(
-                        "-- Checkpoint Init recovered (rank: {}, i: {}): last x: {}".format(rank, i, x[i - 1, :]))
+            if storeCheckpoints:
+                if os.path.exists("foundModels/psoLastInitState_{}.pkl".format(psoUuid)):
+                    with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "rb") as f:
+                        pickleStateInitDictionary = pickle.load(f)
+                        # Now you can use the dump object as the original one
+                        func = pickleStateInitDictionary["func"]
+                        cons = pickleStateInitDictionary["cons"]
+                        D = pickleStateInitDictionary["D"]
+                        S = pickleStateInitDictionary["S"]
+                        agentIn = pickleStateInitDictionary["agentIn"]
+                        args = pickleStateInitDictionary["args"]
+                        f_ieqcons = pickleStateInitDictionary["f_ieqcons"]
+                        fg = pickleStateInitDictionary["fg"]
+                        fp = pickleStateInitDictionary["fp"]
+                        fs = pickleStateInitDictionary["fs"]
+                        fx = pickleStateInitDictionary["fx"]
+                        g = pickleStateInitDictionary["g"]
+                        i = pickleStateInitDictionary["i"]
+                        ieqcons = pickleStateInitDictionary["ieqcons"]
+                        is_feasible = pickleStateInitDictionary["is_feasible"]
+                        kwargs = pickleStateInitDictionary["kwargs"]
+                        lb = pickleStateInitDictionary["lb"]
+                        maxiter = pickleStateInitDictionary["maxiter"]
+                        minfunc = pickleStateInitDictionary["minfunc"]
+                        minstep = pickleStateInitDictionary["minstep"]
+                        obj = pickleStateInitDictionary["obj"]
+                        omega = pickleStateInitDictionary["omega"]
+                        p = pickleStateInitDictionary["p"]
+                        particle_output = pickleStateInitDictionary["particle_output"]
+                        phig = pickleStateInitDictionary["phig"]
+                        phip = pickleStateInitDictionary["phip"]
+                        processes = pickleStateInitDictionary["processes"]
+                        swarmsize = pickleStateInitDictionary["swarmsize"]
+                        ub = pickleStateInitDictionary["ub"]
+                        v = pickleStateInitDictionary["v"]
+                        vhigh = pickleStateInitDictionary["vhigh"]
+                        vlow = pickleStateInitDictionary["vlow"]
+                        x = pickleStateInitDictionary["x"]
+                        print(
+                            "-- Checkpoint Init recovered (rank: {}, i: {}): last x: {}".format(rank, i, x[i - 1, :]))
 
             if i < S:
                 # fx[i] = obj(x[i, :])  # TODO: inject agent
@@ -211,17 +212,19 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 i += 1
 
                 # TODO: save pickle
-                with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "wb") as f:
-                    pickleStateInitDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn, "args": args,
-                                              "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g, "i": i,
-                                              "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
-                                              "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
-                                              "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
-                                              "phip": phip, "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
-                                              "vhigh": vhigh, "vlow": vlow, "x": x}
-                    pickle.dump(pickleStateInitDictionary, f, pickle.HIGHEST_PROTOCOL)
-                    print(
-                        "-- Checkpoint Init stored (rank: {}, i: {}): last x: {}".format(rank, i, x[i - 1, :]))
+                if storeCheckpoints:
+                    with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "wb") as f:
+                        pickleStateInitDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
+                            "args": args,
+                            "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g, "i": i,
+                            "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
+                            "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
+                            "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
+                            "phip": phip, "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
+                            "vhigh": vhigh, "vlow": vlow, "x": x}
+                        pickle.dump(pickleStateInitDictionary, f, pickle.HIGHEST_PROTOCOL)
+                        print(
+                            "-- Checkpoint Init stored (rank: {}, i: {}): last x: {}".format(rank, i, x[i - 1, :]))
 
     # Store particle's best position (if constraints are satisfied)
     i_update = np.logical_and((fx < fp), fs)
@@ -266,50 +269,51 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             while i < S:
 
                 # TODO: Read pickle
-                if os.path.exists("foundModels/psoLastIterationState_{}.pkl".format(psoUuid)):
-                    with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "rb") as f:
-                        pickleStateIterationsDictionary = pickle.load(f)
-                        # Now you can use the dump object as the original one
-                        func = pickleStateIterationsDictionary["func"]
-                        cons = pickleStateIterationsDictionary["cons"]
-                        D = pickleStateIterationsDictionary["D"]
-                        S = pickleStateIterationsDictionary["S"]
-                        agentIn = pickleStateIterationsDictionary["agentIn"]
-                        args = pickleStateIterationsDictionary["args"]
-                        f_ieqcons = pickleStateIterationsDictionary["f_ieqcons"]
-                        fg = pickleStateIterationsDictionary["fg"]
-                        fp = pickleStateIterationsDictionary["fp"]
-                        fs = pickleStateIterationsDictionary["fs"]
-                        fx = pickleStateIterationsDictionary["fx"]
-                        g = pickleStateIterationsDictionary["g"]
-                        i = pickleStateIterationsDictionary["i"]
-                        i_min = pickleStateIterationsDictionary["i_min"]
-                        i_update = pickleStateIterationsDictionary["i_update"]
-                        ieqcons = pickleStateIterationsDictionary["ieqcons"]
-                        is_feasible = pickleStateIterationsDictionary["is_feasible"]
-                        it = pickleStateIterationsDictionary["it"]
-                        kwargs = pickleStateIterationsDictionary["kwargs"]
-                        lb = pickleStateIterationsDictionary["lb"]
-                        maxiter = pickleStateIterationsDictionary["maxiter"]
-                        minfunc = pickleStateIterationsDictionary["minfunc"]
-                        minstep = pickleStateIterationsDictionary["minstep"]
-                        obj = pickleStateIterationsDictionary["obj"]
-                        omega = pickleStateIterationsDictionary["omega"]
-                        p = pickleStateIterationsDictionary["p"]
-                        particle_output = pickleStateIterationsDictionary["particle_output"]
-                        phig = pickleStateIterationsDictionary["phig"]
-                        rg = pickleStateIterationsDictionary["rg"]
-                        rp = pickleStateIterationsDictionary["rp"]
-                        phip = pickleStateIterationsDictionary["phip"]
-                        processes = pickleStateIterationsDictionary["processes"]
-                        swarmsize = pickleStateIterationsDictionary["swarmsize"]
-                        ub = pickleStateIterationsDictionary["ub"]
-                        v = pickleStateIterationsDictionary["v"]
-                        vhigh = pickleStateIterationsDictionary["vhigh"]
-                        vlow = pickleStateIterationsDictionary["vlow"]
-                        x = pickleStateIterationsDictionary["x"]
-                        print("-- Checkpoint Iteration (it: {}) recovered (rank: {}, i: {}): last x: {}".format(
-                            it, rank, i, x[i - 1, :]))
+                if storeCheckpoints:
+                    if os.path.exists("foundModels/psoLastIterationState_{}.pkl".format(psoUuid)):
+                        with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "rb") as f:
+                            pickleStateIterationsDictionary = pickle.load(f)
+                            # Now you can use the dump object as the original one
+                            func = pickleStateIterationsDictionary["func"]
+                            cons = pickleStateIterationsDictionary["cons"]
+                            D = pickleStateIterationsDictionary["D"]
+                            S = pickleStateIterationsDictionary["S"]
+                            agentIn = pickleStateIterationsDictionary["agentIn"]
+                            args = pickleStateIterationsDictionary["args"]
+                            f_ieqcons = pickleStateIterationsDictionary["f_ieqcons"]
+                            fg = pickleStateIterationsDictionary["fg"]
+                            fp = pickleStateIterationsDictionary["fp"]
+                            fs = pickleStateIterationsDictionary["fs"]
+                            fx = pickleStateIterationsDictionary["fx"]
+                            g = pickleStateIterationsDictionary["g"]
+                            i = pickleStateIterationsDictionary["i"]
+                            i_min = pickleStateIterationsDictionary["i_min"]
+                            i_update = pickleStateIterationsDictionary["i_update"]
+                            ieqcons = pickleStateIterationsDictionary["ieqcons"]
+                            is_feasible = pickleStateIterationsDictionary["is_feasible"]
+                            it = pickleStateIterationsDictionary["it"]
+                            kwargs = pickleStateIterationsDictionary["kwargs"]
+                            lb = pickleStateIterationsDictionary["lb"]
+                            maxiter = pickleStateIterationsDictionary["maxiter"]
+                            minfunc = pickleStateIterationsDictionary["minfunc"]
+                            minstep = pickleStateIterationsDictionary["minstep"]
+                            obj = pickleStateIterationsDictionary["obj"]
+                            omega = pickleStateIterationsDictionary["omega"]
+                            p = pickleStateIterationsDictionary["p"]
+                            particle_output = pickleStateIterationsDictionary["particle_output"]
+                            phig = pickleStateIterationsDictionary["phig"]
+                            rg = pickleStateIterationsDictionary["rg"]
+                            rp = pickleStateIterationsDictionary["rp"]
+                            phip = pickleStateIterationsDictionary["phip"]
+                            processes = pickleStateIterationsDictionary["processes"]
+                            swarmsize = pickleStateIterationsDictionary["swarmsize"]
+                            ub = pickleStateIterationsDictionary["ub"]
+                            v = pickleStateIterationsDictionary["v"]
+                            vhigh = pickleStateIterationsDictionary["vhigh"]
+                            vlow = pickleStateIterationsDictionary["vlow"]
+                            x = pickleStateIterationsDictionary["x"]
+                            print("-- Checkpoint Iteration (it: {}) recovered (rank: {}, i: {}): last x: {}".format(
+                                it, rank, i, x[i - 1, :]))
 
                 if i < S:
                     # fx[i] = obj(x[i, :])  # TODO: inject agent
@@ -322,28 +326,29 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     i += 1
 
                     # TODO: save pickle
-                    with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
-                        pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S,
-                                                           "agentIn": agentIn, "args": args,
-                                                           "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs,
-                                                           "fx": fx, "g": g, "i": i,
-                                                           "i_min": i_min, "i_update": i_update, "it": it,
-                                                           "ieqcons": ieqcons, "is_feasible": is_feasible,
-                                                           "kwargs": kwargs,
-                                                           "maskl": maskl, "masku": masku,
-                                                           "lb": lb,
-                                                           "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep,
-                                                           "obj": obj,
-                                                           "omega": omega, "p": p, "particle_output": particle_output,
-                                                           "phig": phig,
-                                                           "phip": phip, "rg": rg, "rp": rp,
-                                                           "processes": processes, "swarmsize": swarmsize, "ub": ub,
-                                                           "v": v,
-                                                           "vhigh": vhigh, "vlow": vlow, "x": x}
-                        pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
-                        print(
-                            "-- Checkpoint Iteration (it: {}) stored (rank: {}, i: {}): last x: {}".format(
-                                it, rank, i, x[i - 1, :]))
+                    if storeCheckpoints:
+                        with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
+                            pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S,
+                               "agentIn": agentIn, "args": args,
+                               "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs,
+                               "fx": fx, "g": g, "i": i,
+                               "i_min": i_min, "i_update": i_update, "it": it,
+                               "ieqcons": ieqcons, "is_feasible": is_feasible,
+                               "kwargs": kwargs,
+                               "maskl": maskl, "masku": masku,
+                               "lb": lb,
+                               "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep,
+                               "obj": obj,
+                               "omega": omega, "p": p, "particle_output": particle_output,
+                               "phig": phig,
+                               "phip": phip, "rg": rg, "rp": rp,
+                               "processes": processes, "swarmsize": swarmsize, "ub": ub,
+                               "v": v,
+                               "vhigh": vhigh, "vlow": vlow, "x": x}
+                            pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
+                            print(
+                                "-- Checkpoint Iteration (it: {}) stored (rank: {}, i: {}): last x: {}".format(
+                                    it, rank, i, x[i - 1, :]))
 
 
         # Store particle's best position (if constraints are satisfied)
@@ -386,23 +391,25 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         i = 0
 
         # TODO: save pickle (to store the updated "it") # TODO: do not store "it"
-        with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
-            pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
-                                               "args": args,
-                                               "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g,
-                                               "i": i,
-                                               "i_min": i_min, "i_update": i_update, "it": it,
-                                               "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs,
-                                               "maskl": maskl, "masku": masku,
-                                               "lb": lb,
-                                               "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
-                                               "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
-                                               "phip": phip, "rg": rg, "rp": rp,
-                                               "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
-                                               "vhigh": vhigh, "vlow": vlow, "x": x}
-            pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
-            print("-- Checkpoint Iteration End (it: {}) stored (rank: {}, i: {}): last x: {}".format(
-                it, rank, i, x[i - 1, :]))
+
+        if storeCheckpoints:
+            with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
+                pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
+                   "args": args,
+                   "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g,
+                   "i": i,
+                   "i_min": i_min, "i_update": i_update, "it": it,
+                   "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs,
+                   "maskl": maskl, "masku": masku,
+                   "lb": lb,
+                   "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
+                   "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
+                   "phip": phip, "rg": rg, "rp": rp,
+                   "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
+                   "vhigh": vhigh, "vlow": vlow, "x": x}
+                pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
+                print("-- Checkpoint Iteration End (it: {}) stored (rank: {}, i: {}): last x: {}".format(
+                    it, rank, i, x[i - 1, :]))
 
 
     print('Stopping search: maximum iterations reached --> {:}'.format(maxiter))

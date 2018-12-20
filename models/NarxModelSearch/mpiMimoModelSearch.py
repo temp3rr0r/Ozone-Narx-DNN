@@ -25,10 +25,11 @@ dataManipulation = {
     "scale": 'standardize',
     # "scale": 'normalize',
     "swapEvery": 5,  # Do swap island agent every iterations
+    "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 10,
     "iterations": 200,
-    "agents": 20,
+    "agents": 5,
     "storeCheckpoints": 0
 }
 dataDetrend = False  # TODO: de-trend
@@ -135,9 +136,9 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
-islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
+# islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
 # islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
@@ -178,6 +179,8 @@ if rank == 0:  # Master Node
         if dataWorkerToMaster["mean_mse"] < overallMinMse:
             overallMinMse = dataWorkerToMaster["mean_mse"]
             bestIsland = dataWorkerToMaster["island"]
+            if dataManipulation["sendBestAgentFromBuffer"]:
+                agentBuffer = dataWorkerToMaster["agent"]  # TODO: Send the best agent received so far
             print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
                 overallMinMse, dataWorkerToMaster["island"], dataWorkerToMaster["iteration"], evaluations))
         # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold

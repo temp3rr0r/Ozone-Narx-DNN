@@ -331,7 +331,7 @@ def trainModel(x, *args):
         # datetime, iteration, gpu, cvMseMean, cvMseStd
         # cvSmapeMean, cvSmapeStd, holdoutRmse, holdoutSmape, holdoutMape,
         # holdoutMse, holdoutIoa, full_pso_parameters
-        file.write("{},{},{},{},{},{},{},{},{},{},{},{},{}\n"
+        file.write("{},{},{},{},{},{},{},{},{},{},{},{},\"{}\"\n"
                    .format(str(int(time.time())), str(trainModel.counter), str(rank - 1),
             str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape),
             str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))

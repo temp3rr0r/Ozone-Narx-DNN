@@ -159,8 +159,8 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
     xopt1, fopt1 = pso(
         # baseMpi.trainModelTester,   # TODO: call fast dummy func
         baseMpi.trainModel,
-        lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip,
-        phig=phig, args=args, rank=dataManipulation["rank"])  # TODO: test other than default params
+        lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip, debug=True,
+        phig=phig, args=args, rank=dataManipulation["rank"], storeCheckpoints=dataManipulation["storeCheckpoints"])
     printOptimum(xopt1, fopt1)
 
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
