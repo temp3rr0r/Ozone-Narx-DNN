@@ -24,13 +24,14 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 5,  # Do swap island agent every iterations
+    "swapEvery": 5000,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
-    "folds": 10,
+    "folds": 2,
     "iterations": 200,
     "agents": 5,
-    "storeCheckpoints": 0
+    "storeCheckpoints": 0,
+    "verbose": 0
 }
 dataDetrend = False  # TODO: de-trend
 
@@ -136,10 +137,10 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-# islands = ['rand'] * 32
+islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
@@ -245,6 +246,10 @@ else:  # Worker Node
         print("--- Rank {}. Data Received: {}!".format(rank, initData))
         print("--- Island: {}".format(island))
 
+        dataManipulation["directory"] = "data/6vars/"
+        dataManipulation["filePrefix"] = "BETN073"
+        dataManipulation["mimoOutputs"] = 1
+
         # dataManipulation["directory"] = "data/4stations51vars/"
         # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
         # dataManipulation["mimoOutputs"] = 4
@@ -253,17 +258,13 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
         # dataManipulation["mimoOutputs"] = 24
 
-        # dataManipulation["directory"] = "data/6vars/"
-        # dataManipulation["filePrefix"] = "BETN073"
-        # dataManipulation["mimoOutputs"] = 1
-
         # dataManipulation["directory"] = "data/46stations51vars/"
         # dataManipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
         # dataManipulation["mimoOutputs"] = 46
 
-        dataManipulation["directory"] = "data/PM1073stations51vars/"
-        dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-        dataManipulation["mimoOutputs"] = 73
+        # dataManipulation["directory"] = "data/PM1073stations51vars/"
+        # dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+        # dataManipulation["mimoOutputs"] = 73
 
         x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
                                      dataManipulation["mimoOutputs"])

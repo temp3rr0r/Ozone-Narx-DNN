@@ -33,6 +33,7 @@ def trainModel(x, *args):
     directory = dataManipulation["directory"]
     filePrefix = dataManipulation["filePrefix"]
     island = dataManipulation["island"]
+    verbosity = dataManipulation["verbose"]
 
     x_data, y_data = args
     full_model_parameters = x.copy()
@@ -124,10 +125,11 @@ def trainModel(x, *args):
         # model.add(Dense(y_data.shape[1]))
         # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-        # create model
+        # TODO: 1 link
+        # create model  # TODO: 3 moar layers (6)
         model = Sequential()
         lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
-                       'return_sequences': True,
+                       'return_sequences': False,
                        'implementation': 2,
                        # 'kernel_regularizer': l2(0.01),
                        # 'activity_regularizer': l2(0.01),
@@ -139,56 +141,74 @@ def trainModel(x, *args):
             model.add(GaussianNoise(noise_stddev1))
         if useBatchNormalization1 == 1:
             model.add(BatchNormalization())
-
-        lstm_kwargs['units'] = units2
-        lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise2 == 1:
-            model.add(GaussianNoise(noise_stddev2))
-        if useBatchNormalization2 == 1:
-            model.add(BatchNormalization())
-
-        lstm_kwargs['units'] = units3
-        lstm_kwargs['dropout'] = dropout3
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise3 == 1:
-            model.add(GaussianNoise(noise_stddev3))
-        if useBatchNormalization3 == 1:
-            model.add(BatchNormalization())
-
-        lstm_kwargs['units'] = units1
-        lstm_kwargs['dropout'] = dropout1
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout1
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise1 == 1:
-            model.add(GaussianNoise(noise_stddev2))
-        if useBatchNormalization1 == 1:
-            model.add(BatchNormalization())
-
-        lstm_kwargs['units'] = units2
-        lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise2 == 1:
-            model.add(GaussianNoise(noise_stddev3))
-        if useBatchNormalization2 == 1:
-            model.add(BatchNormalization())
-
-        lstm_kwargs['units'] = units3
-        lstm_kwargs['dropout'] = dropout3
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
-        model.add(Bidirectional(LSTM(**lstm_kwargs)))
-        if use_gaussian_noise3 == 1:
-            model.add(GaussianNoise(noise_stddev3))
-        if useBatchNormalization3 == 1:
-            model.add(BatchNormalization())
-
-        model.add(Dense(units3))  # TODO: test with 2 extra dense layers
         model.add(Dense(y_data.shape[1]))
         model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+        # create model
+        # model = Sequential()
+        # lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+        #                'return_sequences': True,
+        #                'implementation': 2,
+        #                # 'kernel_regularizer': l2(0.01),
+        #                # 'activity_regularizer': l2(0.01),
+        #                # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+        #                }
+        # model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
+        #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+        # if use_gaussian_noise1 == 1:
+        #     model.add(GaussianNoise(noise_stddev1))
+        # if useBatchNormalization1 == 1:
+        #     model.add(BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units2
+        # lstm_kwargs['dropout'] = dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise2 == 1:
+        #     model.add(GaussianNoise(noise_stddev2))
+        # if useBatchNormalization2 == 1:
+        #     model.add(BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units3
+        # lstm_kwargs['dropout'] = dropout3
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise3 == 1:
+        #     model.add(GaussianNoise(noise_stddev3))
+        # if useBatchNormalization3 == 1:
+        #     model.add(BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units1
+        # lstm_kwargs['dropout'] = dropout1
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout1
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise1 == 1:
+        #     model.add(GaussianNoise(noise_stddev2))
+        # if useBatchNormalization1 == 1:
+        #     model.add(BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units2
+        # lstm_kwargs['dropout'] = dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise2 == 1:
+        #     model.add(GaussianNoise(noise_stddev3))
+        # if useBatchNormalization2 == 1:
+        #     model.add(BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units3
+        # lstm_kwargs['dropout'] = dropout3
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        # lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
+        # model.add(Bidirectional(LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise3 == 1:
+        #     model.add(GaussianNoise(noise_stddev3))
+        # if useBatchNormalization3 == 1:
+        #     model.add(BatchNormalization())
+        #
+        # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
+        # model.add(Dense(y_data.shape[1]))
+        # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
         # TODO: do not store model on every step
         # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
@@ -205,7 +225,7 @@ def trainModel(x, *args):
 
         try:
             history = model.fit(x_data[train], y_data[train],
-                                verbose=2,
+                                verbose=verbosity,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
@@ -213,7 +233,7 @@ def trainModel(x, *args):
         except ValueError:
             print("Value Error exception: Model fit exception. Trying again...")
             history = model.fit(x_data[train], y_data[train],
-                                verbose=2,
+                                verbose=verbosity,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
                                 validation_data=(x_data[validation], y_data[validation]),
