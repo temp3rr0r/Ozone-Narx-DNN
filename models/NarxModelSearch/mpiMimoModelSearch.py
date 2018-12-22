@@ -137,10 +137,10 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-islands = ['rand'] * 32
+# islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
