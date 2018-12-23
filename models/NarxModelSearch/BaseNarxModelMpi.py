@@ -6,7 +6,7 @@ from math import sqrt
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
 from keras.models import Sequential
-from keras.regularizers import l2
+from keras.regularizers import l1, l2, l1_l2
 
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormalization
@@ -135,12 +135,29 @@ def trainModel(x, *args):
                        # 'activity_regularizer': l2(0.01),
                        # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
                        }
+
+        if use_gaussian_noise2 == 1 and use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
+            lstm_kwargs['kernel_regularizer'] = l1_l2(noise_stddev2)
+        elif use_gaussian_noise2 == 1:  # TODO: gene contraption: added kernel regularizer
+            lstm_kwargs['kernel_regularizer'] = l1(noise_stddev2)
+        elif use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
+            lstm_kwargs['kernel_regularizer'] = l2(noise_stddev3)
+        if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['activity_regularizer'] = l1_l2(noise_stddev2)
+        elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['activity_regularizer'] = l1(noise_stddev2)
+        elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['activity_regularizer'] = l2(noise_stddev3)
+
+
         model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
             x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
         if use_gaussian_noise1 == 1:
             model.add(GaussianNoise(noise_stddev1))
         if useBatchNormalization1 == 1:
             model.add(BatchNormalization())
+
+
         model.add(Dense(y_data.shape[1]))
         model.compile(loss='mean_squared_error', optimizer=optimizer)
 
