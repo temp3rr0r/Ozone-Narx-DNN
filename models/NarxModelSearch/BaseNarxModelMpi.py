@@ -7,7 +7,6 @@ from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
 from keras.models import Sequential
 from keras.regularizers import l1, l2, l1_l2
-
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TerminateOnNaN
 from keras.layers import GaussianNoise, Dense, LSTM, Bidirectional, BatchNormalization
 # TODO: Do use the faster (and less features) CudnnLSTM, cudnnGRU
@@ -34,12 +33,21 @@ def trainModel(x, *args):
     filePrefix = dataManipulation["filePrefix"]
     island = dataManipulation["island"]
     verbosity = dataManipulation["verbose"]
+    multi_gpu = dataManipulation["multi_gpu"]
 
     x_data, y_data = args
-    full_model_parameters = x.copy()
+
+    # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
+    #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
+    #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
+    #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
+
+    full_model_parameters = np.array(x.copy())
+    if dataManipulation["fp16"]:
+        full_model_parameters.astype(np.float32, casting='unsafe')  # TODO: temp test speed of keras with fp16
 
     print("\n=============\n")
-    print("{} iteration {} using:\n\t{}".format(modelLabel, trainModel.counter, x[6:15]))
+    print("--- Rank {}: {} iteration {} using: {}".format(rank, modelLabel, trainModel.counter, x[6:15]))
 
     dropout1 = x[6]
     dropout2 = x[7]
@@ -71,8 +79,9 @@ def trainModel(x, *args):
     use_gaussian_noise2 = x[19]
     use_gaussian_noise3 = x[20]
 
-    print("\tbatch_size: {}, epoch_size: {} Optimizer: {}, LSTM Unit sizes: {} Batch Normalization/Gaussian Noise: {}"
-          .format(x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
+    print("--- Rank {}: batch_size: {}, epoch_size: {} Optimizer: {}, LSTM Unit sizes: {} "
+          "Batch Normalization/Gaussian Noise: {}"
+          .format(rank, x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
 
     x_data, x_data_holdout = x_data[:-365], x_data[-365:]
     y_data, y_data_holdout = y_data[:-365], y_data[-365:]
@@ -86,7 +95,7 @@ def trainModel(x, *args):
     current_fold = 0
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
         current_fold += 1
-        print("Current Fold: {}/{}".format(current_fold, totalFolds))
+        print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
         # # create model  # TODO: 3 moar layers (6)
         # model = Sequential()
@@ -142,13 +151,20 @@ def trainModel(x, *args):
             lstm_kwargs['kernel_regularizer'] = l1(noise_stddev2)
         elif use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
             lstm_kwargs['kernel_regularizer'] = l2(noise_stddev3)
-        if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
-            lstm_kwargs['activity_regularizer'] = l1_l2(noise_stddev2)
-        elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
-            lstm_kwargs['activity_regularizer'] = l1(noise_stddev2)
-        elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
-            lstm_kwargs['activity_regularizer'] = l2(noise_stddev3)
 
+        if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['activity_regularizer'] = l1_l2(dropout2)
+        elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['activity_regularizer'] = l1(dropout2)
+        elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['activity_regularizer'] = l2(dropout3)
+
+        if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['bias_regularizer'] = l1_l2(recurrent_dropout2)
+        elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['bias_regularizer'] = l1(recurrent_dropout2)
+        elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+            lstm_kwargs['bias_regularizer'] = l2(recurrent_dropout3)
 
         model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
             x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
@@ -157,8 +173,11 @@ def trainModel(x, *args):
         if useBatchNormalization1 == 1:
             model.add(BatchNormalization())
 
-
         model.add(Dense(y_data.shape[1]))
+
+        if multi_gpu:
+            from keras.utils import multi_gpu_model # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
+            model = multi_gpu_model(model, gpus=2)
         model.compile(loss='mean_squared_error', optimizer=optimizer)
 
         # create model
@@ -248,7 +267,7 @@ def trainModel(x, *args):
                                 validation_data=(x_data[validation], y_data[validation]),
                                 callbacks=early_stop)
         except ValueError:
-            print("Value Error exception: Model fit exception. Trying again...")
+            print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
             history = model.fit(x_data[train], y_data[train],
                                 verbose=verbosity,
                                 batch_size=batch_size,
@@ -256,7 +275,7 @@ def trainModel(x, *args):
                                 validation_data=(x_data[validation], y_data[validation]),
                                 callbacks=early_stop)
         except:
-            print("Exception: Returning max float value for this iteration.")
+            print("--- Rank {}: Exception: Returning max float value for this iteration.".format(rank))
 
             # Memory handling
             del model  # Manually delete model
@@ -297,14 +316,14 @@ def trainModel(x, *args):
 
         # Calc mse/rmse
         mse = mean_squared_error(prediction, y_validation)
-        print('Validation MSE: %.3f' % mse)
+        print("--- Rank {}: Validation MSE: {}".format(rank, mse))
         mse_scores.append(mse)
         rmse = sqrt(mse)
-        print('Validation RMSE: %.3f' % rmse)
+        print("--- Rank {}: Validation RMSE: {}".format(rank, rmse))
 
         smape = 0.01 * (100 / len(y_validation) * np.sum(2 * np.abs(prediction - y_validation) /
                                                          (np.abs(y_validation) + np.abs(prediction))))
-        print('Validation SMAPE: {}'.format(smape))
+        print("--- Rank {}: Validation SMAPE: {}".format(rank, smape))
         smape_scores.append(smape)
 
         full_x = x_data.copy()
@@ -320,11 +339,11 @@ def trainModel(x, *args):
             full_expected_ts = full_expected_ts * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
         full_rmse = sqrt(mean_squared_error(full_prediction, full_expected_ts))
-        print('Full Data RMSE: %.3f' % full_rmse)
+        print("--- Rank {}: Full Data RMSE: {}".format(rank, full_rmse))
 
         full_smape = 0.01 * (100 / len(full_expected_ts) * np.sum(
             2 * np.abs(full_prediction - full_expected_ts) / (np.abs(full_expected_ts) + np.abs(full_prediction))))
-        print('Full Data SMAPE: {}'.format(full_smape))
+        print('--- Rank {}:Full Data SMAPE: {}'.format(rank, full_smape))
 
     # Plot model architecture
     plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, trainModel.counter, rank))
@@ -332,11 +351,11 @@ def trainModel(x, *args):
 
     mean_smape = np.mean(smape_scores)
     std_smape = np.std(smape_scores)
-    print('Cross validation Full Data SMAPE: {} +/- {}'.format(round(mean_smape * 100, 2), round(std_smape * 100, 2)))
+    print("--- Rank {}: Cross validation Full Data SMAPE: {} +/- {}".format(rank, round(mean_smape * 100, 2), round(std_smape * 100, 2)))
 
     mean_mse = np.mean(mse_scores)
     std_mse = np.std(mse_scores)
-    print('Cross validation Full Data MSE: {} +/- {}'.format(round(mean_mse * 100, 2), round(std_mse * 100, 2)))
+    print("--- Rank {}: Cross validation Full Data MSE: {} +/- {}".format(rank, round(mean_mse * 100, 2), round(std_mse * 100, 2)))
     min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
 
     holdout_prediction = model.predict(x_data_holdout)
@@ -351,19 +370,19 @@ def trainModel(x, *args):
                          + sensor_min[0:y_data.shape[1]]
 
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
-    print('Holdout Data RMSE: %.3f' % holdout_rmse)
+    print('--- Rank {}:Holdout Data RMSE: {}'.format(rank, holdout_rmse))
     holdout_smape = 0.01 * (100/len(y_data_holdout) * np.sum(2 * np.abs(holdout_prediction - y_data_holdout) /
                                                              (np.abs(y_data_holdout) + np.abs(holdout_prediction))))
 
-    print('Holdout Data SMAPE: {}'.format(holdout_smape))
+    print('--- Rank {}:Holdout Data SMAPE: {}'.format(rank, holdout_smape))
     holdout_mape = np.mean(np.abs((y_data_holdout - holdout_prediction) / y_data_holdout))
-    print('Holdout Data MAPE: {}'.format(holdout_mape))
+    print('--- Rank {}:Holdout Data MAPE: {}'.format(rank, holdout_mape))
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
-    print('Holdout Data MSE: {}'.format(holdout_mse))
+    print('--- Rank {}:Holdout Data MSE: {}'.format(rank, holdout_mse))
     # Index Of Agreement: https://cirpwiki.info/wiki/Statistics#Index_of_Agreement
     holdout_ioa = 1 - (np.sum((y_data_holdout - holdout_prediction) ** 2)) / (np.sum(
         (np.abs(holdout_prediction - np.mean(y_data_holdout)) + np.abs(y_data_holdout - np.mean(y_data_holdout))) ** 2))
-    print('Holdout Data IOA: {}'.format(holdout_ioa))
+    print('--- Rank {}:Holdout Data IOA: {}'.format(rank, holdout_ioa))
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
         # Data to store:
         # datetime, iteration, gpu, cvMseMean, cvMseStd
@@ -375,7 +394,7 @@ def trainModel(x, *args):
             str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
 
     if mean_mse < min_mse:
-        print("New min_mse: {}".format(mean_mse))
+        print("--- Rank {}: New min_mse: {}".format(rank, mean_mse))
         original_df1 = pd.DataFrame({"min_mse": [mean_mse]})
         original_df1.to_pickle("foundModels/min_mse.pkl")
 
@@ -385,7 +404,7 @@ def trainModel(x, *args):
 
         # Plot history
         pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
-        pyplot.title("{} (iter: {}): Training History Last Fold".format(modelLabel, trainModel.counter))
+        pyplot.title("Rank {}: {} (iter: {}): Training History Last Fold".format(rank, modelLabel, trainModel.counter))
         pyplot.plot(history.history['val_loss'], label='val_loss')
         pyplot.plot(history.history['loss'], label='loss')
         pyplot.xlabel("Training Epoch")
@@ -417,9 +436,9 @@ def trainModel(x, *args):
         model_json = model.to_json() # serialize model to JSON
         with open("foundModels/bestModelArchitecture.json".format(modelLabel), "w") as json_file:
             json_file.write(model_json)
-            print("Saved model to disk")
+            print("--- Rank {}: Saved model to disk".format(rank))
         model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel))  # serialize weights to HDF5
-        print("Saved weights to disk")
+        print("--- Rank {}: Saved weights to disk".format(rank))
 
     # Memory handling
     del model  # Manually delete model

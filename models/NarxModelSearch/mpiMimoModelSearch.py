@@ -2,6 +2,7 @@ from __future__ import print_function
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
+
 import sys
 import pandas as pd
 from ModelSearch import randomModelSearchMpi, \
@@ -31,10 +32,17 @@ dataManipulation = {
     "iterations": 200,
     "agents": 20,
     "storeCheckpoints": 0,
-    "verbose": 0
+    "verbose": 2,
+    "fp16": True,
+    "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
 dataDetrend = False  # TODO: de-trend
 
+if dataManipulation["fp16"]:
+    from keras import backend as K  # TODO: temp test fp16
+    K.set_epsilon(1e-4)
+    K.set_floatx('float16')
+    print("--- Working with keras float precision: {}".format(K.floatx()))
 
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences
@@ -53,6 +61,9 @@ def loadData(directory, filePrefix, mimoOutputs, rank=1):
     else:
         r = np.genfromtxt(directory + filePrefix + "_ts.csv", delimiter=',')
     r = np.delete(r, [0], axis=1)  # Remove dates
+
+    if dataManipulation["fp16"]:
+        r.astype(np.float16, casting='unsafe')  # TODO: temp test speed of keras with fp16
 
     # TODO: test 1 station only printouts
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
@@ -140,7 +151,7 @@ name = MPI.Get_processor_name()
 islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-# islands = ['rand'] * 32
+islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
@@ -156,15 +167,14 @@ if rank == 0:  # Master Node
 
     swapCounter = 0
     agentBuffer = getRandomModel()
-    overallMinMse = 10e8  # TODO: formalize it
+    overallMinMse = 10e4  # TODO: formalize it
     evaluations = 0
     bestIsland = ""
 
     totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
-    # for messageId in range(totalMessageCount * (size - 1)):
-    for messageId in range(totalMessageCount):
-    # for messageId in range(7):  # TODO 1000-1200 bh iters
+
+    for messageId in range(totalMessageCount):  # TODO 1000-1200 bh iters
         swapCounter += 1
 
         # Worker to master
@@ -239,7 +249,6 @@ else:  # Worker Node
         elif rank == 8:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "7"
-
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
