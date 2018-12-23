@@ -33,7 +33,7 @@ dataManipulation = {
     "agents": 20,
     "storeCheckpoints": 0,
     "verbose": 0,
-    "fp16": True,
+    "fp16": False,
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
 dataDetrend = False  # TODO: de-trend
@@ -48,12 +48,12 @@ def loadData(directory, filePrefix, mimoOutputs, rank=1):
     # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences
     # TODO: rather than single values.
     # TODO: masking layer? Skips timesteps
-
+    15456008721545602010
     # TODO: GridSearch CV http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
     # TODO: and https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/
 
     print('Loading data...')
-
+    1545601631
     if dataManipulation["scale"] == 'standardize':
         r = np.genfromtxt(directory + filePrefix + "_ts_standardized.csv", delimiter=',')
     elif dataManipulation["scale"] == 'normalize':
