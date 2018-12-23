@@ -343,7 +343,7 @@ def trainModel(x, *args):
 
         full_smape = 0.01 * (100 / len(full_expected_ts) * np.sum(
             2 * np.abs(full_prediction - full_expected_ts) / (np.abs(full_expected_ts) + np.abs(full_prediction))))
-        print('--- Rank {}:Full Data SMAPE: {}'.format(rank, full_smape))
+        print('--- Rank {}: Full Data SMAPE: {}'.format(rank, full_smape))
 
     # Plot model architecture
     plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, trainModel.counter, rank))
@@ -370,19 +370,19 @@ def trainModel(x, *args):
                          + sensor_min[0:y_data.shape[1]]
 
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
-    print('--- Rank {}:Holdout Data RMSE: {}'.format(rank, holdout_rmse))
+    print('--- Rank {}: Holdout Data RMSE: {}'.format(rank, holdout_rmse))
     holdout_smape = 0.01 * (100/len(y_data_holdout) * np.sum(2 * np.abs(holdout_prediction - y_data_holdout) /
                                                              (np.abs(y_data_holdout) + np.abs(holdout_prediction))))
 
-    print('--- Rank {}:Holdout Data SMAPE: {}'.format(rank, holdout_smape))
+    print('--- Rank {}: Holdout Data SMAPE: {}'.format(rank, holdout_smape))
     holdout_mape = np.mean(np.abs((y_data_holdout - holdout_prediction) / y_data_holdout))
-    print('--- Rank {}:Holdout Data MAPE: {}'.format(rank, holdout_mape))
+    print('--- Rank {}: Holdout Data MAPE: {}'.format(rank, holdout_mape))
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
-    print('--- Rank {}:Holdout Data MSE: {}'.format(rank, holdout_mse))
+    print('--- Rank {}: Holdout Data MSE: {}'.format(rank, holdout_mse))
     # Index Of Agreement: https://cirpwiki.info/wiki/Statistics#Index_of_Agreement
     holdout_ioa = 1 - (np.sum((y_data_holdout - holdout_prediction) ** 2)) / (np.sum(
         (np.abs(holdout_prediction - np.mean(y_data_holdout)) + np.abs(y_data_holdout - np.mean(y_data_holdout))) ** 2))
-    print('--- Rank {}:Holdout Data IOA: {}'.format(rank, holdout_ioa))
+    print('--- Rank {}: Holdout Data IOA: {}'.format(rank, holdout_ioa))
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
         # Data to store:
         # datetime, iteration, gpu, cvMseMean, cvMseStd

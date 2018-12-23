@@ -32,7 +32,7 @@ dataManipulation = {
     "iterations": 200,
     "agents": 20,
     "storeCheckpoints": 0,
-    "verbose": 2,
+    "verbose": 0,
     "fp16": True,
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
