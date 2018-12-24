@@ -44,6 +44,7 @@ if dataManipulation["fp16"]:
     K.set_floatx('float16')
     print("--- Working with keras float precision: {}".format(K.floatx()))
 
+
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
     print('Loading data...')
 
