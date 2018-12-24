@@ -32,7 +32,7 @@ dataManipulation = {
     "iterations": 200,
     "agents": 5,
     "storeCheckpoints": False,
-    "verbose": 2,
+    "verbose": 0,
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small archiectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
@@ -147,7 +147,7 @@ name = MPI.Get_processor_name()
 islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-# islands = ['rand'] * 32
+islands = ['rand'] * 32
 # islands = ['pso'] * 32
 
 if rank == 0:  # Master Node
@@ -224,7 +224,7 @@ else:  # Worker Node
 
         if rank == 1:  # Rank per gpu
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # TODO: temp 970 only
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0"
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "1"
