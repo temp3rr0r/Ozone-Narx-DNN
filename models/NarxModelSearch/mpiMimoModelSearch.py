@@ -28,21 +28,26 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
-    "folds": 10,
+    "folds": 2,
     "iterations": 200,
     "agents": 5,
-    "storeCheckpoints": True,
-    "verbose": 0,
+    "storeCheckpoints": False,
+    "verbose": 2,
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small archiectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
 dataDetrend = False  # TODO: de-trend
 
 if dataManipulation["fp16"]:
-    from keras import backend as K  # TODO: temp test fp16
-    K.set_epsilon(1e-4)
-    K.set_floatx('float16')
-    print("--- Working with keras float precision: {}".format(K.floatx()))
+    # from keras import backend as K  # TODO: temp test fp16
+    # K.set_epsilon(1e-4)
+    # K.set_floatx('float16')
+    # print("--- Working with keras float precision: {}".format(K.floatx()))
+
+    import tensorflow as tf
+    tf.keras.backend.set_epsilon(1e-4)
+    tf.keras.backend.set_floatx('float16')
+    print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
 
 
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
@@ -147,6 +152,7 @@ islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
 # islands = ['rand'] * 32
+# islands = ['pso'] * 32
 
 if rank == 0:  # Master Node
 
@@ -222,7 +228,7 @@ else:  # Worker Node
 
         if rank == 1:  # Rank per gpu
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # TODO: temp 970 only
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -258,9 +264,9 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "BETN073_ALL"
         # dataManipulation["mimoOutputs"] = 1
 
-        # dataManipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
-        # dataManipulation["filePrefix"] = "BETN073_BG"
-        # dataManipulation["mimoOutputs"] = 1
+        dataManipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
+        dataManipulation["filePrefix"] = "BETN073_BG"
+        dataManipulation["mimoOutputs"] = 1
 
         # dataManipulation["directory"] = "data/4stations51vars/"
         # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
@@ -286,9 +292,9 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "PM10_BETN"
         # dataManipulation["mimoOutputs"] = 16
 
-        dataManipulation["directory"] = "data/PM1073stations51vars/"
-        dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-        dataManipulation["mimoOutputs"] = 73
+        # dataManipulation["directory"] = "data/PM1073stations51vars/"
+        # dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+        # dataManipulation["mimoOutputs"] = 73
 
         x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
                                      dataManipulation["mimoOutputs"])
