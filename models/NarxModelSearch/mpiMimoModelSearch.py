@@ -274,10 +274,6 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "BETN113_121_132_BG"
         # dataManipulation["mimoOutputs"] = 3
 
-        dataManipulation["directory"] = "data/PM10_BETN/"
-        dataManipulation["filePrefix"] = "PM10_BETN"
-        dataManipulation["mimoOutputs"] = 16
-
         # dataManipulation["directory"] = "data/24stations51vars/"
         # dataManipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
         # dataManipulation["mimoOutputs"] = 24
@@ -286,9 +282,13 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
         # dataManipulation["mimoOutputs"] = 46
 
-        # dataManipulation["directory"] = "data/PM1073stations51vars/"
-        # dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-        # dataManipulation["mimoOutputs"] = 73
+        # dataManipulation["directory"] = "data/PM10_BETN/"
+        # dataManipulation["filePrefix"] = "PM10_BETN"
+        # dataManipulation["mimoOutputs"] = 16
+
+        dataManipulation["directory"] = "data/PM1073stations51vars/"
+        dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+        dataManipulation["mimoOutputs"] = 73
 
         x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
                                      dataManipulation["mimoOutputs"])
