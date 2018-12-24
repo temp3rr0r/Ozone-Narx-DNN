@@ -39,10 +39,6 @@ dataManipulation = {
 dataDetrend = False  # TODO: de-trend
 
 if dataManipulation["fp16"]:
-    # from keras import backend as K  # TODO: temp test fp16
-    # K.set_epsilon(1e-4)
-    # K.set_floatx('float16')
-    # print("--- Working with keras float precision: {}".format(K.floatx()))
 
     import tensorflow as tf
     tf.keras.backend.set_epsilon(1e-4)

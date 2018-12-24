@@ -1,15 +1,13 @@
 from __future__ import print_function
+import gc
 import sys
 import time
 import numpy as np
+import tensorflow as tf  # TODO: Do use the faster (and less features) CudnnLSTM, cudnnGRU
+import pandas as pd
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
-import tensorflow as tf
-# from keras.regularizers import l1, l2, l1_l2
-# TODO: Do use the faster (and less features) CudnnLSTM, cudnnGRU
-import pandas as pd
-import gc
 from sklearn.model_selection import TimeSeriesSplit
 
 
@@ -38,7 +36,7 @@ def trainModel(x, *args):
 
     full_model_parameters = np.array(x.copy())
     if dataManipulation["fp16"]:
-        full_model_parameters.astype(np.float32, casting='unsafe')  # TODO: temp test speed of keras with fp16
+        full_model_parameters.astype(np.float32, casting='unsafe')
 
     print("\n=============\n")
     print("--- Rank {}: {} iteration {} using: {}".format(rank, modelLabel, trainModel.counter, x[6:15]))
@@ -104,9 +102,9 @@ def trainModel(x, *args):
     lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
                    'return_sequences': True,
                    'implementation': 2,
-                   # 'kernel_regularizer': l2(0.01),
-                   # 'activity_regularizer': l2(0.01),
-                   # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+                   # 'kernel_regularizer': tf.keras.regularizers.l2(0.01),
+                   # 'activity_regularizer': tf.keras.regularizers.l1_l2(0.01),
+                   # 'bias_regularizer': tf.keras.regularizers.l2(0.01)    # TODO: test with kernel, activity, bias regularizers
                    }
     model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
         x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
@@ -134,9 +132,7 @@ def trainModel(x, *args):
     # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
     # model.add(Dense(y_data.shape[1]))
     model.add(tf.keras.layers.Dense(y_data.shape[1]))
-    if multi_gpu:
-        # from tensorflow.keras.utils import \  # TODO: tf.keras
-        #     multi_gpu_model  # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
+    if multi_gpu:  # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
         model = tf.keras.utils.multi_gpu_model(model, gpus=2)
     model.compile(loss='mean_squared_error', optimizer=optimizer)
 
@@ -288,9 +284,7 @@ def trainModel(x, *args):
 
             # Memory handling
             del model  # Manually delete model
-            # from keras import backend as K  # TODO: tf.keras
             tf.reset_default_graph()
-            # K.clear_session()  # Manually clear_session with keras 2.1.6  # TODO: tf.keras
             tf.keras.backend.clear_session()
             gc.collect()
 
@@ -357,7 +351,6 @@ def trainModel(x, *args):
 
     # Plot model architecture
     tf.keras.utils.plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, trainModel.counter, rank))
-    # SVG(tf.keras.utils.vis_utils.model_to_dot(model).create(prog='dot', format='svg'))  # TODO: does this work?
 
     mean_smape = np.mean(smape_scores)
     std_smape = np.std(smape_scores)
@@ -452,9 +445,7 @@ def trainModel(x, *args):
 
     # Memory handling
     del model  # Manually delete model
-    # from keras import backend as K  # TODO: tf.keras
     tf.reset_default_graph()
-    # K.clear_session()  # Manually clear_session with keras 2.1.6  # TODO: tf.keras
     tf.keras.backend.clear_session()
     gc.collect()
 
