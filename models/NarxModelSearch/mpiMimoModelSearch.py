@@ -69,13 +69,17 @@ def loadData(directory, filePrefix, mimoOutputs, rank=1):
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    row2000_01_01 = 3653 - 1
-    row2010_12_31 = 7670
-    r = r[row2000_01_01:row2010_12_31, :]
+    # row2000_01_01 = 3653 - 1
+    # row2010_12_31 = 7670
+    # r = r[row2000_01_01:row2010_12_31, :]
 
     # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
     # row2010_12_31 = 7670
     # r = r[0:row2010_12_31, :]
+
+    # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
+    row2000_01_01 = 3653 - 1
+    r = r[row2000_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
@@ -265,9 +269,13 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "BETN012_66_73_121_BG"
         # dataManipulation["mimoOutputs"] = 4
 
-        dataManipulation["directory"] = "data/BETN113_121_132_BG/"
-        dataManipulation["filePrefix"] = "BETN113_121_132_BG"
-        dataManipulation["mimoOutputs"] = 3
+        # dataManipulation["directory"] = "data/BETN113_121_132_BG/"
+        # dataManipulation["filePrefix"] = "BETN113_121_132_BG"
+        # dataManipulation["mimoOutputs"] = 3
+
+        dataManipulation["directory"] = "data/PM10_BETN/"
+        dataManipulation["filePrefix"] = "PM10_BETN"
+        dataManipulation["mimoOutputs"] = 16
 
         # dataManipulation["directory"] = "data/24stations51vars/"
         # dataManipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"

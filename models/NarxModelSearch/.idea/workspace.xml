@@ -2,40 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tsRemoveColumns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../data/EA run comparisons.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/EA run comparisons.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../data/PM10 and Weather data gathering (All BE stations - 79).ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/PM10 and Weather data gathering (All BE stations - 79).ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models OLD.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_rank1_parameters.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_rank2_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ALL_BETN_51vars_O3_O3-1_19900101To20121231.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ALL_BE_51vars_PM10_PM10-1_19940101To20121231.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/ALL_BE_51vars_PM10_PM10-1_19940101To20121231.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank2History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank2Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank2Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Rank1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Rank1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Rank2Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Rank2Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Rank1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Rank1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Rank2Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter5Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter5Rank2Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter6Rank1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter6Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter6Rank1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter6Rank2Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/randIter7Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsRemoveColumns.py" beforeDir="false" afterPath="$PROJECT_DIR$/tsRemoveColumns.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsStandardizeNormalize.py" beforeDir="false" afterPath="$PROJECT_DIR$/tsStandardizeNormalize.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,12 +22,12 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/NarxModelSearch$mpiMimoModelSearch.coverage" NAME="mpiMimoModelSearch Coverage Results" MODIFIED="1545186236595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$tsRemoveColumns.coverage" NAME="tsRemoveColumns Coverage Results" MODIFIED="1545614108933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$tsRemoveColumns.coverage" NAME="tsRemoveColumns Coverage Results" MODIFIED="1545616451624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$randMimoModelSearch.coverage" NAME="randMimoModelSearch Coverage Results" MODIFIED="1544049216774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$BaseNarxModel.coverage" NAME="BaseNarxModel Coverage Results" MODIFIED="1543672114452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deMimoModelSearch.coverage" NAME="deMimoModelSearch Coverage Results" MODIFIED="1543972447134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$deModelSearch.coverage" NAME="deModelSearch Coverage Results" MODIFIED="1543933613580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1545614131864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NarxModelSearch$tsStandardizeNormalize.coverage" NAME="tsStandardizeNormalize Coverage Results" MODIFIED="1545616493844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$heuristicModelSearch.coverage" NAME="heuristicModelSearch Coverage Results" MODIFIED="1543670158856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoModelSearch.coverage" NAME="psoModelSearch Coverage Results" MODIFIED="1543946255376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NarxModelSearch$psoMimoModelSearch.coverage" NAME="psoMimoModelSearch Coverage Results" MODIFIED="1544225892058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -119,33 +95,33 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="21" />
+          <entry key="py" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="21" />
+          <entry key="Python" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="6209" />
+          <entry key="py" value="6293" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="6209" />
+          <entry key="Python" value="6293" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1020">
-              <caret line="177" column="87" selection-start-line="177" selection-start-column="87" selection-end-line="177" selection-end-column="87" />
+            <state relative-caret-position="1530">
+              <caret line="90" column="6" selection-start-line="90" selection-start-column="6" selection-end-line="90" selection-end-column="6" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -153,11 +129,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="129" column="53" lean-forward="true" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
+            <state relative-caret-position="-6797">
+              <caret line="129" column="53" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -168,8 +144,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+            <state relative-caret-position="119">
+              <caret line="7" column="62" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -177,8 +153,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tsRemoveColumns.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="32" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="32" />
+            <state relative-caret-position="340">
+              <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -259,10 +235,10 @@
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
         <option value="$PROJECT_DIR$/ModelSearch.py" />
-        <option value="$PROJECT_DIR$/tsRemoveColumns.py" />
+        <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
-        <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+        <option value="$PROJECT_DIR$/tsRemoveColumns.py" />
       </list>
     </option>
   </component>
@@ -814,12 +790,12 @@
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12047714" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12047714" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32842758" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.28892332" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49940357" visible="true" weight="0.28892332" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3841983" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -941,7 +917,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mpiMimoModelSearch.py</url>
-          <line>148</line>
+          <line>152</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1099,20 +1075,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tsRemoveColumns.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="32" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="805">
@@ -1120,20 +1082,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
+    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/sre_parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1020">
-          <caret line="177" column="87" selection-start-line="177" selection-start-column="87" selection-end-line="177" selection-end-column="87" />
+        <state relative-caret-position="297">
+          <caret line="618" selection-start-line="618" selection-end-line="618" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsRemoveColumns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsStandardizeNormalize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="62" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6797">
+          <caret line="129" column="53" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+    <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="129" column="53" lean-forward="true" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
+        <state relative-caret-position="1530">
+          <caret line="90" column="6" selection-start-line="90" selection-start-column="6" selection-end-line="90" selection-end-column="6" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
