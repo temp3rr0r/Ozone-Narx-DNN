@@ -37,10 +37,10 @@ def trainModel(x, *args):
 
     x_data, y_data = args
 
-    x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
-         0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
-         0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
-         0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
+    # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
+    #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
+    #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
+    #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
 
     full_model_parameters = np.array(x.copy())
     if dataManipulation["fp16"]:
@@ -97,7 +97,19 @@ def trainModel(x, *args):
         current_fold += 1
         print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
-        # create model  # TODO: 3 moar layers (6)
+        # TODO: why re-build model after every fold? test just making it once bfr entering the folds
+
+        # create model  # TODO: Naive LSTM
+        # model = Sequential()
+        # lstm_kwargs = {'units': 64, 'return_sequences': False,
+        #                'implementation': 2}
+        # model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
+        #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+        # model.add(Dense(y_data.shape[1]))
+        # model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+
+        # create model  # TODO: 3 layers
         model = Sequential()
         lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
                        'return_sequences': True,

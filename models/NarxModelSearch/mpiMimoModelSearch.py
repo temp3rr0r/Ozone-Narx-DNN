@@ -28,12 +28,12 @@ dataManipulation = {
     "swapEvery": 5,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
-    "folds": 2,
+    "folds": 10,
     "iterations": 200,
-    "agents": 20,
-    "storeCheckpoints": 0,
+    "agents": 5,
+    "storeCheckpoints": True,
     "verbose": 0,
-    "fp16": False,
+    "fp16": False,  # Disabled: Faster than fp32 ONLY on very small archiectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
 dataDetrend = False  # TODO: de-trend
@@ -45,15 +45,8 @@ if dataManipulation["fp16"]:
     print("--- Working with keras float precision: {}".format(K.floatx()))
 
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
-    # TODO: TimeDistributed? TimeDistributed wrapper layer and the need for some LSTM layers to return sequences
-    # TODO: rather than single values.
-    # TODO: masking layer? Skips timesteps
-    15456008721545602010
-    # TODO: GridSearch CV http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
-    # TODO: and https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/
-
     print('Loading data...')
-    1545601631
+
     if dataManipulation["scale"] == 'standardize':
         r = np.genfromtxt(directory + filePrefix + "_ts_standardized.csv", delimiter=',')
     elif dataManipulation["scale"] == 'normalize':
@@ -76,27 +69,24 @@ def loadData(directory, filePrefix, mimoOutputs, rank=1):
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    # row2000_01_01 = 3653 - 1
-    # row2010_12_31 = 7670
-    # r = r[row2000_01_01:row2010_12_31, :]
+    row2000_01_01 = 3653 - 1
+    row2010_12_31 = 7670
+    r = r[row2000_01_01:row2010_12_31, :]
 
     # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
     # row2010_12_31 = 7670
     # r = r[0:row2010_12_31, :]
-    print("\nStart Array r:\n {}".format(r[0, 0]))
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
-
-    print("\nStart Array r:\n {}".format(r[0, 0]))
 
     maxLen = r.shape[1] - 1
     print('Variables: {}'.format(maxLen))
     print('TimeSteps: {}'.format(r.shape[0]))
     x_data = r[:, mimoOutputs:maxLen + 1]
     y_data = r[:, 0:mimoOutputs]
-    print('x_data shape:', x_data.shape)
-    print("y_data shape:", y_data.shape)
+    print("x_data shape: ".format(x_data.shape))
+    print("y_data shape: ".format(y_data.shape))
 
     # TODO: more time-steps instead of 1?
     y_data = np.array(y_data)
@@ -151,7 +141,7 @@ name = MPI.Get_processor_name()
 islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-islands = ['rand'] * 32
+# islands = ['rand'] * 32
 
 if rank == 0:  # Master Node
 
@@ -255,13 +245,29 @@ else:  # Worker Node
         print("--- Rank {}. Data Received: {}!".format(rank, initData))
         print("--- Island: {}".format(island))
 
-        dataManipulation["directory"] = "data/6vars/"
-        dataManipulation["filePrefix"] = "BETN073"
-        dataManipulation["mimoOutputs"] = 1
+        # dataManipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+        # dataManipulation["filePrefix"] = "BETN073"
+        # dataManipulation["mimoOutputs"] = 1
+
+        # dataManipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
+        # dataManipulation["filePrefix"] = "BETN073_ALL"
+        # dataManipulation["mimoOutputs"] = 1
+
+        # dataManipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
+        # dataManipulation["filePrefix"] = "BETN073_BG"
+        # dataManipulation["mimoOutputs"] = 1
 
         # dataManipulation["directory"] = "data/4stations51vars/"
         # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
         # dataManipulation["mimoOutputs"] = 4
+
+        # dataManipulation["directory"] = "data/BETN012_66_73_121_BG/"
+        # dataManipulation["filePrefix"] = "BETN012_66_73_121_BG"
+        # dataManipulation["mimoOutputs"] = 4
+
+        dataManipulation["directory"] = "data/BETN113_121_132_BG/"
+        dataManipulation["filePrefix"] = "BETN113_121_132_BG"
+        dataManipulation["mimoOutputs"] = 3
 
         # dataManipulation["directory"] = "data/24stations51vars/"
         # dataManipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
