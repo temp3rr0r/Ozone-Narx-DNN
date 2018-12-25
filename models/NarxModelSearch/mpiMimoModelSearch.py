@@ -144,7 +144,8 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
 # islands = ['rand'] * 32
@@ -224,7 +225,7 @@ else:  # Worker Node
 
         if rank == 1:  # Rank per gpu
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # TODO: temp 970 only
+            os.environ["CUDA_VISIBLE_DEVICES"] = "1"
         elif rank == 2:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -260,9 +261,9 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "BETN073_ALL"
         # dataManipulation["mimoOutputs"] = 1
 
-        # dataManipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
-        # dataManipulation["filePrefix"] = "BETN073_BG"
-        # dataManipulation["mimoOutputs"] = 1
+        dataManipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
+        dataManipulation["filePrefix"] = "BETN073_BG"
+        dataManipulation["mimoOutputs"] = 1
 
         # dataManipulation["directory"] = "data/4stations51vars/"
         # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
@@ -288,9 +289,9 @@ else:  # Worker Node
         # dataManipulation["filePrefix"] = "PM10_BETN"
         # dataManipulation["mimoOutputs"] = 16
 
-        dataManipulation["directory"] = "data/PM1073stations51vars/"
-        dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-        dataManipulation["mimoOutputs"] = 73
+        # dataManipulation["directory"] = "data/PM1073stations51vars/"
+        # dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+        # dataManipulation["mimoOutputs"] = 73
 
         x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
                                      dataManipulation["mimoOutputs"])
