@@ -10,6 +10,7 @@ from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
 from sklearn.model_selection import TimeSeriesSplit
 
+
 def trainModel(x, *args):
 
     startTime = time.time()  # training time per model
@@ -27,11 +28,11 @@ def trainModel(x, *args):
     multi_gpu = dataManipulation["multi_gpu"]
 
     x_data, y_data = args
-    #
-    # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
-    #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
-    #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
-    #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
+
+    x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
+         0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
+         0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
+         0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
 
     full_model_parameters = np.array(x.copy())
     if dataManipulation["fp16"]:
@@ -97,6 +98,7 @@ def trainModel(x, *args):
     # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
     # create model  # TODO: 3 layers
+<<<<<<< HEAD
     # model = tf.keras.models.Sequential()
     # lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
     #                'return_sequences': True,
@@ -135,50 +137,182 @@ def trainModel(x, *args):
     #     model = tf.keras.utils.multi_gpu_model(model, gpus=2)
     # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-    # TODO: Small model for GA course
-    # create model  # TODO: 3 moar layers (6)
+    # # TODO: Small model for GA course
+    # # create model  # TODO: 3 moar layers (6)
+    # model = tf.keras.models.Sequential()
+    # lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+    #                'return_sequences': False,
+    #                'implementation': 2,
+    #                # 'kernel_regularizer': l2(0.01),
+    #                # 'activity_regularizer': l2(0.01),
+    #                # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+    #                }
+    # if use_gaussian_noise2 == 1 and use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
+    #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(noise_stddev2)
+    # elif use_gaussian_noise2 == 1:  # TODO: gene contraption: added kernel regularizer
+    #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1(noise_stddev2)
+    # elif use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
+    #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l2(noise_stddev3)
+    #
+    # if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(dropout2)
+    # elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1(dropout2)
+    # elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l2(dropout3)
+    #
+    # if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout2)
+    # elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1(recurrent_dropout2)
+    # elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l2(recurrent_dropout3)
+    #
+    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
+    #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+    # if use_gaussian_noise1 == 1:
+    #     model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
+    # if useBatchNormalization1 == 1:
+    #     model.add(tf.keras.layers.BatchNormalization())
+    #
+    # model.add(tf.keras.layers.Dense(y_data.shape[1]))
+    #
+    # if multi_gpu:
+    #     from keras.utils import multi_gpu_model # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
+    #     model = multi_gpu_model(model, gpus=2)
+    # model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+    # TODO: 6 layer large model
+    # create model
+=======
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
     model = tf.keras.models.Sequential()
     lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
-                   'return_sequences': False,
+                   'return_sequences': True,
                    'implementation': 2,
-                   # 'kernel_regularizer': l2(0.01),
-                   # 'activity_regularizer': l2(0.01),
-                   # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+                   # 'kernel_regularizer': tf.keras.regularizers.l2(0.01),
+                   # 'activity_regularizer': tf.keras.regularizers.l1_l2(0.01),
+                   # 'bias_regularizer': tf.keras.regularizers.l2(0.01)    # TODO: test with kernel, activity, bias regularizers
                    }
-    if use_gaussian_noise2 == 1 and use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
-        lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(noise_stddev2)
-    elif use_gaussian_noise2 == 1:  # TODO: gene contraption: added kernel regularizer
-        lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1(noise_stddev2)
-    elif use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
-        lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l2(noise_stddev3)
-
-    if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
-        lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(dropout2)
-    elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
-        lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1(dropout2)
-    elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
-        lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l2(dropout3)
-
-    if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
-        lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout2)
-    elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
-        lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1(recurrent_dropout2)
-    elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
-        lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l2(recurrent_dropout3)
-
     model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
         x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
     if use_gaussian_noise1 == 1:
         model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
     if useBatchNormalization1 == 1:
         model.add(tf.keras.layers.BatchNormalization())
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
+    lstm_kwargs['units'] = units2
+    lstm_kwargs['dropout'] = dropout2
+    lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+    if use_gaussian_noise2 == 1:
+        model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
+    if useBatchNormalization2 == 1:
+        model.add(tf.keras.layers.BatchNormalization())
+<<<<<<< HEAD
+
+    lstm_kwargs['units'] = units3
+    lstm_kwargs['dropout'] = dropout3
+    lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+=======
+    lstm_kwargs['units'] = units3
+    lstm_kwargs['dropout'] = dropout3
+    lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+    lstm_kwargs['return_sequences'] = False
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+    if use_gaussian_noise3 == 1:
+        model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
+    if useBatchNormalization3 == 1:
+        model.add(tf.keras.layers.BatchNormalization())
+<<<<<<< HEAD
+
+    lstm_kwargs['units'] = units1
+    lstm_kwargs['dropout'] = dropout1
+    lstm_kwargs['recurrent_dropout'] = recurrent_dropout1
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+    if use_gaussian_noise1 == 1:
+        model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
+    if useBatchNormalization1 == 1:
+        model.add(tf.keras.layers.BatchNormalization())
+
+    lstm_kwargs['units'] = units2
+    lstm_kwargs['dropout'] = dropout2
+    lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+    if use_gaussian_noise2 == 1:
+        model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
+    if useBatchNormalization2 == 1:
+        model.add(tf.keras.layers.BatchNormalization())
+
+    lstm_kwargs['units'] = units3
+    lstm_kwargs['dropout'] = dropout3
+    lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+    lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+    if use_gaussian_noise3 == 1:
+        model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
+    if useBatchNormalization3 == 1:
+        model.add(tf.keras.layers.BatchNormalization())
+
+    model.add(tf.keras.layers.Dense(units3))  # TODO: test with 2 extra dense layers
     model.add(tf.keras.layers.Dense(y_data.shape[1]))
-
-    if multi_gpu:
-        from keras.utils import multi_gpu_model # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
-        model = multi_gpu_model(model, gpus=2)
     model.compile(loss='mean_squared_error', optimizer=optimizer)
+=======
+    # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
+    # model.add(Dense(y_data.shape[1]))
+    model.add(tf.keras.layers.Dense(y_data.shape[1]))
+    if multi_gpu:  # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
+        model = tf.keras.utils.multi_gpu_model(model, gpus=2)
+    model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+    # # TODO: Small model for GA course
+    # # create model  # TODO: 3 moar layers (6)
+    # model = Sequential()
+    # lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+    #                'return_sequences': False,
+    #                'implementation': 2,
+    #                # 'kernel_regularizer': l2(0.01),
+    #                # 'activity_regularizer': l2(0.01),
+    #                # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+    #                }
+    # if use_gaussian_noise2 == 1 and use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
+    #     lstm_kwargs['kernel_regularizer'] = l1_l2(noise_stddev2)
+    # elif use_gaussian_noise2 == 1:  # TODO: gene contraption: added kernel regularizer
+    #     lstm_kwargs['kernel_regularizer'] = l1(noise_stddev2)
+    # elif use_gaussian_noise3 == 1:  # TODO: gene contraption: added kernel regularizer
+    #     lstm_kwargs['kernel_regularizer'] = l2(noise_stddev3)
+    #
+    # if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['activity_regularizer'] = l1_l2(dropout2)
+    # elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['activity_regularizer'] = l1(dropout2)
+    # elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['activity_regularizer'] = l2(dropout3)
+    #
+    # if useBatchNormalization2 == 1 and useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['bias_regularizer'] = l1_l2(recurrent_dropout2)
+    # elif useBatchNormalization2 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['bias_regularizer'] = l1(recurrent_dropout2)
+    # elif useBatchNormalization3 == 1:  # TODO: gene contraption: added activity_regularizer
+    #     lstm_kwargs['bias_regularizer'] = l2(recurrent_dropout3)
+    #
+    # model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
+    #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+    # if use_gaussian_noise1 == 1:
+    #     model.add(GaussianNoise(noise_stddev1))
+    # if useBatchNormalization1 == 1:
+    #     model.add(BatchNormalization())
+    #
+    # model.add(Dense(y_data.shape[1]))
+    #
+    # if multi_gpu:
+    #     from keras.utils import multi_gpu_model # TODO: Temp set the same model to benchmark 1x 1070Ti vs 2x (970 + 1070ti)
+    #     model = multi_gpu_model(model, gpus=2)
+    # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
     # TODO: 6 layer large model
     # create model
@@ -246,6 +380,7 @@ def trainModel(x, *args):
     # model.add(Dense(units3))  # TODO: test with 2 extra dense layers
     # model.add(Dense(y_data.shape[1]))
     # model.compile(loss='mean_squared_error', optimizer=optimizer)
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
     # TODO: do not store model on every step
     # early_stop = [EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='auto'),
     #               ReduceLROnPlateau(patience=3, verbose=1),

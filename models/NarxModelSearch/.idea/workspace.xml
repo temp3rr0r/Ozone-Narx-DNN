@@ -2,23 +2,58 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c286f056-27e4-4633-8607-a8626974e717" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../data/EA run comparisons.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/EA run comparisons.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseNarxModelMpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseNarxModelMpi.py" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/ModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelArchitecture.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/bestModelWeights.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/full_pso_rank1_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_rank1_parameters.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/full_rand_rank2_parameters.pkl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/foundModels/min_mse.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/foundModels/min_mse.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Rank1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter1Rank1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Rank1History.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter2Rank1Series0Test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter3Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter4Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter5Rank1Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundModels/psoIter6Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter10Rank1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter10Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter10Rank1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter10Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter11Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter11Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter12Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter12Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter13Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter13Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter14Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter15Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter16Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter1Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter2Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Rank1History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Rank1Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter3Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter4Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter5Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter5Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter6Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter6Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter7Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter7Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter8Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter8Rank2History.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter8Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter8Rank2Series0Test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter9Rank1Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foundModels/randIter9Rank2Model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/deRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/deRuns.csv" afterDir="false" />
+=======
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
       <change beforePath="$PROJECT_DIR$/logs/psoRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/psoRuns.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/randRuns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/randRuns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mpiMimoModelSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/mpiMimoModelSearch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -91,33 +126,54 @@
     <session id="299290928">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.open.time.5" value="7" />
+          <entry key="project.open.time.5" value="6" />
           <entry key="project.open.time.6" value="2" />
+<<<<<<< HEAD
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.opened" value="14" />
+=======
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="12" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="29" />
+<<<<<<< HEAD
+          <entry key="py" value="30" />
+=======
+          <entry key="py" value="28" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="29" />
+<<<<<<< HEAD
+          <entry key="Python" value="30" />
+=======
+          <entry key="Python" value="28" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7101" />
+<<<<<<< HEAD
+          <entry key="py" value="7111" />
+=======
+          <entry key="py" value="6998" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7101" />
+<<<<<<< HEAD
+          <entry key="Python" value="7111" />
+=======
+          <entry key="Python" value="6998" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
         </counts>
       </usages-collector>
     </session>
@@ -127,8 +183,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+<<<<<<< HEAD
+            <state relative-caret-position="1870">
+              <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="56" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+=======
+            <state relative-caret-position="369">
+              <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -139,11 +212,34 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="134" column="63" selection-start-line="134" selection-start-column="63" selection-end-line="134" selection-end-column="63" />
+<<<<<<< HEAD
+            <state relative-caret-position="884">
+              <caret line="160" column="5" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+=======
+            <state relative-caret-position="68">
+              <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BaseNarxModelMpiTf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="65" lean-forward="true" selection-end-line="571" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BaseNarxModelMpiKeras.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="23" column="54" lean-forward="true" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -159,6 +255,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>exists</find>
       <find>initData</find>
       <find>stepsize</find>
       <find>plot_model</find>
@@ -188,7 +285,6 @@
       <find>plot_mode</find>
       <find>l1_l2</find>
       <find>keras</find>
-      <find>tf.</find>
     </findStrings>
     <replaceStrings>
       <replace>y_data.shape[1]</replace>
@@ -226,12 +322,15 @@
         <option value="$PROJECT_DIR$/NaiveRnnBaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/Ozone Time-Series Forecasting Models.ipynb" />
         <option value="$PROJECT_DIR$/EvolutionaryAlgorithms/pyswarm/pso.py" />
-        <option value="$PROJECT_DIR$/ModelSearch.py" />
         <option value="$PROJECT_DIR$/tsStandardizeNormalize.py" />
         <option value="$PROJECT_DIR$/tsRemoveColumns.py" />
         <option value="$PROJECT_DIR$/BaseNarxModelMpiTf.py" />
-        <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
         <option value="$PROJECT_DIR$/mpiMimoModelSearch.py" />
+        <option value="$PROJECT_DIR$/BaseNarxModelMpi.py" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/ModelSearch.py" />
+=======
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
       </list>
     </option>
   </component>
@@ -241,10 +340,16 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
     <option name="x" value="-12" />
     <option name="y" value="-12" />
     <option name="width" value="3864" />
+=======
+    <option name="x" value="-11" />
+    <option name="y" value="-11" />
+    <option name="width" value="3863" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
     <option name="height" value="2136" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -270,6 +375,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -292,12 +398,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/GitHub/ESRGAN" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -415,9 +520,6 @@
       <module name="NarxModelSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -784,9 +886,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1424" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12127236" />
+<<<<<<< HEAD
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12206759" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12047714" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -799,7 +904,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005964" side_tool="true" weight="0.3216511" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005964" side_tool="true" visible="true" weight="0.09759876" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32920218" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.37800154" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -1060,6 +1165,22 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpiKeras.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="23" column="54" lean-forward="true" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpiTf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="65" lean-forward="true" selection-end-line="571" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -1070,6 +1191,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
     <entry file="file://$PROJECT_DIR$/EvolutionaryAlgorithms/DifferentialEvolution.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -1084,6 +1206,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpiTf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1095,6 +1218,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ModelSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="56" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1103,8 +1233,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="134" column="63" selection-start-line="134" selection-start-column="63" selection-end-line="134" selection-end-column="63" />
+        <state relative-caret-position="884">
+          <caret line="160" column="5" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+=======
+    <entry file="file://$PROJECT_DIR$/BaseNarxModelMpi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1113,8 +1249,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mpiMimoModelSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+<<<<<<< HEAD
+        <state relative-caret-position="1870">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+=======
+        <state relative-caret-position="369">
+          <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+>>>>>>> parent of 39d5d51... Fixed some jupyter typos
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

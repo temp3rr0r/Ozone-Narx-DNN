@@ -8,10 +8,10 @@ from scipy.optimize import basinhopping
 import numpy as np
 
 # Model Search Space bounds
-bounds = [(7, 2 * 31),  # batch_size (~ #days: week, month, year)  # TODO: reduced batch size to try avoiding OOM
+bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)  # TODO: reduced batch size to try avoiding OOM
           (150, 500), (0, 3),  # , 5)    # epoch_size, optimizer
           # (1023, 1024), (1023, 1024), (1023, 1024),  # TODO: 1024, 1024, 1024  # units
-          (32, 512), (32, 256), (32, 512),
+          (64, 1024), (64, 256), (64, 1024),
           # (32, 512), (32, 196), (32, 384),
           (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # dropout
           (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # recurrent_dropout
