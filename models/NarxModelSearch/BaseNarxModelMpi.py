@@ -56,7 +56,8 @@ def trainModel(x, *args):
 
     x = np.rint(x).astype(np.int32)
     optimizers = ['adadelta', 'adagrad', 'nadam', 'adamax',
-                  'adam']  # , 'rmsprop', 'sgd'] # Avoid loss NaNs, by removing rmsprop & sgd
+                  'adam', 'amsgrad']  # , 'rmsprop', 'sgd'] # Avoid loss NaNs, by removing rmsprop & sgd
+    # TODO: Test adam variant: amsgrad (boolean), "On the Convergence of Adam and Beyond".
     batch_size = x[0]
     epoch_size = x[1]
     optimizer = optimizers[x[2]]
@@ -169,7 +170,11 @@ def trainModel(x, *args):
     model.add(tf.keras.layers.Dense(y_data.shape[1]))
     if multi_gpu:
         model = tf.keras.utils.multi_gpu_model(model, gpus=2)
-    model.compile(loss='mean_squared_error', optimizer=optimizer)
+
+    if optimizer == 'amsgrad':  # TODO: test
+        model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
+    else:
+        model.compile(loss='mean_squared_error', optimizer=optimizer)
 
     # # TODO: Small model for GA course
     # # create model  # TODO: 3 moar layers (6)
