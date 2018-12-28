@@ -30,6 +30,15 @@ def trainModel(x, *args):
 
     x_data, y_data = args
 
+    if island == "bh":  # TODO: un-normalize data
+        print("bounds ", dataManipulation["bounds"])
+        print("x ", x)
+        for i in range(len(x)):
+            x[i] = x[i] * (dataManipulation["bounds"][i][1] - dataManipulation["bounds"][i][0]) \
+                   + dataManipulation["bounds"][i][0]
+        x = np.array(x)
+        print("un-normalized x ", x)
+
     # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
     #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
     #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
@@ -171,7 +180,7 @@ def trainModel(x, *args):
     if multi_gpu:
         model = tf.keras.utils.multi_gpu_model(model, gpus=2)
 
-    if optimizer == 'amsgrad':  # TODO: test
+    if optimizer == 'amsgrad':  # TODO: test amsgrad, special version of adam
         model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
     else:
         model.compile(loss='mean_squared_error', optimizer=optimizer)
@@ -511,6 +520,9 @@ def trainModel(x, *args):
         outAgent = dataMasterToWorker["agent"]
         agentToEa = {"swapAgent": True, "agent": outAgent}  # Send agent copy
 
+    if island == "bh":
+        return mean_mse
+
     return mean_mse, agentToEa
 
 
@@ -560,6 +572,9 @@ def trainModelTester(x, *args):
     if swapAgent:
         outAgent = dataMasterToWorker["agent"]
         agentToEa = {"swapAgent": True, "agent": outAgent}
+
+    if island == "bh":
+        return mean_mse
 
     return mean_mse, agentToEa
 

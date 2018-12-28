@@ -25,14 +25,14 @@ dataManipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 5,  # Do swap island agent every iterations
+    "swapEvery": 5000,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 2,
     "iterations": 200,
-    "agents": 5,
+    "agents": 20,
     "storeCheckpoints": False,
-    "verbose": 0,
+    "verbose": 2,
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small archiectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
@@ -122,6 +122,7 @@ def getTotalMessageCount(islands, size, dataManipulation):
     psoMessageCount = (iterations + 1) * dataManipulation["agents"]
     randMessageCount = iterations
     bhMessageCount = 0  # TODO: basinHopping count
+    bhMessageCount = iterations # TODO: bh == rand
     deMessageCount = (# (dataManipulation["iterations"] + 1)
         2 * dataManipulation["agents"] * len(bounds))
 
@@ -148,8 +149,9 @@ name = MPI.Get_processor_name()
 islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-islands = ['rand'] * 32
-# islands = ['pso'] * 32
+# islands = ['rand'] * 32
+# islands = ['bh'] * 32
+islands = ['pso'] * 32
 
 if rank == 0:  # Master Node
 

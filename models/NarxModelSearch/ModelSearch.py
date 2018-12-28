@@ -44,26 +44,31 @@ ub = [bounds[0][1],  # batch_size
 def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
 
     iterations = dataManipulation["iterations"]
+    agents = dataManipulation["agents"]
     args = (x_data, y_data)
-    x0 = getRandomModel()
+
+    baseMpi.trainModel.counter = 0  # Function call counter
+    baseMpi.trainModel.label = 'bh'
+    baseMpi.trainModel.folds = dataManipulation["folds"]
+    baseMpi.trainModel.dataManipulation = dataManipulation
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
+
+    # TODO: normalize data
+    dataManipulation["bounds"] = bounds
+    bounds = np.array([(0, 1)] * len(lb))
+    x0 = np.array([random.uniform(0, 1)] * len(lb))
 
     # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
     minimizer_kwargs = dict(method="TNC", bounds=bounds, args=args)  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
     # minimizer_kwargs = dict(method="L-BFGS-B", bounds=bounds, args=y_test)  # use method L-BFGS-B because the problem is smooth and bounded
     # minimizer_kwargs = dict(method="SLSQP", bounds=bounds, args=y_test)
 
-    baseMpi.trainModel.counter = 0  # Function call counter
-    baseMpi.trainModel.label = 'bh'
-    baseMpi.trainModel.folds = dataManipulation["folds"]
-    baseMpi.trainModel.dataManipulation = dataManipulation
-
     #def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5, minimizer_kwargs=None, take_step=None, accept_test=None,
     #                  callback=None, interval=50, disp=False, niter_success=None,seed=None):
 
     res = basinhopping(
-        # baseMpi.trainModel,
-        baseMpi.trainModelTester,  # TODO: call fast dummy func
+        baseMpi.trainModel,
+        # baseMpi.trainModelTester,  # TODO: call fast dummy func
         x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
     print(res)
 
@@ -164,6 +169,7 @@ def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=Non
         phig=phig, args=args, rank=dataManipulation["rank"], storeCheckpoints=dataManipulation["storeCheckpoints"])
     printOptimum(xopt1, fopt1)
 
+
 def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
 
     iterations = dataManipulation["iterations"]
@@ -175,7 +181,7 @@ def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
         dataManipulation["iteration"] = i
         baseMpi.trainModel.dataManipulation = dataManipulation
         # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
-        baseMpi.trainModel(np.array(getRandomModel()), *args)
+        baseMpi.trainModel(np.array(getRandomModel()), *args)  # TODO: store rand agent to future island migration
 
 
 def getRandomModel():
