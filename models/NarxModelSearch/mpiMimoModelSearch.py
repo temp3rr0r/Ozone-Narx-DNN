@@ -33,18 +33,10 @@ dataManipulation = {
     "agents": 20,
     "storeCheckpoints": False,
     "verbose": 2,
-    "fp16": False,  # Disabled: Faster than fp32 ONLY on very small archiectures (1 LSTM) for ~ -10%
+    "fp16": False,  # Disabled: Faster than fp32 ONLY on very small architectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
 dataDetrend = False  # TODO: de-trend
-
-if dataManipulation["fp16"]:
-
-    import tensorflow as tf
-    tf.keras.backend.set_epsilon(1e-4)
-    tf.keras.backend.set_floatx('float16')
-    print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
-
 
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
     print('Loading data...')
@@ -149,9 +141,11 @@ name = MPI.Get_processor_name()
 islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-# islands = ['rand'] * 32
+islands = ['rand'] * 32
 # islands = ['bh'] * 32
-islands = ['pso'] * 32
+# islands = ['pso'] * 32
+# islands = ['de'] * 32
+# islands = ['rand', 'de'] * 32
 
 if rank == 0:  # Master Node
 
@@ -249,6 +243,12 @@ else:  # Worker Node
         elif rank == 8:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+
+        if dataManipulation["fp16"]:
+            import tensorflow as tf
+            tf.keras.backend.set_epsilon(1e-4)
+            tf.keras.backend.set_floatx('float16')
+            print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
 
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master

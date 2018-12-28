@@ -10,7 +10,7 @@ import numpy as np
 # Model Search Space bounds
 # TODO: Add weights initializer search: https://keras.io/initializers/
 bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)  # TODO: reduced batch size to try avoiding OOM
-          (150, 500), (0, 4),  # , 5)    # epoch_size, optimizer
+          (350, 600), (0, 4),  # , 5)    # epoch_size, optimizer
           # (1023, 1024), (1023, 1024), (1023, 1024),  # TODO: 1024, 1024, 1024  # units
           (64, 512), (64, 512), (64, 512),
           # (32, 512), (32, 196), (32, 384),

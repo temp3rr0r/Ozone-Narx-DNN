@@ -5,12 +5,13 @@ import numpy as np
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
-import tensorflow as tf # TODO: Do use the faster (and less features) CudnnLSTM, cudnnGRU
+import tensorflow as tf  # TODO: Do use the faster (and less features) CudnnLSTM, cudnnGRU
 import pandas as pd
 import gc
 from sklearn.model_selection import TimeSeriesSplit
 import random
 
+# tf.enable_eager_execution()
 
 def trainModel(x, *args):
 
@@ -39,10 +40,10 @@ def trainModel(x, *args):
         x = np.array(x)
         print("un-normalized x ", x)
 
-    # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
-    #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
-    #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
-    #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
+    x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
+         0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
+         0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
+         0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
 
     full_model_parameters = np.array(x.copy())
     if dataManipulation["fp16"]:
@@ -110,9 +111,13 @@ def trainModel(x, *args):
 
     # create model  # TODO: 1 lstm 1 dense, highly diverse
     model = tf.keras.models.Sequential()
-    lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+    # model.add(tf.keras.layers.Dropout(dropout1))
+    lstm_kwargs = {'units': units1,
+                   # 'dropout': dropout1,
+                   # 'recurrent_dropout': recurrent_dropout1,
                    'return_sequences': True,
-                   'implementation': 2
+                   # 'implementation': 2
+                   "input_shape" : (x_data.shape[1], x_data.shape[2])
                    }
     lstm_kwargs['return_sequences'] = False
     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout2, dropout2)  # TODO: mini rand: 50% for (0 - 0.01)
@@ -124,10 +129,13 @@ def trainModel(x, *args):
     #     lstm_kwargs['stateful'] = True
     #     batch_input_shape = (batch_size, timesteps, data_dim)
     #     lstm_kwargs['batch_input_shape'] = (x_data.shape[1], x_data.shape[2])
-    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
-        x_data.shape[1], x_data.shape[2])
+    # model.add(tf.keras.layers.CuDNNLSTM(**lstm_kwargs, )  # TODO: test speed
+    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.CuDNNLSTM(**lstm_kwargs)))  # TODO: test speed
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))  # TODO: test speed
+    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
+    #     x_data.shape[1], x_data.shape[2])
         # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
-        ))  # input_shape: rows: n, timestep: 1, features: m
+          # input_shape: rows: n, timestep: 1, features: m
 
     if useBatchNormalization2 > 0.5:
         model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
@@ -137,6 +145,8 @@ def trainModel(x, *args):
         model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
     if useBatchNormalization1 > 0.5:
         model.add(tf.keras.layers.BatchNormalization())
+
+
     # lstm_kwargs['units'] = units2
     # lstm_kwargs['dropout'] = dropout2
     # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
@@ -184,6 +194,7 @@ def trainModel(x, *args):
         model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
     else:
         model.compile(loss='mean_squared_error', optimizer=optimizer)
+
 
     # # TODO: Small model for GA course
     # # create model  # TODO: 3 moar layers (6)
