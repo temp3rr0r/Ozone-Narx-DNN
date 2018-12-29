@@ -5,22 +5,22 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 
 import sys
 import pandas as pd
-from ModelSearch import randomModelSearchMpi, \
-    differentialEvolutionModelSearchMpi, basinHoppingpModelSearchMpi, particleSwarmOptimizationModelSearchMpi, \
-    bounds, getRandomModel
+from ModelSearch import random_model_search_mpi, \
+    differential_evolution_model_search_mpi, basin_hopping_model_search_mpi, particle_swarm_optimization_model_search_mpi, \
+    bounds, get_random_model
 import time
 from mpi4py import MPI
 import numpy as np
 
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
-# os.environ["PATH"] += os.pathsep + 'C:/ProgramData/Anaconda3/pkgs/graphviz-2.38.0-h6538335_1009/Library/bin/graphviz'  # Path for the EC2 instance
+# os.environ["PATH"] += os.pathsep + 'C:/ProgramData/Anaconda3/pkgs/graphviz-2.38.0-h6538335_1009/Library/bin/graphviz'
 
 # modelLabel = 'rand'
 # modelLabel = 'de'
 modelLabel = 'pso'
 # modelLabel = 'bh'
 
-dataManipulation = {
+data_manipulation = {
     "detrend": False,
     # "scale": None,
     "scale": 'standardize',
@@ -38,18 +38,19 @@ dataManipulation = {
 }
 dataDetrend = False  # TODO: de-trend
 
+
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
     print('Loading data...')
 
-    if dataManipulation["scale"] == 'standardize':
+    if data_manipulation["scale"] == 'standardize':
         r = np.genfromtxt(directory + filePrefix + "_ts_standardized.csv", delimiter=',')
-    elif dataManipulation["scale"] == 'normalize':
+    elif data_manipulation["scale"] == 'normalize':
         r = np.genfromtxt(directory + filePrefix + "_ts_normalized.csv", delimiter=',')
     else:
         r = np.genfromtxt(directory + filePrefix + "_ts.csv", delimiter=',')
     r = np.delete(r, [0], axis=1)  # Remove dates
 
-    if dataManipulation["fp16"]:
+    if data_manipulation["fp16"]:
         r.astype(np.float16, casting='unsafe')  # TODO: temp test speed of keras with fp16
 
     # TODO: test 1 station only printouts
@@ -106,17 +107,17 @@ def loadData(directory, filePrefix, mimoOutputs, rank=1):
     return x_data_3d, y_data
 
 
-def getTotalMessageCount(islands, size, dataManipulation):
+def get_total_message_count(islands, size, data_manipulation):
 
     # TODO: should all have close to equal iterations. rand most importantly
     totalMessageCount = 0
-    iterations = dataManipulation["iterations"]
-    psoMessageCount = (iterations + 1) * dataManipulation["agents"]
+    iterations = data_manipulation["iterations"]
+    psoMessageCount = (iterations + 1) * data_manipulation["agents"]
     randMessageCount = iterations
     bhMessageCount = 0  # TODO: basinHopping count
     bhMessageCount = iterations # TODO: bh == rand
-    deMessageCount = (# (dataManipulation["iterations"] + 1)
-        2 * dataManipulation["agents"] * len(bounds))
+    deMessageCount = (# (data_manipulation["iterations"] + 1)
+        2 * data_manipulation["agents"] * len(bounds))
 
     for i in range(1, size):
         if islands[i] == "pso":
@@ -141,11 +142,11 @@ name = MPI.Get_processor_name()
 islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-islands = ['rand'] * 32
+# islands = ['rand'] * 32
 # islands = ['bh'] * 32
 # islands = ['pso'] * 32
 # islands = ['de'] * 32
-# islands = ['rand', 'de'] * 32
+islands = ['rand', 'de'] * 32
 
 if rank == 0:  # Master Node
 
@@ -160,12 +161,12 @@ if rank == 0:  # Master Node
         print("--- Rank {}. Sending data: {} to {}...".format(rank, initDataToWorkers, worker))
 
     swapCounter = 0
-    agentBuffer = getRandomModel()
+    agentBuffer = get_random_model()
     overallMinMse = 10e4  # TODO: formalize it
     evaluations = 0
     bestIsland = ""
 
-    totalMessageCount = getTotalMessageCount(islands, size, dataManipulation)
+    totalMessageCount = get_total_message_count(islands, size, data_manipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
 
     for messageId in range(totalMessageCount):  # TODO 1000-1200 bh iters
@@ -184,7 +185,7 @@ if rank == 0:  # Master Node
         if dataWorkerToMaster["mean_mse"] < overallMinMse:
             overallMinMse = dataWorkerToMaster["mean_mse"]
             bestIsland = dataWorkerToMaster["island"]
-            if dataManipulation["sendBestAgentFromBuffer"]:
+            if data_manipulation["sendBestAgentFromBuffer"]:
                 agentBuffer = dataWorkerToMaster["agent"]  # TODO: Send the best agent received so far
             print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
                 overallMinMse, dataWorkerToMaster["island"], dataWorkerToMaster["iteration"], evaluations))
@@ -195,7 +196,7 @@ if rank == 0:  # Master Node
         # Master to worker
 
         dataMasterToWorker = {"swapAgent": False, "agent": None}
-        if swapCounter > dataManipulation["swapEvery"]:
+        if swapCounter > data_manipulation["swapEvery"]:
             print("========= Swapping...")
             swapCounter = 0
             dataMasterToWorker["swapAgent"] = True
@@ -244,7 +245,7 @@ else:  # Worker Node
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "7"
 
-        if dataManipulation["fp16"]:
+        if data_manipulation["fp16"]:
             import tensorflow as tf
             tf.keras.backend.set_epsilon(1e-4)
             tf.keras.backend.set_floatx('float16')
@@ -255,52 +256,52 @@ else:  # Worker Node
         print("--- Rank {}. Data Received: {}!".format(rank, initData))
         print("--- Island: {}".format(island))
 
-        # dataManipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-        # dataManipulation["filePrefix"] = "BETN073"
-        # dataManipulation["mimoOutputs"] = 1
+        # data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+        # data_manipulation["filePrefix"] = "BETN073"
+        # data_manipulation["mimoOutputs"] = 1
 
-        # dataManipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
-        # dataManipulation["filePrefix"] = "BETN073_ALL"
-        # dataManipulation["mimoOutputs"] = 1
+        # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
+        # data_manipulation["filePrefix"] = "BETN073_ALL"
+        # data_manipulation["mimoOutputs"] = 1
 
-        dataManipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
-        dataManipulation["filePrefix"] = "BETN073_BG"
-        dataManipulation["mimoOutputs"] = 1
+        data_manipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
+        data_manipulation["filePrefix"] = "BETN073_BG"
+        data_manipulation["mimoOutputs"] = 1
 
-        # dataManipulation["directory"] = "data/4stations51vars/"
-        # dataManipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
-        # dataManipulation["mimoOutputs"] = 4
+        # data_manipulation["directory"] = "data/4stations51vars/"
+        # data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+        # data_manipulation["mimoOutputs"] = 4
 
-        # dataManipulation["directory"] = "data/BETN012_66_73_121_BG/"
-        # dataManipulation["filePrefix"] = "BETN012_66_73_121_BG"
-        # dataManipulation["mimoOutputs"] = 4
+        # data_manipulation["directory"] = "data/BETN012_66_73_121_BG/"
+        # data_manipulation["filePrefix"] = "BETN012_66_73_121_BG"
+        # data_manipulation["mimoOutputs"] = 4
 
-        # dataManipulation["directory"] = "data/BETN113_121_132_BG/"
-        # dataManipulation["filePrefix"] = "BETN113_121_132_BG"
-        # dataManipulation["mimoOutputs"] = 3
+        # data_manipulation["directory"] = "data/BETN113_121_132_BG/"
+        # data_manipulation["filePrefix"] = "BETN113_121_132_BG"
+        # data_manipulation["mimoOutputs"] = 3
 
-        # dataManipulation["directory"] = "data/24stations51vars/"
-        # dataManipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
-        # dataManipulation["mimoOutputs"] = 24
+        # data_manipulation["directory"] = "data/24stations51vars/"
+        # data_manipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
+        # data_manipulation["mimoOutputs"] = 24
 
-        # dataManipulation["directory"] = "data/46stations51vars/"
-        # dataManipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
-        # dataManipulation["mimoOutputs"] = 46
+        # data_manipulation["directory"] = "data/46stations51vars/"
+        # data_manipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
+        # data_manipulation["mimoOutputs"] = 46
 
-        # dataManipulation["directory"] = "data/PM10_BETN/"
-        # dataManipulation["filePrefix"] = "PM10_BETN"
-        # dataManipulation["mimoOutputs"] = 16
+        # data_manipulation["directory"] = "data/PM10_BETN/"
+        # data_manipulation["filePrefix"] = "PM10_BETN"
+        # data_manipulation["mimoOutputs"] = 16
 
-        # dataManipulation["directory"] = "data/PM1073stations51vars/"
-        # dataManipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-        # dataManipulation["mimoOutputs"] = 73
+        # data_manipulation["directory"] = "data/PM1073stations51vars/"
+        # data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+        # data_manipulation["mimoOutputs"] = 73
 
-        x_data_3d, y_data = loadData(dataManipulation["directory"], dataManipulation["filePrefix"],
-                                     dataManipulation["mimoOutputs"])
+        x_data_3d, y_data = loadData(data_manipulation["directory"], data_manipulation["filePrefix"],
+                                     data_manipulation["mimoOutputs"])
 
-        dataManipulation["rank"] = rank
-        dataManipulation["island"] = island
-        dataManipulation["comm"] = comm
+        data_manipulation["rank"] = rank
+        data_manipulation["island"] = island
+        data_manipulation["comm"] = comm
 
         # TODO: add/test (single or multi-agent) optimizers:
         # TODO: - Reinforcement Learning
@@ -316,12 +317,12 @@ else:  # Worker Node
         # TODO: - Tabu search (?)
 
         if island == 'rand':
-            randomModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            random_model_search_mpi(x_data_3d, y_data, data_manipulation)
         elif island == 'pso':
-            particleSwarmOptimizationModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            particle_swarm_optimization_model_search_mpi(x_data_3d, y_data, data_manipulation)
         elif island == 'de':
-            differentialEvolutionModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            differential_evolution_model_search_mpi(x_data_3d, y_data, data_manipulation)
         elif island == 'bh':
-            basinHoppingpModelSearchMpi(x_data_3d, y_data, dataManipulation)
+            basin_hopping_model_search_mpi(x_data_3d, y_data, data_manipulation)
 
         print("--- Done({})!".format(island))

@@ -19,23 +19,23 @@ def trainModel(x, *args):
     trainModel.counter += 1
     modelLabel = trainModel.label
     modelFolds = trainModel.folds
-    dataManipulation = trainModel.dataManipulation
-    rank = dataManipulation["rank"]
-    master = dataManipulation["master"]
-    directory = dataManipulation["directory"]
-    filePrefix = dataManipulation["filePrefix"]
-    island = dataManipulation["island"]
-    verbosity = dataManipulation["verbose"]
-    multi_gpu = dataManipulation["multi_gpu"]
+    data_manipulation = trainModel.data_manipulation
+    rank = data_manipulation["rank"]
+    master = data_manipulation["master"]
+    directory = data_manipulation["directory"]
+    filePrefix = data_manipulation["filePrefix"]
+    island = data_manipulation["island"]
+    verbosity = data_manipulation["verbose"]
+    multi_gpu = data_manipulation["multi_gpu"]
 
     x_data, y_data = args
 
     if island == "bh":  # TODO: un-normalize data
-        print("bounds ", dataManipulation["bounds"])
+        print("bounds ", data_manipulation["bounds"])
         print("x ", x)
         for i in range(len(x)):
-            x[i] = x[i] * (dataManipulation["bounds"][i][1] - dataManipulation["bounds"][i][0]) \
-                   + dataManipulation["bounds"][i][0]
+            x[i] = x[i] * (data_manipulation["bounds"][i][1] - data_manipulation["bounds"][i][0]) \
+                   + data_manipulation["bounds"][i][0]
         x = np.array(x)
         print("un-normalized x ", x)
 
@@ -45,7 +45,7 @@ def trainModel(x, *args):
     #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
 
     full_model_parameters = np.array(x.copy())
-    if dataManipulation["fp16"]:
+    if data_manipulation["fp16"]:
         full_model_parameters.astype(np.float32, casting='unsafe')  # TODO: temp test speed of keras with fp16
 
     print("\n=============\n")
@@ -346,7 +346,7 @@ def trainModel(x, *args):
         prediction = model.predict(x_data[validation])
         y_validation = y_data[validation]
 
-        if dataManipulation["scale"] == 'standardize':
+        if data_manipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle(directory + filePrefix + "_ts_mean.pkl")
             sensor_std = pd.read_pickle(directory + filePrefix + "_ts_std.pkl")
             # if trainModel.counter == 1:
@@ -358,7 +358,7 @@ def trainModel(x, *args):
             sensor_std = np.array(sensor_std)
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-        elif dataManipulation["scale"] == 'normalize':
+        elif data_manipulation["scale"] == 'normalize':
             sensor_min = pd.read_pickle(directory + filePrefix + "_ts_min.pkl")
             sensor_max = pd.read_pickle(directory + filePrefix + "_ts_max.pkl")
             # if trainModel.counter == 1:
@@ -388,10 +388,10 @@ def trainModel(x, *args):
         full_prediction = model.predict(x_data)
         full_expected_ts = y_data
 
-        if dataManipulation["scale"] == 'standardize':
+        if data_manipulation["scale"] == 'standardize':
             full_prediction = (full_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             full_expected_ts = (full_expected_ts * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-        elif dataManipulation["scale"] == 'normalize':
+        elif data_manipulation["scale"] == 'normalize':
             full_prediction = full_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             full_expected_ts = full_expected_ts * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
@@ -417,10 +417,10 @@ def trainModel(x, *args):
 
     holdout_prediction = model.predict(x_data_holdout)
 
-    if dataManipulation["scale"] == 'standardize':
+    if data_manipulation["scale"] == 'standardize':
         holdout_prediction = (holdout_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         y_data_holdout = (y_data_holdout * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-    elif dataManipulation["scale"] == 'normalize':
+    elif data_manipulation["scale"] == 'normalize':
         holdout_prediction = holdout_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) \
                              + sensor_min[0:y_data.shape[1]]
         y_data_holdout = y_data_holdout * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) \
@@ -510,7 +510,7 @@ def trainModel(x, *args):
     # Worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
                           "island": island, "iteration": trainModel.counter}
-    comm = dataManipulation["comm"]
+    comm = data_manipulation["comm"]
     req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # Send data async to master
     req.wait()
 
@@ -541,10 +541,10 @@ def trainModelTester(x, *args):
     trainModel.counter += 1
     modelLabel = trainModel.label
     modelFolds = trainModel.folds
-    dataManipulation = trainModel.dataManipulation
-    island = dataManipulation["island"]
-    rank = dataManipulation["rank"]
-    master = dataManipulation["master"]
+    data_manipulation = trainModel.data_manipulation
+    island = data_manipulation["island"]
+    rank = data_manipulation["rank"]
+    master = data_manipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -559,7 +559,7 @@ def trainModelTester(x, *args):
     # Worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
                           "island": island, "iteration": trainModel.counter}
-    comm = dataManipulation["comm"]
+    comm = data_manipulation["comm"]
     # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
     # req.wait()
     comm.send(dataWorkerToMaster, dest=master, tag=1)
@@ -588,10 +588,10 @@ def trainModelTester2(x, *args):
     trainModel.counter += 1
     modelLabel = trainModel.label
     modelFolds = trainModel.folds
-    dataManipulation = trainModel.dataManipulation
-    island = dataManipulation["island"]
-    rank = dataManipulation["rank"]
-    master = dataManipulation["master"]
+    data_manipulation = trainModel.data_manipulation
+    island = data_manipulation["island"]
+    rank = data_manipulation["rank"]
+    master = data_manipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -605,7 +605,7 @@ def trainModelTester2(x, *args):
     # Worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
                           "island": island, "iteration": trainModel.counter}
-    # comm = dataManipulation["comm"]
+    # comm = data_manipulation["comm"]
     # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
     # req.wait()
     # comm.send(dataWorkerToMaster, dest=master, tag=1)

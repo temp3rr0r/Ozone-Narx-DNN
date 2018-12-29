@@ -16,21 +16,21 @@ import gc
 from sklearn.model_selection import TimeSeriesSplit
 
 
-def trainModel(x, *args):
+def train_model(x, *args):
 
     startTime = time.time()  # training time per model
 
-    trainModel.counter += 1
-    modelLabel = trainModel.label
-    modelFolds = trainModel.folds
-    dataManipulation = trainModel.dataManipulation
-    rank = dataManipulation["rank"]
-    master = dataManipulation["master"]
+    train_model.counter += 1
+    modelLabel = train_model.label
+    modelFolds = train_model.folds
+    data_manipulation = train_model.data_manipulation
+    rank = data_manipulation["rank"]
+    master = data_manipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
     print("\n=============\n")
-    print("{} iteration {} using:\n\t{}".format(modelLabel, trainModel.counter, x[6:15]))
+    print("{} iteration {} using:\n\t{}".format(modelLabel, train_model.counter, x[6:15]))
 
     dropout1 = x[6]
     dropout2 = x[7]
@@ -121,7 +121,7 @@ def trainModel(x, *args):
         prediction = model.predict(x_data[validation])
         y_validation = y_data[validation]
 
-        if dataManipulation["scale"] == 'standardize':
+        if data_manipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle("data/BETN073_ts_mean.pkl")
             sensor_std = pd.read_pickle("data/BETN073_ts_std.pkl")
             # if trainModel.counter == 1:
@@ -135,7 +135,7 @@ def trainModel(x, *args):
             sensor_std = np.array(sensor_std)
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-        elif dataManipulation["scale"] == 'normalize':
+        elif data_manipulation["scale"] == 'normalize':
             sensor_min = pd.read_pickle("data/BETN073_ts_min.pkl")
             sensor_max = pd.read_pickle("data/BETN073_ts_max.pkl")
             # if trainModel.counter == 1:
@@ -167,10 +167,10 @@ def trainModel(x, *args):
         full_prediction = model.predict(x_data)
         full_expected_ts = y_data
 
-        if dataManipulation["scale"] == 'standardize':
+        if data_manipulation["scale"] == 'standardize':
             full_prediction = (full_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             full_expected_ts = (full_expected_ts * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-        elif dataManipulation["scale"] == 'normalize':
+        elif data_manipulation["scale"] == 'normalize':
             full_prediction = full_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             full_expected_ts = full_expected_ts * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
@@ -183,7 +183,7 @@ def trainModel(x, *args):
 
 
     # Plot model architecture
-    plot_model(model, show_shapes=True, to_file='foundModels/{}ModelIter{}.png'.format(modelLabel, trainModel.counter))
+    plot_model(model, show_shapes=True, to_file='foundModels/{}ModelIter{}.png'.format(modelLabel, train_model.counter))
     SVG(model_to_dot(model).create(prog='dot', format='svg'))
 
     mean_smape = np.mean(smape_scores)
@@ -197,10 +197,10 @@ def trainModel(x, *args):
 
     holdout_prediction = model.predict(x_data_holdout)
 
-    if dataManipulation["scale"] == 'standardize':
+    if data_manipulation["scale"] == 'standardize':
         holdout_prediction = (holdout_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         y_data_holdout = (y_data_holdout * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-    elif dataManipulation["scale"] == 'normalize':
+    elif data_manipulation["scale"] == 'normalize':
         holdout_prediction = holdout_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) \
                              + sensor_min[0:y_data.shape[1]]
         y_data_holdout = y_data_holdout * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) \
@@ -226,9 +226,9 @@ def trainModel(x, *args):
         # cvSmapeMean, cvSmapeStd, holdoutRmse, holdoutSmape, holdoutMape,
         # holdoutMse, holdoutIoa, full_pso_parameters
         file.write("{},{},{},{},{},{},{},{},{},{},{},{},{}\n"
-                   .format(str(int(time.time())), str(trainModel.counter), str(rank - 1),
-            str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape),
-            str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
+                   .format(str(int(time.time())), str(train_model.counter), str(rank - 1),
+                           str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape),
+                           str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
 
     if mean_mse < min_mse:
         print("New min_mse: {}".format(mean_mse))
@@ -240,7 +240,7 @@ def trainModel(x, *args):
 
         # Plot history
         pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
-        pyplot.title("{} (iter: {}): Training History Last Fold".format(modelLabel, trainModel.counter))
+        pyplot.title("{} (iter: {}): Training History Last Fold".format(modelLabel, train_model.counter))
         pyplot.plot(history.history['val_loss'], label='val_loss')
         pyplot.plot(history.history['loss'], label='loss')
         pyplot.xlabel("Training Epoch")
@@ -248,13 +248,13 @@ def trainModel(x, *args):
         pyplot.grid(True)
         pyplot.legend()
         # pyplot.show()
-        pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, trainModel.counter))
+        pyplot.savefig("foundModels/{}Iter{}History.png".format(modelLabel, train_model.counter))
 
         # Plot test data
         for i in range(holdout_prediction.shape[1]):
             pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
             pyplot.title("{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)"
-                    .format(modelLabel, trainModel.counter, i, np.round(holdout_rmse, 2),
+                    .format(modelLabel, train_model.counter, i, np.round(holdout_rmse, 2),
                             np.round(holdout_mape * 100, 2), np.round(holdout_ioa * 100, 2)))
             pyplot.plot(holdout_prediction[:,i], label='prediction')
             pyplot.plot(y_data_holdout[:,i], label='expected')
@@ -263,7 +263,7 @@ def trainModel(x, *args):
             pyplot.grid(True)
             pyplot.legend()
             # pyplot.show()
-            pyplot.savefig("foundModels/{}Iter{}Series{}Test.png".format(modelLabel,trainModel.counter, i))
+            pyplot.savefig("foundModels/{}Iter{}Series{}Test.png".format(modelLabel, train_model.counter, i))
 
         # Store model
         model_json = model.to_json() # serialize model to JSON
@@ -287,8 +287,8 @@ def trainModel(x, *args):
     # data["agentToSend"] = full_model_parameters
     # data["agentToReceive"] = full_model_parameters
     # #     data['agentToSend'] = islandAgents[agentReplaceIndex]  # TODO: agent genotype -> phenotype
-    # # dataManipulation['agentToSend'] = full_model_parameters  # TODO: agent genotype -> phenotype
-    # comm = dataManipulation["comm"]
+    # # data_manipulation['agentToSend'] = full_model_parameters  # TODO: agent genotype -> phenotype
+    # comm = data_manipulation["comm"]
     # req = comm.isend(data, dest=master, tag=1)
     # req.wait()
     #
@@ -306,7 +306,7 @@ def trainModel(x, *args):
     endTime = time.time()
     # TODO: worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
-    comm = dataManipulation["comm"]
+    comm = data_manipulation["comm"]
     req = comm.isend(dataWorkerToMaster, dest=master, tag=1)
     req.wait()
 
@@ -324,23 +324,23 @@ def trainModel(x, *args):
     return mean_mse, agentToEa
 
 
-def trainModelTester(x, *args):
+def train_model_tester(x, *args):
 
     startTime = time.time()  # training time per model
 
-    trainModel.counter += 1
-    modelLabel = trainModel.label
-    modelFolds = trainModel.folds
-    dataManipulation = trainModel.dataManipulation
-    island = dataManipulation["island"]
+    train_model.counter += 1
+    modelLabel = train_model.label
+    modelFolds = train_model.folds
+    data_manipulation = train_model.data_manipulation
+    island = data_manipulation["island"]
     if island == "de":
         x[0] = 266
         x[1] = 266
     elif island == "pso":
         x[0] = 133
         x[1] = 133
-    rank = dataManipulation["rank"]
-    master = dataManipulation["master"]
+    rank = data_manipulation["rank"]
+    master = data_manipulation["master"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -348,11 +348,11 @@ def trainModelTester(x, *args):
     time.sleep(timeToSleep)
     mean_mse = 333.33 + timeToSleep
 
-    trainModel.counter += 1
+    train_model.counter += 1
     endTime = time.time()
     # TODO: worker to master
     dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x}
-    comm = dataManipulation["comm"]
+    comm = data_manipulation["comm"]
     # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
     # req.wait()
     comm.send(dataWorkerToMaster, dest=master, tag=1)

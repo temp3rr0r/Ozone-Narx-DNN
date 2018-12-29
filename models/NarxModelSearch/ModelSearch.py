@@ -41,20 +41,20 @@ ub = [bounds[0][1],  # batch_size
       bounds[18][1], bounds[19][1], bounds[20][1]]  # batch normalization
 
 
-def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
+def basin_hopping_model_search_mpi(x_data, y_data, data_manipulation=None):
 
-    iterations = dataManipulation["iterations"]
-    agents = dataManipulation["agents"]
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
     args = (x_data, y_data)
 
-    baseMpi.trainModel.counter = 0  # Function call counter
-    baseMpi.trainModel.label = 'bh'
-    baseMpi.trainModel.folds = dataManipulation["folds"]
-    baseMpi.trainModel.dataManipulation = dataManipulation
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'bh'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    baseMpi.train_model.data_manipulation = data_manipulation
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
 
     # TODO: normalize data
-    dataManipulation["bounds"] = bounds
+    data_manipulation["bounds"] = bounds
     bounds = np.array([(0, 1)] * len(lb))
     x0 = np.array([random.uniform(0, 1)] * len(lb))
 
@@ -67,124 +67,124 @@ def basinHoppingpModelSearchMpi(x_data, y_data, dataManipulation=None):
     #                  callback=None, interval=50, disp=False, niter_success=None,seed=None):
 
     res = basinhopping(
-        baseMpi.trainModel,
+        baseMpi.train_model,
         # baseMpi.trainModelTester,  # TODO: call fast dummy func
         x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
     print(res)
 
 
-def differentialEvolutionModelSearchMpi(x_data, y_data, dataManipulation=None):
+def differential_evolution_model_search_mpi(x_data, y_data, data_manipulation=None):
 
-    iterations = dataManipulation["iterations"]
-    agents = dataManipulation["agents"]
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
     args = (x_data, y_data)
-    baseMpi.trainModel.counter = 0  # Function call counter
-    baseMpi.trainModel.label = 'de'
-    baseMpi.trainModel.folds = dataManipulation["folds"]
-    baseMpi.trainModel.dataManipulation = dataManipulation
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'de'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    baseMpi.train_model.data_manipulation = data_manipulation
     polish = False
     strategy = "best1bin"  # Dispatch of mutation strategy (Binomial or Exponential)
-    if dataManipulation["rank"] % 10 == 1:
+    if data_manipulation["rank"] % 10 == 1:
         strategy = "best1bin"
-    elif dataManipulation["rank"] % 10 == 2:
+    elif data_manipulation["rank"] % 10 == 2:
         strategy = "best1exp"
-    elif dataManipulation["rank"] % 10 == 3:
+    elif data_manipulation["rank"] % 10 == 3:
         strategy = "rand2exp"
-    elif dataManipulation["rank"] % 10 == 4:
+    elif data_manipulation["rank"] % 10 == 4:
         strategy = "best2bin"
-    elif dataManipulation["rank"] % 10 == 5:
+    elif data_manipulation["rank"] % 10 == 5:
         strategy = "rand2bin"
-    elif dataManipulation["rank"] % 10 == 6:
+    elif data_manipulation["rank"] % 10 == 6:
         strategy = "randtobest1exp"
-    elif dataManipulation["rank"] % 10 == 7:
+    elif data_manipulation["rank"] % 10 == 7:
         strategy = "randtobest1bin"
-    elif dataManipulation["rank"] % 10 == 8:
+    elif data_manipulation["rank"] % 10 == 8:
         strategy = "rand1bin"
-    elif dataManipulation["rank"] % 10 == 9:
+    elif data_manipulation["rank"] % 10 == 9:
         strategy = "best2exp"
     print("--- Using strategy: {}".format(strategy))
 
     xopt1 = differential_evolution(
         # baseMpi.trainModelTester,  # TODO: call fast dummy func
-        baseMpi.trainModel,
+        baseMpi.train_model,
         bounds, args=args, popsize=agents, maxiter=iterations,
         polish=polish, strategy=strategy)  # TODO: test DE params
-    printOptimum(xopt1, xopt1)
+    print_optimum(xopt1, xopt1)
 
 
-def particleSwarmOptimizationModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
+def particle_swarm_optimization_model_search_mpi(x_data, y_data, data_manipulation=None, iterations=100):
 
-    iterations = dataManipulation["iterations"]
-    agents = dataManipulation["agents"]
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
     args = (x_data, y_data)
-    baseMpi.trainModel.counter = 0  # Function call counter
-    baseMpi.trainModel.label = 'pso'
-    baseMpi.trainModel.folds = dataManipulation["folds"]
-    baseMpi.trainModel.dataManipulation = dataManipulation
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'pso'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    baseMpi.train_model.data_manipulation = data_manipulation
 
     omega = 0.5  # Particle velocity
     phip = 0.5  # Search away from particle's best known position (scaling factor)
     phig = 0.5  # Search away swarm's best known position (scaling factor)
-    if dataManipulation["rank"] % 10 == 1:
+    if data_manipulation["rank"] % 10 == 1:
         omega = 0.5
         phip = 0.5
         phig = 0.5
-    elif dataManipulation["rank"] % 10 == 2:
+    elif data_manipulation["rank"] % 10 == 2:
         omega = 0.75
         phip = 0.75
         phig = 0.75
-    elif dataManipulation["rank"] % 10 == 3:
+    elif data_manipulation["rank"] % 10 == 3:
         omega = 0.25
         phip = 0.25
         phig = 0.25
-    elif dataManipulation["rank"] % 10 == 4:
+    elif data_manipulation["rank"] % 10 == 4:
         omega = 0.95
         phip = 0.95
         phig = 0.95
-    elif dataManipulation["rank"] % 10 == 5:
+    elif data_manipulation["rank"] % 10 == 5:
         omega = 0.05
         phip = 0.05
         phig = 0.05
-    elif dataManipulation["rank"] % 10 == 6:
+    elif data_manipulation["rank"] % 10 == 6:
         omega = 0.85
         phip = 0.85
         phig = 0.85
-    elif dataManipulation["rank"] % 10 == 7:
+    elif data_manipulation["rank"] % 10 == 7:
         omega = 0.15
         phip = 0.15
         phig = 0.15
-    elif dataManipulation["rank"] % 10 == 8:
+    elif data_manipulation["rank"] % 10 == 8:
         omega = 0.99
         phip = 0.99
         phig = 0.99
-    elif dataManipulation["rank"] % 10 == 9:
+    elif data_manipulation["rank"] % 10 == 9:
         omega = 0.01
         phip = 0.01
         phig = 0.01
 
     xopt1, fopt1 = pso(
         # baseMpi.trainModelTester,   # TODO: call fast dummy func
-        baseMpi.trainModel,
+        baseMpi.train_model,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip, debug=True,
-        phig=phig, args=args, rank=dataManipulation["rank"], storeCheckpoints=dataManipulation["storeCheckpoints"])
-    printOptimum(xopt1, fopt1)
+        phig=phig, args=args, rank=data_manipulation["rank"], storeCheckpoints=data_manipulation["storeCheckpoints"])
+    print_optimum(xopt1, fopt1)
 
 
-def randomModelSearchMpi(x_data, y_data, dataManipulation=None, iterations=100):
+def random_model_search_mpi(x_data, y_data, data_manipulation=None, iterations=100):
 
-    iterations = dataManipulation["iterations"]
+    iterations = data_manipulation["iterations"]
     args = (x_data, y_data)
-    baseMpi.trainModel.counter = 0  # Function call counter
-    baseMpi.trainModel.label = 'rand'
-    baseMpi.trainModel.folds = dataManipulation["folds"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'rand'
+    baseMpi.train_model.folds = data_manipulation["folds"]
     for i in range(iterations):
-        dataManipulation["iteration"] = i
-        baseMpi.trainModel.dataManipulation = dataManipulation
+        data_manipulation["iteration"] = i
+        baseMpi.train_model.data_manipulation = data_manipulation
         # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
-        baseMpi.trainModel(np.array(getRandomModel()), *args)  # TODO: store rand agent to future island migration
+        baseMpi.train_model(np.array(get_random_model()), *args)  # TODO: store rand agent to future island migration
 
 
-def getRandomModel():
+def get_random_model():
     return [random.randint(lb[0], ub[0]),  # batch_size
              random.randint(lb[1], ub[1]), random.randint(lb[2], ub[2]),  # epoch_size, optimizer
              random.randint(lb[3], ub[3]), random.randint(lb[4], ub[4]), random.randint(lb[5], ub[5]),  # units
@@ -195,7 +195,7 @@ def getRandomModel():
              random.randint(lb[18], ub[18]), random.randint(lb[19], ub[19]), random.randint(lb[20], ub[20])]
 
 
-def printOptimum(xopt1, fopt1):
+def print_optimum(xopt1, fopt1):
     print('The optimum is at:')
     print('    {}'.format(xopt1))
     print('Optimal function value:')
