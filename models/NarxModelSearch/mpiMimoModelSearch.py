@@ -138,13 +138,13 @@ rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
 # islands = ['rand'] * 32
 # islands = ['bh'] * 32
-islands = ['pso'] * 32
+# islands = ['pso'] * 32
 # islands = ['de'] * 32
 # islands = ['pso', 'de'] * 32
 
@@ -244,6 +244,9 @@ else:  # Worker Node
         elif rank == 8:
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+        elif rank == 10:  # TODO: temp
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+            os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
         if data_manipulation["fp16"]:
             import tensorflow as tf
