@@ -25,12 +25,12 @@ data_manipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 5000,  # Do swap island agent every iterations
+    "swapEvery": 500,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 2,
     "iterations": 200,
-    "agents": 20,
+    "agents": 10,
     "storeCheckpoints": False,
     "verbose": 2,
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small architectures (1 LSTM) for ~ -10%
@@ -139,14 +139,14 @@ name = MPI.Get_processor_name()
 
 # islands = ['bh', 'pso', 'de', 'rand']
 # islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
-islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
+# islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
 # islands = ['rand'] * 32
 # islands = ['bh'] * 32
-# islands = ['pso'] * 32
+islands = ['pso'] * 32
 # islands = ['de'] * 32
-islands = ['rand', 'de'] * 32
+# islands = ['pso', 'de'] * 32
 
 if rank == 0:  # Master Node
 

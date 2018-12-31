@@ -99,13 +99,13 @@ def train_model(x, *args):
 
     # TODO: why re-build model after every fold? test just making it once bfr entering the folds
 
-    # create model  # TODO: Naive LSTM
-    # model = Sequential()
+    # # create model  # TODO: Naive LSTM
+    # model = tf.keras.models.Sequential()
     # lstm_kwargs = {'units': 64, 'return_sequences': False,
     #                'implementation': 2}
-    # model.add(Bidirectional(LSTM(**lstm_kwargs), input_shape=(
+    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
     #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-    # model.add(Dense(y_data.shape[1]))
+    # model.add(tf.keras.layers.Dense(y_data.shape[1]))
     # model.compile(loss='mean_squared_error', optimizer=optimizer)
 
     # create model  # TODO: 1 lstm 1 dense, highly diverse
@@ -135,7 +135,6 @@ def train_model(x, *args):
     #     x_data.shape[1], x_data.shape[2])
         # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
           # input_shape: rows: n, timestep: 1, features: m
-
     if useBatchNormalization2 > 0.5:
         model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
     if useBatchNormalization3 > 0.5:
@@ -144,44 +143,6 @@ def train_model(x, *args):
         model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
     if useBatchNormalization1 > 0.5:
         model.add(tf.keras.layers.BatchNormalization())
-
-
-    # lstm_kwargs['units'] = units2
-    # lstm_kwargs['dropout'] = dropout2
-    # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-    # lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(max(0, np.random.uniform(-0.01, 0.01)))  # TODO: mini rand: 50% for (0 - 0.01)
-    # lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1(max(0, np.random.uniform(-0.01, 0.01)))
-    # lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1(max(0, np.random.uniform(-0.01, 0.01)))
-
-    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])))
-    #
-    # if max(0, np.random.uniform(-0.1, 0.1)) > 0.0:
-    #     model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
-    # if max(0, np.random.uniform(-0.1, 0.1)) > 0.0:
-    #     model.add(tf.keras.layers.GaussianDropout(np.random.uniform(0.001, 0.1)))
-    # if use_gaussian_noise2 == 1:
-    #     model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-    # if useBatchNormalization2 == 1:
-    #     model.add(tf.keras.layers.BatchNormalization())
-    # lstm_kwargs['units'] = units3
-    # lstm_kwargs['dropout'] = dropout3
-    # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-    # lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(max(0, np.random.uniform(-0.01, 0.01)))  # TODO: mini rand: 50% for (0 - 0.01)
-    # lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1(max(0, np.random.uniform(-0.01, 0.01)))
-    # lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1(max(0, np.random.uniform(-0.01, 0.01)))
-
-    # lstm_kwargs['return_sequences'] = False
-    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-
-    # if max(0, np.random.uniform(-0.1, 0.1)) > 0.0:
-    #     model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
-    # if max(0, np.random.uniform(-0.1, 0.1)) > 0.0:
-    #     model.add(tf.keras.layers.GaussianDropout(np.random.uniform(0.001, 0.1)))
-    # if use_gaussian_noise3 == 1:
-    #     model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
-    # if useBatchNormalization3 == 1:
-    #     model.add(tf.keras.layers.BatchNormalization())
-
     model.add(tf.keras.layers.Dense(units2, activation=random.choice(
         ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
          "linear"])))  # TODO: test with 2 extra dense layers
