@@ -1,5 +1,7 @@
 import pika
 import time
+import json
+import numpy as np
 
 connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
 channel = connection.channel()
@@ -8,13 +10,18 @@ channel.queue_declare(queue="task_queue", durable=True)
 
 def callback(ch, method, properties, body):
     try:
+        body = json.loads(body)
         print(" [x] Received %r" % body)
-        # if "error" in str(body):
-        #     raise ValueError("Value error thrown exception")
         time.sleep(body.count(b"."))
+
+        # Do work
+        array1 = np.array(body)
+        mse = array1 * 3
+        print(" [x] mse: ", np.mean(mse))
+
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
-    except ValueError as ev:
+    except ValueError as ev:  # Handle exceptions
         print(" [x] Exception, sending rejection %s" % str(ev))
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
