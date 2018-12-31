@@ -20,16 +20,16 @@ os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/gra
 modelLabel = 'pso'
 # modelLabel = 'bh'
 
-data_manipulation = {
+data_manipulation = {  # TODO: put data_manipulation in json text file
     "detrend": False,
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 3,  # Do swap island agent every iterations
+    "swapEvery": 5,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 2,
-    "iterations": 200,
+    "iterations": 400,
     "agents": 5,
     "storeCheckpoints": False,
     "verbose": 0,
@@ -136,12 +136,12 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
 
-# islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+# islands = ['bh', 'pso', 'de', 'rand']  # TODO: in json text file
+islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-islands = ['rand'] * 32
+# islands = ['rand'] * 32
 # islands = ['bh'] * 32
 # islands = ['pso'] * 32
 # islands = ['de'] * 32

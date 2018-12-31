@@ -29,7 +29,7 @@ data_manipulation = {
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 2,
-    "iterations": 200,
+    "iterations": 400,
     "agents": 5,
     "storeCheckpoints": False,
     "verbose": 0,
