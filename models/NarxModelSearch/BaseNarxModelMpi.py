@@ -496,6 +496,7 @@ def train_model(x, *args):
 
     return mean_mse, agentToEa
 
+
 def train_model_rabbit_mq(x, *args):
 
     startTime = time.time()  # training time per model
@@ -523,10 +524,10 @@ def train_model_rabbit_mq(x, *args):
         x = np.array(x)
         print("un-normalized x ", x)
 
-    # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
-    #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
-    #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
-    #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
+    x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
+         0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
+         0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
+         0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
@@ -583,61 +584,61 @@ def train_model_rabbit_mq(x, *args):
 
     # TODO: why re-build model after every fold? test just making it once bfr entering the folds
 
-    # # create model  # TODO: Naive LSTM
-    # model = tf.keras.models.Sequential()
-    # lstm_kwargs = {'units': 64, 'return_sequences': False,
-    #                'implementation': 2}
-    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
-    #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-    # model.add(tf.keras.layers.Dense(y_data.shape[1]))
-    # model.compile(loss='mean_squared_error', optimizer=optimizer)
-
-    # create model  # TODO: 1 lstm 1 dense, highly diverse
+    # create model  # TODO: Naive LSTM
     model = tf.keras.models.Sequential()
-    # model.add(tf.keras.layers.Dropout(dropout1))
-    lstm_kwargs = {'units': units1,
-                   'dropout': dropout1,
-                   'recurrent_dropout': recurrent_dropout1,
-                   'return_sequences': False,
-                   'implementation': 2,
-                   "input_shape" : (x_data.shape[1], x_data.shape[2])
-                   }
-    # lstm_kwargs['return_sequences'] = False
-    lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout2, dropout2)  # TODO: mini rand: 50% for (0 - 0.01)
-    if use_gaussian_noise3 > 0.5:
-        lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout3, dropout3)
-    if use_gaussian_noise2 > 0.5:
-        lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(noise_stddev2, noise_stddev3)
-    # if np.random.uniform(0, 1) > 0.5:
-    #     lstm_kwargs['stateful'] = True
-    #     batch_input_shape = (batch_size, timesteps, data_dim)
-    #     lstm_kwargs['batch_input_shape'] = (x_data.shape[1], x_data.shape[2])
-    # model.add(tf.keras.layers.CuDNNLSTM(**lstm_kwargs, )  # TODO: test speed
-    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.CuDNNLSTM(**lstm_kwargs)))  # TODO: test speed
-    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))  # TODO: test speed
-    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
-    #     x_data.shape[1], x_data.shape[2])
-        # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
-          # input_shape: rows: n, timestep: 1, features: m
-    if useBatchNormalization2 > 0.5:
-        model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
-    if useBatchNormalization3 > 0.5:
-        model.add(tf.keras.layers.GaussianDropout(np.random.uniform(0.001, 0.1)))
-    if use_gaussian_noise1 > 0.5:
-        model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
-    if useBatchNormalization1 > 0.5:
-        model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Dense(units2, activation=random.choice(
-        ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
-         "linear"])))  # TODO: test with 2 extra dense layers
+    lstm_kwargs = {'units': 64, 'return_sequences': False,
+                   'implementation': 2}
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
+        x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
     model.add(tf.keras.layers.Dense(y_data.shape[1]))
-    if multi_gpu:
-        model = tf.keras.utils.multi_gpu_model(model, gpus=2)
+    model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-    if optimizer == 'amsgrad':  # TODO: test amsgrad, special version of adam
-        model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
-    else:
-        model.compile(loss='mean_squared_error', optimizer=optimizer)
+    # # create model  # TODO: 1 lstm 1 dense, highly diverse
+    # model = tf.keras.models.Sequential()
+    # # model.add(tf.keras.layers.Dropout(dropout1))
+    # lstm_kwargs = {'units': units1,
+    #                'dropout': dropout1,
+    #                'recurrent_dropout': recurrent_dropout1,
+    #                'return_sequences': False,
+    #                'implementation': 2,
+    #                "input_shape" : (x_data.shape[1], x_data.shape[2])
+    #                }
+    # # lstm_kwargs['return_sequences'] = False
+    # lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout2, dropout2)  # TODO: mini rand: 50% for (0 - 0.01)
+    # if use_gaussian_noise3 > 0.5:
+    #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout3, dropout3)
+    # if use_gaussian_noise2 > 0.5:
+    #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(noise_stddev2, noise_stddev3)
+    # # if np.random.uniform(0, 1) > 0.5:
+    # #     lstm_kwargs['stateful'] = True
+    # #     batch_input_shape = (batch_size, timesteps, data_dim)
+    # #     lstm_kwargs['batch_input_shape'] = (x_data.shape[1], x_data.shape[2])
+    # # model.add(tf.keras.layers.CuDNNLSTM(**lstm_kwargs, )  # TODO: test speed
+    # # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.CuDNNLSTM(**lstm_kwargs)))  # TODO: test speed
+    # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))  # TODO: test speed
+    # # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
+    # #     x_data.shape[1], x_data.shape[2])
+    #     # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
+    #       # input_shape: rows: n, timestep: 1, features: m
+    # if useBatchNormalization2 > 0.5:
+    #     model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
+    # if useBatchNormalization3 > 0.5:
+    #     model.add(tf.keras.layers.GaussianDropout(np.random.uniform(0.001, 0.1)))
+    # if use_gaussian_noise1 > 0.5:
+    #     model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
+    # if useBatchNormalization1 > 0.5:
+    #     model.add(tf.keras.layers.BatchNormalization())
+    # model.add(tf.keras.layers.Dense(units2, activation=random.choice(
+    #     ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
+    #      "linear"])))  # TODO: test with 2 extra dense layers
+    # model.add(tf.keras.layers.Dense(y_data.shape[1]))
+    # if multi_gpu:
+    #     model = tf.keras.utils.multi_gpu_model(model, gpus=2)
+    #
+    # if optimizer == 'amsgrad':  # TODO: test amsgrad, special version of adam
+    #     model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
+    # else:
+    #     model.compile(loss='mean_squared_error', optimizer=optimizer)
 
 
     # # TODO: Small model for GA course
@@ -1061,79 +1062,5 @@ def train_model_tester2(x, *args):
 
     # Master to worker
     agentToEa = {"swapAgent": False, "agent": None}
-
-    return mean_mse, {"swapAgent": True, "agent": x}
-
-
-def train_model_requester_rabbit_mq(x, *args):
-
-    startTime = time.time()  # training time per model
-
-    train_model.counter += 1
-    modelLabel = train_model.label
-    modelFolds = train_model.folds
-    data_manipulation = train_model.data_manipulation
-    island = data_manipulation["island"]
-    rank = data_manipulation["rank"]
-    master = data_manipulation["master"]
-    x_data, y_data = args
-    full_model_parameters = x.copy()
-    mean_mse = 0
-
-    # TODO: func to optimize
-    timeToSleep = np.random.uniform(2, 5)
-    time.sleep(timeToSleep)
-
-    train_model.counter += 1
-    endTime = time.time()
-    # Worker to master
-    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
-                          "island": island, "iteration": train_model.counter}
-    # Master to worker
-    agentToEa = {"swapAgent": False, "agent": None}
-
-    # TODO: send to worker
-    import pika
-    import json
-    import random
-    import uuid
-
-    timeout = 600 * 10  # TODO: timeouts 10 mins * islands
-    params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
-    connection = pika.BlockingConnection(params)  # Connect with msg broker server
-    channel = connection.channel()  # Listen to channels
-    channel.queue_declare(queue="task_queue", durable=False)  # Open common task queue
-
-    results_queue = "results_queue" + "_" + island + "_" + str(uuid.uuid4())[:5]
-    channel.queue_declare(queue=results_queue, durable=False)  # Open unique results channel for island
-
-    def callback(ch, method, properties, body):  # Results receiver callback
-        try:
-            body = json.loads(body)
-            print(" [x] Received %r" % body)
-            print(" [x] Received mse: ", body["mse"])
-
-            # TODO: store mean_mse
-            mean_mse = body["mse"]
-
-            print(" [x] Done")
-            ch.basic_ack(delivery_tag=method.delivery_tag)  # Acknowledge msg delivery
-            channel.stop_consuming()  # Stop listening for results
-        except ValueError as ev:  # Handle exceptions
-            print(" [x] Exception, sending rejection %s" % str(ev))
-            ch.basic_reject(delivery_tag=method.delivery_tag)
-    channel.basic_qos(prefetch_count=1)
-
-    array1 = {"array": x.tolist(), "delay": ["."] * random.randint(0, 8),  # TODO: np array x
-              "island": island, "results_queue": results_queue}
-    message = json.dumps(array1)  # Serialize msg
-    channel.basic_publish(exchange="", routing_key="task_queue", body=message,  # Use common task queue
-                          properties=pika.BasicProperties(delivery_mode=2))  # make msg persistent
-    channel.basic_consume(callback, queue=results_queue)  # Listen for task results on unique results channel
-    print(" [x] Sent '%s'" % message)
-    channel.start_consuming()  # Start listening for results
-    print(" [*] Waiting for messages. To exit press CTRL+C")
-    channel.queue_delete(queue=results_queue)  # Delete the results queue
-    connection.close()  # Stop all connections
 
     return mean_mse, {"swapAgent": True, "agent": x}

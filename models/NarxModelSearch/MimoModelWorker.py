@@ -267,6 +267,7 @@ channel.queue_declare(queue="task_queue", durable=False)  # Open common task que
 channel.basic_qos(prefetch_count=1)  # Allow only 1 task in queue
 results_queues = []  # List of declared results queues
 
+
 def callback(ch, method, properties, body):  # Tasks receiver callback
     try:
         body = json.loads(body)
