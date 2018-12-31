@@ -33,7 +33,7 @@ data_manipulation = {
     "iterations": 200,
     "agents": 10,
     "storeCheckpoints": False,
-    "verbose": 2,
+    "verbose": 0,
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small architectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }

@@ -25,14 +25,14 @@ data_manipulation = {
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 500,  # Do swap island agent every iterations
+    "swapEvery": 5,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 2,
     "iterations": 200,
-    "agents": 10,
+    "agents": 5,
     "storeCheckpoints": False,
-    "verbose": 2,
+    "verbose": 0,
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small architectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
