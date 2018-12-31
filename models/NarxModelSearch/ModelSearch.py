@@ -2,7 +2,6 @@ from __future__ import print_function
 import random
 from EvolutionaryAlgorithms.DifferentialEvolution import differential_evolution
 import BaseNarxModelMpi as baseMpi
-# import NaiveRnnBaseNarxModelMpi as baseMpi
 from EvolutionaryAlgorithms.pyswarm.pso import pso
 from scipy.optimize import basinhopping
 import numpy as np
@@ -106,7 +105,7 @@ def differential_evolution_model_search_mpi(x_data, y_data, data_manipulation=No
 
     xopt1 = differential_evolution(
         # baseMpi.trainModelTester,  # TODO: call fast dummy func
-        baseMpi.train_model_tester_rabbit_mq,
+        baseMpi.train_model_requester_rabbit_mq,
         # baseMpi.train_model,
         bounds, args=args, popsize=agents, maxiter=iterations,
         polish=polish, strategy=strategy)  # TODO: test DE params
@@ -166,7 +165,7 @@ def particle_swarm_optimization_model_search_mpi(x_data, y_data, data_manipulati
     xopt1, fopt1 = pso(
         # baseMpi.trainModelTester,   # TODO: call fast dummy func
         # baseMpi.train_model,
-        baseMpi.train_model_tester_rabbit_mq,
+        baseMpi.train_model_requester_rabbit_mq,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip, debug=True,
         phig=phig, args=args, rank=data_manipulation["rank"], storeCheckpoints=data_manipulation["storeCheckpoints"])
     print_optimum(xopt1, fopt1)
@@ -184,7 +183,7 @@ def random_model_search_mpi(x_data, y_data, data_manipulation=None, iterations=1
         baseMpi.train_model.data_manipulation = data_manipulation
         # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
         # baseMpi.train_model(np.array(get_random_model()), *args)  # TODO: store rand agent to future island migration
-        baseMpi.train_model_tester_rabbit_mq(np.array(get_random_model()), *args)  # TODO: rabbit Mq worker
+        baseMpi.train_model_requester_rabbit_mq(np.array(get_random_model()), *args)  # TODO: rabbit Mq worker
 
 
 def get_random_model():

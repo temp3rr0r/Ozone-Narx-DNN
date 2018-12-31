@@ -3,14 +3,13 @@ import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 
+import pika
+import json
+import numpy as np
 import sys
 import pandas as pd
-from ModelSearch import random_model_search_mpi, \
-    differential_evolution_model_search_mpi, basin_hopping_model_search_mpi, particle_swarm_optimization_model_search_mpi, \
-    bounds, get_random_model
-import time
+from ModelSearch import bounds
 from mpi4py import MPI
-import numpy as np
 import BaseNarxModelMpi as baseMpi
 
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
@@ -37,7 +36,6 @@ data_manipulation = {
     "fp16": False,  # Disabled: Faster than fp32 ONLY on very small architectures (1 LSTM) for ~ -10%
     "multi_gpu": False,  # Disabled: Rather slow for hybrid architectures (GTX970 + GTX1070 Ti, even with fp16)
 }
-dataDetrend = False  # TODO: de-trend
 
 
 def loadData(directory, filePrefix, mimoOutputs, rank=1):
@@ -261,17 +259,8 @@ baseMpi.train_model.counter = 0  # Function call counter
 baseMpi.train_model.folds = data_manipulation["folds"]
 baseMpi.train_model.data_manipulation = data_manipulation
 
-# rabbit_mq_worker(x_data_3d, y_data, data_manipulation)
-
-import pika
-import time
-import json
-import numpy as np
-from BaseNarxModelMpi import ackley
-
 timeout = 600 * 10  # TODO: timeouts 10 mins * islands
 params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
-# params = pika.ConnectionParameters("localhost")
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
 channel = connection.channel()  # Listen to channels
 channel.queue_declare(queue="task_queue", durable=False)  # Open common task queue
@@ -282,7 +271,6 @@ def callback(ch, method, properties, body):  # Tasks receiver callback
     try:
         body = json.loads(body)
         print(" [x] Received %r" % body)
-        # time.sleep(str(body["delay"]).count("."))
 
         # Do work
         print(" [x] Island: ", body["island"])
@@ -296,14 +284,8 @@ def callback(ch, method, properties, body):  # Tasks receiver callback
             results_queues.append(results_queue)
             channel.queue_declare(queue=results_queue, durable=False)
 
-        array1 = np.array(body["array"])
-        x = array1
-        mse = np.mean(array1 * 3)
-        # x = np.array(body["array"])
-        # mse = ackley([x[0], x[1]])
-        # mse = baseMpi.train_model(x, *args)  # TODO: rabbit Mq worker
+        x = np.array(body["array"])
         mse = baseMpi.train_model_rabbit_mq(x, *args)  # TODO: rabbit Mq worker
-        print("ok4")
         print(" [x] mse: ", mse)
 
         ch.basic_ack(delivery_tag=method.delivery_tag)  # Ack receipt of task & work done
@@ -320,10 +302,10 @@ def callback(ch, method, properties, body):  # Tasks receiver callback
         print(" [x] Exception, sending rejection: %s" % str(ev))
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
+
 channel.basic_consume(callback, queue="task_queue")
 
 print(" [*] Waiting for messages. To exit press CTRL+C")
 channel.start_consuming()  # Listen for incoming tasks
-
 
 print("--- Done({})!".format(island))
