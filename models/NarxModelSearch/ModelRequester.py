@@ -7,7 +7,7 @@ import numpy as np
 from BaseNarxModelMpi import train_model
 
 
-def train_model_requester_rabbit_mq(x, *args):
+def train_model_requester_rabbit_mq(x):
 
     startTime = time.time()  # training time per model
 
@@ -18,7 +18,6 @@ def train_model_requester_rabbit_mq(x, *args):
     island = data_manipulation["island"]
     rank = data_manipulation["rank"]
     master = data_manipulation["master"]
-    x_data, y_data = args
     full_model_parameters = x.copy()
     mean_mse = 0
 

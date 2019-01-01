@@ -41,11 +41,11 @@ ub = [bounds[0][1],  # batch_size
       bounds[18][1], bounds[19][1], bounds[20][1]]  # batch normalization
 
 
-def basin_hopping_model_search_mpi(x_data, y_data, data_manipulation=None):
+def basin_hopping_model_search(data_manipulation=None):
 
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]
-    args = (x_data, y_data)
+    # args = (x_data, y_data)
 
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'bh'
@@ -59,7 +59,9 @@ def basin_hopping_model_search_mpi(x_data, y_data, data_manipulation=None):
     x0 = np.array([random.uniform(0, 1)] * len(lb))
 
     # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
-    minimizer_kwargs = dict(method="TNC", bounds=bounds, args=args)  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
+    minimizer_kwargs = dict(method="TNC", bounds=bounds,
+                            # args=args
+                            )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
     # minimizer_kwargs = dict(method="L-BFGS-B", bounds=bounds, args=y_test)  # use method L-BFGS-B because the problem is smooth and bounded
     # minimizer_kwargs = dict(method="SLSQP", bounds=bounds, args=y_test)
 
@@ -74,11 +76,10 @@ def basin_hopping_model_search_mpi(x_data, y_data, data_manipulation=None):
     print(res)
 
 
-def differential_evolution_model_search_mpi(x_data, y_data, data_manipulation=None):
+def differential_evolution_model_search(data_manipulation=None):
 
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]
-    args = (x_data, y_data)
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'de'
     baseMpi.train_model.folds = data_manipulation["folds"]
@@ -109,16 +110,15 @@ def differential_evolution_model_search_mpi(x_data, y_data, data_manipulation=No
         # baseMpi.trainModelTester,  # TODO: call fast dummy func
         train_model_requester_rabbit_mq,
         # baseMpi.train_model,
-        bounds, args=args, popsize=agents, maxiter=iterations,
+        bounds, popsize=agents, maxiter=iterations,
         polish=polish, strategy=strategy)  # TODO: test DE params
     print_optimum(xopt1, xopt1)
 
 
-def particle_swarm_optimization_model_search_mpi(x_data, y_data, data_manipulation=None, iterations=100):
+def particle_swarm_optimization_model_search(data_manipulation=None, iterations=100):
 
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]
-    args = (x_data, y_data)
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'pso'
     baseMpi.train_model.folds = data_manipulation["folds"]
@@ -169,14 +169,13 @@ def particle_swarm_optimization_model_search_mpi(x_data, y_data, data_manipulati
         # baseMpi.train_model,
         train_model_requester_rabbit_mq,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip, debug=True,
-        phig=phig, args=args, rank=data_manipulation["rank"], storeCheckpoints=data_manipulation["storeCheckpoints"])
+        phig=phig, rank=data_manipulation["rank"], storeCheckpoints=data_manipulation["storeCheckpoints"])
     print_optimum(xopt1, fopt1)
 
 
-def random_model_search_mpi(x_data, y_data, data_manipulation=None, iterations=100):
+def random_model_search(data_manipulation=None, iterations=100):
 
     iterations = data_manipulation["iterations"]
-    args = (x_data, y_data)
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'rand'
     baseMpi.train_model.folds = data_manipulation["folds"]
@@ -185,7 +184,7 @@ def random_model_search_mpi(x_data, y_data, data_manipulation=None, iterations=1
         baseMpi.train_model.data_manipulation = data_manipulation
         # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
         # baseMpi.train_model(np.array(get_random_model()), *args)  # TODO: store rand agent to future island migration
-        train_model_requester_rabbit_mq(np.array(get_random_model()), *args)  # TODO: rabbit Mq worker
+        train_model_requester_rabbit_mq(np.array(get_random_model()))  # TODO: rabbit Mq worker
 
 
 def get_random_model():
