@@ -25,7 +25,7 @@ data_manipulation = {  # TODO: put data_manipulation in json text file
     # "scale": None,
     "scale": 'standardize',
     # "scale": 'normalize',
-    "swapEvery": 5,  # Do swap island agent every iterations
+    "swapEvery": 5000,  # Do swap island agent every iterations
     "sendBestAgentFromBuffer": True,  # Do send the best agent from buffer
     "master": 0,
     "folds": 2,
