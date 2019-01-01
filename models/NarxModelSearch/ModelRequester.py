@@ -45,7 +45,15 @@ def train_model_requester_rabbit_mq(x, *args):
     results_queue = "results_queue" + "_" + island + "_" + str(uuid.uuid4())[:5]
     channel.queue_declare(queue=results_queue, durable=False)  # Open unique results channel for island
 
-    def callback(ch, method, properties, body):  # Results receiver callback
+    channel.basic_qos(prefetch_count=1)
+
+    array1 = {"array": x.tolist(), "delay": ["."] * random.randint(0, 8),  # TODO: np array x
+              "island": island, "results_queue": results_queue}
+    message = json.dumps(array1)  # Serialize msg
+    channel.basic_publish(exchange="", routing_key="task_queue", body=message,  # Use common task queue
+                          properties=pika.BasicProperties(delivery_mode=2))  # make msg persistent
+
+    def trained_model_callback(ch, method, properties, body):  # Results receiver callback
         try:
             body = json.loads(body)
             print(" [x] Received %r" % body)
@@ -60,18 +68,29 @@ def train_model_requester_rabbit_mq(x, *args):
         except ValueError as ev:  # Handle exceptions
             print(" [x] Exception, sending rejection %s" % str(ev))
             ch.basic_reject(delivery_tag=method.delivery_tag)
-    channel.basic_qos(prefetch_count=1)
 
-    array1 = {"array": x.tolist(), "delay": ["."] * random.randint(0, 8),  # TODO: np array x
-              "island": island, "results_queue": results_queue}
-    message = json.dumps(array1)  # Serialize msg
-    channel.basic_publish(exchange="", routing_key="task_queue", body=message,  # Use common task queue
-                          properties=pika.BasicProperties(delivery_mode=2))  # make msg persistent
-    channel.basic_consume(callback, queue=results_queue)  # Listen for task results on unique results channel
+    channel.basic_consume(trained_model_callback, queue=results_queue)  # Listen for task results on unique results channel
     print(" [x] Sent '%s'" % message)
     channel.start_consuming()  # Start listening for results
     print(" [*] Waiting for messages. To exit press CTRL+C")
     channel.queue_delete(queue=results_queue)  # Delete the results queue
     connection.close()  # Stop all connections
 
-    return mean_mse, {"swapAgent": True, "agent": x}
+    return mean_mse, {"swapAgent": True, "agent": x}  # TODO: test send only if swap agent is enabled
+
+    # # Worker to master  # TODO: test send only if swap agent is enabled
+    # dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
+    #                       "island": island, "iteration": train_model.counter}
+    # comm = data_manipulation["comm"]
+    # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # Send data async to master
+    # req.wait()
+    # # Master to worker
+    # agentToEa = {"swapAgent": False, "agent": None}
+    # dataMasterToWorker = comm.recv(source=master, tag=2)  # Receive data sync (blocking) from master
+    # swapAgent = dataMasterToWorker["swapAgent"]
+    # if swapAgent:
+    #     outAgent = dataMasterToWorker["agent"]
+    #     agentToEa = {"swapAgent": True, "agent": outAgent}  # Send agent copy
+    # if island == "bh":
+    #     return mean_mse
+    # return mean_mse, agentToEa
