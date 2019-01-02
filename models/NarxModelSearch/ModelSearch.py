@@ -179,12 +179,21 @@ def random_model_search(data_manipulation=None, iterations=100):
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'rand'
     baseMpi.train_model.folds = data_manipulation["folds"]
+
+    min_mean_mse = 3000.0
+    best_rand_agent = None
     for i in range(iterations):
         data_manipulation["iteration"] = i
         baseMpi.train_model.data_manipulation = data_manipulation
         # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
         # baseMpi.train_model(np.array(get_random_model()), *args)  # TODO: store rand agent to future island migration
-        train_model_requester_rabbit_mq(np.array(get_random_model()))  # TODO: rabbit Mq worker
+        # train_model_requester_rabbit_mq(np.array(get_random_model()))  # TODO: rabbit Mq worker
+        x = np.array(get_random_model())
+        mean_mse, agent_to_ea = train_model_requester_rabbit_mq(x)
+        if mean_mse < min_mean_mse:  # TODO: store best agent so far
+            best_rand_agent = x
+            min_mean_mse = mean_mse
+            print("=== Rand island, new min_mean_mse: ", mean_mse)
 
 
 def get_random_model():

@@ -111,7 +111,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
 def model_training_callback(ch, method, properties, body):  # Tasks receiver callback
     try:
         body = json.loads(body)
-        print(" [x] Received %r" % body)
+        # print(" [x] Received %r" % body)
         print(" [x] Island: ", body["island"])
         data_manipulation["island"] = body["island"]
         baseMpi.train_model.label = body["island"]
@@ -123,16 +123,17 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
 
         x = np.array(body["array"])
         mse = baseMpi.train_model_rabbit_mq(x, *args)  # Do train model
+        # mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
         print(" [x] mse: ", mse)
 
         ch.basic_ack(delivery_tag=method.delivery_tag)  # Ack receipt of task & work done
 
         # Send back result to the sender, on its unique receive channel
-        mse_message = {"array1": x.tolist(), "mse": mse.tolist(), "island": body["island"]}
+        mse_message = {"array": x.tolist(), "mse": mse, "island": body["island"]}
         mse_message = json.dumps(mse_message)
         channel.basic_publish(exchange="", routing_key=results_queue, body=mse_message,
                               properties=pika.BasicProperties(delivery_mode=2))  # make msg persistent
-        print(" [x] Sent back '%s'" % mse_message)
+        # print(" [x] Sent back '%s'" % mse_message)
         print(" [x] Done")
 
     except ValueError as ev:  # Handle exceptions
@@ -152,7 +153,6 @@ modelLabel = data_manipulation["modelLabel"]
 
 if data_manipulation["fp16"]:
     import tensorflow as tf
-
     tf.keras.backend.set_epsilon(1e-4)
     tf.keras.backend.set_floatx('float16')
     print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))

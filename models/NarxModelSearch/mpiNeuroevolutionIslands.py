@@ -6,26 +6,6 @@ import time
 from mpi4py import MPI
 import json
 
-# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
-# os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
-# os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
-# os.environ["PATH"] += os.pathsep + 'C:/ProgramData/Anaconda3/pkgs/graphviz-2.38.0-h6538335_1009/Library/bin/graphviz'
-
-with open('settings/data_manipulation.json') as f:
-    data_manipulation = json.load(f)
-modelLabel = data_manipulation["modelLabel"]
-
-# islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
-# islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
-# islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
-# islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-# islands = ['rand'] * 32
-# islands = ['bh'] * 32
-# islands = ['pso'] * 32
-# islands = ['de'] * 32
-# islands = ['pso', 'de'] * 32
-
 
 def get_total_message_count(islands_in, size_in, data_manipulation_in):
 
@@ -51,6 +31,21 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
     return int(total_message_count)
 
 
+with open('settings/data_manipulation.json') as f:
+    data_manipulation = json.load(f)
+modelLabel = data_manipulation["modelLabel"]
+
+# islands = ['bh', 'pso', 'de', 'rand']
+# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+# islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
+# islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
+islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
+# islands = ['rand'] * 32
+# islands = ['bh'] * 32
+# islands = ['pso'] * 32
+# islands = ['de'] * 32
+# islands = ['pso', 'de'] * 32
+
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
@@ -70,6 +65,7 @@ if rank == 0:  # Master Node
 
     swapCounter = 0
     agentBuffer = get_random_model()
+    agentsBuffer = [get_random_model()] * (size - 1)  # TODO: store all island agents
     overallMinMse = 10e4  # TODO: formalize it
     evaluations = 0
     bestIsland = ""
@@ -96,6 +92,7 @@ if rank == 0:  # Master Node
             bestIsland = data_worker_to_master["island"]
             if data_manipulation["sendBestAgentFromBuffer"]:
                 agentBuffer = data_worker_to_master["agent"]  # TODO: Send the best agent received so far
+            # agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # TODO: get agent rank for index on buffer array
             print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
                 overallMinMse, data_worker_to_master["island"], data_worker_to_master["iteration"], evaluations))
         # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold
@@ -150,6 +147,7 @@ else:  # Worker Node
         # TODO: - RBF (if ez to implement) optimizers
         # TODO: - Memetic (?) algorithms
         # TODO: - Tabu search (?)
+        # TODO: - Tree-structured Parzen Estimators (TPE)
 
         if island == 'rand':
             random_model_search(data_manipulation)
