@@ -55,24 +55,30 @@ def train_model_requester_rabbit_mq(x):
     print(" [x] Closed connection.")
 
     end_time = time.time()
+
     mean_mse = trained_model_callback.mse
+
+    # # Worker to master
+    # data_worker_to_master = {
+    #     "worked": end_time - start_time, "rank": rank, "mean_mse": mean_mse, "agent": x,
+    #     "island": island, "iteration": train_model.counter}
+    # comm = data_manipulation["comm"]
+    # req = comm.isend(data_worker_to_master, dest=master, tag=1)  # Send data async to master
+    # req.wait()
+    #
+    # # Master to worker
+    # agent_to_ea = {"swapAgent": False, "agent": None}
+    # data_master_to_worker = comm.recv(source=master, tag=2)  # Receive data sync (blocking) from master
+    # swap_agent = data_master_to_worker["swapAgent"]
+    # if swap_agent:
+    #     out_agent = data_master_to_worker["agent"]
+    #     agent_to_ea = {"swapAgent": True, "agent": out_agent}  # Send agent copy
+    # if island == "bh":
+    #     return mean_mse
 
     # Worker to master
     data_worker_to_master = {
         "worked": end_time - start_time, "rank": rank, "mean_mse": mean_mse, "agent": x,
         "island": island, "iteration": train_model.counter}
-    comm = data_manipulation["comm"]
-    req = comm.isend(data_worker_to_master, dest=master, tag=1)  # Send data async to master
-    req.wait()
 
-    # Master to worker
-    agent_to_ea = {"swapAgent": False, "agent": None}
-    data_master_to_worker = comm.recv(source=master, tag=2)  # Receive data sync (blocking) from master
-    swap_agent = data_master_to_worker["swapAgent"]
-    if swap_agent:
-        out_agent = data_master_to_worker["agent"]
-        agent_to_ea = {"swapAgent": True, "agent": out_agent}  # Send agent copy
-    if island == "bh":
-        return mean_mse
-
-    return mean_mse, agent_to_ea
+    return mean_mse, data_worker_to_master

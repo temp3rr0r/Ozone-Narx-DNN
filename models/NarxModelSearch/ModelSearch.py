@@ -181,7 +181,11 @@ def random_model_search(data_manipulation=None, iterations=100):
     baseMpi.train_model.folds = data_manipulation["folds"]
 
     min_mean_mse = 3000.0
+    max_mean_mse = -1
     best_rand_agent = None
+    worst_rand_agent = None  # TODO: temp
+    swap = False
+    k = data_manipulation["swapEvery"]
     for i in range(iterations):
         data_manipulation["iteration"] = i
         baseMpi.train_model.data_manipulation = data_manipulation
@@ -189,12 +193,44 @@ def random_model_search(data_manipulation=None, iterations=100):
         # baseMpi.train_model(np.array(get_random_model()), *args)  # TODO: store rand agent to future island migration
         # train_model_requester_rabbit_mq(np.array(get_random_model()))  # TODO: rabbit Mq worker
         x = np.array(get_random_model())
-        mean_mse, agent_to_ea = train_model_requester_rabbit_mq(x)
-        if mean_mse < min_mean_mse:  # TODO: store best agent so far
+        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
+        if mean_mse < min_mean_mse:  # Update best found agent
             best_rand_agent = x
             min_mean_mse = mean_mse
-            print("=== Rand island, new min_mean_mse: ", mean_mse)
+            print("=== Rand island {}, new min_mean_mse: {}, {}".format(data_worker_to_master["rank"], min_mean_mse,
+                                                                        best_rand_agent))
 
+        # TODO: temp
+        if mean_mse > max_mean_mse:
+            worst_rand_agent = x
+            max_mean_mse = mean_mse
+            print("=== Rand island {}, new max_mean_mse: {}, {}".format(data_worker_to_master["rank"], max_mean_mse,
+                                                                        worst_rand_agent))
+
+        # TODO: always send the best agent back
+        # Worker to master
+        data_worker_to_master["mean_mse"] = min_mean_mse
+        data_worker_to_master["agent"] = best_rand_agent
+        comm = data_manipulation["comm"]
+        req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+        req.wait()
+
+        # Master to worker
+        data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+        # TODO: replace worse agent
+        if i % k == 0 and i > 0:  # TODO: send back found agent
+            swap = True
+        # TODO: if current iteration >= k && received agent iteration >= k -> then swap
+        if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
+            print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
+                data_master_to_worker["iteration"]))
+            received_agent = data_master_to_worker["agent"]
+            worst_rand_agent = received_agent  # TODO: no need for rand
+            swap = False
+
+    print("=== Rand island {}, max Mse: {}, min Mse: {}, {}, {}"
+          .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
 
 def get_random_model():
     return [random.randint(lb[0], ub[0]),  # batch_size

@@ -39,8 +39,8 @@ modelLabel = data_manipulation["modelLabel"]
 # islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
-islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-# islands = ['rand'] * 32
+# islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
+islands = ['rand'] * 32
 # islands = ['bh'] * 32
 # islands = ['pso'] * 32
 # islands = ['de'] * 32
@@ -86,13 +86,16 @@ if rank == 0:  # Master Node
         totalSecondsWork += data_worker_to_master["worked"]
         print("mean_mse: {} ({}: {})".format(data_worker_to_master["mean_mse"], data_worker_to_master["island"],
                                              data_worker_to_master["iteration"]))
+
+        agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # TODO: get agent rank for index on buffer array
+
         evaluations += 1
         if data_worker_to_master["mean_mse"] < overallMinMse:
             overallMinMse = data_worker_to_master["mean_mse"]
             bestIsland = data_worker_to_master["island"]
             if data_manipulation["sendBestAgentFromBuffer"]:
                 agentBuffer = data_worker_to_master["agent"]  # TODO: Send the best agent received so far
-            # agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # TODO: get agent rank for index on buffer array
+
             print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
                 overallMinMse, data_worker_to_master["island"], data_worker_to_master["iteration"], evaluations))
         # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold
@@ -101,13 +104,23 @@ if rank == 0:  # Master Node
 
         # Master to worker
 
-        dataMasterToWorker = {"swapAgent": False, "agent": None}
-        if swapCounter > data_manipulation["swapEvery"]:
-            print("========= Swapping...")
-            swapCounter = 0
-            dataMasterToWorker["swapAgent"] = True
-            dataMasterToWorker["agent"] = agentBuffer
-            agentBuffer = data_worker_to_master["agent"]
+        # dataMasterToWorker = {"swapAgent": False, "agent": None}  # TODO: always send back the best agent
+        # if swapCounter > data_manipulation["swapEvery"]:
+        #     print("========= Swapping...")
+        #     swapCounter = 0
+        #     dataMasterToWorker["swapAgent"] = True
+        #     dataMasterToWorker["agent"] = agentBuffer
+        #     agentBuffer = data_worker_to_master["agent"]
+
+        agent_to_send = 0  # TODO: default self for 1 island
+        current_rank = data_worker_to_master["rank"]
+        if size > 2:  # TODO: 2+ islands
+            agent_to_send = current_rank - 2  # TODO: get the best from the previous island
+            if agent_to_send < 0:  # TODO: if first island, get last island from buffer
+                agent_to_send = size - 2
+
+        dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
+                              "iteration": data_worker_to_master["iteration"], "fromRank": agent_to_send + 1}  # TODO: always send back the best agent
         comm.send(dataMasterToWorker, dest=data_worker_to_master["rank"], tag=2)  # TODO: test send async
         # req = comm.isend(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async
         # req.wait()
