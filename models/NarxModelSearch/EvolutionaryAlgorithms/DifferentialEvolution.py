@@ -17,7 +17,7 @@ def differential_evolution(func, bounds, args=(), strategy='best1bin',
                            maxiter=None, popsize=15, tol=0.01,
                            mutation=(0.5, 1), recombination=0.7, seed=None,
                            callback=None, disp=False, polish=True,
-                           init='latinhypercube'):
+                           init='latinhypercube', data_manipulation=None):
     """Finds the global minimum of a multivariate function.
     Differential Evolution is stochastic in nature (does not use gradient
     methods) to find the minimium, and can search large areas of candidate
@@ -202,12 +202,12 @@ def differential_evolution(func, bounds, args=(), strategy='best1bin',
                                          seed=seed, polish=polish,
                                          callback=callback,
                                          disp=disp,
-                                         init=init)
+                                         init=init,
+                                         data_manipulation=data_manipulation)
     return solver.solve()
 
 
 class DifferentialEvolutionSolver(object):
-
     """This class implements the differential evolution solver
 
     Parameters
@@ -316,7 +316,7 @@ class DifferentialEvolutionSolver(object):
                  strategy='best1bin', maxiter=None, popsize=15,
                  tol=0.01, mutation=(0.5, 1), recombination=0.7, seed=None,
                  maxfun=None, callback=None, disp=False, polish=True,
-                 init='latinhypercube'):
+                 init='latinhypercube', data_manipulation=None):
 
         if strategy in self._binomial:
             self.mutation_func = getattr(self, self._binomial[strategy])
@@ -395,6 +395,8 @@ class DifferentialEvolutionSolver(object):
 
         self.disp = disp
 
+        self.data_manipulation = data_manipulation
+
     def init_population_lhs(self):
         """
         Initializes the population with Latin Hypercube Sampling.
@@ -413,7 +415,7 @@ class DifferentialEvolutionSolver(object):
         # We need to do this sampling for each parameter.
         samples = (segsize * rng.random_sample(self.population_shape)
 
-        # Offset each segment to cover the entire parameter range [0, 1)
+                   # Offset each segment to cover the entire parameter range [0, 1)
                    + np.linspace(0., 1., self.num_population_members,
                                  endpoint=False)[:, np.newaxis])
 
@@ -465,27 +467,57 @@ class DifferentialEvolutionSolver(object):
         nfev, nit, warning_flag = 0, 0, False
         status_message = _status_message['success']
 
+        k = self.data_manipulation["swapEvery"]
+        swap = False
+
         # calculate energies to start with
         for index, candidate in enumerate(self.population):
             parameters = self._scale_parameters(candidate)
             # self.population_energies[index] = self.func(parameters, *self.args)  # TODO: store agentIn
-            self.population_energies[index], agentIn = self.func(parameters, *self.args)
-            if agentIn["swapAgent"]:
-                parameters = agentIn["agent"]
-                # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
-                self.population[index] = self._unscale_parameters(parameters)
-                # if agentIn["agent"][0] == 266:
-                #     print("======DE: swapped in DE agent")
-                # elif agentIn["agent"][0] == 133:
-                #     print("******DE: swapped in PSO agent")
-                # if agentIn["agent"] != 0 and agentIn["agent"] is not None:
-                #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
-                #     # print("bfr parameters: {}".format(parameters))
-                #     # print("bfr self.population[index]: {}".format(self.population[index]))
-                #     parameters = agentIn["agent"]
-                #     self.population[index] = self._unscale_parameters(parameters)
-                #     # print("aftr parameters: {}".format(parameters))
-                #     # print("aftr self.population[index]: {}".format(self.population[index]))
+            self.population_energies[index], data_worker_to_master = self.func(parameters, *self.args)
+
+            # if agentIn["swapAgent"]:
+            #     parameters = agentIn["agent"]
+            #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
+            #     self.population[index] = self._unscale_parameters(parameters)
+            #     # if agentIn["agent"][0] == 266:
+            #     #     print("======DE: swapped in DE agent")
+            #     # elif agentIn["agent"][0] == 133:
+            #     #     print("******DE: swapped in PSO agent")
+            #     # if agentIn["agent"] != 0 and agentIn["agent"] is not None:
+            #     #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
+            #     #     # print("bfr parameters: {}".format(parameters))
+            #     #     # print("bfr self.population[index]: {}".format(self.population[index]))
+            #     #     parameters = agentIn["agent"]
+            #     #     self.population[index] = self._unscale_parameters(parameters)
+            #     #     # print("aftr parameters: {}".format(parameters))
+            #     #     # print("aftr self.population[index]: {}".format(self.population[index]))
+
+            # TODO: always send the best agent back
+            # Worker to master
+            i_min = np.argmin(self.population_energies)
+            data_worker_to_master["mean_mse"] = self.population_energies[i_min]
+            data_worker_to_master["agent"] = self._scale_parameters(self.population[i_min])
+            comm = self.data_manipulation["comm"]
+            req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+            req.wait()
+            # Master to worker
+            data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+            # TODO: replace worse agent
+            if index % k == 0 and index > 0:  # TODO: send back found agent
+                swap = True
+            # TODO: if current iteration >= k && received agent iteration >= k -> then swap
+            if swap and data_master_to_worker["iteration"] >= (int(index / k) * k):
+                print(
+                    "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                        data_master_to_worker["fromRank"], data_worker_to_master["rank"], index, k,
+                        data_master_to_worker["iteration"]))
+                received_agent = data_master_to_worker["agent"]
+                i_max = np.argmax(self.population_energies)
+                self.population[i_max] = self._unscale_parameters(received_agent)  # TODO: no need for rand
+                self.population_energies[i_max] = data_master_to_worker["mean_mse"]
+                swap = False
+
             nfev += 1
 
             if nfev > self.maxfun:
@@ -504,12 +536,12 @@ class DifferentialEvolutionSolver(object):
 
         if warning_flag:
             return OptimizeResult(
-                           x=self.x,
-                           fun=self.population_energies[0],
-                           nfev=nfev,
-                           nit=nit,
-                           message=status_message,
-                           success=(warning_flag is not True))
+                x=self.x,
+                fun=self.population_energies[0],
+                nfev=nfev,
+                nit=nit,
+                message=status_message,
+                success=(warning_flag is not True))
 
         # do the optimisation.
         for nit in range(1, self.maxiter + 1):
@@ -534,25 +566,54 @@ class DifferentialEvolutionSolver(object):
 
                 # determine the energy of the objective function
                 # energy = self.func(parameters, *self.args)  # TODO: agentIn
-                energy, agentIn = self.func(parameters, *self.args)
-                if agentIn["swapAgent"]:
-                    parameters = agentIn["agent"]
-                    trial = self._unscale_parameters(parameters)
-                    self.population[candidate] = trial
-                    # if agentIn["agent"][0] == 266:
-                    #     print("======DE: swapped in DE agent")
-                    # elif agentIn["agent"][0] == 133:
-                    #     print("******DE: swapped in PSO agent")
-                    # if agentIn["agent"] != 0 and agentIn["agent"] is not None:
-                    #     # print("candidate: {}".format(candidate))
-                    #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
-                    #     # print("self.population[candidate]: {}".format(self.population[candidate]))
-                    #     # print("bfr parameters: {}".format(parameters))
-                    #     # print("bfr trial: {}".format(trial))
-                    #     parameters = agentIn["agent"]
-                    #     trial = self._unscale_parameters(parameters)
-                    #     # print("after parameters: {}".format(parameters))
-                    #     # print("after trial: {}".format(trial))
+                # energy, agentIn = self.func(parameters, *self.args)
+                # if agentIn["swapAgent"]:
+                #     parameters = agentIn["agent"]
+                #     trial = self._unscale_parameters(parameters)
+                #     self.population[candidate] = trial
+                #     # if agentIn["agent"][0] == 266:
+                #     #     print("======DE: swapped in DE agent")
+                #     # elif agentIn["agent"][0] == 133:
+                #     #     print("******DE: swapped in PSO agent")
+                #     # if agentIn["agent"] != 0 and agentIn["agent"] is not None:
+                #     #     # print("candidate: {}".format(candidate))
+                #     #     # print("agentIn[\"agent\"]: {}".format(agentIn["agent"]))
+                #     #     # print("self.population[candidate]: {}".format(self.population[candidate]))
+                #     #     # print("bfr parameters: {}".format(parameters))
+                #     #     # print("bfr trial: {}".format(trial))
+                #     #     parameters = agentIn["agent"]
+                #     #     trial = self._unscale_parameters(parameters)
+                #     #     # print("after parameters: {}".format(parameters))
+                #     #     # print("after trial: {}".format(trial))
+
+                # self.population_energies[index] = self.func(parameters, *self.args)  # TODO: store agentIn
+                energy, data_worker_to_master = self.func(parameters, *self.args)
+
+                # TODO: always send the best agent back
+                # Worker to master
+                i_min = np.argmin(self.population_energies)
+                data_worker_to_master["mean_mse"] = self.population_energies[i_min]
+                data_worker_to_master["agent"] = self._scale_parameters(self.population[i_min])
+                comm = self.data_manipulation["comm"]
+                req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+                req.wait()
+                # Master to worker
+                data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+                # TODO: replace worse agent
+                if nfev % k == 0 and nfev > 0:  # TODO: send back found agent
+                    swap = True
+                # TODO: if current iteration >= k && received agent iteration >= k -> then swap
+                if swap and data_master_to_worker["iteration"] >= (int(nfev / k) * k):
+                    print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, "
+                          "every: {}, otherIteration: {})".format(data_master_to_worker["fromRank"],
+                                                                  data_worker_to_master["rank"], nfev, k,
+                                                                  data_master_to_worker["iteration"]))
+                    received_agent = data_master_to_worker["agent"]
+                    i_max = np.argmax(self.population_energies)
+                    self.population[i_max] = self._unscale_parameters(received_agent)  # TODO: no need for rand
+                    self.population_energies[i_max] = data_master_to_worker["mean_mse"]
+                    swap = False
+
                 nfev += 1
 
                 # if the energy of the trial candidate is lower than the
@@ -581,7 +642,6 @@ class DifferentialEvolutionSolver(object):
             if (self.callback and
                     self.callback(self._scale_parameters(self.population[0]),
                                   convergence=self.tol / convergence) is True):
-
                 warning_flag = True
                 status_message = ('callback function requested stop early '
                                   'by returning True')
@@ -674,7 +734,6 @@ class DifferentialEvolutionSolver(object):
             i = 0
             while (i < self.parameter_count and
                    rng.rand() < self.cross_over_probability):
-
                 trial[fill_point] = bprime[fill_point]
                 fill_point = (fill_point + 1) % self.parameter_count
                 i += 1

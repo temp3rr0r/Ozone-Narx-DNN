@@ -36,11 +36,11 @@ with open('settings/data_manipulation.json') as f:
 modelLabel = data_manipulation["modelLabel"]
 
 # islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 # islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
-islands = ['rand'] * 32
+# islands = ['rand'] * 32
 # islands = ['bh'] * 32
 # islands = ['pso'] * 32
 # islands = ['de'] * 32
@@ -66,6 +66,8 @@ if rank == 0:  # Master Node
     swapCounter = 0
     agentBuffer = get_random_model()
     agentsBuffer = [get_random_model()] * (size - 1)  # TODO: store all island agents
+    agentsMse = [mean_mse_threshold] * (size - 1)  # TODO: store all island agents mse
+
     overallMinMse = 10e4  # TODO: formalize it
     evaluations = 0
     bestIsland = ""
@@ -88,6 +90,7 @@ if rank == 0:  # Master Node
                                              data_worker_to_master["iteration"]))
 
         agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # TODO: get agent rank for index on buffer array
+        agentsMse[data_worker_to_master["rank"] - 1] = data_worker_to_master["mean_mse"]
 
         evaluations += 1
         if data_worker_to_master["mean_mse"] < overallMinMse:
@@ -120,6 +123,7 @@ if rank == 0:  # Master Node
                 agent_to_send = size - 2
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
+                              "mean_mse": agentsMse[agent_to_send],
                               "iteration": data_worker_to_master["iteration"], "fromRank": agent_to_send + 1}  # TODO: always send back the best agent
         comm.send(dataMasterToWorker, dest=data_worker_to_master["rank"], tag=2)  # TODO: test send async
         # req = comm.isend(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async

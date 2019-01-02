@@ -111,7 +111,8 @@ def differential_evolution_model_search(data_manipulation=None):
         train_model_requester_rabbit_mq,
         # baseMpi.train_model,
         bounds, popsize=agents, maxiter=iterations,
-        polish=polish, strategy=strategy)  # TODO: test DE params
+        polish=polish, strategy=strategy, data_manipulation=data_manipulation)  # TODO: test DE params
+
     print_optimum(xopt1, xopt1)
 
 
@@ -169,7 +170,7 @@ def particle_swarm_optimization_model_search(data_manipulation=None, iterations=
         # baseMpi.train_model,
         train_model_requester_rabbit_mq,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip, debug=True,
-        phig=phig, rank=data_manipulation["rank"], storeCheckpoints=data_manipulation["storeCheckpoints"])
+        phig=phig, rank=data_manipulation["rank"], data_manipulation=data_manipulation)
     print_optimum(xopt1, fopt1)
 
 
@@ -199,14 +200,12 @@ def random_model_search(data_manipulation=None, iterations=100):
             min_mean_mse = mean_mse
             print("=== Rand island {}, new min_mean_mse: {}, {}".format(data_worker_to_master["rank"], min_mean_mse,
                                                                         best_rand_agent))
-
         # TODO: temp
         if mean_mse > max_mean_mse:
             worst_rand_agent = x
             max_mean_mse = mean_mse
             print("=== Rand island {}, new max_mean_mse: {}, {}".format(data_worker_to_master["rank"], max_mean_mse,
                                                                         worst_rand_agent))
-
         # TODO: always send the best agent back
         # Worker to master
         data_worker_to_master["mean_mse"] = min_mean_mse
@@ -214,7 +213,6 @@ def random_model_search(data_manipulation=None, iterations=100):
         comm = data_manipulation["comm"]
         req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
         req.wait()
-
         # Master to worker
         data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
         # TODO: replace worse agent

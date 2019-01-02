@@ -1,6 +1,8 @@
 from functools import partial
 import numpy as np
 import os
+
+
 def _obj_wrapper(func, args, kwargs, x):
     return func(x, *args, **kwargs)
 
@@ -24,7 +26,7 @@ def _cons_f_ieqcons_wrapper(f_ieqcons, args, kwargs, x):
 def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
         minstep=1e-8, minfunc=1e-8, debug=False, processes=1,
-        particle_output=False, rank=0, storeCheckpoints=False):
+        particle_output=False, rank=0, storeCheckpoints=False, data_manipulation=None):
     """
     Perform a particle swarm optimization (PSO)
 
@@ -145,6 +147,9 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     psoUuid = "rank" + str(rank)
     import pickle
 
+    k = data_manipulation["swapEvery"]
+    swap = False
+
     # Calculate objective and constraints for each particle
     if processes > 1:
         fx = np.array(mp_pool.map(obj, x))
@@ -199,15 +204,40 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
 
             if i < S:
                 # fx[i] = obj(x[i, :])  # TODO: inject agent
-                fx[i], agentIn = obj(x[i, :])
+                fx[i], data_worker_to_master = obj(x[i, :])
 
-                if agentIn["swapAgent"]:
-                    # if agentIn["agent"][0] == 266:
-                    #     print("******PSO: swapped in DE agent")
-                    # elif agentIn["agent"][0] == 133:
-                    #     print("======PSO: swapped in PSO agent")
-                    x[i, :] = agentIn["agent"]  # Inject particle
+                # if agentIn["swapAgent"]:
+                #     # if agentIn["agent"][0] == 266:
+                #     #     print("******PSO: swapped in DE agent")
+                #     # elif agentIn["agent"][0] == 133:
+                #     #     print("======PSO: swapped in PSO agent")
+                #     x[i, :] = agentIn["agent"]  # Inject particle
                 fs[i] = is_feasible(x[i, :])
+
+                # TODO: always send the best agent back
+                # Worker to master
+                i_min = np.argmin(fx)
+                data_worker_to_master["mean_mse"] = fx[i_min]
+                data_worker_to_master["agent"] = x[i_min, :]
+                comm = data_manipulation["comm"]
+                req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+                req.wait()
+                # Master to worker
+                data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+                # TODO: replace worse agent
+                if i % k == 0 and i > 0:  # TODO: send back found agent
+                    swap = True
+                # TODO: if current iteration >= k && received agent iteration >= k -> then swap
+                if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
+                    print(
+                        "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                            data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
+                            data_master_to_worker["iteration"]))
+                    received_agent = data_master_to_worker["agent"]
+                    i_max = np.argmax(fx)
+                    x[i_max, :] = received_agent  # TODO: no need for rand
+                    fx[i_min] = data_master_to_worker["mean_mse"]
+                    swap = False
 
                 i += 1
 
@@ -215,13 +245,18 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 if storeCheckpoints:
                     with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "wb") as f:
                         pickleStateInitDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
-                            "args": args,
-                            "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g, "i": i,
-                            "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs, "lb": lb,
-                            "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
-                            "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
-                            "phip": phip, "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
-                            "vhigh": vhigh, "vlow": vlow, "x": x}
+                                                     "args": args,
+                                                     "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx,
+                                                     "g": g, "i": i,
+                                                     "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs,
+                                                     "lb": lb,
+                                                     "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep,
+                                                     "obj": obj,
+                                                     "omega": omega, "p": p, "particle_output": particle_output,
+                                                     "phig": phig,
+                                                     "phip": phip, "processes": processes, "swarmsize": swarmsize,
+                                                     "ub": ub, "v": v,
+                                                     "vhigh": vhigh, "vlow": vlow, "x": x}
                         pickle.dump(pickleStateInitDictionary, f, pickle.HIGHEST_PROTOCOL)
                         print(
                             "-- Checkpoint Init stored (rank: {}, i: {}): last x: {}".format(rank, i, x[i - 1, :]))
@@ -317,11 +352,40 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
 
                 if i < S:
                     # fx[i] = obj(x[i, :])  # TODO: inject agent
-                    fx[i], agentIn = obj(x[i, :])
+                    fx[i], data_worker_to_master = obj(x[i, :])
 
-                    if agentIn["swapAgent"]:
-                        x[i, :] = agentIn["agent"]  # Inject particle
+                    # if agentIn["swapAgent"]:
+                    #     # if agentIn["agent"][0] == 266:
+                    #     #     print("******PSO: swapped in DE agent")
+                    #     # elif agentIn["agent"][0] == 133:
+                    #     #     print("======PSO: swapped in PSO agent")
+                    #     x[i, :] = agentIn["agent"]  # Inject particle
                     fs[i] = is_feasible(x[i, :])
+
+                    # TODO: always send the best agent back
+                    # Worker to master
+                    i_min = np.argmin(fx)
+                    data_worker_to_master["mean_mse"] = fx[i_min]
+                    data_worker_to_master["agent"] = x[i_min, :]
+                    comm = data_manipulation["comm"]
+                    req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+                    req.wait()
+                    # Master to worker
+                    data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+                    # TODO: replace worse agent
+                    if i % k == 0 and i > 0:  # TODO: send back found agent
+                        swap = True
+                    # TODO: if current iteration >= k && received agent iteration >= k -> then swap
+                    if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
+                        print(
+                            "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                                data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
+                                data_master_to_worker["iteration"]))
+                        received_agent = data_master_to_worker["agent"]
+                        i_max = np.argmax(fx)
+                        x[i_max, :] = received_agent  # TODO: no need for rand
+                        fx[i_min] = data_master_to_worker["mean_mse"]
+                        swap = False
 
                     i += 1
 
@@ -329,27 +393,28 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     if storeCheckpoints:
                         with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
                             pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S,
-                               "agentIn": agentIn, "args": args,
-                               "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs,
-                               "fx": fx, "g": g, "i": i,
-                               "i_min": i_min, "i_update": i_update, "it": it,
-                               "ieqcons": ieqcons, "is_feasible": is_feasible,
-                               "kwargs": kwargs,
-                               "maskl": maskl, "masku": masku,
-                               "lb": lb,
-                               "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep,
-                               "obj": obj,
-                               "omega": omega, "p": p, "particle_output": particle_output,
-                               "phig": phig,
-                               "phip": phip, "rg": rg, "rp": rp,
-                               "processes": processes, "swarmsize": swarmsize, "ub": ub,
-                               "v": v,
-                               "vhigh": vhigh, "vlow": vlow, "x": x}
+                                                               "agentIn": agentIn, "args": args,
+                                                               "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs,
+                                                               "fx": fx, "g": g, "i": i,
+                                                               "i_min": i_min, "i_update": i_update, "it": it,
+                                                               "ieqcons": ieqcons, "is_feasible": is_feasible,
+                                                               "kwargs": kwargs,
+                                                               "maskl": maskl, "masku": masku,
+                                                               "lb": lb,
+                                                               "maxiter": maxiter, "minfunc": minfunc,
+                                                               "minstep": minstep,
+                                                               "obj": obj,
+                                                               "omega": omega, "p": p,
+                                                               "particle_output": particle_output,
+                                                               "phig": phig,
+                                                               "phip": phip, "rg": rg, "rp": rp,
+                                                               "processes": processes, "swarmsize": swarmsize, "ub": ub,
+                                                               "v": v,
+                                                               "vhigh": vhigh, "vlow": vlow, "x": x}
                             pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
                             print(
                                 "-- Checkpoint Iteration (it: {}) stored (rank: {}, i: {}): last x: {}".format(
                                     it, rank, i, x[i - 1, :]))
-
 
         # Store particle's best position (if constraints are satisfied)
         i_update = np.logical_and((fx < fp), fs)
@@ -395,22 +460,24 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         if storeCheckpoints:
             with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
                 pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
-                   "args": args,
-                   "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx, "g": g,
-                   "i": i,
-                   "i_min": i_min, "i_update": i_update, "it": it,
-                   "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs,
-                   "maskl": maskl, "masku": masku,
-                   "lb": lb,
-                   "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep, "obj": obj,
-                   "omega": omega, "p": p, "particle_output": particle_output, "phig": phig,
-                   "phip": phip, "rg": rg, "rp": rp,
-                   "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
-                   "vhigh": vhigh, "vlow": vlow, "x": x}
+                                                   "args": args,
+                                                   "f_ieqcons": f_ieqcons, "fg": fg, "fp": fp, "fs": fs, "fx": fx,
+                                                   "g": g,
+                                                   "i": i,
+                                                   "i_min": i_min, "i_update": i_update, "it": it,
+                                                   "ieqcons": ieqcons, "is_feasible": is_feasible, "kwargs": kwargs,
+                                                   "maskl": maskl, "masku": masku,
+                                                   "lb": lb,
+                                                   "maxiter": maxiter, "minfunc": minfunc, "minstep": minstep,
+                                                   "obj": obj,
+                                                   "omega": omega, "p": p, "particle_output": particle_output,
+                                                   "phig": phig,
+                                                   "phip": phip, "rg": rg, "rp": rp,
+                                                   "processes": processes, "swarmsize": swarmsize, "ub": ub, "v": v,
+                                                   "vhigh": vhigh, "vlow": vlow, "x": x}
                 pickle.dump(pickleStateIterationsDictionary, f, pickle.HIGHEST_PROTOCOL)
                 print("-- Checkpoint Iteration End (it: {}) stored (rank: {}, i: {}): last x: {}".format(
                     it, rank, i, x[i - 1, :]))
-
 
     print('Stopping search: maximum iterations reached --> {:}'.format(maxiter))
 
