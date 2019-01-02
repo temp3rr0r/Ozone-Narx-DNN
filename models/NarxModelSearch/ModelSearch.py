@@ -84,6 +84,7 @@ def differential_evolution_model_search(data_manipulation=None):
     baseMpi.train_model.label = 'de'
     baseMpi.train_model.folds = data_manipulation["folds"]
     baseMpi.train_model.data_manipulation = data_manipulation
+
     polish = False
     strategy = "best1bin"  # Dispatch of mutation strategy (Binomial or Exponential)
     if data_manipulation["rank"] % 10 == 1:

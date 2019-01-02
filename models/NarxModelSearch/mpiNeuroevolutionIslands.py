@@ -106,15 +106,6 @@ if rank == 0:  # Master Node
             # comm.Abort()  # TODO: block for func call sync
 
         # Master to worker
-
-        # dataMasterToWorker = {"swapAgent": False, "agent": None}  # TODO: always send back the best agent
-        # if swapCounter > data_manipulation["swapEvery"]:
-        #     print("========= Swapping...")
-        #     swapCounter = 0
-        #     dataMasterToWorker["swapAgent"] = True
-        #     dataMasterToWorker["agent"] = agentBuffer
-        #     agentBuffer = data_worker_to_master["agent"]
-
         agent_to_send = 0  # TODO: default self for 1 island
         current_rank = data_worker_to_master["rank"]
         if size > 2:  # TODO: 2+ islands

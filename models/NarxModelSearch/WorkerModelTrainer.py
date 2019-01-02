@@ -114,6 +114,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         # print(" [x] Received %r" % body)
         print(" [x] Island: ", body["island"])
         data_manipulation["island"] = body["island"]
+        data_manipulation["rank"] = body["rank"]
         baseMpi.train_model.label = body["island"]
         baseMpi.train_model.data_manipulation = data_manipulation
         results_queue = body["results_queue"]
@@ -122,8 +123,8 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
             channel.queue_declare(queue=results_queue, durable=False)
 
         x = np.array(body["array"])
-        # mse = baseMpi.train_model_rabbit_mq(x, *args)  # Do train model
-        mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
+        mse = baseMpi.train_model_rabbit_mq(x, *args)  # Do train model
+        # mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
         print(" [x] mse: ", mse)
 
         ch.basic_ack(delivery_tag=method.delivery_tag)  # Ack receipt of task & work done

@@ -29,7 +29,7 @@ def train_model_requester_rabbit_mq(x):
     channel.queue_declare(queue=results_queue, durable=False)  # Open unique results channel for island
     channel.basic_qos(prefetch_count=1)
 
-    msg = {"array": x.tolist(), "island": island, "results_queue": results_queue}
+    msg = {"array": x.tolist(), "island": island, "results_queue": results_queue, "rank": data_manipulation["rank"]}
     message = json.dumps(msg)  # Serialize msg
     channel.basic_publish(exchange="", routing_key="task_queue", body=message,  # Use common task queue
                           properties=pika.BasicProperties(delivery_mode=2))  # make msg persistent

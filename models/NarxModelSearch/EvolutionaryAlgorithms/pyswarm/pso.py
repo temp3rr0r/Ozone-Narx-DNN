@@ -159,6 +159,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         i = 0
         while i < S:
 
+            # TODO: pickle new island params
             # TODO: replace "for i" with "while i < S"
             # TODO: Read pickle
             if storeCheckpoints:
