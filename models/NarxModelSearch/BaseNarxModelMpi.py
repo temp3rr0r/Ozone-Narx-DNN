@@ -765,6 +765,25 @@ def train_model_rabbit_mq(x, *args):
                                                        patience=5,
                                                        verbose=1), tf.keras.callbacks.TerminateOnNaN()]
 
+    # TODO: try and convert the tf graph to fp16
+    sess = tf.keras.backend.get_session()
+    previous_variables = [
+        var_name for var_name, _
+        in tf.contrib.framework.list_variables('path-to-checkpoint-file')]
+    # print(previous_variables)
+    sess.run(tf.global_variables_initializer())
+    restore_map = {}
+    for variable in tf.global_variables():
+        if variable.op.name in previous_variables:
+            var = tf.contrib.framework.load_variable(
+                'path-to-checkpoint-file', variable.op.name)
+            if var.dtype == np.float32:
+                tf.add_to_collection('assignOps', variable.assign(
+                    tf.cast(var, tf.float16)))
+            else:
+                tf.add_to_collection('assignOps', variable.assign(var))
+    sess.run(tf.get_collection('assignOps'))
+
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
         current_fold += 1
         print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
