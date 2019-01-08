@@ -142,7 +142,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-rank = 1  # TODO: temp rank
+rank = 1  # TODO: rank == GPU ID
 
 print("--- Loading GPU {}...".format(rank))
 init_gpu(rank)
