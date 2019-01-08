@@ -74,9 +74,9 @@ def train_model(x, *args):
     units3 = x[5]
 
     # Batch normalization
-    useBatchNormalization1 = x[15]
-    useBatchNormalization2 = x[16]
-    useBatchNormalization3 = x[17]
+    use_batch_normalization1 = x[15]
+    use_batch_normalization2 = x[16]
+    use_batch_normalization3 = x[17]
     use_gaussian_noise1 = x[18]
     use_gaussian_noise2 = x[19]
     use_gaussian_noise3 = x[20]
@@ -113,7 +113,7 @@ def train_model(x, *args):
     lstm_kwargs = {'units': units1,
                    'dropout': dropout1,
                    'recurrent_dropout': recurrent_dropout1,
-                   'return_sequences': False,
+                   'return_sequences': True,
                    'implementation': 2,
                    "input_shape" : (x_data.shape[1], x_data.shape[2])
                    }
@@ -129,18 +129,21 @@ def train_model(x, *args):
     #     lstm_kwargs['batch_input_shape'] = (x_data.shape[1], x_data.shape[2])
     # model.add(tf.keras.layers.CuDNNLSTM(**lstm_kwargs, )  # TODO: test speed
     # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.CuDNNLSTM(**lstm_kwargs)))  # TODO: test speed
-    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))  # TODO: test speed
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+    lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
+    lstm_kwargs['units'] = units3
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
     # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
     #     x_data.shape[1], x_data.shape[2])
         # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
           # input_shape: rows: n, timestep: 1, features: m
-    if useBatchNormalization2 > 0.5:
+    if use_batch_normalization2 > 0.5:
         model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
-    if useBatchNormalization3 > 0.5:
+    if use_batch_normalization3 > 0.5:
         model.add(tf.keras.layers.GaussianDropout(np.random.uniform(0.001, 0.1)))
     if use_gaussian_noise1 > 0.5:
         model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
-    if useBatchNormalization1 > 0.5:
+    if use_batch_normalization1 > 0.5:
         model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Dense(units2, activation=random.choice(
         ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
@@ -598,7 +601,7 @@ def train_model_rabbit_mq(x, *args):
     lstm_kwargs = {'units': units1,
                    'dropout': dropout1,
                    'recurrent_dropout': recurrent_dropout1,
-                   'return_sequences': False,
+                   'return_sequences': True,
                    'implementation': 2,
                    "input_shape" : (x_data.shape[1], x_data.shape[2])
                    }
@@ -615,6 +618,9 @@ def train_model_rabbit_mq(x, *args):
     # model.add(tf.keras.layers.CuDNNLSTM(**lstm_kwargs, )  # TODO: test speed
     # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.CuDNNLSTM(**lstm_kwargs)))  # TODO: test speed
     model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))  # TODO: test speed
+    lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
+    lstm_kwargs['units'] = units3
+    model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
     # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
     #     x_data.shape[1], x_data.shape[2])
         # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
@@ -769,7 +775,7 @@ def train_model_rabbit_mq(x, *args):
     # previous_variables = [
     #     var_name for var_name, _
     #     in tf.contrib.framework.list_variables('path-to-checkpoint-file')]
-    # # print(previous_variables)
+    # print(previous_variables)
     # sess.run(tf.global_variables_initializer())
     # restore_map = {}
     # for variable in tf.global_variables():
@@ -782,6 +788,59 @@ def train_model_rabbit_mq(x, *args):
     #         else:
     #             tf.add_to_collection('assignOps', variable.assign(var))
     # sess.run(tf.get_collection('assignOps'))
+    # >>> from keras import backend as K
+    # >>> input = K.placeholder((2, 3), dtype='float32')
+    # >>> input
+    # <tf.Tensor 'Placeholder_2:0' shape=(2, 3) dtype=float32>
+    # .html# It doesn't work in-place as below.
+    # >>> K.cast(input, dtype='float16')
+    # <tf.Tensor 'Cast_1:0' shape=(2, 3) dtype=float16>
+    # >>> input
+    # <tf.Tensor 'Placeholder_2:0' shape=(2, 3) dtype=float32>
+    # .html# you need to assign it.
+    # >>> input = K.cast(input, dtype='float16')
+    # >>> input
+    # <tf.Tensor 'Cast_2:0' shape=(2, 3) dtype=float16>
+    # tf.keras.backend.set_epsilon(1e-4)
+    # tf.keras.backend.set_floatx('float16')
+    # tf.keras.backend.cast_to_floatx('float16')
+    # print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
+    # data_manipulation["fp16"] = True
+    # TODO: try store/load session with conversions
+    # if data_manipulation["fp16"]:
+    #     x_data.astype(np.float16, casting='unsafe')
+    #     y_data.astype(np.float16, casting='unsafe')
+    # if data_manipulation["fp16"]:
+    #     tf.keras.backend.set_epsilon(1e-4)
+    #     tf.keras.backend.set_floatx('float16')
+    #     print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
+    # sess = tf.keras.backend.get_session()
+    # saver = tf.train.Saver()
+    # session_path = "foundModels/tf/" + "_model.ckpt"
+    # save_path = saver.save(sess, session_path)
+    # # saver.restore(sess, session_path)
+    # # writer = tf.summary.FileWriter("foundModels/tf/" + "file1.png", sess.graph)  # TODO: test save graph visualization
+    # # writer.close()
+    # print("ok1")
+    # previous_variables = [
+    #     var_name for var_name, _
+    #     in tf.contrib.framework.list_variables(session_path)]
+    # print("ok2")
+    # print(previous_variables)
+    # sess.run(tf.global_variables_initializer())
+    # print("ok3")
+    # restore_map = {}
+    # for variable in tf.global_variables():
+    #     if variable.op.name in previous_variables:
+    #         var = tf.contrib.framework.load_variable(session_path, variable.op.name)
+    #         if var.dtype == np.float32:
+    #             # tf.add_to_collection('assignOps', variable.assign(tf.cast(var, tf.float16)))
+    #             tf.add_to_collection('assignOps', variable.assign(var))
+    #         else:
+    #             tf.add_to_collection('assignOps', variable.assign(var))
+    # print("ok4")
+    # sess.run(tf.get_collection('assignOps'))
+    # print("ok5")
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
         current_fold += 1
@@ -807,9 +866,7 @@ def train_model_rabbit_mq(x, *args):
 
             # Memory handling
             del model  # Manually delete model
-            # from keras import backend as K  # TODO: tf.keras
             tf.reset_default_graph()
-            # K.clear_session()  # Manually clear_session with keras 2.1.6  # TODO: tf.keras
             tf.keras.backend.clear_session()
             gc.collect()
 
