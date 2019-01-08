@@ -11,7 +11,7 @@ import numpy as np
 # TODO: Add weights initializer search: https://keras.io/initializers/
 bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)  # TODO: reduced batch size to try avoiding OOM
           (350, 600), (0, 4),  # , 5)    # epoch_size, optimizer
-          # (1023, 1024), (1023, 1024), (1023, 1024),  # TODO: 1024, 1024, 1024  # units
+          # (1023, 1024), (1023, 1024), (1023, 1024),  # units
           (64, 512), (64, 512), (64, 512),
           # (32, 512), (32, 196), (32, 384),
           (0.01, 0.25), (0.01, 0.25), (0.01, 0.25),  # dropout
@@ -108,11 +108,11 @@ def differential_evolution_model_search(data_manipulation=None):
     print("--- Using strategy: {}".format(strategy))
 
     xopt1 = differential_evolution(
-        # baseMpi.trainModelTester,  # TODO: call fast dummy func
+        # baseMpi.trainModelTester,
         train_model_requester_rabbit_mq,
         # baseMpi.train_model,
         bounds, popsize=agents, maxiter=iterations,
-        polish=polish, strategy=strategy, data_manipulation=data_manipulation)  # TODO: test DE params
+        polish=polish, strategy=strategy, data_manipulation=data_manipulation)  # TODO: test other DE params
 
     print_optimum(xopt1, xopt1)
 
@@ -167,7 +167,7 @@ def particle_swarm_optimization_model_search(data_manipulation=None, iterations=
         phig = 0.01
 
     xopt1, fopt1 = pso(
-        # baseMpi.trainModelTester,   # TODO: call fast dummy func
+        # baseMpi.trainModelTester,
         # baseMpi.train_model,
         train_model_requester_rabbit_mq,
         lb, ub, maxiter=iterations, swarmsize=agents, omega=omega, phip=phip, debug=True,
@@ -185,15 +185,12 @@ def random_model_search(data_manipulation=None, iterations=100):
     min_mean_mse = 3000.0
     max_mean_mse = -1
     best_rand_agent = None
-    worst_rand_agent = None  # TODO: temp
+    worst_rand_agent = None
     swap = False
     k = data_manipulation["swapEvery"]
     for i in range(iterations):
         data_manipulation["iteration"] = i
         baseMpi.train_model.data_manipulation = data_manipulation
-        # baseMpi.trainModelTester(np.array(getRandomModel()), *args)  # TODO: call fast dummy func
-        # baseMpi.train_model(np.array(get_random_model()), *args)  # TODO: store rand agent to future island migration
-        # train_model_requester_rabbit_mq(np.array(get_random_model()))  # TODO: rabbit Mq worker
         x = np.array(get_random_model())
         mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
         if mean_mse < min_mean_mse:  # Update best found agent
@@ -201,13 +198,12 @@ def random_model_search(data_manipulation=None, iterations=100):
             min_mean_mse = mean_mse
             print("=== Rand island {}, new min_mean_mse: {}, {}".format(data_worker_to_master["rank"], min_mean_mse,
                                                                         best_rand_agent))
-        # TODO: temp
         if mean_mse > max_mean_mse:
             worst_rand_agent = x
             max_mean_mse = mean_mse
             print("=== Rand island {}, new max_mean_mse: {}, {}".format(data_worker_to_master["rank"], max_mean_mse,
                                                                         worst_rand_agent))
-        # TODO: always send the best agent back
+        # Always send the best agent back
         # Worker to master
         data_worker_to_master["mean_mse"] = min_mean_mse
         data_worker_to_master["agent"] = best_rand_agent
@@ -216,16 +212,15 @@ def random_model_search(data_manipulation=None, iterations=100):
         req.wait()
         # Master to worker
         data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
-        # TODO: replace worse agent
-        if i % k == 0 and i > 0:  # TODO: send back found agent
+        # Replace worst agent
+        if i % k == 0 and i > 0:  # Send back found agent
             swap = True
-        # TODO: if current iteration >= k && received agent iteration >= k -> then swap
         if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
             print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
                 data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
                 data_master_to_worker["iteration"]))
             received_agent = data_master_to_worker["agent"]
-            worst_rand_agent = received_agent  # TODO: no need for rand
+            worst_rand_agent = received_agent
             swap = False
 
     print("=== Rand island {}, max Mse: {}, min Mse: {}, {}, {}"

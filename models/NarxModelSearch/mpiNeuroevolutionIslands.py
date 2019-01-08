@@ -9,7 +9,6 @@ import json
 
 def get_total_message_count(islands_in, size_in, data_manipulation_in):
 
-    # TODO: should all have close to equal iterations. rand most importantly
     total_message_count = 0
     iterations = data_manipulation_in["iterations"]
     pso_message_count = (iterations + 1) * data_manipulation_in["agents"]
@@ -36,10 +35,10 @@ with open('settings/data_manipulation.json') as f:
 modelLabel = data_manipulation["modelLabel"]
 
 # islands = ['bh', 'pso', 'de', 'rand']
-islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso'] * 4
+# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso', ] * 4
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
-# islands = ['rand', 'pso', 'pso', 'de', 'rand', 'de'] * 4
+islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
 # islands = ['rand'] * 32
 # islands = ['bh'] * 32
 # islands = ['pso'] * 32
@@ -65,31 +64,29 @@ if rank == 0:  # Master Node
 
     swapCounter = 0
     agentBuffer = get_random_model()
-    agentsBuffer = [get_random_model()] * (size - 1)  # TODO: store all island agents
-    agentsMse = [mean_mse_threshold] * (size - 1)  # TODO: store all island agents mse
+    agentsBuffer = [get_random_model()] * (size - 1)  # Store all island agents
+    agentsMse = [mean_mse_threshold] * (size - 1)  # Store all island agents mse
 
-    overallMinMse = 10e4  # TODO: formalize it
+    overallMinMse = 10e4
     evaluations = 0
     bestIsland = ""
 
     totalMessageCount = get_total_message_count(islands, size, data_manipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
 
-    for messageId in range(totalMessageCount):  # TODO 1000-1200 bh iters
+    for messageId in range(totalMessageCount):
         swapCounter += 1
 
         # Worker to master
 
-        req = comm.irecv(tag=1)  # TODO: test sync
+        req = comm.irecv(tag=1)
         data_worker_to_master = req.wait()
-        # dataWorkerToMaster = comm.recv(tag=1)
 
-        # print("--- Rank {}. Data Received: {} from {}!".format(rank, dataWorkerToMaster, worker))
         totalSecondsWork += data_worker_to_master["worked"]
         print("mean_mse: {} ({}: {})".format(data_worker_to_master["mean_mse"], data_worker_to_master["island"],
                                              data_worker_to_master["iteration"]))
 
-        agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # TODO: get agent rank for index on buffer array
+        agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # Get agent rank for index on buffer array
         agentsMse[data_worker_to_master["rank"] - 1] = data_worker_to_master["mean_mse"]
 
         evaluations += 1
@@ -97,7 +94,7 @@ if rank == 0:  # Master Node
             overallMinMse = data_worker_to_master["mean_mse"]
             bestIsland = data_worker_to_master["island"]
             if data_manipulation["sendBestAgentFromBuffer"]:
-                agentBuffer = data_worker_to_master["agent"]  # TODO: Send the best agent received so far
+                agentBuffer = data_worker_to_master["agent"]  # Send the best agent received so far
 
             print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
                 overallMinMse, data_worker_to_master["island"], data_worker_to_master["iteration"], evaluations))
@@ -106,26 +103,23 @@ if rank == 0:  # Master Node
             # comm.Abort()  # TODO: block for func call sync
 
         # Master to worker
-        agent_to_send = 0  # TODO: default self for 1 island
+        agent_to_send = 0  # Default self for 1 island
         current_rank = data_worker_to_master["rank"]
-        if size > 2:  # TODO: 2+ islands
-            agent_to_send = current_rank - 2  # TODO: get the best from the previous island
-            if agent_to_send < 0:  # TODO: if first island, get last island from buffer
+        if size > 2:  # 2+ islands
+            agent_to_send = current_rank - 2  # Get the best from the previous island
+            if agent_to_send < 0:  # If first island, get last island from buffer
                 agent_to_send = size - 2
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
                               "mean_mse": agentsMse[agent_to_send],
-                              "iteration": data_worker_to_master["iteration"], "fromRank": agent_to_send + 1}  # TODO: always send back the best agent
-        comm.send(dataMasterToWorker, dest=data_worker_to_master["rank"], tag=2)  # TODO: test send async
-        # req = comm.isend(dataMasterToWorker, dest=dataWorkerToMaster["rank"], tag=2)  # TODO: test send async
-        # req.wait()
+                              "iteration": data_worker_to_master["iteration"], "fromRank": agent_to_send + 1}  # Always send back the best agent
+        comm.send(dataMasterToWorker, dest=data_worker_to_master["rank"], tag=2)
 
     endTime = time.time()
     print("--- Overall min MSE (total evals: {}): {} ({})".format(evaluations, overallMinMse, bestIsland))
     print("--- Total work: %d secs in %.2f secs, speedup: %.2f / %d" % (
         totalSecondsWork, round(endTime - startTime, 2),
         totalSecondsWork / round(endTime - startTime, 2), size - 1))
-    # comm.Disconnect()
 
 else:  # Worker Node
 

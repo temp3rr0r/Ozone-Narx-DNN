@@ -168,9 +168,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "BETN073_ALL"
 # data_manipulation["mimoOutputs"] = 1
 
-data_manipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
-data_manipulation["filePrefix"] = "BETN073_BG"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
+# data_manipulation["filePrefix"] = "BETN073_BG"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/4stations51vars/"
 # data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
@@ -196,9 +196,9 @@ data_manipulation["mimoOutputs"] = 1
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
-# data_manipulation["directory"] = "data/PM1073stations51vars/"
-# data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-# data_manipulation["mimoOutputs"] = 73
+data_manipulation["directory"] = "data/PM1073stations51vars/"
+data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+data_manipulation["mimoOutputs"] = 73
 
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],
@@ -213,7 +213,7 @@ baseMpi.train_model.counter = 0  # Function call counter
 baseMpi.train_model.folds = data_manipulation["folds"]
 baseMpi.train_model.data_manipulation = data_manipulation
 
-timeout = 600 * 10  # TODO: timeouts = 10 mins * islands
+timeout = 600 * 10  # timeouts = 10 mins * islands
 params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
 channel = connection.channel()  # Listen to channels

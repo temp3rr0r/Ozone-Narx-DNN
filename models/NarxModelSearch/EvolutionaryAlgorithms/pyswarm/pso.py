@@ -159,9 +159,8 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         i = 0
         while i < S:
 
-            # TODO: pickle new island params
-            # TODO: replace "for i" with "while i < S"
-            # TODO: Read pickle
+            # Pickle new island params
+            # Read pickle
             if storeCheckpoints:
                 if os.path.exists("foundModels/psoLastInitState_{}.pkl".format(psoUuid)):
                     with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "rb") as f:
@@ -204,18 +203,11 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                             "-- Checkpoint Init recovered (rank: {}, i: {}): last x: {}".format(rank, i, x[i - 1, :]))
 
             if i < S:
-                # fx[i] = obj(x[i, :])  # TODO: inject agent
                 fx[i], data_worker_to_master = obj(x[i, :])
 
-                # if agentIn["swapAgent"]:
-                #     # if agentIn["agent"][0] == 266:
-                #     #     print("******PSO: swapped in DE agent")
-                #     # elif agentIn["agent"][0] == 133:
-                #     #     print("======PSO: swapped in PSO agent")
-                #     x[i, :] = agentIn["agent"]  # Inject particle
                 fs[i] = is_feasible(x[i, :])
 
-                # TODO: always send the best agent back
+                # Always send the best agent back
                 # Worker to master
                 i_min = np.argmin(fx)
                 data_worker_to_master["mean_mse"] = fx[i_min]
@@ -225,10 +217,9 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 req.wait()
                 # Master to worker
                 data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
-                # TODO: replace worse agent
-                if i % k == 0 and i > 0:  # TODO: send back found agent
+                # Replace worst agent
+                if i % k == 0 and i > 0:  # Send back found agent
                     swap = True
-                # TODO: if current iteration >= k && received agent iteration >= k -> then swap
                 if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
                     print(
                         "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
@@ -236,13 +227,13 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                             data_master_to_worker["iteration"]))
                     received_agent = data_master_to_worker["agent"]
                     i_max = np.argmax(fx)
-                    x[i_max, :] = received_agent  # TODO: no need for rand
+                    x[i_max, :] = received_agent
                     fx[i_min] = data_master_to_worker["mean_mse"]
                     swap = False
 
                 i += 1
 
-                # TODO: save pickle
+                # Save pickle
                 if storeCheckpoints:
                     with open("foundModels/psoLastInitState_{}.pkl".format(psoUuid), "wb") as f:
                         pickleStateInitDictionary = {"func": func, "cons": cons, "D": D, "S": S, "agentIn": agentIn,
@@ -304,7 +295,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
             i = 0
             while i < S:
 
-                # TODO: Read pickle
+                # Read pickle
                 if storeCheckpoints:
                     if os.path.exists("foundModels/psoLastIterationState_{}.pkl".format(psoUuid)):
                         with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "rb") as f:
@@ -352,18 +343,11 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                                 it, rank, i, x[i - 1, :]))
 
                 if i < S:
-                    # fx[i] = obj(x[i, :])  # TODO: inject agent
                     fx[i], data_worker_to_master = obj(x[i, :])
 
-                    # if agentIn["swapAgent"]:
-                    #     # if agentIn["agent"][0] == 266:
-                    #     #     print("******PSO: swapped in DE agent")
-                    #     # elif agentIn["agent"][0] == 133:
-                    #     #     print("======PSO: swapped in PSO agent")
-                    #     x[i, :] = agentIn["agent"]  # Inject particle
                     fs[i] = is_feasible(x[i, :])
 
-                    # TODO: always send the best agent back
+                    # Always send the best agent back
                     # Worker to master
                     i_min = np.argmin(fx)
                     data_worker_to_master["mean_mse"] = fx[i_min]
@@ -373,10 +357,9 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     req.wait()
                     # Master to worker
                     data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
-                    # TODO: replace worse agent
-                    if i % k == 0 and i > 0:  # TODO: send back found agent
+                    # Replace worst agent
+                    if i % k == 0 and i > 0:  # Send back found agent
                         swap = True
-                    # TODO: if current iteration >= k && received agent iteration >= k -> then swap
                     if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
                         print(
                             "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
@@ -384,13 +367,13 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                                 data_master_to_worker["iteration"]))
                         received_agent = data_master_to_worker["agent"]
                         i_max = np.argmax(fx)
-                        x[i_max, :] = received_agent  # TODO: no need for rand
+                        x[i_max, :] = received_agent
                         fx[i_min] = data_master_to_worker["mean_mse"]
                         swap = False
 
                     i += 1
 
-                    # TODO: save pickle
+                    # Save pickle
                     if storeCheckpoints:
                         with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
                             pickleStateIterationsDictionary = {"func": func, "cons": cons, "D": D, "S": S,
@@ -456,7 +439,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         it += 1
         i = 0
 
-        # TODO: save pickle (to store the updated "it") # TODO: do not store "it"
+        # Save pickle
 
         if storeCheckpoints:
             with open("foundModels/psoLastIterationState_{}.pkl".format(psoUuid), "wb") as f:
