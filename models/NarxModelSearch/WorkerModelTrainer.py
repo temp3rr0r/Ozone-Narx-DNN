@@ -5,7 +5,9 @@ import json
 import numpy as np
 import sys
 import pandas as pd
-import BaseNarxModelMpi as baseMpi
+import TrainingNeuroevolutionModel as baseMpi
+# import TrainingNeuroevolutionModelKeras as baseMpi
+from ModelSearch import bounds
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
@@ -16,10 +18,10 @@ os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/gra
 def init_gpu(gpu_rank):
     if gpu_rank == 1:  # Rank per gpu
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     elif gpu_rank == 2:
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     elif gpu_rank == 3:
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = "2"
@@ -72,8 +74,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # r = r[0:row2010_12_31, :]
 
     # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
-    row2000_01_01 = 3653 - 1
-    r = r[row2000_01_01:-1, :]
+    # row2000_01_01 = 3653 - 1
+    # r = r[row2000_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
@@ -89,6 +91,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # TODO: more time-steps instead of 1?
     y_data_in = np.array(y_data_in)
     x_data_3d_in = x_data.reshape(x_data.shape[0], 1, x_data.shape[1])  # reshape to 3D[samples, timesteps, features]
+
+    # TODO: normalize + standardize
 
     if not os.path.exists("foundModels/min_mse.pkl"):
         min_mse = sys.float_info.max
@@ -123,7 +127,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
             channel.queue_declare(queue=results_queue, durable=False)
 
         x = np.array(body["array"])
-        mse = baseMpi.train_model_rabbit_mq(x, *args)  # Do train model
+        mse = baseMpi.train_model(x, *args)  # Do train model
         # mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
         print(" [x] mse: ", mse)
 
@@ -206,6 +210,8 @@ x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation[
 
 data_manipulation["rank"] = rank
 
+data_manipulation["bounds"] = bounds  # TODO: add bounds from modelsearch
+
 iterations = data_manipulation["iterations"]
 agents = data_manipulation["agents"]
 args = (x_data_3d, y_data)
@@ -213,7 +219,7 @@ baseMpi.train_model.counter = 0  # Function call counter
 baseMpi.train_model.folds = data_manipulation["folds"]
 baseMpi.train_model.data_manipulation = data_manipulation
 
-timeout = 600 * 10  # timeouts = 10 mins * islands
+timeout = 3600 * 10  # Timeouts 60 mins * islands
 params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
 channel = connection.channel()  # Listen to channels

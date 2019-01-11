@@ -1,9 +1,11 @@
 from __future__ import print_function
 import random
-from EvolutionaryAlgorithms.DifferentialEvolution import differential_evolution
-import BaseNarxModelMpi as baseMpi
-from EvolutionaryAlgorithms.pyswarm.pso import pso
-from scipy.optimize import basinhopping
+from GlobalOptimizationAlgorithms.DifferentialEvolution import differential_evolution
+from GlobalOptimizationAlgorithms.SimplicialHomologyGlobalOptimization import shgo
+from GlobalOptimizationAlgorithms.DualAnnealing import dual_annealing
+from GlobalOptimizationAlgorithms.BasinHopping import basinhopping
+import TrainingNeuroevolutionModel as baseMpi
+from GlobalOptimizationAlgorithms.pyswarm.pso import pso
 from ModelRequester import train_model_requester_rabbit_mq
 import numpy as np
 
@@ -54,9 +56,10 @@ def basin_hopping_model_search(data_manipulation=None):
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
 
     # TODO: normalize data
-    data_manipulation["bounds"] = bounds
-    bounds = np.array([(0, 1)] * len(lb))
-    x0 = np.array([random.uniform(0, 1)] * len(lb))
+    # data_manipulation["bounds"] = bounds
+    # bounds = np.array([(0, 1)] * len(lb))
+    # x0 = np.array([random.uniform(0, 1)] * len(lb))
+    x0 = np.array(get_random_model())
 
     # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
     minimizer_kwargs = dict(method="TNC", bounds=bounds,
@@ -74,6 +77,54 @@ def basin_hopping_model_search(data_manipulation=None):
         # baseMpi.trainModelTester,  # TODO: call fast dummy func
         x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
     print(res)
+
+
+def simple_homology_global_optimization_model_search(data_manipulation=None):
+
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'sg'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    baseMpi.train_model.data_manipulation = data_manipulation
+
+    # scipy.optimize.shgo(func, bounds, args=(), constraints=None, n=100, iters=1, callback=None, minimizer_kwargs=None,
+    #                     options=None, sampling_method='simplicial')[source]
+    xopt1 = shgo(
+        # baseMpi.trainModelTester,
+        train_model_requester_rabbit_mq,
+        # baseMpi.train_model,
+        bounds,
+        n=agents,
+        iters=iterations,
+        data_manipulation=data_manipulation)  # TODO: test other SHGO params
+
+    print_optimum(xopt1, xopt1)
+
+
+def dual_annealing_model_search(data_manipulation=None):
+
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'da'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    baseMpi.train_model.data_manipulation = data_manipulation
+    x0 = np.array(get_random_model())
+    # scipy.optimize.dual_annealing(func, bounds, args=(), maxiter=1000, local_search_options={}, initial_temp=5230.0,
+    #                               restart_temp_ratio=2e-05, visit=2.62, accept=-5.0, maxfun=10000000.0, seed=None,
+    #                               no_local_search=False, callback=None, x0=None)
+    xopt1 = dual_annealing(
+        # baseMpi.trainModelTester,
+        train_model_requester_rabbit_mq,
+        # baseMpi.train_model,
+        bounds,
+        maxiter=iterations,
+        # polish=polish
+        x0=x0,
+        data_manipulation=data_manipulation)  # TODO: test other DA params
+
+    print_optimum(xopt1, xopt1)
 
 
 def differential_evolution_model_search(data_manipulation=None):

@@ -2,11 +2,15 @@ import pika
 import json
 import uuid
 import time
-from BaseNarxModelMpi import train_model
+from TrainingNeuroevolutionModel import train_model
 
 
 def train_model_requester_rabbit_mq(x):
-
+    """
+    Sends model training request to the Rabbit MQ message broker. Also block-waits for response.
+    :param x: None.
+    :return: None.
+    """
     start_time = time.time()  # training time per model
 
     train_model.counter += 1
@@ -17,7 +21,7 @@ def train_model_requester_rabbit_mq(x):
 
     # Send to worker
 
-    timeout = 600 * 10  # Timeouts 10 mins * islands
+    timeout = 3600 * 10  # Timeouts 60 mins * islands
     params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
     connection = pika.BlockingConnection(params)  # Connect with msg broker server
     channel = connection.channel()  # Listen to channels
@@ -32,7 +36,14 @@ def train_model_requester_rabbit_mq(x):
     channel.basic_publish(exchange="", routing_key="task_queue", body=message,  # Use common task queue
                           properties=pika.BasicProperties(delivery_mode=2))  # make msg persistent
 
-    def trained_model_callback(ch, method, properties, body):  # Results receiver callback
+    def trained_model_callback(ch, method, properties, body):
+        """
+        Callback method that handles trained model message.
+        :param ch: Channel. For declaring acceptance/rejection of acks.
+        :param method: For declaring ack of the delivery tag.
+        :param properties: None for now.
+        :param body: Received serialized json message containing the full message from the worker/trainers.
+        """
         try:
             body = json.loads(body)
             print(" [x] Received mse: ", body["mse"])

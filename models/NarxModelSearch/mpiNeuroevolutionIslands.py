@@ -1,7 +1,7 @@
 from __future__ import print_function
 from ModelSearch import random_model_search, \
-    differential_evolution_model_search, basin_hopping_model_search, \
-    particle_swarm_optimization_model_search, bounds, get_random_model
+    differential_evolution_model_search, basin_hopping_model_search, simple_homology_global_optimization_model_search, \
+    particle_swarm_optimization_model_search, bounds, get_random_model, dual_annealing_model_search
 import time
 from mpi4py import MPI
 import json
@@ -39,10 +39,11 @@ modelLabel = data_manipulation["modelLabel"]
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
 islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
+# islands = ['rand', 'pso', 'de', 'da', 'sg'] * 4
 # islands = ['rand'] * 32
-# islands = ['bh'] * 32
 # islands = ['pso'] * 32
-# islands = ['de'] * 32
+# islands = ['da'] * 32
+# islands = ['sg', 'da', 'bh'] * 32
 # islands = ['pso', 'de'] * 32
 
 comm = MPI.COMM_WORLD
@@ -86,7 +87,7 @@ if rank == 0:  # Master Node
         print("mean_mse: {} ({}: {})".format(data_worker_to_master["mean_mse"], data_worker_to_master["island"],
                                              data_worker_to_master["iteration"]))
 
-        agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]  # Get agent rank for index on buffer array
+        agentsBuffer[data_worker_to_master["rank"] - 1] = data_worker_to_master["agent"]
         agentsMse[data_worker_to_master["rank"] - 1] = data_worker_to_master["mean_mse"]
 
         evaluations += 1
@@ -112,7 +113,7 @@ if rank == 0:  # Master Node
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
                               "mean_mse": agentsMse[agent_to_send],
-                              "iteration": data_worker_to_master["iteration"], "fromRank": agent_to_send + 1}  # Always send back the best agent
+                              "iteration": data_worker_to_master["iteration"], "fromRank": agent_to_send + 1}
         comm.send(dataMasterToWorker, dest=data_worker_to_master["rank"], tag=2)
 
     endTime = time.time()
@@ -159,5 +160,9 @@ else:  # Worker Node
             differential_evolution_model_search(data_manipulation)
         elif island == 'bh':
             basin_hopping_model_search(data_manipulation)
+        elif island == 'da':
+            dual_annealing_model_search(data_manipulation)
+        elif island == 'sg':
+            simple_homology_global_optimization_model_search(data_manipulation)
 
         print("--- Done({})!".format(island))

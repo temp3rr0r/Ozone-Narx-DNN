@@ -1,7 +1,7 @@
 {
     "detrend": false,
     "modelLabel": "pso",
-    "scale": "standardize",
+    "scale": "normalize",
     "swapEvery": 5,
     "sendBestAgentFromBuffer": true,
     "master": 0,
