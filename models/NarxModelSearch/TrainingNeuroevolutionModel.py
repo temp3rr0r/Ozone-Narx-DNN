@@ -13,7 +13,12 @@ import random
 
 
 def train_model(x, *args):
-
+    """
+    Train a deep learning model.
+    :param x: Model phenotype.
+    :param args: Data (inputs and expected).
+    :return: Average validation Mean Squared Error.
+    """
     startTime = time.time()  # training time per model
 
     train_model.counter += 1
@@ -301,78 +306,6 @@ def train_model(x, *args):
                                                        patience=5,
                                                        verbose=1), tf.keras.callbacks.TerminateOnNaN()]
 
-    # TODO: try and convert the tf graph to fp16
-    # sess = tf.keras.backend.get_session()
-    # previous_variables = [
-    #     var_name for var_name, _
-    #     in tf.contrib.framework.list_variables('path-to-checkpoint-file')]
-    # print(previous_variables)
-    # sess.run(tf.global_variables_initializer())
-    # restore_map = {}
-    # for variable in tf.global_variables():
-    #     if variable.op.name in previous_variables:
-    #         var = tf.contrib.framework.load_variable(
-    #             'path-to-checkpoint-file', variable.op.name)
-    #         if var.dtype == np.float32:
-    #             tf.add_to_collection('assignOps', variable.assign(
-    #                 tf.cast(var, tf.float16)))
-    #         else:
-    #             tf.add_to_collection('assignOps', variable.assign(var))
-    # sess.run(tf.get_collection('assignOps'))
-    # >>> from keras import backend as K
-    # >>> input = K.placeholder((2, 3), dtype='float32')
-    # >>> input
-    # <tf.Tensor 'Placeholder_2:0' shape=(2, 3) dtype=float32>
-    # .html# It doesn't work in-place as below.
-    # >>> K.cast(input, dtype='float16')
-    # <tf.Tensor 'Cast_1:0' shape=(2, 3) dtype=float16>
-    # >>> input
-    # <tf.Tensor 'Placeholder_2:0' shape=(2, 3) dtype=float32>
-    # .html# you need to assign it.
-    # >>> input = K.cast(input, dtype='float16')
-    # >>> input
-    # <tf.Tensor 'Cast_2:0' shape=(2, 3) dtype=float16>
-    # tf.keras.backend.set_epsilon(1e-4)
-    # tf.keras.backend.set_floatx('float16')
-    # tf.keras.backend.cast_to_floatx('float16')
-    # print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
-    # data_manipulation["fp16"] = True
-    # TODO: try store/load session with conversions
-    # if data_manipulation["fp16"]:
-    #     x_data.astype(np.float16, casting='unsafe')
-    #     y_data.astype(np.float16, casting='unsafe')
-    # if data_manipulation["fp16"]:
-    #     tf.keras.backend.set_epsilon(1e-4)
-    #     tf.keras.backend.set_floatx('float16')
-    #     print("--- Working with tensorflow.keras float precision: {}".format(tf.keras.backend.floatx()))
-    # sess = tf.keras.backend.get_session()
-    # saver = tf.train.Saver()
-    # session_path = "foundModels/tf/" + "_model.ckpt"
-    # save_path = saver.save(sess, session_path)
-    # # saver.restore(sess, session_path)
-    # # writer = tf.summary.FileWriter("foundModels/tf/" + "file1.png", sess.graph)  # TODO: test save graph visualization
-    # # writer.close()
-    # print("ok1")
-    # previous_variables = [
-    #     var_name for var_name, _
-    #     in tf.contrib.framework.list_variables(session_path)]
-    # print("ok2")
-    # print(previous_variables)
-    # sess.run(tf.global_variables_initializer())
-    # print("ok3")
-    # restore_map = {}
-    # for variable in tf.global_variables():
-    #     if variable.op.name in previous_variables:
-    #         var = tf.contrib.framework.load_variable(session_path, variable.op.name)
-    #         if var.dtype == np.float32:
-    #             # tf.add_to_collection('assignOps', variable.assign(tf.cast(var, tf.float16)))
-    #             tf.add_to_collection('assignOps', variable.assign(var))
-    #         else:
-    #             tf.add_to_collection('assignOps', variable.assign(var))
-    # print("ok4")
-    # sess.run(tf.get_collection('assignOps'))
-    # print("ok5")
-
     # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
         current_fold += 1  # TODO: train, trainValidation, validation
@@ -567,115 +500,27 @@ def train_model(x, *args):
     gc.collect()
 
     endTime = time.time()
-
-    # # Worker to master
-    # dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
-    #                       "island": island, "iteration": train_model.counter}
-    # comm = data_manipulation["comm"]
-    # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # Send data async to master
-    # req.wait()
-    #
-    # # Master to worker
-    # agentToEa = {"swapAgent": False, "agent": None}
-    # dataMasterToWorker = comm.recv(source=master, tag=2)  # Receive data sync (blocking) from master
-    # swapAgent = dataMasterToWorker["swapAgent"]
-    # if swapAgent:
-    #     outAgent = dataMasterToWorker["agent"]
-    #     agentToEa = {"swapAgent": True, "agent": outAgent}  # Send agent copy
-    #
-    # if island == "bh":
-    #     return mean_mse
-    #
-    # return mean_mse, agentToEa
     return mean_mse
 
 
 def ackley(x):
+    """
+    Ackley function, 2 dimensional.
+    :param x: List of parameters.
+    :return: Function result, using the given x parameters.
+    """
     arg1 = -0.2 * np.sqrt(0.5 * (x[0] ** 2 + x[1] ** 2))
     arg2 = 0.5 * (np.cos(2. * np.pi * x[0]) + np.cos(2. * np.pi * x[1]))
     return -20. * np.exp(arg1) - np.exp(arg2) + 20. + np.e
 
 
-def train_model_tester(x, *args):
-
-    startTime = time.time()  # training time per model
-
-    train_model.counter += 1
-    modelLabel = train_model.label
-    modelFolds = train_model.folds
-    data_manipulation = train_model.data_manipulation
-    island = data_manipulation["island"]
-    rank = data_manipulation["rank"]
-    master = data_manipulation["master"]
-    x_data, y_data = args
-    full_model_parameters = x.copy()
-
-    # TODO: func to optimize
-    # timeToSleep = np.random.uniform(0, 0.01)
-    # time.sleep(timeToSleep)
-    # mean_mse = 333.33 + timeToSleep
-    mean_mse = ackley([x[12], x[13]])
-
-    train_model.counter += 1
-    endTime = time.time()
-    # Worker to master
-    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
-                          "island": island, "iteration": train_model.counter}
-    comm = data_manipulation["comm"]
-    # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
-    # req.wait()
-    comm.send(dataWorkerToMaster, dest=master, tag=1)
-
-    # Master to worker
-    agentToEa = {"swapAgent": False, "agent": None}
-    # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    req = comm.irecv(source=0, tag=2)
-    dataMasterToWorker = req.wait()
-
-    swapAgent = dataMasterToWorker["swapAgent"]
-    if swapAgent:
-        outAgent = dataMasterToWorker["agent"]
-        agentToEa = {"swapAgent": True, "agent": outAgent}
-
-    if island == "bh":
-        return mean_mse
-
-    return mean_mse, agentToEa
-
-
-def train_model_tester2(x, *args):
-
-    startTime = time.time()  # training time per model
-
-    train_model.counter += 1
-    modelLabel = train_model.label
-    modelFolds = train_model.folds
-    data_manipulation = train_model.data_manipulation
-    island = data_manipulation["island"]
-    rank = data_manipulation["rank"]
-    master = data_manipulation["master"]
-    x_data, y_data = args
-    full_model_parameters = x.copy()
-
-    # TODO: func to optimize
-    timeToSleep = np.random.uniform(2, 5)
-    time.sleep(timeToSleep)
-    mean_mse = ackley([x[12], x[13]])
-
-    train_model.counter += 1
-    endTime = time.time()
-    # Worker to master
-    dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
-                          "island": island, "iteration": train_model.counter}
-
-    # Master to worker
-    agentToEa = {"swapAgent": False, "agent": None}
-
-    return mean_mse, {"swapAgent": True, "agent": x}
-
-
 def train_model_tester3(x, *args):
-
+    """
+    Fake model training, for testing communication and workers. Tries to find ackley function minimum.
+    :param x: Model phenotype.
+    :param args: Data (inputs and expected).
+    :return: Mean Squared Error.
+    """
     startTime = time.time()  # training time per model
 
     train_model.counter += 1
@@ -696,26 +541,5 @@ def train_model_tester3(x, *args):
 
     train_model.counter += 1
     endTime = time.time()
-    # Worker to master
-    # dataWorkerToMaster = {"worked": endTime - startTime, "rank": rank, "mean_mse": mean_mse, "agent": x,
-    #                       "island": island, "iteration": train_model.counter}
-    # comm = data_manipulation["comm"]
-    # # req = comm.isend(dataWorkerToMaster, dest=master, tag=1)  # TODO: test sync
-    # # req.wait()
-    # comm.send(dataWorkerToMaster, dest=master, tag=1)
-    #
-    # # Master to worker
-    # agentToEa = {"swapAgent": False, "agent": None}
-    # # dataMasterToWorker = comm.recv(source=0, tag=2)  # TODO: blocking or non-blocking?
-    # req = comm.irecv(source=0, tag=2)
-    # dataMasterToWorker = req.wait()
-    #
-    # swapAgent = dataMasterToWorker["swapAgent"]
-    # if swapAgent:
-    #     outAgent = dataMasterToWorker["agent"]
-    #     agentToEa = {"swapAgent": True, "agent": outAgent}
-    #
-    # if island == "bh":
-    #     return mean_mse
 
     return mean_mse
