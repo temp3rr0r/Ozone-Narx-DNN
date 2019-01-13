@@ -316,13 +316,11 @@ def train_model(x, *args):
     else:
         model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-    early_stop = [tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0,
-                                                   # patience=25, verbose=1, mode='min'),  # TODO: test with large patience
-                                                   patience=10, verbose=1, mode='auto'),
-                  tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7,
-                                                       patience=5,
-                                                       verbose=1), tf.keras.callbacks.TerminateOnNaN()]
-
+    early_stop = [
+        tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
+        tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7, patience=5, verbose=1),
+        tf.keras.callbacks.TerminateOnNaN()
+    ]
 
     # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
