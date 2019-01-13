@@ -19,6 +19,22 @@ def delete_model(model):
     tf.keras.backend.clear_session()
     gc.collect()
 
+def shuffle_weights(model, weights=None):  # TODO: test
+    """Randomly permute the weights in `model`, or the given `weights`.
+    This is a fast approximation of re-initializing the weights of a model.
+    Assumes weights are distributed independently of the dimensions of the weight tensors
+      (i.e., the weights have the same distribution along each dimension).
+    :param Model model: Modify the weights of the given model.
+    :param list(ndarray) weights: The model's weights will be replaced by a random permutation of these weights.
+      If `None`, permute the model's current weights.
+    """
+    if weights is None:
+        weights = model.get_weights()
+    weights = [np.random.permutation(w.flat).reshape(w.shape) for w in weights]
+    # Faster, but less random: only permutes along the first dimension
+    # weights = [np.random.permutation(w) for w in weights]
+    model.set_weights(weights)
+
 
 def train_model(x, *args):
     """
@@ -108,8 +124,6 @@ def train_model(x, *args):
     smape_scores = []
     mse_scores = []
     current_fold = 0
-
-    print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
     # # create model  # TODO: Naive LSTM
     # model = tf.keras.models.Sequential()
@@ -317,11 +331,16 @@ def train_model(x, *args):
     model.save_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: save init model weights
         modelLabel, train_model.counter, rank))
 
+    initial_weights = model.get_weights()  # TODO: save init model weights
+
     # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
+
         current_fold += 1  # TODO: train, trainValidation, validation
+        print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
         print("--- Rank {}: Resetting model weights...".format(rank))
+        shuffle_weights(model, initial_weights)  # TODO: reset model weights
         model.load_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: reset model weights
             modelLabel, train_model.counter, rank))
 
