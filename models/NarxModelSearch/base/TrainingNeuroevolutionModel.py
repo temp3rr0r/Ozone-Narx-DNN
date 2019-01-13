@@ -20,15 +20,6 @@ def delete_model(model):
     gc.collect()
 
 
-def reset_weights(model):
-    session = tf.keras.backend.get_session()
-    for layer in model.layers:
-        if hasattr(layer, 'kernel_initializer'):
-            layer.kernel.initializer.run(session=session)
-        if hasattr(layer, 'bias_initializer'):
-            layer.bias.initializer.run(session=session)
-
-
 def train_model(x, *args):
     """
     Train a deep learning model.
@@ -322,11 +313,17 @@ def train_model(x, *args):
         tf.keras.callbacks.TerminateOnNaN()
     ]
 
+    print("--- Rank {}: Storing init model weights...".format(rank))
+    model.save_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: save init model weights
+        modelLabel, train_model.counter, rank))
+
     # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
         current_fold += 1  # TODO: train, trainValidation, validation
 
-        reset_weights(model)  # TODO: reset model weights
+        print("--- Rank {}: Resetting model weights...".format(rank))
+        model.load_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: reset model weights
+            modelLabel, train_model.counter, rank))
 
         try:
             history = model.fit(x_data[train], y_data[train],
