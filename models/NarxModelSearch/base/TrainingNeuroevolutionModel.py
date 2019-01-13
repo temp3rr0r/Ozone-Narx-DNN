@@ -19,6 +19,7 @@ def delete_model(model):
     tf.keras.backend.clear_session()
     gc.collect()
 
+
 def shuffle_weights(model, weights=None):  # TODO: test
     """Randomly permute the weights in `model`, or the given `weights`.
     This is a fast approximation of re-initializing the weights of a model.
@@ -334,16 +335,18 @@ def train_model(x, *args):
         print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
         print("--- Rank {}: Resetting model weights...".format(rank))
-        early_stop = [
-            tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
-            tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7, patience=5, verbose=1),
-            tf.keras.callbacks.TerminateOnNaN()
-        ]
+
         shuffle_weights(model, initial_weights)  # TODO: reset model weights
         # model.load_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: reset model weights
         #     modelLabel, train_model.counter, rank))
 
         try:
+            early_stop = [
+                tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
+                tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, min_delta=0.0001, patience=5,
+                                                     mode='auto', cooldown=1,  min_lr=0.001, verbose=1),
+                tf.keras.callbacks.TerminateOnNaN()
+            ]
             history = model.fit(x_data[train], y_data[train],
                                 verbose=verbosity,
                                 batch_size=batch_size,
