@@ -316,21 +316,15 @@ def train_model(x, *args):
     if multi_gpu:
         model = tf.keras.utils.multi_gpu_model(model, gpus=2)
 
+    print("--- Rank {}: Re-compiling model...".format(rank, current_fold, totalFolds))
     if optimizer == 'amsgrad':  # Adam variant: amsgrad (boolean), "On the Convergence of Adam and Beyond".
         model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
     else:
         model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-    early_stop = [
-        tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
-        tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7, patience=5, verbose=1),
-        tf.keras.callbacks.TerminateOnNaN()
-    ]
-
     print("--- Rank {}: Storing init model weights...".format(rank))
-    model.save_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: save init model weights
-        modelLabel, train_model.counter, rank))
-
+    # model.save_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: save init model weights
+    #     modelLabel, train_model.counter, rank))
     initial_weights = model.get_weights()  # TODO: save init model weights
 
     # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
@@ -340,9 +334,14 @@ def train_model(x, *args):
         print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
         print("--- Rank {}: Resetting model weights...".format(rank))
+        early_stop = [
+            tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
+            tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_delta=1E-7, patience=5, verbose=1),
+            tf.keras.callbacks.TerminateOnNaN()
+        ]
         shuffle_weights(model, initial_weights)  # TODO: reset model weights
-        model.load_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: reset model weights
-            modelLabel, train_model.counter, rank))
+        # model.load_weights("foundModels/{}Iter{}Rank{}InitModelWeights.h5".format(  # TODO: reset model weights
+        #     modelLabel, train_model.counter, rank))
 
         try:
             history = model.fit(x_data[train], y_data[train],
