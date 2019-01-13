@@ -129,7 +129,6 @@ def train_model(x, *args):
     # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
 
-
         # # create model  # TODO: Naive LSTM
         # model = tf.keras.models.Sequential()
         # lstm_kwargs = {'units': 16, 'return_sequences': False,
@@ -328,18 +327,18 @@ def train_model(x, *args):
             model.compile(loss='mean_squared_error', optimizer=optimizer)
 
         print("--- Rank {}: Storing init model weights...".format(rank))
-        initial_weights = model.get_weights()  # TODO: save init model weights
+        # initial_weights = model.get_weights()  # TODO: save init model weights
 
         current_fold += 1  # TODO: train, trainValidation, validation
         print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
-        print("--- Rank {}: Resetting model weights...".format(rank))
-        shuffle_weights(model, initial_weights)  # TODO: reset model weights
+        # print("--- Rank {}: Resetting model weights...".format(rank))
+        # shuffle_weights(model, initial_weights)  # TODO: reset model weights
 
         try:
             early_stop = [
                 tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
-                tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, min_delta=0.0001, patience=5,
-                                                     mode='auto', cooldown=1,  min_lr=0.001, verbose=1),
+                tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5,
+                                                     mode='auto', cooldown=1, verbose=1),
                 tf.keras.callbacks.TerminateOnNaN()
             ]
             history = model.fit(x_data[train], y_data[train],
