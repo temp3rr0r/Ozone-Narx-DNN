@@ -5,9 +5,9 @@ import json
 import numpy as np
 import sys
 import pandas as pd
-import TrainingNeuroevolutionModel as baseMpi
+from base import TrainingNeuroevolutionModel as baseMpi
 # import TrainingNeuroevolutionModelKeras as baseMpi
-from ModelSearch import bounds
+from base.bounds import bounds
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
@@ -114,7 +114,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
 
 def model_training_callback(ch, method, properties, body):  # Tasks receiver callback
     try:
-        body = json.loads(body)
+        body = json.loads(body.decode("utf-8"))
         # print(" [x] Received %r" % body)
         print(" [x] Island: ", body["island"])
         data_manipulation["island"] = body["island"]
@@ -220,7 +220,9 @@ baseMpi.train_model.folds = data_manipulation["folds"]
 baseMpi.train_model.data_manipulation = data_manipulation
 
 timeout = 3600 * 10  # Timeouts 60 mins * islands
-params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
+credentials = pika.PlainCredentials("guest", "guest")
+params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat_interval=timeout, blocked_connection_timeout=timeout,
+                                   credentials=credentials)
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
 channel = connection.channel()  # Listen to channels
 channel.queue_declare(queue="task_queue", durable=False)  # Open common task queue

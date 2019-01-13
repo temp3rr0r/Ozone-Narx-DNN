@@ -1,5 +1,5 @@
 from __future__ import print_function
-from ModelSearch import random_model_search, \
+from base.ModelSearch import random_model_search, \
     differential_evolution_model_search, basin_hopping_model_search, simple_homology_global_optimization_model_search, \
     particle_swarm_optimization_model_search, bounds, get_random_model, dual_annealing_model_search
 import time

@@ -2,7 +2,7 @@ import pika
 import json
 import uuid
 import time
-from TrainingNeuroevolutionModel import train_model
+from base.TrainingNeuroevolutionModel import train_model
 
 
 def train_model_requester_rabbit_mq(x):
