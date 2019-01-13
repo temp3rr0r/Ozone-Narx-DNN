@@ -9,7 +9,7 @@
     "iterations": 800,
     "agents": 5,
     "storeCheckpoints": false,
-    "verbose": 0,
+    "verbose": 2,
     "fp16": false,
     "multi_gpu": false
 }

@@ -146,7 +146,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-rank = 1  # TODO: rank == GPU ID
+rank = 2  # TODO: rank == GPU ID
 
 print("--- Loading GPU {}...".format(rank))
 init_gpu(rank)
@@ -220,7 +220,7 @@ baseMpi.train_model.folds = data_manipulation["folds"]
 baseMpi.train_model.data_manipulation = data_manipulation
 
 timeout = 3600 * 10  # Timeouts 60 mins * islands
-credentials = pika.PlainCredentials("guest", "guest")
+credentials = pika.PlainCredentials("madks", "ma121284")
 params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat_interval=timeout, blocked_connection_timeout=timeout,
                                    credentials=credentials)
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
