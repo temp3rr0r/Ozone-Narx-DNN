@@ -188,9 +188,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "BETN113_121_132_BG"
 # data_manipulation["mimoOutputs"] = 3
 
-# data_manipulation["directory"] = "data/24stations51vars/"
-# data_manipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
-# data_manipulation["mimoOutputs"] = 24
+data_manipulation["directory"] = "data/24stations51vars/"
+data_manipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
+data_manipulation["mimoOutputs"] = 24
 
 # data_manipulation["directory"] = "data/46stations51vars/"
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
@@ -200,9 +200,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
-data_manipulation["directory"] = "data/PM1073stations51vars/"
-data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
-data_manipulation["mimoOutputs"] = 73
+# data_manipulation["directory"] = "data/PM1073stations51vars/"
+# data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
+# data_manipulation["mimoOutputs"] = 73
 
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],
