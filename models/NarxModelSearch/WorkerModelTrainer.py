@@ -74,8 +74,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # r = r[0:row2010_12_31, :]
 
     # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
-    # row2000_01_01 = 3653 - 1
-    # r = r[row2000_01_01:-1, :]
+    row2000_01_01 = 3653 - 1
+    r = r[row2000_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
@@ -188,13 +188,13 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "BETN113_121_132_BG"
 # data_manipulation["mimoOutputs"] = 3
 
-data_manipulation["directory"] = "data/24stations51vars/"
-data_manipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
-data_manipulation["mimoOutputs"] = 24
+# data_manipulation["directory"] = "data/24stations51vars/"
+# data_manipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
+# data_manipulation["mimoOutputs"] = 24
 
-# data_manipulation["directory"] = "data/46stations51vars/"
-# data_manipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
-# data_manipulation["mimoOutputs"] = 46
+data_manipulation["directory"] = "data/46stations51vars/"
+data_manipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
+data_manipulation["mimoOutputs"] = 46
 
 # data_manipulation["directory"] = "data/PM10_BETN/"
 # data_manipulation["filePrefix"] = "PM10_BETN"
