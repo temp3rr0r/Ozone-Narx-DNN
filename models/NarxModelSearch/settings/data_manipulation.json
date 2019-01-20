@@ -5,11 +5,11 @@
     "swapEvery": 5,
     "sendBestAgentFromBuffer": true,
     "master": 0,
-    "folds": 2,
+    "folds": 10,
     "iterations": 800,
     "agents": 5,
     "storeCheckpoints": false,
-    "verbose": 2,
+    "verbose": 0,
     "fp16": false,
     "multi_gpu": false
 }

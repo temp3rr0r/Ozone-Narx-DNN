@@ -6,7 +6,6 @@ import numpy as np
 import sys
 import pandas as pd
 from base import NeuroevolutionModelTraining as baseMpi
-# import TrainingNeuroevolutionModelKeras as baseMpi
 from base.bounds import bounds
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
@@ -164,17 +163,17 @@ if data_manipulation["fp16"]:
 
 # Choose data
 
-# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-# data_manipulation["filePrefix"] = "BETN073"
-# data_manipulation["mimoOutputs"] = 1
+data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+data_manipulation["filePrefix"] = "BETN073"
+data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
 # data_manipulation["mimoOutputs"] = 1
 
-data_manipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
-data_manipulation["filePrefix"] = "BETN073_BG"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/BETN073_BG/"  # TODO: "closest BG station" data replacement strategy
+# data_manipulation["filePrefix"] = "BETN073_BG"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/4stations51vars/"
 # data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
@@ -209,7 +208,6 @@ x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation[
                               data_manipulation["mimoOutputs"])
 
 data_manipulation["rank"] = rank
-
 data_manipulation["bounds"] = bounds  # TODO: add bounds from modelsearch
 
 iterations = data_manipulation["iterations"]

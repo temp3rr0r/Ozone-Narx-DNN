@@ -207,24 +207,24 @@ def train_model(x, *args):
         if use_batch_normalization1 > 0.5:
             model.add(tf.keras.layers.BatchNormalization())
 
-        # lstm_kwargs['units'] = units2
-        # lstm_kwargs['dropout'] = dropout2
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # # TODO: Local mutation
-        # if regularizer_chance_randoms[3] < regularizer_chance:
-        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
-        # if regularizer_chance_randoms[4] < regularizer_chance:
-        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
-        # if regularizer_chance_randoms[5] < regularizer_chance:
-        #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
-        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise2 > 0.5:
-        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        # if use_batch_normalization2 > 0.5:
-        #     model.add(tf.keras.layers.BatchNormalization())
+        lstm_kwargs['units'] = units2
+        lstm_kwargs['dropout'] = dropout2
+        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # TODO: Local mutation
+        if regularizer_chance_randoms[3] < regularizer_chance:
+            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+                l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
+        if regularizer_chance_randoms[4] < regularizer_chance:
+            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+                l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
+        if regularizer_chance_randoms[5] < regularizer_chance:
+            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+                l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
+        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        if use_gaussian_noise2 > 0.5:
+            model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
+        if use_batch_normalization2 > 0.5:
+            model.add(tf.keras.layers.BatchNormalization())
         #
         # lstm_kwargs['units'] = units3
         # lstm_kwargs['dropout'] = dropout3
@@ -323,12 +323,7 @@ def train_model(x, *args):
                                 callbacks=early_stop)
         except:
             print("--- Rank {}: Exception: Returning max float value for this iteration.".format(rank))
-
-            # Memory handling
-            del model  # Manually delete model
-            tf.reset_default_graph()
-            tf.keras.backend.clear_session()
-            gc.collect()
+            delete_model(model)
 
             return sys.float_info.max
 
