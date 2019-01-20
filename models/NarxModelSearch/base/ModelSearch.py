@@ -4,7 +4,7 @@ from GlobalOptimizationAlgorithms.DifferentialEvolution import differential_evol
 from GlobalOptimizationAlgorithms.SimplicialHomologyGlobalOptimization import shgo
 from GlobalOptimizationAlgorithms.DualAnnealing import dual_annealing
 from GlobalOptimizationAlgorithms.BasinHopping import basinhopping
-from base import TrainingNeuroevolutionModel as baseMpi
+from base import NeuroevolutionModelTraining as baseMpi
 from GlobalOptimizationAlgorithms.pyswarm.pso import pso
 from base.ModelRequester import train_model_requester_rabbit_mq
 import numpy as np

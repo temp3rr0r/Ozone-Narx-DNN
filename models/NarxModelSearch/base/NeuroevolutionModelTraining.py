@@ -8,7 +8,7 @@ from matplotlib import pyplot
 import tensorflow as tf
 import pandas as pd
 import gc
-from sklearn.model_selection import TimeSeriesSplit
+from sklearn.model_selection import TimeSeriesSplit, train_test_split
 
 
 def delete_model(model):
@@ -107,6 +107,7 @@ def train_model(x, *args):
     smape_scores = []
     mse_scores = []
     train_mse_scores = []
+    dev_mse_scores = []
     current_fold = 0
 
     # TODO: (Baldwin) phenotypic plasticity, using random uniform.
@@ -116,8 +117,10 @@ def train_model(x, *args):
     regularizer_chance_randoms = np.random.rand(9)
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
 
-    # for train, train_validation, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: <- test it
-    for train, validation in timeSeriesCrossValidation.split(x_data, y_data):
+    # for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
+    for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
+
+        dev, validation = train_test_split(validation_full, test_size=0.5, shuffle=False)  # TODO: 50-50 for dev/val
 
         # # create model  # TODO: Naive LSTM
         # model = tf.keras.models.Sequential()
@@ -204,62 +207,62 @@ def train_model(x, *args):
         if use_batch_normalization1 > 0.5:
             model.add(tf.keras.layers.BatchNormalization())
 
-        lstm_kwargs['units'] = units2
-        lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # TODO: Local mutation
-        if regularizer_chance_randoms[3] < regularizer_chance:
-            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
-        if regularizer_chance_randoms[4] < regularizer_chance:
-            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
-        if regularizer_chance_randoms[5] < regularizer_chance:
-            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
-        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        if use_gaussian_noise2 > 0.5:
-            model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        if use_batch_normalization2 > 0.5:
-            model.add(tf.keras.layers.BatchNormalization())
-
-        lstm_kwargs['units'] = units3
-        lstm_kwargs['dropout'] = dropout3
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        # TODO: Local mutation
-        if regularizer_chance_randoms[6] < regularizer_chance:
-            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[6, 0], l1_l2_randoms[6, 1])
-        if regularizer_chance_randoms[7] < regularizer_chance:
-            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[7, 0], l1_l2_randoms[7, 1])
-        if regularizer_chance_randoms[8] < regularizer_chance:
-            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
-        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        if use_gaussian_noise3 > 0.5:
-            model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
-        if use_batch_normalization3 > 0.5:
-            model.add(tf.keras.layers.BatchNormalization())
-
-        lstm_kwargs['units'] = units2
-        lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # TODO: Local mutation
-        if regularizer_chance_randoms[3] < regularizer_chance:
-            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
-        if regularizer_chance_randoms[4] < regularizer_chance:
-            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
-        if regularizer_chance_randoms[5] < regularizer_chance:
-            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
-        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        if use_gaussian_noise2 > 0.5:
-            model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        if use_batch_normalization2 > 0.5:
-            model.add(tf.keras.layers.BatchNormalization())
+        # lstm_kwargs['units'] = units2
+        # lstm_kwargs['dropout'] = dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # # TODO: Local mutation
+        # if regularizer_chance_randoms[3] < regularizer_chance:
+        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
+        # if regularizer_chance_randoms[4] < regularizer_chance:
+        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
+        # if regularizer_chance_randoms[5] < regularizer_chance:
+        #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
+        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise2 > 0.5:
+        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
+        # if use_batch_normalization2 > 0.5:
+        #     model.add(tf.keras.layers.BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units3
+        # lstm_kwargs['dropout'] = dropout3
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        # # TODO: Local mutation
+        # if regularizer_chance_randoms[6] < regularizer_chance:
+        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[6, 0], l1_l2_randoms[6, 1])
+        # if regularizer_chance_randoms[7] < regularizer_chance:
+        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[7, 0], l1_l2_randoms[7, 1])
+        # if regularizer_chance_randoms[8] < regularizer_chance:
+        #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
+        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise3 > 0.5:
+        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
+        # if use_batch_normalization3 > 0.5:
+        #     model.add(tf.keras.layers.BatchNormalization())
+        #
+        # lstm_kwargs['units'] = units2
+        # lstm_kwargs['dropout'] = dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # # TODO: Local mutation
+        # if regularizer_chance_randoms[3] < regularizer_chance:
+        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
+        # if regularizer_chance_randoms[4] < regularizer_chance:
+        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
+        # if regularizer_chance_randoms[5] < regularizer_chance:
+        #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+        #         l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
+        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        # if use_gaussian_noise2 > 0.5:
+        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
+        # if use_batch_normalization2 > 0.5:
+        #     model.add(tf.keras.layers.BatchNormalization())
 
         lstm_kwargs['units'] = units3
         lstm_kwargs['dropout'] = dropout3
@@ -296,18 +299,19 @@ def train_model(x, *args):
         current_fold += 1  # TODO: train, trainValidation, validation
         print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
 
+        early_stop = [
+            tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
+            tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, mode='auto',
+                                                 cooldown=1, verbose=1),
+            tf.keras.callbacks.TerminateOnNaN()
+        ]
+
         try:
-            early_stop = [
-                tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
-                tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, mode='auto',
-                                                     cooldown=1, verbose=1),
-                tf.keras.callbacks.TerminateOnNaN()
-            ]
             history = model.fit(x_data[train], y_data[train],
                                 verbose=verbosity,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
-                                validation_data=(x_data[validation], y_data[validation]),
+                                validation_data=(x_data[dev], y_data[dev]),
                                 callbacks=early_stop)
         except ValueError:
             print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
@@ -315,7 +319,7 @@ def train_model(x, *args):
                                 verbose=verbosity,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
-                                validation_data=(x_data[validation], y_data[validation]),
+                                validation_data=(x_data[dev], y_data[dev]),
                                 callbacks=early_stop)
         except:
             print("--- Rank {}: Exception: Returning max float value for this iteration.".format(rank))
@@ -330,8 +334,10 @@ def train_model(x, *args):
 
         prediction = model.predict(x_data[validation])
         train_prediction = model.predict(x_data[train])
+        dev_prediction = model.predict(x_data[dev])
         y_validation = y_data[validation]
         y_train = y_data[train]
+        y_dev = y_data[dev]
 
         if data_manipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle(directory + filePrefix + "_ts_mean.pkl")
@@ -345,8 +351,10 @@ def train_model(x, *args):
             sensor_std = np.array(sensor_std)
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             train_prediction = (train_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+            dev_prediction = (dev_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_train = (y_train * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+            y_dev = (y_dev * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif data_manipulation["scale"] == 'normalize':
             sensor_min = pd.read_pickle(directory + filePrefix + "_ts_min.pkl")
             sensor_max = pd.read_pickle(directory + filePrefix + "_ts_max.pkl")
@@ -359,14 +367,17 @@ def train_model(x, *args):
             sensor_max = np.array(sensor_max)
             prediction = prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             train_prediction = train_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+            dev_prediction = dev_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             y_validation = y_validation * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             y_train = y_train * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+            y_dev = y_dev * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
         # Calc mse/rmse
         mse = mean_squared_error(prediction, y_validation)
         print("--- Rank {}: Validation MSE: {}".format(rank, mse))
         mse_scores.append(mse)
         train_mse_scores.append(mean_squared_error(train_prediction, y_train))
+        dev_mse_scores.append(mean_squared_error(dev_prediction, y_dev))
         rmse = sqrt(mse)
         print("--- Rank {}: Validation RMSE: {}".format(rank, rmse))
 
@@ -405,14 +416,26 @@ def train_model(x, *args):
     train_std_mse = np.std(train_mse_scores)
     print("--- Rank {}: Cross validation, Train Data MSE: {} +/- {}".format(rank, round(train_mean_mse, 2),
                                                                            round(train_std_mse, 2)))
+
+    dev_mean_mse = np.mean(dev_mse_scores)
+    dev_std_mse = np.std(dev_mse_scores)
+    print("--- Rank {}: Cross validation, Dev Data MSE: {} +/- {}".format(rank, round(dev_mean_mse, 2),
+                                                                           round(dev_std_mse, 2)))
+
     mean_mse = np.mean(mse_scores)
     std_mse = np.std(mse_scores)
     print("--- Rank {}: Cross validation, Validation Data MSE: {} +/- {}".format(rank, round(mean_mse, 2),
                                                                                 round(std_mse, 2)))
     train_mean_rmse = np.mean(np.sqrt(train_mse_scores))
-    train_std_rmse = np.std(train_mean_mse)
+    train_std_rmse = np.std(np.sqrt(train_mse_scores))
     print("--- Rank {}: Cross validation, Train Data RMSE: {} +/- {}".format(rank, round(train_mean_rmse, 2),
                                                                                 round(train_std_rmse, 2)))
+
+    dev_mean_rmse = np.mean(np.sqrt(dev_mse_scores))
+    dev_std_rmse = np.std(np.sqrt(dev_mse_scores))
+    print("--- Rank {}: Cross validation, Dev Data RMSE: {} +/- {}".format(rank, round(dev_mean_rmse, 2),
+                                                                                round(dev_std_rmse, 2)))
+
     mean_rmse = np.mean(np.sqrt(mse_scores))
     std_rmse = np.std(mean_rmse)
     print("--- Rank {}: Cross validation, Validation Data RMSE: {} +/- {}".format(rank, round(mean_rmse, 2),
