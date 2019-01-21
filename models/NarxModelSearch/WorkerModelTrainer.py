@@ -57,14 +57,14 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-    # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
+    r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
 
     # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
     # r = r[1:(365+60):]
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    row2000_01_01 = 3653 - 1
+    row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
     row2010_12_31 = 7670
     r = r[row2000_01_01:row2010_12_31, :]
 
@@ -145,10 +145,10 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-rank = 2  # TODO: rank == GPU ID
+gpu_device = 2  # TODO: rank == GPU ID
 
-print("--- Loading GPU {}...".format(rank))
-init_gpu(rank)
+print("--- Loading GPU {}...".format(gpu_device))
+init_gpu(gpu_device)
 
 print("--- Loading simulation settings...")
 with open('settings/data_manipulation.json') as f:
@@ -163,9 +163,9 @@ if data_manipulation["fp16"]:
 
 # Choose data
 
-data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-data_manipulation["filePrefix"] = "BETN073"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+# data_manipulation["filePrefix"] = "BETN073"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
@@ -175,7 +175,11 @@ data_manipulation["mimoOutputs"] = 1
 # data_manipulation["filePrefix"] = "BETN073_BG"
 # data_manipulation["mimoOutputs"] = 1
 
-# data_manipulation["directory"] = "data/4stations51vars/"
+data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
+data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+data_manipulation["mimoOutputs"] = 1
+
+# data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
 # data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
 # data_manipulation["mimoOutputs"] = 4
 
@@ -207,7 +211,7 @@ print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],
                               data_manipulation["mimoOutputs"])
 
-data_manipulation["rank"] = rank
+data_manipulation["rank"] = gpu_device
 data_manipulation["bounds"] = bounds  # TODO: add bounds from modelsearch
 
 iterations = data_manipulation["iterations"]
@@ -231,4 +235,4 @@ channel.basic_consume(model_training_callback, queue="task_queue")
 print(" [*] Waiting for messages. To exit press CTRL+C")
 channel.start_consuming()  # Listen for incoming training tasks
 
-print("--- Done(GPU {})!".format(rank))
+print("--- Done(GPU {})!".format(gpu_device))

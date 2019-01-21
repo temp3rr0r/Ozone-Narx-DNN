@@ -405,7 +405,6 @@ def train_model(x, *args):
 
     # Plot model architecture
     tf.keras.utils.plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, train_model.counter, rank))
-    # SVG(tf.keras.utils.vis_utils.model_to_dot(model).create(prog='dot', format='svg'))  # TODO: does this work?
 
     train_mean_mse = np.mean(train_mse_scores)
     train_std_mse = np.std(train_mse_scores)
@@ -432,7 +431,7 @@ def train_model(x, *args):
                                                                                 round(dev_std_rmse, 2)))
 
     mean_rmse = np.mean(np.sqrt(mse_scores))
-    std_rmse = np.std(mean_rmse)
+    std_rmse = np.std(np.sqrt(mse_scores))
     print("--- Rank {}: Cross validation, Validation Data RMSE: {} +/- {}".format(rank, round(mean_rmse, 2),
                                                                                 round(std_rmse, 2)))
     mean_smape = np.mean(smape_scores)
