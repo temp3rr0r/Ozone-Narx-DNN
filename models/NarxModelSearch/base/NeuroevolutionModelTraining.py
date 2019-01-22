@@ -39,6 +39,7 @@ def train_model(x, *args):
     island = data_manipulation["island"]
     verbosity = data_manipulation["verbose"]
     multi_gpu = data_manipulation["multi_gpu"]
+    store_plots = data_manipulation["store_plots"]
 
     x_data, y_data = args
 
@@ -404,7 +405,9 @@ def train_model(x, *args):
             delete_model(model)
 
     # Plot model architecture
-    tf.keras.utils.plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.format(modelLabel, train_model.counter, rank))
+    if store_plots:
+        tf.keras.utils.plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.
+                                  format(modelLabel, train_model.counter, rank))
 
     train_mean_mse = np.mean(train_mse_scores)
     train_std_mse = np.std(train_mse_scores)
@@ -485,37 +488,38 @@ def train_model(x, *args):
         model.summary()  # print layer shapes and model parameters
 
         # Plot history
-        pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
-        pyplot.title("Rank {}: {} (iter: {}): Training History Last Fold".format(rank, modelLabel, train_model.counter))
-        pyplot.plot(history.history['val_loss'], label='val_loss')
-        pyplot.plot(history.history['loss'], label='loss')
-        pyplot.xlabel("Training Epoch")
-        pyplot.ylabel("MSE")
-        pyplot.grid(True)
-        pyplot.legend()
-        # pyplot.show()
-        pyplot.savefig("foundModels/{}Iter{}Rank{}History.png".format(modelLabel, train_model.counter, rank))
-        pyplot.close()
-
-        # Plot test data
-        for i in range(holdout_prediction.shape[1]):
+        if store_plots:
             pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
-            pyplot.title("{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)"
-                    .format(modelLabel, train_model.counter, i, np.round(holdout_rmse, 2),
-                            np.round(holdout_mape * 100, 2), np.round(holdout_ioa * 100, 2)))
-            pyplot.plot(y_data_holdout[:, i], label='expected')
-            pyplot.plot(holdout_prediction[:, i], label='prediction')
-            pyplot.xlabel("Time step")
-            pyplot.ylabel("Sensor Value")
+            pyplot.title("Rank {}: {} (iter: {}): Training History Last Fold".format(rank, modelLabel, train_model.counter))
+            pyplot.plot(history.history['val_loss'], label='val_loss')
+            pyplot.plot(history.history['loss'], label='loss')
+            pyplot.xlabel("Training Epoch")
+            pyplot.ylabel("MSE")
             pyplot.grid(True)
             pyplot.legend()
             # pyplot.show()
-            pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}Test.png".format(modelLabel, train_model.counter, rank, i))
+            pyplot.savefig("foundModels/{}Iter{}Rank{}History.png".format(modelLabel, train_model.counter, rank))
             pyplot.close()
-        pyplot.close("all")
+
+            # Plot test data
+            for i in range(holdout_prediction.shape[1]):
+                pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
+                pyplot.title("{} (iter: {}): Test data - Series {} (RMSE: {}, MAPE: {}%, IOA: {}%)"
+                        .format(modelLabel, train_model.counter, i, np.round(holdout_rmse, 2),
+                                np.round(holdout_mape * 100, 2), np.round(holdout_ioa * 100, 2)))
+                pyplot.plot(y_data_holdout[:, i], label='expected')
+                pyplot.plot(holdout_prediction[:, i], label='prediction')
+                pyplot.xlabel("Time step")
+                pyplot.ylabel("Sensor Value")
+                pyplot.grid(True)
+                pyplot.legend()
+                # pyplot.show()
+                pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}Test.png".format(modelLabel, train_model.counter, rank, i))
+                pyplot.close()
+            pyplot.close("all")
 
         # Store model
-        model_json = model.to_json() # serialize model to JSON
+        model_json = model.to_json()  # serialize model to JSON
         with open("foundModels/bestModelArchitecture.json".format(modelLabel), "w") as json_file:
             json_file.write(model_json)
             print("--- Rank {}: Saved model to disk".format(rank))
