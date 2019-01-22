@@ -39,7 +39,7 @@ def train_model(x, *args):
     island = data_manipulation["island"]
     verbosity = data_manipulation["verbose"]
     multi_gpu = data_manipulation["multi_gpu"]
-    store_plots = data_manipulation["store_plots"]
+    store_plots = data_manipulation["storePlots"]
 
     x_data, y_data = args
 
