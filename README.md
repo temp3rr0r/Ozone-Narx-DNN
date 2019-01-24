@@ -1,7 +1,7 @@
 # Modelling of air-quality in Belgium for forecasting purposes using Deep Neural Networks 
 
 ## CONTEXT
-Forecasting of air pollutants, like the low-level (tropospheric) Ozone & Particulate Matter (PM), can accumulate and potentially harm natural ecosystems and human health.
+Forecasting of air pollutants, like the low-level (tropospheric) Ozone & Particulate Matter (PM), which can accumulate and potentially harm natural ecosystems and human health.
 
 ## GOAL
 To derive a Multiple-Input Multiple-Output (MIMO) Nonlinear Autoregressive Exogenous (NARX) model for the prediction of background Ozone and/or Particulate matter forecasting across Belgium, using a deep-learning [5] approach.
