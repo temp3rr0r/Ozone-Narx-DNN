@@ -57,24 +57,24 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
     # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-    r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
+    # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
 
     # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
     # r = r[1:(365+60):]
     # r = np.delete(r, range(5, 50), axis=1)
 
     # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-    row2010_12_31 = 7670
-    r = r[row2000_01_01:row2010_12_31, :]
+    # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+    # row2010_12_31 = 7670
+    # r = r[row2000_01_01:row2010_12_31, :]
 
     # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
     # row2010_12_31 = 7670
     # r = r[0:row2010_12_31, :]
 
     # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
-    # row2000_01_01 = 3653 - 1
-    # r = r[row2000_01_01:-1, :]
+    row2000_01_01 = 3653 - 1
+    r = r[row2000_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
@@ -175,9 +175,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "BETN073_BG"
 # data_manipulation["mimoOutputs"] = 1
 
-data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
-data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
+# data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
 # data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
@@ -199,9 +199,9 @@ data_manipulation["mimoOutputs"] = 1
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
 # data_manipulation["mimoOutputs"] = 46
 
-# data_manipulation["directory"] = "data/PM10_BETN/"
-# data_manipulation["filePrefix"] = "PM10_BETN"
-# data_manipulation["mimoOutputs"] = 16
+data_manipulation["directory"] = "data/PM10_BETN/"
+data_manipulation["filePrefix"] = "PM10_BETN"
+data_manipulation["mimoOutputs"] = 16
 
 # data_manipulation["directory"] = "data/PM1073stations51vars/"
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"

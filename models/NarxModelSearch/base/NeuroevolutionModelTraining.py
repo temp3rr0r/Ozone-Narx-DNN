@@ -203,9 +203,9 @@ def train_model(x, *args):
                 l1_l2_randoms[2, 0], l1_l2_randoms[0, 1])
         model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
             x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-        if use_gaussian_noise1 > 0.5:
+        if use_gaussian_noise1 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
-        if use_batch_normalization1 > 0.5:
+        if use_batch_normalization1 < 0.5:
             model.add(tf.keras.layers.BatchNormalization())
 
         lstm_kwargs['units'] = units2
@@ -222,9 +222,9 @@ def train_model(x, *args):
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
         model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        if use_gaussian_noise2 > 0.5:
+        if use_gaussian_noise2 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        if use_batch_normalization2 > 0.5:
+        if use_batch_normalization2 < 0.5:
             model.add(tf.keras.layers.BatchNormalization())
         #
         # lstm_kwargs['units'] = units3
@@ -241,9 +241,9 @@ def train_model(x, *args):
         #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
         #         l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
         # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise3 > 0.5:
+        # if use_gaussian_noise3 < 0.5:
         #     model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
-        # if use_batch_normalization3 > 0.5:
+        # if use_batch_normalization3 < 0.5:
         #     model.add(tf.keras.layers.BatchNormalization())
         #
         # lstm_kwargs['units'] = units2
@@ -260,9 +260,9 @@ def train_model(x, *args):
         #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
         #         l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
         # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise2 > 0.5:
+        # if use_gaussian_noise2 < 0.5:
         #     model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        # if use_batch_normalization2 > 0.5:
+        # if use_batch_normalization2 < 0.5:
         #     model.add(tf.keras.layers.BatchNormalization())
 
         lstm_kwargs['units'] = units3
@@ -280,9 +280,9 @@ def train_model(x, *args):
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
         model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        if use_gaussian_noise3 > 0.5:
+        if use_gaussian_noise3 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
-        if use_batch_normalization3 > 0.5:
+        if use_batch_normalization3 < 0.5:
             model.add(tf.keras.layers.BatchNormalization())
 
         # model.add(tf.keras.layers.Dense(y_data.shape[1], activation=random.choice(
