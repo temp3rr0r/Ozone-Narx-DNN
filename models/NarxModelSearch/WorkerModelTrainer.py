@@ -8,6 +8,17 @@ import pandas as pd
 from base import NeuroevolutionModelTraining as baseMpi
 from base.bounds import bounds
 
+
+
+# TODO: test limit max mem
+# import tensorflow as tf
+# #from keras.backend.tensorflow_backend import set_session
+# config = tf.ConfigProto()
+# #config.gpu_options.per_process_gpu_memory_fraction = 0.3
+# config.gpu_options.allow_growth = True
+# #set_session(tf.Session(config=config))
+# tf.keras.backend.set_session(tf.Session(config=config))
+
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
 os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/graphviz'
