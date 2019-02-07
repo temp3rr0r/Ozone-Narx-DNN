@@ -156,7 +156,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-gpu_device = 1  # TODO: rank == GPU ID
+gpu_device = 2  # TODO: rank == GPU ID
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)
@@ -210,9 +210,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
 # data_manipulation["mimoOutputs"] = 46
 
-data_manipulation["directory"] = "data/PM10_BETN/"
-data_manipulation["filePrefix"] = "PM10_BETN"
-data_manipulation["mimoOutputs"] = 16
+# data_manipulation["directory"] = "data/PM10_BETN/"
+# data_manipulation["filePrefix"] = "PM10_BETN"
+# data_manipulation["mimoOutputs"] = 16
 
 data_manipulation["directory"] = "data/PM10_BETN_1994To2019/"
 data_manipulation["filePrefix"] = "PM10_BETN"
