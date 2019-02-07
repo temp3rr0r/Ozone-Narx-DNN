@@ -214,6 +214,10 @@ data_manipulation["directory"] = "data/PM10_BETN/"
 data_manipulation["filePrefix"] = "PM10_BETN"
 data_manipulation["mimoOutputs"] = 16
 
+data_manipulation["directory"] = "data/PM10_BETN_1994To2019/"
+data_manipulation["filePrefix"] = "PM10_BETN"
+data_manipulation["mimoOutputs"] = 16
+
 # data_manipulation["directory"] = "data/PM1073stations51vars/"
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 # data_manipulation["mimoOutputs"] = 73
