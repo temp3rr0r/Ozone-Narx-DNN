@@ -218,6 +218,10 @@ data_manipulation["mimoOutputs"] = 16
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 # data_manipulation["mimoOutputs"] = 73
 
+# data_manipulation["directory"] = "data/PM1083stations51vars/"
+# data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20190125"
+# data_manipulation["mimoOutputs"] = 83
+
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],
                               data_manipulation["mimoOutputs"])

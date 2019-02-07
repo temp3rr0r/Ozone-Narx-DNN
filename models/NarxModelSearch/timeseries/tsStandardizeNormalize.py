@@ -4,8 +4,8 @@ import pandas as pd
 # fromFileName = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 # fromFileName = "BETN073"
 # fromFileName = "BETN073_BG"
-fromFileName = "PM10_BETN"
-ts = pd.DataFrame.from_csv("data/{}.csv".format(fromFileName))
+fromFileName = "ALL_BE_51vars_PM10_PM10-1_19940101To20190125"
+ts = pd.DataFrame.from_csv("../data/{}.csv".format(fromFileName))
 # toFileName = "BETN073"
 # toFileName = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
 toFileName = fromFileName
@@ -16,29 +16,29 @@ normalized_ts = (ts-ts.min())/(ts.max()-ts.min())
 
 ts = ts.ffill().bfill()
 ts.fillna(value=0.0, inplace=True)  # 0.0 if no value at all
-ts.to_csv("data/{}_ts.csv".format(toFileName), sep=',')
+ts.to_csv("../data/{}_ts.csv".format(toFileName), sep=',')
 
 # Standardize
 
 standardized_ts = standardized_ts.ffill().bfill()
 standardized_ts.fillna(value=0.0, inplace=True)  # 0.0 if no value at all
-standardized_ts.to_csv("data/{}_ts_standardized.csv".format(toFileName), sep=',')
+standardized_ts.to_csv("../data/{}_ts_standardized.csv".format(toFileName), sep=',')
 
 # Serialize-store the mean, min, max & std 1, for reverting
-ts.mean().to_pickle("data/{}_ts_mean.pkl".format(toFileName))
-ts.std().to_pickle("data/{}_ts_std.pkl".format(toFileName))
-ts.min().to_pickle("data/{}_ts_min.pkl".format(toFileName))
-ts.max().to_pickle("data/{}_ts_max.pkl".format(toFileName))
+ts.mean().to_pickle("../data/{}_ts_mean.pkl".format(toFileName))
+ts.std().to_pickle("../data/{}_ts_std.pkl".format(toFileName))
+ts.min().to_pickle("../data/{}_ts_min.pkl".format(toFileName))
+ts.max().to_pickle("../data/{}_ts_max.pkl".format(toFileName))
 
 # Normalize
 
 normalized_ts = normalized_ts.ffill().bfill()
 normalized_ts.fillna(value=0.0, inplace=True)  # 0.0 if no value at all
-normalized_ts.to_csv("data/{}_ts_normalized.csv".format(toFileName), sep=',')
-sensor_mean = pd.read_pickle("data/{}_ts_mean.pkl".format(toFileName))
-sensor_std = pd.read_pickle("data/{}_ts_std.pkl".format(toFileName))
-sensor_min = pd.read_pickle("data/{}_ts_min.pkl".format(toFileName))
-sensor_max = pd.read_pickle("data/{}_ts_max.pkl".format(toFileName))
+normalized_ts.to_csv("../data/{}_ts_normalized.csv".format(toFileName), sep=',')
+sensor_mean = pd.read_pickle("../data/{}_ts_mean.pkl".format(toFileName))
+sensor_std = pd.read_pickle("../data/{}_ts_std.pkl".format(toFileName))
+sensor_min = pd.read_pickle("../data/{}_ts_min.pkl".format(toFileName))
+sensor_max = pd.read_pickle("../data/{}_ts_max.pkl".format(toFileName))
 
 print(sensor_mean)
 print(sensor_std)
