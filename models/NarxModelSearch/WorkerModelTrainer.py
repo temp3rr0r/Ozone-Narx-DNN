@@ -87,12 +87,6 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # row2000_01_01 = 3653 - 1
     # r = r[row2000_01_01:-1, :]
 
-    # TODO: Greatly decrease r length for testing: 1994-2017 training, 2018 for testing
-    # row1995_05_10 = 133  #  4x ows before that, have multiple nans
-    row2000_01_01 = 1828
-    row2018_12_31 = 8768
-    r = r[row2000_01_01:row2018_12_31, :]
-
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
 
@@ -220,7 +214,7 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
-data_manipulation["directory"] = "data/PM10_BETN_1994To2019/"
+data_manipulation["directory"] = "data/PM10_BETN_1995To2019/"
 data_manipulation["filePrefix"] = "PM10_BETN"
 data_manipulation["mimoOutputs"] = 16
 
