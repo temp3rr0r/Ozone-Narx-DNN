@@ -8,8 +8,6 @@ import pandas as pd
 from base import NeuroevolutionModelTraining as baseMpi
 from base.bounds import bounds
 
-
-
 # TODO: test limit max mem
 # import tensorflow as tf
 # #from keras.backend.tensorflow_backend import set_session
