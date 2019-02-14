@@ -1,0 +1,600 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Map of stations}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{meta-data-for-all-stations}{%
+\section{Meta-data for all stations}\label{meta-data-for-all-stations}}
+
+    Reading the `BE-meta.xml' file, for the stations in Belgium. All the
+available XML tags:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{re}\PY{o}{,} \PY{n+nn}{collections}
+        \PY{k+kn}{from} \PY{n+nn}{lxml} \PY{k}{import} \PY{n}{etree}
+        \PY{k+kn}{import} \PY{n+nn}{xml}\PY{n+nn}{.}\PY{n+nn}{etree}\PY{n+nn}{.}\PY{n+nn}{ElementTree} \PY{k}{as} \PY{n+nn}{ET}
+        
+        \PY{n}{tree} \PY{o}{=} \PY{n}{ET}\PY{o}{.}\PY{n}{parse}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BE\PYZus{}meta.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{root} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{getroot}\PY{p}{(}\PY{p}{)}
+        \PY{n}{xml} \PY{o}{=} \PY{n}{ET}\PY{o}{.}\PY{n}{tostring}\PY{p}{(}\PY{n}{root}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+        \PY{n}{xml\PYZus{}root} \PY{o}{=} \PY{n}{etree}\PY{o}{.}\PY{n}{fromstring}\PY{p}{(}\PY{n}{xml}\PY{p}{)}
+        \PY{n}{raw\PYZus{}tree} \PY{o}{=} \PY{n}{etree}\PY{o}{.}\PY{n}{ElementTree}\PY{p}{(}\PY{n}{xml\PYZus{}root}\PY{p}{)}
+        \PY{n}{nice\PYZus{}tree} \PY{o}{=} \PY{n}{collections}\PY{o}{.}\PY{n}{OrderedDict}\PY{p}{(}\PY{p}{)}
+         
+        \PY{k}{for} \PY{n}{tag} \PY{o+ow}{in} \PY{n}{xml\PYZus{}root}\PY{o}{.}\PY{n}{iter}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{path} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{[[0\PYZhy{}9]+}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{raw\PYZus{}tree}\PY{o}{.}\PY{n}{getpath}\PY{p}{(}\PY{n}{tag}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{n}{path} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nice\PYZus{}tree}\PY{p}{:}
+                \PY{n}{nice\PYZus{}tree}\PY{p}{[}\PY{n}{path}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{tag}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{nice\PYZus{}tree}\PY{p}{[}\PY{n}{path}\PY{p}{]}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{attrib} \PY{k}{for} \PY{n}{attrib} \PY{o+ow}{in} \PY{n}{tag}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{attrib} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nice\PYZus{}tree}\PY{p}{[}\PY{n}{path}\PY{p}{]}\PY{p}{)}            
+         
+        \PY{k}{for} \PY{n}{path}\PY{p}{,} \PY{n}{attribs} \PY{o+ow}{in} \PY{n}{nice\PYZus{}tree}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{indent} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{path}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s1}{ [}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{    }\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{n}{indent}\PY{p}{,} \PY{n}{indent}\PY{p}{,} \PY{n}{path}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{attribs}\PY{p}{)} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{attribs}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0: airbase [\{http://www.w3.org/2001/XMLSchema-instance\}noNamespaceSchemaLocation]
+    1: country [-]
+        2: country\_name [-]
+        2: country\_iso\_code [-]
+        2: country\_eu\_member [-]
+        2: network [-]
+            3: network\_code [-]
+            3: network\_name [-]
+            3: network\_short\_name [-]
+            3: network\_start\_date [-]
+            3: network\_time\_reference\_basis [-]
+            3: network\_type [-]
+            3: network\_manager [-]
+                4: organization [-]
+                    5: organization\_name [-]
+                    5: organization\_address [-]
+                    5: organization\_city [-]
+                    5: organization\_phone\_number [-]
+                    5: organization\_fax\_number [-]
+                4: person [-]
+                    5: person\_last\_name [-]
+                    5: person\_first\_name [-]
+                    5: person\_title [-]
+            3: network\_data\_supplier [-]
+                4: organization [-]
+                    5: organization\_name [-]
+                    5: organization\_address [-]
+                    5: organization\_city [-]
+                    5: organization\_phone\_number [-]
+                    5: organization\_fax\_number [-]
+                4: person [-]
+                    5: person\_last\_name [-]
+                    5: person\_first\_name [-]
+                    5: person\_title [-]
+                    5: organization\_website\_address [-]
+                    5: person\_email\_address [-]
+                    5: organization\_website\_address [-]
+                    5: person\_email\_address [-]
+        2: station [Id]
+            3: station\_european\_code [-]
+            3: network\_info [-]
+                4: network\_code [-]
+                4: network\_time\_reference\_basis [-]
+            3: station\_info [-]
+                4: EMEP\_station [-]
+                4: station\_local\_code [-]
+                4: station\_airbase\_code [-]
+                4: station\_name [-]
+                4: station\_description [-]
+                4: station\_nuts\_level0 [-]
+                4: station\_nuts\_level1 [-]
+                4: station\_nuts\_level2 [-]
+                4: station\_nuts\_level3 [-]
+                4: sabe\_country\_code [-]
+                4: sabe\_unit\_code [-]
+                4: sabe\_unit\_name [-]
+                4: station\_start\_date [-]
+                4: station\_end\_date [-]
+                4: station\_latitude\_decimal\_degrees [-]
+                4: station\_longitude\_decimal\_degrees [-]
+                4: station\_latitude\_dms [-]
+                4: station\_longitude\_dms [-]
+                4: station\_altitude [-]
+                4: type\_of\_station [-]
+                4: station\_type\_of\_area [-]
+                4: station\_characteristic\_of\_zone [-]
+                4: station\_city [-]
+                4: population [-]
+                4: street\_name [-]
+                4: monitoring\_obj [-]
+                4: meteorological\_parameter [code]
+            3: measurement\_configuration [component]
+                4: component\_name [-]
+                4: component\_caption [-]
+                4: component\_code [-]
+                4: component\_FWD [-]
+                4: measurement\_unit [-]
+                4: measurement\_european\_group\_code [-]
+                4: measurement\_group\_start\_date [-]
+                4: measurement\_group\_end\_date [-]
+                4: measurement\_latest\_date\_available\_in\_AIRBASE [-]
+                4: measurement\_info [current\_since]
+                    5: measurement\_european\_code [-]
+                    5: measurement\_start\_date [-]
+                    5: measurement\_end\_date [-]
+                    5: measurement\_automatic [-]
+                    5: measurement\_technique\_principle [-]
+                    5: measurement\_equipment [-]
+                    5: height\_sampling\_point [-]
+                    5: length\_sampling\_line [-]
+                    5: sampling\_time [-]
+                    5: body\_or\_programme [-]
+                4: data\_set [-]
+                    5: data\_type [value]
+                        6: start\_date [-]
+                        6: end\_date [-]
+                        6: data\_file [-]
+                4: statistics [Year]
+                    5: statistics\_average\_group [value]
+                        6: statistics\_period [-]
+                        6: statistic\_set [type]
+                            7: statistics\_percentage\_valid [-]
+                            7: statistics\_number\_valid [-]
+                            7: statistics\_calculated [-]
+                            7: statistic\_result [-]
+                                8: statistic\_name [-]
+                                8: statistic\_shortname [-]
+                                8: statistic\_value [-]
+                    5: integration\_time\_frequency [-]
+                    5: integration\_time\_unit [-]
+                    5: calibration\_unit [-]
+                    5: calibration\_frequency [-]
+                    5: calibration\_method [-]
+                4: street\_type [-]
+                4: number\_of\_vehicles [-]
+                4: station\_subcategory\_rural\_background [-]
+                4: lau\_level2\_code [-]
+                4: lau\_level2\_name [-]
+                4: main\_emission\_source [-]
+                4: station\_traffic\_speed [-]
+                4: station\_ratio\_distance [-]
+                4: station\_distance\_to\_junction [-]
+                4: station\_ozone\_classification [-]
+                4: station\_street\_width [-]
+                    5: sampling\_time\_unit [-]
+
+    \end{Verbatim}
+
+    Print all stations with ``BE'' prefix (Belgian stations). Store lon/lat
+in dictionary.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{stationLonLat} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{child} \PY{o+ow}{in} \PY{n}{root}\PY{p}{:}    
+            \PY{k}{for} \PY{n}{child1} \PY{o+ow}{in} \PY{n}{child}\PY{p}{:}          
+                \PY{k}{if} \PY{n}{child1}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}           
+                    \PY{k}{if} \PY{n}{child1}\PY{o}{.}\PY{n}{attrib}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{for} \PY{n}{child2} \PY{o+ow}{in} \PY{n}{child1}\PY{p}{:}
+                            \PY{k}{if} \PY{n}{child2}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}info}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                \PY{n}{lon} \PY{o}{=} \PY{l+m+mf}{0.0}
+                                \PY{n}{lat} \PY{o}{=} \PY{l+m+mf}{0.0}
+                                \PY{n}{population} \PY{o}{=} \PY{l+m+mi}{0}
+                                \PY{n}{station\PYZus{}altitude} \PY{o}{=} \PY{l+m+mi}{0}
+                                \PY{n}{type\PYZus{}of\PYZus{}station} \PY{o}{=} \PY{l+m+mi}{0}
+                                \PY{n}{station\PYZus{}type\PYZus{}of\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{0}
+                                \PY{n}{station\PYZus{}characteristic\PYZus{}of\PYZus{}zone} \PY{o}{=} \PY{l+m+mi}{0}
+                                \PY{n}{station\PYZus{}ozone\PYZus{}classification} \PY{o}{=} \PY{l+m+mi}{0}
+                                \PY{k}{for} \PY{n}{child3} \PY{o+ow}{in} \PY{n}{child2}\PY{p}{:}         
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}latitude\PYZus{}decimal\PYZus{}degrees}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{lat} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}longitude\PYZus{}decimal\PYZus{}degrees}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{lon} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{population}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{population} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}altitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{station\PYZus{}altitude} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type\PYZus{}of\PYZus{}station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{type\PYZus{}of\PYZus{}station} \PY{o}{=} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{10}                             
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}type\PYZus{}of\PYZus{}area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{station\PYZus{}type\PYZus{}of\PYZus{}area} \PY{o}{=} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}     \PY{o}{\PYZpc{}} \PY{l+m+mi}{10}                             
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}characteristic\PYZus{}of\PYZus{}zone}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{station\PYZus{}characteristic\PYZus{}of\PYZus{}zone} \PY{o}{=} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}  \PY{o}{\PYZpc{}} \PY{l+m+mi}{10}                                
+                                    \PY{k}{if} \PY{n}{child3}\PY{o}{.}\PY{n}{tag} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{station\PYZus{}ozone\PYZus{}classification}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                                        \PY{n}{station\PYZus{}ozone\PYZus{}classification} \PY{o}{=} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{child3}\PY{o}{.}\PY{n}{text}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{10} 
+                                        
+        \PY{c+c1}{\PYZsh{}                         print (\PYZdq{}\PYZob{}\PYZcb{} (lon: \PYZob{}\PYZcb{}, lat: \PYZob{}\PYZcb{}, population: \PYZob{}\PYZcb{}, altitude: \PYZob{}\PYZcb{}, type\PYZus{}of\PYZus{}station: \PYZob{}\PYZcb{} \PYZob{}\PYZcb{} \PYZob{}\PYZcb{})\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}                                .format(float(lon), float(lat), station\PYZus{}altitude, population, type\PYZus{}of\PYZus{}station, }
+        \PY{c+c1}{\PYZsh{}                                 station\PYZus{}type\PYZus{}of\PYZus{}area, station\PYZus{}characteristic\PYZus{}of\PYZus{}zone, station\PYZus{}ozone\PYZus{}classification))}
+                                \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{child1}\PY{o}{.}\PY{n}{attrib}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{(}
+                                    \PY{n+nb}{float}\PY{p}{(}\PY{n}{lon}\PY{p}{)}\PY{p}{,} \PY{n+nb}{float}\PY{p}{(}\PY{n}{lat}\PY{p}{)}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{n}{station\PYZus{}altitude}\PY{p}{,} \PY{n}{type\PYZus{}of\PYZus{}station}\PY{p}{,} 
+                                    \PY{n}{station\PYZus{}type\PYZus{}of\PYZus{}area}\PY{p}{,} \PY{n}{station\PYZus{}characteristic\PYZus{}of\PYZus{}zone}\PY{p}{,} \PY{n}{station\PYZus{}ozone\PYZus{}classification}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{station-data-gathering}{%
+\subsection{Station data gathering}\label{station-data-gathering}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{MiniBatchKMeans}\PY{p}{,} \PY{n}{KMeans}
+        
+        \PY{n}{clusters} \PY{o}{=} \PY{l+m+mi}{8}
+        
+        \PY{n}{coordinates2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{stationName} \PY{o+ow}{in} \PY{n}{stationLonLat}\PY{p}{:}
+            \PY{n}{coordinates2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{coordinates2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{coordinates2}\PY{p}{)}  
+        
+        \PY{n}{coordinates} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{stationNames} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{stationName} \PY{o+ow}{in} \PY{n}{stationLonLat}\PY{p}{:}
+            \PY{n}{coordinates}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}
+                \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  \PY{c+c1}{\PYZsh{} lat}
+                \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}  \PY{c+c1}{\PYZsh{} lon}
+                \PY{p}{,}\PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{c+c1}{\PYZsh{} alt}
+                \PY{p}{,} \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{c+c1}{\PYZsh{} pop}
+                \PY{p}{,} \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{c+c1}{\PYZsh{} station type}
+                \PY{p}{,} \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{} area type}
+                \PY{p}{,} \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{c+c1}{\PYZsh{} zone}
+                \PY{p}{,} \PY{n}{stationLonLat}\PY{p}{[}\PY{n}{stationName}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]} \PY{c+c1}{\PYZsh{} ozone class}
+                
+           \PY{p}{)}\PY{p}{)}
+            \PY{n}{stationNames}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stationName}\PY{p}{)}
+        \PY{n}{coordinates} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{coordinates}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \hypertarget{pm10-station-map}{%
+\section{PM10 station Map}\label{pm10-station-map}}
+
+    Station names, altitude and population densities:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{ipyleaflet} \PY{k}{import} \PY{n}{Map}\PY{p}{,} \PY{n}{basemaps}\PY{p}{,} \PY{n}{basemap\PYZus{}to\PYZus{}tiles}\PY{p}{,} \PY{n}{SplitMapControl}\PY{p}{,} \PY{n}{CircleMarker}\PY{p}{,} \PY{n}{Popup}
+         \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k}{import} \PY{n}{HTML}
+         \PY{k+kn}{import} \PY{n+nn}{folium}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{Map}\PY{p}{(}\PY{n}{center}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{50.5}\PY{p}{,} \PY{l+m+mf}{5.5}\PY{p}{)}\PY{p}{,} \PY{n}{zoom}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}m = folium.Map()}
+         
+         \PY{c+c1}{\PYZsh{}m.layout.width = \PYZsq{}1024px\PYZsq{}}
+         \PY{n}{m}\PY{o}{.}\PY{n}{layout}\PY{o}{.}\PY{n}{height} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{800px}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{right\PYZus{}layer} \PY{o}{=} \PY{n}{basemap\PYZus{}to\PYZus{}tiles}\PY{p}{(}\PY{n}{basemaps}\PY{o}{.}\PY{n}{Esri}\PY{o}{.}\PY{n}{WorldImagery}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2019\PYZhy{}1\PYZhy{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{left\PYZus{}layer} \PY{o}{=} \PY{n}{basemap\PYZus{}to\PYZus{}tiles}\PY{p}{(}\PY{n}{basemaps}\PY{o}{.}\PY{n}{Esri}\PY{o}{.}\PY{n}{WorldTopoMap} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2019\PYZhy{}1\PYZhy{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{control} \PY{o}{=} \PY{n}{SplitMapControl}\PY{p}{(}\PY{n}{left\PYZus{}layer}\PY{o}{=}\PY{n}{left\PYZus{}layer}\PY{p}{,} \PY{n}{right\PYZus{}layer}\PY{o}{=}\PY{n}{right\PYZus{}layer}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{add\PYZus{}control}\PY{p}{(}\PY{n}{control}\PY{p}{)}
+         
+         \PY{n}{allowedStations} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN043}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN045}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN052}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN054}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN060}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN063}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN066}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN067}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN070}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN073}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN085}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN093}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN100}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN113}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN121}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BETN132}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{coordinates}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{if} \PY{n}{stationNames}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{in} \PY{n}{allowedStations}\PY{p}{:}
+                 \PY{n}{message} \PY{o}{=} \PY{n}{HTML}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{message}\PY{o}{.}\PY{n}{value} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}b\PYZgt{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{stationNames}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}/b\PYZgt{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}br/\PYZgt{}\PYZlt{}i\PYZgt{}Altitude:\PYZlt{}/i\PYZgt{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ m}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}br/\PYZgt{}\PYZlt{}i\PYZgt{}Population Density:\PYZlt{}/i\PYZgt{}\PYZlt{}br/\PYZgt{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/km\PYZca{}2}\PY{l+s+s2}{\PYZdq{}}
+         
+                 \PY{n}{circle\PYZus{}marker} \PY{o}{=} \PY{n}{CircleMarker}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n}{coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{5}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{weight} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{asdf}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{alt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{asdf}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{fill\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{fill\PYZus{}opacity} \PY{o}{=} \PY{n}{coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{/}\PY{n+nb}{max}\PY{p}{(}\PY{n}{coordinates}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}    
+                 \PY{n}{circle\PYZus{}marker}\PY{o}{.}\PY{n}{popup} \PY{o}{=} \PY{n}{message}
+                 \PY{n}{m}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{n}{circle\PYZus{}marker}\PY{p}{)}    
+         
+         \PY{n}{center} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{50.7}\PY{p}{,} \PY{l+m+mf}{4.8}\PY{p}{)}
+         \PY{n}{message1} \PY{o}{=} \PY{n}{HTML}\PY{p}{(}\PY{p}{)}
+         \PY{n}{message1}\PY{o}{.}\PY{n}{value} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}b\PYZgt{}Click Circles\PYZlt{}/b\PYZgt{} for station info!\PYZlt{}br\PYZgt{}\PYZlt{}b\PYZgt{}Opacity\PYZlt{}/b\PYZgt{} = Altitude}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{popup} \PY{o}{=} \PY{n}{Popup}\PY{p}{(}
+             \PY{n}{location}\PY{o}{=}\PY{n}{center}\PY{p}{,}
+             \PY{n}{child}\PY{o}{=}\PY{n}{message1}\PY{p}{,}
+             \PY{n}{close\PYZus{}button}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+             \PY{n}{auto\PYZus{}close}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+             \PY{n}{close\PYZus{}on\PYZus{}escape\PYZus{}key}\PY{o}{=}\PY{k+kc}{False}
+         \PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Popup associated to a layer}
+         \PY{n}{m}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{n}{popup}\PY{p}{)}
+         \PY{n}{m}
+         
+          \PY{c+c1}{\PYZsh{} Filepath to the output}
+         \PY{c+c1}{\PYZsh{}outfp = \PYZdq{}pm10\PYZus{}bg\PYZus{}stations\PYZus{}map.html\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} Save the map}
+         \PY{c+c1}{\PYZsh{}m.save(outfp)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Map(basemap={'url': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 'max_zoom': 19, 'attribution': 'Map …
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
