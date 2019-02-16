@@ -4,10 +4,15 @@ import pandas as pd
 # fromFileName = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 # fromFileName = "BETN073"
 # fromFileName = "BETN073_BG"
-fromFileName = "PM10_BETN"
+
+metric = "O3"
+fromFileName = ""
+if metric == "PM10":
+    fromFileName = "PM10_BETN"
+elif metric == "O3":
+    fromFileName = "O3_BETN"
+
 ts = pd.DataFrame.from_csv("../data/{}.csv".format(fromFileName))
-# toFileName = "BETN073"
-# toFileName = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
 toFileName = fromFileName
 
 # Normalize/Standardize data before filling them
