@@ -9,7 +9,7 @@ from base import NeuroevolutionModelTraining as baseMpi
 from base.bounds import bounds
 from tensorflow.python.client import device_lib
 
-if "Tegra X2" in device_lib.list_local_devices():  # If Nvidia Jetson TX2 -> dynamic GPU memory (for OOM avoidance)
+if "Tegra" in str(device_lib.list_local_devices()):  # If Nvidia Jetson TX2 -> dynamic GPU memory (for OOM avoidance)
     print("---- Detected Nvidia Jetson TX2: Setting dynamic memory growth (out of memory work-around).")
     import tensorflow as tf
     config = tf.ConfigProto()
