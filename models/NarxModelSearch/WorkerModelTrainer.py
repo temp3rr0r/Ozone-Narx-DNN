@@ -84,10 +84,11 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # row2000_01_01 = 3653 - 1
     # r = r[row2000_01_01:-1, :]
 
-    # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags
+    # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags.
     # TODO: O3_BETN016 -> 7, 104(lag 0, lag 1) O3_BETN066 -> 22, 119 O3_BETN073 -> 24, 121 O3_BETN121 -> 29, 126. Weather vars: 46 - 96
-    # TODO: Columns to keep O3_BETN073: 24, 121, 46-96
-    stations_range = [24, 121]  # Only BETN073, BETN073-1
+    stations_range = [24, 121]  # Only BETN073 and lag-1
+    # stations_range = [7, 104, 22, 119, 24, 121, 29, 126]  # 4 stations & lag-1:_BETN016, BETN066, BETN073, O3_BETN121
+
     weather_variables_range = np.array(range(46, 96 + 1))
     columns_range = np.append(stations_range, weather_variables_range)
     r = r[:, columns_range]
@@ -161,7 +162,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-gpu_device = 1  # TODO: rank == GPU ID
+gpu_device = 1  # Set GPU
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)
