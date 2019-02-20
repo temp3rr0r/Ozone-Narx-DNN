@@ -121,7 +121,7 @@ def train_model(x, *args):
     # for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
 
-        dev, validation = train_test_split(validation_full, test_size=0.2, shuffle=False)  # TODO: 50-50 for dev/val
+        dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
         # # create model  # TODO: Naive LSTM
         # model = tf.keras.models.Sequential()
