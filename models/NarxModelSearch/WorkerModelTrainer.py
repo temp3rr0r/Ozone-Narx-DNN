@@ -16,6 +16,15 @@ from base.bounds import bounds
 # config.gpu_options.allow_growth = True
 # #set_session(tf.Session(config=config))
 # tf.keras.backend.set_session(tf.Session(config=config))
+from tensorflow.python.client import device_lib
+if "Tegra X2" in device_lib.list_local_devices():  # If Nvidia Jetson TX2 -> dynamic GPU memory (for OOM avoidance)
+    import tensorflow as tf
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    tf.keras.backend.set_session(tf.Session(config=config))
+
+
+
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # These lines should be called asap, after the os import
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Use CPU only by default
