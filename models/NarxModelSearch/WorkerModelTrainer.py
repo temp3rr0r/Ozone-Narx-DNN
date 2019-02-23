@@ -7,8 +7,8 @@ import sys
 import pandas as pd
 from base import NeuroevolutionModelTraining as baseMpi
 from base.bounds import bounds
-from tensorflow.python.client import device_lib
 
+# from tensorflow.python.client import device_lib
 # if "Tegra" in str(device_lib.list_local_devices()):  # If Nvidia Jetson TX2 -> dynamic GPU memory (for OOM avoidance)
 #     print("---- Detected Nvidia Jetson TX2: Setting dynamic memory growth (out of memory work-around).")
 #     import tensorflow as tf
@@ -161,7 +161,7 @@ def model_training_callback(ch, method, properties, body):  # Tasks receiver cal
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-gpu_device = 1  # Set GPU
+gpu_device = 2  # Set GPU
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)
