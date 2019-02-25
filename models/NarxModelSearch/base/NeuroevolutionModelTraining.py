@@ -12,11 +12,31 @@ from sklearn.model_selection import TimeSeriesSplit, train_test_split
 
 
 def delete_model(model):
+    """
+    Clear a tensorflow model from memory & garbage collector.
+    :param model: Tensorflow model to remove.
+    :return:
+    """
     # Memory handling
     del model  # Manually delete model
     tf.reset_default_graph()
     tf.keras.backend.clear_session()
     gc.collect()
+
+
+def reduce_time_series_validation_fold_size(train, validation, max_validation_length=365):
+    """
+    If time-series fold validation array larger than the threshold (i.e 365 days), strip the starting validation excess
+    and add it to the end of the training set.
+    :param train: Indices of the time-series training set.
+    :param validation: Indices of the time-series validation set.
+    :param max_validation_length: Max validation array size.
+    :return: 
+    """
+    if len(validation) > max_validation_length:
+        train = np.append(train, validation[0:len(validation) - max_validation_length])
+        validation = validation[-max_validation_length:]
+    return train, validation
 
 
 def train_model(x, *args):
@@ -108,7 +128,7 @@ def train_model(x, *args):
     smape_scores = []
     mse_scores = []
     train_mse_scores = []
-    dev_mse_scores = []
+    # dev_mse_scores = []
     current_fold = 0
 
     # TODO: (Baldwin) phenotypic plasticity, using random uniform.
@@ -118,10 +138,12 @@ def train_model(x, *args):
     regularizer_chance_randoms = np.random.rand(9)
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
 
-    # for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
-    for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
+    for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
+    # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
 
-        dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
+        train, validation = reduce_time_series_validation_fold_size(train, validation)
+
+        # dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
         # # create model  # TODO: Naive LSTM
         # model = tf.keras.models.Sequential()
@@ -307,12 +329,27 @@ def train_model(x, *args):
             tf.keras.callbacks.TerminateOnNaN()
         ]
 
+        # try:  # TODO: Use dev set
+        #     history = model.fit(x_data[train], y_data[train],
+        #                         verbose=verbosity,
+        #                         batch_size=batch_size,
+        #                         epochs=epoch_size,
+        #                         validation_data=(x_data[dev], y_data[dev]),
+        #                         callbacks=early_stop)
+        # except ValueError:
+        #     print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
+        #     history = model.fit(x_data[train], y_data[train],
+        #                         verbose=verbosity,
+        #                         batch_size=batch_size,
+        #                         epochs=epoch_size,
+        #                         validation_data=(x_data[dev], y_data[dev]),
+        #                         callbacks=early_stop)
         try:
             history = model.fit(x_data[train], y_data[train],
                                 verbose=verbosity,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
-                                validation_data=(x_data[dev], y_data[dev]),
+                                validation_data=(x_data[validation], y_data[validation]),
                                 callbacks=early_stop)
         except ValueError:
             print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
@@ -320,7 +357,7 @@ def train_model(x, *args):
                                 verbose=verbosity,
                                 batch_size=batch_size,
                                 epochs=epoch_size,
-                                validation_data=(x_data[dev], y_data[dev]),
+                                validation_data=(x_data[validation], y_data[validation]),
                                 callbacks=early_stop)
         except:
             print("--- Rank {}: Exception: Returning max float value for this iteration.".format(rank))
@@ -330,10 +367,10 @@ def train_model(x, *args):
 
         prediction = model.predict(x_data[validation])
         train_prediction = model.predict(x_data[train])
-        dev_prediction = model.predict(x_data[dev])
+        # dev_prediction = model.predict(x_data[dev])
         y_validation = y_data[validation]
         y_train = y_data[train]
-        y_dev = y_data[dev]
+        # y_dev = y_data[dev]
 
         if data_manipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle(directory + filePrefix + "_ts_mean.pkl")
@@ -347,10 +384,10 @@ def train_model(x, *args):
             sensor_std = np.array(sensor_std)
             prediction = (prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             train_prediction = (train_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-            dev_prediction = (dev_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+            # dev_prediction = (dev_prediction * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_validation = (y_validation * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
             y_train = (y_train * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
-            y_dev = (y_dev * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
+            # y_dev = (y_dev * sensor_std[0:y_data.shape[1]]) + sensor_mean[0:y_data.shape[1]]
         elif data_manipulation["scale"] == 'normalize':
             sensor_min = pd.read_pickle(directory + filePrefix + "_ts_min.pkl")
             sensor_max = pd.read_pickle(directory + filePrefix + "_ts_max.pkl")
@@ -363,17 +400,17 @@ def train_model(x, *args):
             sensor_max = np.array(sensor_max)
             prediction = prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             train_prediction = train_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
-            dev_prediction = dev_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+            # dev_prediction = dev_prediction * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             y_validation = y_validation * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
             y_train = y_train * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
-            y_dev = y_dev * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
+            # y_dev = y_dev * (sensor_max[0:y_data.shape[1]] - sensor_min[0:y_data.shape[1]]) + sensor_min[0:y_data.shape[1]]
 
         # Calc mse/rmse
         mse = mean_squared_error(prediction, y_validation)
         print("--- Rank {}: Validation MSE: {}".format(rank, mse))
         mse_scores.append(mse)
         train_mse_scores.append(mean_squared_error(train_prediction, y_train))
-        dev_mse_scores.append(mean_squared_error(dev_prediction, y_dev))
+        # dev_mse_scores.append(mean_squared_error(dev_prediction, y_dev))
         rmse = sqrt(mse)
         print("--- Rank {}: Validation RMSE: {}".format(rank, rmse))
 
@@ -414,10 +451,10 @@ def train_model(x, *args):
     print("--- Rank {}: Cross validation, Train Data MSE: {} +/- {}".format(rank, round(train_mean_mse, 2),
                                                                            round(train_std_mse, 2)))
 
-    dev_mean_mse = np.mean(dev_mse_scores)
-    dev_std_mse = np.std(dev_mse_scores)
-    print("--- Rank {}: Cross validation, Dev Data MSE: {} +/- {}".format(rank, round(dev_mean_mse, 2),
-                                                                           round(dev_std_mse, 2)))
+    # dev_mean_mse = np.mean(dev_mse_scores)
+    # dev_std_mse = np.std(dev_mse_scores)
+    # print("--- Rank {}: Cross validation, Dev Data MSE: {} +/- {}".format(rank, round(dev_mean_mse, 2),
+    #                                                                        round(dev_std_mse, 2)))
 
     mean_mse = np.mean(mse_scores)
     std_mse = np.std(mse_scores)
@@ -428,10 +465,10 @@ def train_model(x, *args):
     print("--- Rank {}: Cross validation, Train Data RMSE: {} +/- {}".format(rank, round(train_mean_rmse, 2),
                                                                                 round(train_std_rmse, 2)))
 
-    dev_mean_rmse = np.mean(np.sqrt(dev_mse_scores))
-    dev_std_rmse = np.std(np.sqrt(dev_mse_scores))
-    print("--- Rank {}: Cross validation, Dev Data RMSE: {} +/- {}".format(rank, round(dev_mean_rmse, 2),
-                                                                                round(dev_std_rmse, 2)))
+    # dev_mean_rmse = np.mean(np.sqrt(dev_mse_scores))
+    # dev_std_rmse = np.std(np.sqrt(dev_mse_scores))
+    # print("--- Rank {}: Cross validation, Dev Data RMSE: {} +/- {}".format(rank, round(dev_mean_rmse, 2),
+    #                                                                             round(dev_std_rmse, 2)))
 
     mean_rmse = np.mean(np.sqrt(mse_scores))
     std_rmse = np.std(np.sqrt(mse_scores))
