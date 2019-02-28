@@ -92,6 +92,10 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # columns_range = np.append(stations_range, weather_variables_range)
     # r = r[:, columns_range]
 
+    # TODO: greatly decrease r length for testing: 2014-2017 training, 2018 for testing
+    row2014_01_01 = 8777 - 1
+    r = r[row2014_01_01:-1, :]
+
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
 
