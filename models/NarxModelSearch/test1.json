@@ -1,0 +1,148 @@
+{
+  "@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "ex": "http://example.org/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ex:contains": {
+      "@type": "@id"
+    },
+    "description": "http://schema.org/description",
+    "boundingbox": {"@id": "https://wiki.openstreetmap.org/wiki/Bounding_Box"},
+    "geo": "http://schema.org/geo",
+      "latitude": {
+        "@id": "http://schema.org/latitude",
+        "@type": "xsd:float"
+      },
+      "longitude": {
+        "@id": "http://schema.org/longitude",
+        "@type": "xsd:float"
+      }
+  },
+
+    "@graph": [
+    {
+      "@id": "strawberryField001",
+      "@type": "StrawberryField",
+  	  "description": "Agricultural field that contains strawberry plants.",
+      "boundingbox":["52.751","52.7599","14.521","14.528"],
+      "is_a": "AgriculturalField",
+      "conforms_to": {"@id": "https://wiki.openstreetmap.org/wiki/Tag:landuse=orchard"},
+      "has_a":[
+        {
+          "@id":"TaskScheduler",
+          "description": "Stores weekly/daily/hourly schedules."
+        },
+        {
+          "@id": "PlantTrack001",
+          "@type": "https://wiki.openstreetmap.org/wiki/Tag:highway=track",
+          "description": "Uni-directional tracks to plants."
+        },
+        {
+          "@id": "AutomatedGuidedVehicle",
+          "@type": "https://schema.org/Vehicle",
+          "description": "AGV that harvests strawberry fruit and stores them to the freezer.",
+            "geo": {
+              "latitude": "52.756",
+              "longitude": "14.5272"
+            },
+          		"has_a": [{"@id": "Payload1", "@type": "https://auto.schema.org/payload",
+                	"has_a":
+                     [
+                    {
+                      "@id": "cargoVolume",
+                      "unitCode": {"@type": "https://schema.org/unitCode", "text": "LTR", "description": "Liters"},
+                      "@type": "https://schema.org/cargoVolume",
+                      "minValue": {"@type": "https://schema.org/minValue",
+                                "@type": "xsd:float"},
+                      "maxValue": {"@type": "https://schema.org/maxValue",
+                                "@type": "xsd:float"},
+                      "conforms_to": "https://schema.org/QuantitativeValue"
+
+                    },
+                              {"@id": "fuelCapacity",
+                               "@type": "https://auto.schema.org/fuelCapacity",
+                               "unitCode": {"@type": "https://schema.org/unitCode", "text": "AMH"}
+                           },
+
+                      {"@id": "weightTotal",
+                       "@type": "https://auto.schema.org/weightTotal",
+                       "unitCode": {"@type": "https://schema.org/unitCode", "text": "KGM"} }
+
+                     ]
+
+                },
+                          {"@id": "Motor",
+                           "@type": "https://en.wikipedia.org/wiki/Brushed_DC_electric_motor"
+                          },
+                          {"@id": "ElectronicSpeedController",
+                           "@type": "https://en.wikipedia.org/wiki/Electronic_speed_control"
+                          },
+                          {"@id": "Transceiver",
+                           "@type": "https://en.wikipedia.org/wiki/Transceiver"
+                          },
+                          {"@id": "StereoscopicCamera",
+                           "@type": "dualCamera"
+                          },
+                          {"@id": "ColourCamera",
+                           "@type": "colourCamera"
+                          },
+                          {"@id": "Steering",
+                           "@type": "https://en.wikipedia.org/wiki/Steering"
+                          },
+                          {"@id": "Arm",
+                           "has_a":
+                     		[
+                    		{
+                              "@id": "servo01"
+                          	},
+                    		{
+                              "@id": "servo02"
+                          	},
+                    		{
+                              "@id": "servo03"
+                          	},
+                    		{
+                              "@id": "Gripper"
+                          	}]
+                          }
+
+                         ]
+
+
+        },
+        {
+          "@id": "StrawberryPlant001",
+          "@type": "https://wiki.openstreetmap.org/wiki/Tag:crop=strawberry",
+          "conforms_to": {
+            "@id": "Fragaria x vescana",
+            "@type": "https://en.wikipedia.org/wiki/Strawberry"
+          },
+            "geo": {
+              "latitude": "52.753",
+              "longitude": "14.527"
+            },
+          	"has_a":[
+            {
+              "@id":"Fruit01",
+              "@type": "UnripeFruit"
+            },
+            {
+              "@id":"Fruit02",
+              "@type": "RipeFruit"
+            }]
+        },
+        {
+         "@id": "Freezer",
+         "@type": "https://wiki.openstreetmap.org/wiki/Key:fridge",
+      		"boundingbox":["52.758","52.759","14.527","14.528"],
+          "description": "Stores harvested food."
+        },
+        {
+          "@id": "BatteryChargingStation",
+          "@type": "https://wiki.openstreetmap.org/wiki/Tag:amenity=charging_station",
+          "description": "Charges vehicle batteries."
+        }
+      ]
+    }
+    ]
+}
