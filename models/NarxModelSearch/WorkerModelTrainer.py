@@ -97,7 +97,13 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     # r = r[row2014_01_01:-1, :]
 
     # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-    row2010_01_01 = 7307 - 1
+    # TODO: O3 from 1990
+    # row2010_01_01 = 7307 - 1
+    # r = r[row2010_01_01:-1, :]
+
+    # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+    # TODO: PM10 from 1995
+    row2010_01_01 = 5481 - 1
     r = r[row2010_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
@@ -227,13 +233,13 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
-# data_manipulation["directory"] = "data/PM10_BETN_1995To2019/"
-# data_manipulation["filePrefix"] = "PM10_BETN"
-# data_manipulation["mimoOutputs"] = 16
+data_manipulation["directory"] = "data/PM10_BETN_1995To2019/"
+data_manipulation["filePrefix"] = "PM10_BETN"
+data_manipulation["mimoOutputs"] = 16
 
-data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
-data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 46
+# data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 46
 
 # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags
 # TODO: O3_BETN016 -> 7, 104(lag 0, lag 1) O3_BETN066 -> 22, 119 O3_BETN073 -> 24, 121 O3_BETN121 -> 29, 126. Weather vars: 46 - 96
