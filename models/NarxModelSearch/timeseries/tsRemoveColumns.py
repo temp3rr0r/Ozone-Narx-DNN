@@ -3,11 +3,12 @@ import pandas as pd
 # fromFileName = "ALL_BETN_51vars_O3_O3-1_19900101To20121231"  # Background
 # fromFileName = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 #fromFileName = "ALL_BE_51vars_PM10_PM10-1_19950101To20181231"
-fromFileName = "ALL_BE_51vars_O3_O3-1_19900101To20181231"
+# fromFileName = "ALL_BE_51vars_O3_O3-1_19900101To20181231"
+fromFileName = "ALL_BE_51vars_calendar_PM10_PM10-1_19950101To20181231"
 ts = pd.DataFrame.from_csv("../data/{}.csv".format(fromFileName))
 # toFileName = fromFileName
 
-metric = "O3"
+metric = "PM10"
 
 if metric == "PM10":
     toFileName = "PM10_BETN"

@@ -5,7 +5,7 @@ import pandas as pd
 # fromFileName = "BETN073"
 # fromFileName = "BETN073_BG"
 
-metric = "O3"
+metric = "PM10"
 fromFileName = ""
 if metric == "PM10":
     fromFileName = "PM10_BETN"
