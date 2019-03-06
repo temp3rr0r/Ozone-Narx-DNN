@@ -103,8 +103,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
 
     # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
     # TODO: PM10 from 1995
-    row2010_01_01 = 5481 - 1
-    r = r[row2010_01_01:-1, :]
+    # row2010_01_01 = 5481 - 1
+    # r = r[row2010_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])

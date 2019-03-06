@@ -34,11 +34,13 @@ with open('settings/data_manipulation.json') as f:
     data_manipulation = json.load(f)
 modelLabel = data_manipulation["modelLabel"]
 
+# First island in vector is not considered
 # islands = ['bh', 'pso', 'de', 'rand']
 # islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso', ] * 4
 # islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
 # islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
-islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
+# islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
+islands = ['rand'] + ['rand'] + ['pso', 'de'] * 10
 # islands = ['rand', 'pso', 'de', 'da', 'sg'] * 4
 # islands = ['rand'] * 32
 # islands = ['pso'] * 32
