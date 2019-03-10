@@ -1,6 +1,7 @@
 from __future__ import print_function
 from base.ModelSearch import random_model_search, \
-    differential_evolution_model_search, basin_hopping_model_search, simple_homology_global_optimization_model_search, \
+    differential_evolution_model_search, basin_hopping_model_search, \
+    simplicial_homology_global_optimization_model_search, \
     particle_swarm_optimization_model_search, bounds, get_random_model, dual_annealing_model_search
 import time
 from mpi4py import MPI
@@ -8,14 +9,22 @@ import json
 
 
 def get_total_message_count(islands_in, size_in, data_manipulation_in):
-
+    """
+    Estimates the total MPI messages needed for the current Island Transpeciation configuration.
+    :param islands_in: Vector of strings, indicating each island type.
+    :param size_in: Total island count.
+    :param data_manipulation_in: Data object, containing information on islands: agents & iterations.
+    :return: The estimated total message count for all the islands.
+    """
     total_message_count = 0
     iterations = data_manipulation_in["iterations"]
     pso_message_count = (iterations + 1) * data_manipulation_in["agents"]
     rand_message_count = iterations
-    bh_message_count = iterations  # TODO: bh
     de_message_count = (  # (data_manipulation["iterations"] + 1)
             2 * data_manipulation_in["agents"] * len(bounds))
+    bh_message_count = iterations  # TODO: bh
+    sg_message_count = iterations  # TODO: sg
+    da_message_count = iterations  # TODO: da
 
     for i in range(1, size_in):
         if islands_in[i] == "pso":
@@ -26,6 +35,10 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
             total_message_count += rand_message_count
         elif islands_in[i] == "bh":
             total_message_count += bh_message_count
+        elif islands_in[i] == "sg":
+            total_message_count += sg_message_count
+        elif islands_in[i] == "da":
+            total_message_count += da_message_count
 
     return int(total_message_count)
 
@@ -35,18 +48,12 @@ with open('settings/data_manipulation.json') as f:
 modelLabel = data_manipulation["modelLabel"]
 
 # First island in vector is not considered
-# islands = ['bh', 'pso', 'de', 'rand']
-# islands = ['rand', 'pso', 'de', 'rand', 'pso', 'de', 'pso', ] * 4
-# islands = ['de', 'de', 'de', 'rand', 'de', 'pso', 'de'] * 4
-# islands = ['', 'pso', 'pso', 'rand', 'de', 'de'] * 4
+
 # islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
-islands = ['rand'] + ['rand'] + ['pso', 'de'] * 10
-# islands = ['rand', 'pso', 'de', 'da', 'sg'] * 4
-# islands = ['rand'] * 32
-# islands = ['pso'] * 32
-# islands = ['da'] * 32
-# islands = ['sg', 'da', 'bh'] * 32
-# islands = ['pso', 'de'] * 32
+# islands = ['pso', 'de', 'rand', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de']
+islands = ['sg'] * 20  # TODO: test simplicial homology global optimization
+# islands = ['pso', 'de', 'rand', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso',
+#            'de', 'pso', 'de']  # TODO: test simplicial homology global optimization
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -141,7 +148,7 @@ else:  # Worker Node
         data_manipulation["comm"] = comm
 
         # TODO: add/test (single or multi-agent) optimizers:
-        # TODO: - Reinforcement Learning
+        # TODO: - Reinforcement Learning for continuous + discrete spaces
         # TODO: - Bayesian Optimization (no derivatives needed)
         # TODO: - (traditional) Genetic Algorithms
         # TODO: - XGBoost
@@ -165,6 +172,6 @@ else:  # Worker Node
         elif island == 'da':
             dual_annealing_model_search(data_manipulation)
         elif island == 'sg':
-            simple_homology_global_optimization_model_search(data_manipulation)
+            simplicial_homology_global_optimization_model_search(data_manipulation)
 
         print("--- Done({})!".format(island))

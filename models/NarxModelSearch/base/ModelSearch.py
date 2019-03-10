@@ -47,7 +47,7 @@ def basin_hopping_model_search(data_manipulation=None):
     print(res)
 
 
-def simple_homology_global_optimization_model_search(data_manipulation=None):
+def simplicial_homology_global_optimization_model_search(data_manipulation=None):
 
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]

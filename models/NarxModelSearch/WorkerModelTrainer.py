@@ -23,6 +23,12 @@ os.environ["PATH"] += os.pathsep + 'C:/Users/temp3rr0r/Anaconda3/Library/bin/gra
 
 
 def init_gpu(gpu_rank):
+    """
+    Initializes a specific GPU only for this process.
+    :param gpu_rank: Mapping from "rank" to GPU id (hardware).
+    :return: None.
+    """
+
     if gpu_rank == 1:  # Rank per gpu
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -50,6 +56,15 @@ def init_gpu(gpu_rank):
 
 
 def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
+    """
+    Reads time-series & variableCSV data from the disk and returns input & expected data matrices.
+    :param directory: The directory path to read data from.
+    :param file_prefix: File prefix for the CSV files.
+    :param mimo_outputs: The amount of stations to predict, integer.
+    :param gpu_rank: The rank of the worker/gpu.
+    :return: Input and expected data matrices.
+    """
+
     if data_manipulation["scale"] == 'standardize':
         r = np.genfromtxt(directory + file_prefix + "_ts_standardized.csv", delimiter=',')
     elif data_manipulation["scale"] == 'normalize':
@@ -103,8 +118,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
 
     # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
     # TODO: PM10 from 1995
-    # row2010_01_01 = 5481 - 1
-    # r = r[row2010_01_01:-1, :]
+    row2010_01_01 = 5481 - 1
+    r = r[row2010_01_01:-1, :]
 
     print("r[0, 0]", r[0, 0])
     print("r[-1, 0]", r[-1, 0])
@@ -141,7 +156,16 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     return x_data_3d_in, y_data_in
 
 
-def model_training_callback(ch, method, properties, body):  # Tasks receiver callback
+def model_training_callback(ch, method, properties, body):
+    """
+    Callback method that receives and executes jobs from Rabbit MQ.
+    :param ch: Channel object for Rabbit MQ.
+    :param method: Delivery method for Rabbit MQ.
+    :param properties: Queue properties (not used).
+    :param body: The message body that we received.
+    :return: None.
+    """
+
     try:
         body = json.loads(body.decode("utf-8"))
         # print(" [x] Received %r" % body)
