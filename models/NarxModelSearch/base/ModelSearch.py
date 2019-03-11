@@ -88,6 +88,7 @@ def dual_annealing_model_search(data_manipulation=None):
         # baseMpi.train_model,
         bounds,
         maxiter=iterations,
+        no_local_search=True,  # TODO: no local search
         # polish=polish
         x0=x0,
         data_manipulation=data_manipulation)  # TODO: test other DA params

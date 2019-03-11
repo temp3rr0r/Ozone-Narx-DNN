@@ -327,6 +327,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                             obj = pickleStateIterationsDictionary["obj"]
                             omega = pickleStateIterationsDictionary["omega"]
                             p = pickleStateIterationsDictionary["p"]
+                            p = pickleStateIterationsDictionary["p"]
                             particle_output = pickleStateIterationsDictionary["particle_output"]
                             phig = pickleStateIterationsDictionary["phig"]
                             rg = pickleStateIterationsDictionary["rg"]

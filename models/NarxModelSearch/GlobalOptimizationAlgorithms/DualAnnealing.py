@@ -138,7 +138,7 @@ class EnergyState(object):
     # Maximimum number of trials for generating a valid starting point
     MAX_REINIT_COUNT = 1000
 
-    def __init__(self, lower, upper, callback=None):
+    def __init__(self, lower, upper, data_manipulation, callback=None):
         self.ebest = None
         self.current_energy = None
         self.current_location = None
@@ -146,6 +146,10 @@ class EnergyState(object):
         self.lower = lower
         self.upper = upper
         self.callback = callback
+        self.fitness_evaluations = 0
+        self.k = data_manipulation["swapEvery"]  # TODO: fitness evaluations
+        self.swap = False  # TODO: fitness evaluations
+        self.data_manipulation = data_manipulation  # TODO: fitness evaluations
 
     def reset(self, func_wrapper, rand_state, x0=None):
         """
@@ -160,9 +164,13 @@ class EnergyState(object):
         init_error = True
         reinit_counter = 0
         while init_error:
-            self.current_energy = func_wrapper.fun(self.current_location)
+            # self.current_energy = func_wrapper.fun(self.current_location)  # TODO: custom energy
+            self.current_energy, data_worker_to_master = func_wrapper.fun(self.current_location)  # TODO: custom energy
+            self.fitness_evaluations += 1  # TODO: fitness evaluations
+
             if self.current_energy is None:
                 raise ValueError('Objective function is returning None')
+
             if (not np.isfinite(self.current_energy) or np.isnan(
                     self.current_energy)):
                 if reinit_counter >= EnergyState.MAX_REINIT_COUNT:
@@ -183,6 +191,29 @@ class EnergyState(object):
                 self.ebest = self.current_energy
                 self.xbest = np.copy(self.current_location)
             # Otherwise, we keep them in case of reannealing reset
+
+            # Always send the best agent back  # TODO: island integration
+            # Worker to master
+            data_worker_to_master["mean_mse"] = self.ebest
+            data_worker_to_master["agent"] = self.xbest
+            comm = self.data_manipulation["comm"]
+            req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+            req.wait()
+            # Master to worker
+            data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+            # Replace worst agent
+            if self.fitness_evaluations % self.k == 0 and self.fitness_evaluations > 0:  # Send back found agent
+                self.swap = True
+            if self.swap and data_master_to_worker["iteration"] >= (int(self.fitness_evaluations / self.k) * self.k):
+                print(
+                    "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                        data_master_to_worker["fromRank"], data_worker_to_master["rank"], self.fitness_evaluations, self.k,
+                        data_master_to_worker["iteration"]))
+                # TODO: Since we have only 1 agent, if received agent mse better than best da, then replace it
+                if data_master_to_worker["mean_mse"] < self.ebest:
+                    self.ebest = data_master_to_worker["mean_mse"]
+                    self.xbest = data_master_to_worker["agent"]
+                self.swap = False
 
     def update_best(self, e, x, context):
         self.ebest = e
@@ -277,7 +308,10 @@ class StrategyChain(object):
             x_visit = self.visit_dist.visiting(
                 self.energy_state.current_location, j, temperature)
             # Calling the objective function
-            e = self.func_wrapper.fun(x_visit)
+            # e = self.func_wrapper.fun(x_visit)  # TODO: custom energy
+            e, data_worker_to_master = self.func_wrapper.fun(x_visit)  # TODO: custom energy
+            self.energy_state.fitness_evaluations += 1  # TODO: fitness evaluations
+
             if e < self.energy_state.current_energy:
                 # We have got a better energy value
                 self.energy_state.update_current(e, x_visit)
@@ -291,6 +325,31 @@ class StrategyChain(object):
             else:
                 # We have not improved but do we accept the new location?
                 self.accept_reject(j, e, x_visit)
+
+            # Always send the best agent back  # TODO: island integration
+            # Worker to master
+            data_worker_to_master["mean_mse"] = self.energy_state.ebest
+            data_worker_to_master["agent"] = self.energy_state.xbest
+            comm = self.energy_state.data_manipulation["comm"]
+            req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+            req.wait()
+            # Master to worker
+            data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+            # Replace worst agent
+            if self.energy_state.fitness_evaluations % self.energy_state.k == 0 and self.energy_state.fitness_evaluations > 0:  # Send back found agent
+                self.energy_state.swap = True
+            if self.energy_state.swap and data_master_to_worker["iteration"] >= (int(self.energy_state.fitness_evaluations / self.energy_state.k) * self.energy_state.k):
+                print(
+                    "========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                        data_master_to_worker["fromRank"], data_worker_to_master["rank"], self.energy_state.fitness_evaluations, self.energy_state.k,
+                        data_master_to_worker["iteration"]))
+                # TODO: Since we have only 1 agent, if received agent mse better than best da, then replace it
+                if data_master_to_worker["mean_mse"] < self.energy_state.ebest:
+                    self.energy_state.ebest = data_master_to_worker["mean_mse"]
+                    self.energy_state.xbest = data_master_to_worker["agent"]
+                self.energy_state.swap = False
+
+
             if self.func_wrapper.nfev >= self.func_wrapper.maxfun:
                 return ('Maximum number of function call reached '
                         'during annealing')
@@ -588,6 +647,7 @@ def dual_annealing(func, bounds, args=(), maxiter=1000,
     -6.05775280e-09 -5.00668935e-09], f(xmin) = 0.000000
 
     """
+
     if x0 is not None and not len(x0) == len(bounds):
         raise ValueError('Bounds size does not match x0')
 
@@ -616,7 +676,7 @@ def dual_annealing(func, bounds, args=(), maxiter=1000,
     # Initialization of RandomState for reproducible runs if seed provided
     rand_state = check_random_state(seed)
     # Initialization of the energy state
-    energy_state = EnergyState(lower, upper, callback)
+    energy_state = EnergyState(lower, upper, data_manipulation, callback)
     energy_state.reset(func_wrapper, rand_state, x0)
     # Minimum value of annealing temperature reached to perform
     # re-annealing
@@ -626,6 +686,11 @@ def dual_annealing(func, bounds, args=(), maxiter=1000,
     # Strategy chain instance
     strategy_chain = StrategyChain(accept, visit_dist, func_wrapper,
                                minimizer_wrapper, rand_state, energy_state)
+
+    energy_state.fitness_evaluations = 0  # TODO: fitness evaluations
+    energy_state.k = data_manipulation["swapEvery"]  # TODO: fitness evaluations
+    energy_state.swap = False  # TODO: fitness evaluations
+
     # Run the search loop
     need_to_stop = False
     iteration = 0
