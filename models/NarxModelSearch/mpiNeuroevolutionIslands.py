@@ -51,7 +51,7 @@ modelLabel = data_manipulation["modelLabel"]
 
 # islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
 # islands = ['pso', 'de', 'rand', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de']
-islands = ['rand', 'pso', 'de', 'da'] * 4  # TODO: test simplicial homology global optimization
+islands = ['rand', 'pso', 'da', 'de'] * 4  # TODO: test simplicial homology global optimization
 # islands = ['pso', 'de', 'rand', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso',
 #            'de', 'pso', 'de']  # TODO: test simplicial homology global optimization
 
