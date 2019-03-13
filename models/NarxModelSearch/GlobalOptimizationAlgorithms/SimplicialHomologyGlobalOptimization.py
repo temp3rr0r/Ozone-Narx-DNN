@@ -416,7 +416,7 @@ def shgo(func, bounds, args=(), constraints=None, n=100, iters=1, callback=None,
     shc = SHGO(func, bounds, args=args, constraints=constraints, n=n,
                iters=iters, callback=callback,
                minimizer_kwargs=minimizer_kwargs,
-               options=options, sampling_method=sampling_method)
+               options=options, sampling_method=sampling_method, data_manipulation=None)
 
     # Run the algorithm, process results and test success
     shc.construct_complex()
@@ -449,7 +449,7 @@ def shgo(func, bounds, args=(), constraints=None, n=100, iters=1, callback=None,
 class SHGO(object):
     def __init__(self, func, bounds, args=(), constraints=None, n=None,
                  iters=None, callback=None, minimizer_kwargs=None,
-                 options=None, sampling_method='sobol'):
+                 options=None, sampling_method='sobol', data_manipulation=None):
 
         # Input checks
         methods = ['sobol', 'simplicial']
@@ -462,6 +462,9 @@ class SHGO(object):
         self.bounds = bounds
         self.args = args
         self.callback = callback
+        self.k = data_manipulation["swapEvery"]  # TODO: fitness evaluations
+        self.swap = False  # TODO: fitness evaluations
+        self.data_manipulation = data_manipulation  # TODO: fitness evaluations
 
         # Bounds
         abound = np.array(bounds, float)
@@ -892,6 +895,16 @@ class SHGO(object):
 
         # feasible sampling points counted by the triangulation.py routines
         self.fn = self.HC.V.nfev
+
+        # TODO: self.HC.V.f for energy, self.HC.V.x for candidates?
+        # f = self.HC.V.xval.f
+        # x = self.HC.V.xval.x
+        # f = self.HC.V.cache.get()
+        # x = self.HC.V.get()
+        # TODO: list of x candidates, f: list of energies
+        # x_list = self.LMC.xl_maps
+        # f_list = self.LMC.f_maps
+
         self.n_sampled = self.HC.V.size  # nevs counted in triangulation.py
         return
 
@@ -1594,8 +1607,8 @@ class LMapCache:
 
         # Lists for search queries
         self.v_maps = []
-        self.xl_maps = []
-        self.f_maps = []
+        self.xl_maps = []  # TODO: x candidates
+        self.f_maps = []  # TODO: energy of candidates
         self.lbound_maps = []
         self.size = 0
 
