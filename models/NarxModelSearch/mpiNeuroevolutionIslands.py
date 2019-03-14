@@ -48,7 +48,8 @@ with open('settings/data_manipulation.json') as f:
 modelLabel = data_manipulation["modelLabel"]
 
 # First island in vector is not considered
-islands = ['da', 'de', 'pso', 'rand'] * 10
+# islands = ['da', 'de', 'pso', 'rand'] * 10
+islands = ['de', 'pso', 'rand'] * 10
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()

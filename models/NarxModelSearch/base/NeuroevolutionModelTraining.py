@@ -241,13 +241,14 @@ def train_model(x, *args):
         elif core_layers_randoms[0] == 3:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
         else:
-            model.add(tf.keras.layers.Dense(units1,
-                                            activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
-                                                                                             l1_l2_randoms[3, 1]),
-                                            bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
-                                                                                         l1_l2_randoms[4, 1]),
-                                            kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
-                                                                                           l1_l2_randoms[5, 1])))
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+            # model.add(tf.keras.layers.Dense(units3,
+            #                                 activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
+            #                                                                                  l1_l2_randoms[3, 1]),
+            #                                 bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
+            #                                                                              l1_l2_randoms[4, 1]),
+            #                                 kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
+            #                                                                                l1_l2_randoms[5, 1])))
 
         # 2nd base layer
         if use_gaussian_noise1 < 0.5:
@@ -278,10 +279,14 @@ def train_model(x, *args):
         elif core_layers_randoms[1] == 3:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
         else:
-            model.add(tf.keras.layers.Dense(units2,
-                        activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0], l1_l2_randoms[3, 1]),
-                        bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0], l1_l2_randoms[4, 1]),
-                        kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])))
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+            # model.add(tf.keras.layers.Dense(units3,
+            #                                 activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
+            #                                                                                  l1_l2_randoms[3, 1]),
+            #                                 bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
+            #                                                                              l1_l2_randoms[4, 1]),
+            #                                 kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
+            #                                                                                l1_l2_randoms[5, 1])))
 
         if use_gaussian_noise2 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
@@ -313,13 +318,14 @@ def train_model(x, *args):
         elif core_layers_randoms[2] == 3:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
         else:
-            model.add(tf.keras.layers.Dense(units3,
-                                            activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
-                                                                                             l1_l2_randoms[3, 1]),
-                                            bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
-                                                                                         l1_l2_randoms[4, 1]),
-                                            kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
-                                                                                           l1_l2_randoms[5, 1])))
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+            # model.add(tf.keras.layers.Dense(units3,
+            #                                 activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
+            #                                                                                  l1_l2_randoms[3, 1]),
+            #                                 bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
+            #                                                                              l1_l2_randoms[4, 1]),
+            #                                 kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
+            #                                                                                l1_l2_randoms[5, 1])))
         if use_gaussian_noise3 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
         if use_batch_normalization3 < 0.5:
