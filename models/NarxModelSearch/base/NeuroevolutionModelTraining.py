@@ -136,6 +136,8 @@ def train_model(x, *args):
     max_regularizer = 0.01
     regularizer_chance = 0.1
     regularizer_chance_randoms = np.random.rand(9)
+    core_layers_randoms = np.random.randint(4, size=5)  # TODO: Dense, LSTM, BiLSTM, GRU, BiGRU
+
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
@@ -204,6 +206,10 @@ def train_model(x, *args):
         #     model.compile(loss='mean_squared_error', optimizer=optimizer)
 
         # TODO: 6 layer large model
+
+        # TODO: test different initializers
+        # TODO: layer type in bounds
+
         # create model
         model = tf.keras.models.Sequential()
         lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
@@ -213,7 +219,7 @@ def train_model(x, *args):
                        # 'activity_regularizer': l2(0.01),
                        # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
                        }
-        # TODO: Local mutation
+        # Local mutation
         if regularizer_chance_randoms[0] < regularizer_chance:
             lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[0, 0], l1_l2_randoms[0, 1])
@@ -223,8 +229,27 @@ def train_model(x, *args):
         if regularizer_chance_randoms[2] < regularizer_chance:
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[2, 0], l1_l2_randoms[0, 1])
-        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
-            x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+
+        # 1st base layer
+        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
+        if core_layers_randoms[0] == 0:
+            model.add(tf.keras.layers.LSTM(**lstm_kwargs))
+        elif core_layers_randoms[0] == 1:
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        elif core_layers_randoms[0] == 2:
+            model.add(tf.keras.layers.GRU(**lstm_kwargs))
+        elif core_layers_randoms[0] == 3:
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
+        else:
+            model.add(tf.keras.layers.Dense(units1,
+                                            activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
+                                                                                             l1_l2_randoms[3, 1]),
+                                            bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
+                                                                                         l1_l2_randoms[4, 1]),
+                                            kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
+                                                                                           l1_l2_randoms[5, 1])))
+
+        # 2nd base layer
         if use_gaussian_noise1 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
         if use_batch_normalization1 < 0.5:
@@ -243,50 +268,27 @@ def train_model(x, *args):
         if regularizer_chance_randoms[5] < regularizer_chance:
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
-        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        # 2nd base layer
+        if core_layers_randoms[1] == 0:
+            model.add(tf.keras.layers.LSTM(**lstm_kwargs))
+        elif core_layers_randoms[1] == 1:
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        elif core_layers_randoms[1] == 2:
+            model.add(tf.keras.layers.GRU(**lstm_kwargs))
+        elif core_layers_randoms[1] == 3:
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
+        else:
+            model.add(tf.keras.layers.Dense(units2,
+                        activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0], l1_l2_randoms[3, 1]),
+                        bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0], l1_l2_randoms[4, 1]),
+                        kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])))
+
         if use_gaussian_noise2 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
         if use_batch_normalization2 < 0.5:
             model.add(tf.keras.layers.BatchNormalization())
-        #
-        # lstm_kwargs['units'] = units3
-        # lstm_kwargs['dropout'] = dropout3
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        # # TODO: Local mutation
-        # if regularizer_chance_randoms[6] < regularizer_chance:
-        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[6, 0], l1_l2_randoms[6, 1])
-        # if regularizer_chance_randoms[7] < regularizer_chance:
-        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[7, 0], l1_l2_randoms[7, 1])
-        # if regularizer_chance_randoms[8] < regularizer_chance:
-        #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
-        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise3 < 0.5:
-        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
-        # if use_batch_normalization3 < 0.5:
-        #     model.add(tf.keras.layers.BatchNormalization())
-        #
-        # lstm_kwargs['units'] = units2
-        # lstm_kwargs['dropout'] = dropout2
-        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # # TODO: Local mutation
-        # if regularizer_chance_randoms[3] < regularizer_chance:
-        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
-        # if regularizer_chance_randoms[4] < regularizer_chance:
-        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
-        # if regularizer_chance_randoms[5] < regularizer_chance:
-        #     lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-        #         l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
-        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        # if use_gaussian_noise2 < 0.5:
-        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        # if use_batch_normalization2 < 0.5:
-        #     model.add(tf.keras.layers.BatchNormalization())
 
+        # 3rd base layer
         lstm_kwargs['units'] = units3
         lstm_kwargs['dropout'] = dropout3
         lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
@@ -301,7 +303,23 @@ def train_model(x, *args):
         if regularizer_chance_randoms[8] < regularizer_chance:
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
-        model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        if core_layers_randoms[2] == 0:
+            model.add(tf.keras.layers.LSTM(**lstm_kwargs))
+        elif core_layers_randoms[2] == 1:
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+        elif core_layers_randoms[2] == 2:
+            model.add(tf.keras.layers.GRU(**lstm_kwargs))
+        elif core_layers_randoms[2] == 3:
+            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
+        else:
+            model.add(tf.keras.layers.Dense(units3,
+                                            activity_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[3, 0],
+                                                                                             l1_l2_randoms[3, 1]),
+                                            bias_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[4, 0],
+                                                                                         l1_l2_randoms[4, 1]),
+                                            kernel_regularizer=tf.keras.regularizers.l1_l2(l1_l2_randoms[5, 0],
+                                                                                           l1_l2_randoms[5, 1])))
         if use_gaussian_noise3 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
         if use_batch_normalization3 < 0.5:
