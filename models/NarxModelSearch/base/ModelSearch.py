@@ -15,35 +15,24 @@ def basin_hopping_model_search(data_manipulation=None):
 
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]
-    # args = (x_data, y_data)
-
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'bh'
     baseMpi.train_model.folds = data_manipulation["folds"]
     baseMpi.train_model.data_manipulation = data_manipulation
+    x0 = np.array(get_random_model())
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
 
-    # TODO: normalize data
-    # data_manipulation["bounds"] = bounds
-    # bounds = np.array([(0, 1)] * len(lb))
-    # x0 = np.array([random.uniform(0, 1)] * len(lb))
-    x0 = np.array(get_random_model())
-
-    # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
-    minimizer_kwargs = dict(method="TNC", bounds=bounds,
-                            # args=args
-                            )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
-    # minimizer_kwargs = dict(method="L-BFGS-B", bounds=bounds, args=y_test)  # use method L-BFGS-B because the problem is smooth and bounded
-    # minimizer_kwargs = dict(method="SLSQP", bounds=bounds, args=y_test)
-
-    #def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5, minimizer_kwargs=None, take_step=None, accept_test=None,
-    #                  callback=None, interval=50, disp=False, niter_success=None,seed=None):
+    minimizer_kwargs = dict(
+        # method="TNC",  # TODO: TNC and L-BFGS-B only for constraint bounded local optimization?
+        method="L-BFGS-B", jac=True,  # TODO: normalize data
+        bounds=bounds,  # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
+    )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
 
     res = basinhopping(
         # baseMpi.train_model,
         train_model_requester_rabbit_mq,
         # baseMpi.trainModelTester,  # TODO: call fast dummy func
-        x0, minimizer_kwargs=minimizer_kwargs, niter=iterations)
+        x0, minimizer_kwargs=minimizer_kwargs, niter=iterations, data_manipulation=data_manipulation)
     print(res)
 
 
@@ -65,6 +54,8 @@ def simplicial_homology_global_optimization_model_search(data_manipulation=None)
         bounds,
         n=agents,
         iters=iterations,
+        sampling_method='sobol',
+        # sampling_method='simplicial',
         data_manipulation=data_manipulation)  # TODO: test other SHGO params
 
     print_optimum(xopt1, xopt1)
@@ -79,14 +70,67 @@ def dual_annealing_model_search(data_manipulation=None):
     baseMpi.train_model.folds = data_manipulation["folds"]
     baseMpi.train_model.data_manipulation = data_manipulation
     x0 = np.array(get_random_model())
-    # scipy.optimize.dual_annealing(func, bounds, args=(), maxiter=1000, local_search_options={}, initial_temp=5230.0,
-    #                               restart_temp_ratio=2e-05, visit=2.62, accept=-5.0, maxfun=10000000.0, seed=None,
-    #                               no_local_search=False, callback=None, x0=None)
+
+    # Default values
+    initial_temp = 5230.0
+    visit = 2.62
+    accept = -5.0
+    restart_temp_ratio = 2e-05
+    if data_manipulation["rank"] % 10 == 1:
+        initial_temp = 5230.0
+        visit = 2.62
+        accept = -5.0
+        restart_temp_ratio = 2e-05
+    elif data_manipulation["rank"] % 10 == 2:
+        initial_temp *= 0.75
+        visit *= 0.75
+        accept *= 0.75
+        restart_temp_ratio *= 0.75
+    elif data_manipulation["rank"] % 10 == 3:
+        initial_temp *= 0.25
+        visit *= 0.25
+        accept *= 0.25
+        restart_temp_ratio *= 0.25
+    elif data_manipulation["rank"] % 10 == 4:
+        initial_temp *= 0.95
+        visit *= 0.95
+        accept *= 0.95
+        restart_temp_ratio *= 0.75
+    elif data_manipulation["rank"] % 10 == 5:
+        initial_temp *= 0.05
+        visit *= 0.05
+        accept *= 0.05
+        restart_temp_ratio *= 0.05
+    elif data_manipulation["rank"] % 10 == 6:
+        initial_temp *= 0.85
+        visit *= 0.85
+        accept *= 0.85
+        restart_temp_ratio *= 0.85
+    elif data_manipulation["rank"] % 10 == 7:
+        initial_temp *= 0.15
+        visit *= 0.15
+        accept *= 0.15
+        restart_temp_ratio *= 0.15
+    elif data_manipulation["rank"] % 10 == 8:  # Max values
+        initial_temp = 5.e4
+        visit = 3
+        accept = -5.0
+        restart_temp_ratio = 0.99
+    elif data_manipulation["rank"] % 10 == 9:  # Min values
+        initial_temp = 0.02
+        visit = 0.01
+        accept = -1e4
+        restart_temp_ratio = 0.01
+
     xopt1 = dual_annealing(
         # baseMpi.trainModelTester,
         train_model_requester_rabbit_mq,
         # baseMpi.train_model,
         bounds,
+        initial_temp=initial_temp,
+        visit=visit,
+        accept=accept,
+        restart_temp_ratio=restart_temp_ratio,
         maxiter=iterations,
         no_local_search=True,  # TODO: no local search
         # polish=polish

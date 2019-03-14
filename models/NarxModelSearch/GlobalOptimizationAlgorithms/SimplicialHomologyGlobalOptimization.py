@@ -416,7 +416,7 @@ def shgo(func, bounds, args=(), constraints=None, n=100, iters=1, callback=None,
     shc = SHGO(func, bounds, args=args, constraints=constraints, n=n,
                iters=iters, callback=callback,
                minimizer_kwargs=minimizer_kwargs,
-               options=options, sampling_method=sampling_method, data_manipulation=None)
+               options=options, sampling_method=sampling_method, data_manipulation=data_manipulation)
 
     # Run the algorithm, process results and test success
     shc.construct_complex()

@@ -48,12 +48,7 @@ with open('settings/data_manipulation.json') as f:
 modelLabel = data_manipulation["modelLabel"]
 
 # First island in vector is not considered
-
-# islands = ['rand', 'pso', 'de', 'pso', 'de'] * 4
-# islands = ['pso', 'de', 'rand', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de']
-islands = ['rand', 'pso', 'da', 'de'] * 4  # TODO: test simplicial homology global optimization
-# islands = ['pso', 'de', 'rand', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso', 'de', 'pso',
-#            'de', 'pso', 'de']  # TODO: test simplicial homology global optimization
+islands = ['da', 'de', 'pso', 'rand'] * 10
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -68,7 +63,7 @@ if rank == 0:  # Master Node
     mean_mse_threshold = 3000.0
 
     for worker in range(1, size):  # Init workers
-        initDataToWorkers = {"command": "init", "island": islands[worker % 3]}
+        initDataToWorkers = {"command": "init", "island": islands[worker]}
         comm.send(initDataToWorkers, dest=worker, tag=0)
         print("--- Rank {}. Sending data: {} to {}...".format(rank, initDataToWorkers, worker))
 

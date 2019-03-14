@@ -57,12 +57,15 @@ class BasinHoppingRunner(object):
         Display status messages.
 
     """
-    def __init__(self, x0, minimizer, step_taking, accept_tests, disp=False):
+    def __init__(self, x0, minimizer, step_taking, accept_tests, disp=False, data_manipulation=None):
         self.x = np.copy(x0)
         self.minimizer = minimizer
         self.step_taking = step_taking
         self.accept_tests = accept_tests
         self.disp = disp
+        self.k = data_manipulation["swapEvery"]  # TODO: fitness evaluations
+        self.swap = False  # TODO: fitness evaluations
+        self.data_manipulation = data_manipulation  # TODO: fitness evaluations
 
         self.nstep = 0
 
@@ -631,8 +634,7 @@ def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5,
     # set up minimizer
     if minimizer_kwargs is None:
         minimizer_kwargs = dict()
-    wrapped_minimizer = MinimizerWrapper(scipy.optimize.minimize, func,
-                                         **minimizer_kwargs)
+    wrapped_minimizer = MinimizerWrapper(scipy.optimize.minimize, func, **minimizer_kwargs)
 
     # set up step-taking algorithm
     if take_step is not None:
@@ -666,7 +668,7 @@ def basinhopping(func, x0, niter=100, T=1.0, stepsize=0.5,
         niter_success = niter + 2
 
     bh = BasinHoppingRunner(x0, wrapped_minimizer, take_step_wrapped,
-                            accept_tests, disp=disp)
+                            accept_tests, disp=disp, data_manipulation=data_manipulation)
 
     # start main iteration loop
     count, i = 0, 0
