@@ -48,8 +48,7 @@ with open('settings/data_manipulation.json') as f:
 modelLabel = data_manipulation["modelLabel"]
 
 # First island in vector is not considered
-# islands = ['da', 'de', 'pso', 'rand'] * 10
-islands = ['de', 'pso', 'rand'] * 10
+islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -156,6 +155,7 @@ else:  # Worker Node
         # TODO: - Memetic (?) algorithms
         # TODO: - Tabu search (?)
         # TODO: - Tree-structured Parzen Estimators (TPE)
+        # TODO: Global + Local search islands: IN THE SAME "island" LEVEL (sg, bh & da do it already anyway, LS between)
 
         if island == 'rand':
             random_model_search(data_manipulation)

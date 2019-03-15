@@ -684,8 +684,7 @@ def dual_annealing(func, bounds, args=(), maxiter=1000,
     # VisitingDistribution instance
     visit_dist = VisitingDistribution(lower, upper, visit, rand_state)
     # Strategy chain instance
-    strategy_chain = StrategyChain(accept, visit_dist, func_wrapper,
-                               minimizer_wrapper, rand_state, energy_state)
+    strategy_chain = StrategyChain(accept, visit_dist, func_wrapper, minimizer_wrapper, rand_state, energy_state)
 
     energy_state.fitness_evaluations = 0  # TODO: fitness evaluations
     energy_state.k = data_manipulation["swapEvery"]  # TODO: fitness evaluations
@@ -696,7 +695,7 @@ def dual_annealing(func, bounds, args=(), maxiter=1000,
     iteration = 0
     message = []
     t1 = np.exp((visit - 1) * np.log(2.0)) - 1.0
-    while(not need_to_stop):
+    while not need_to_stop:
         for i in range(maxiter):
             # Compute temperature for this step
             s = float(i) + 2.0

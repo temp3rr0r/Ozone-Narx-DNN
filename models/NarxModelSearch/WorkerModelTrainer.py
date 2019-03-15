@@ -298,6 +298,7 @@ args = (x_data_3d, y_data)
 baseMpi.train_model.counter = 0  # Function call counter
 baseMpi.train_model.folds = data_manipulation["folds"]
 baseMpi.train_model.data_manipulation = data_manipulation
+# baseMpi.train_model.one_nan = False  # TODO: Used for rapid islands distributed testing
 
 timeout = 3600 * 10  # Timeouts 60 mins * islands
 credentials = pika.PlainCredentials("madks", "ma121284")
