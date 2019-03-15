@@ -300,7 +300,8 @@ def get_random_model():
              random.uniform(lb[12], ub[12]), random.uniform(lb[13], ub[13]), random.uniform(lb[14], ub[14]),  # gaussian noise std
              random.randint(lb[15], ub[15]), random.randint(lb[16], ub[16]), random.randint(lb[17], ub[17]),  # gaussian_noise
              random.randint(lb[18], ub[18]), random.randint(lb[19], ub[19]), random.randint(lb[20], ub[20]),  # batch normalization
-             random.randint(lb[21], ub[21]), random.randint(lb[22], ub[22]), random.randint(lb[23], ub[23])]  # base layer types
+             random.randint(lb[21], ub[21]), random.randint(lb[22], ub[22]), random.randint(lb[23], ub[23]),  # base layer types
+             random.randint(lb[24], ub[24]), random.randint(lb[25], ub[25]), random.randint(lb[26], ub[26])]  # layer initializers, normal/uniform he/lecun
 
 
 def print_optimum(xopt1, fopt1):

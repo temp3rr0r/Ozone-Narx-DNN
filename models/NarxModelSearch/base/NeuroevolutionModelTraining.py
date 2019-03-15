@@ -126,16 +126,24 @@ def train_model(x, *args):
     use_gaussian_noise2 = x[19]
     use_gaussian_noise3 = x[20]
 
-    # core_layers_randoms = np.random.randint(6, size=3)  # TODO: Dense, LSTM, BiLSTM, GRU, BiGRU
-    core_layers_randoms = np.around(x[21:24], decimals=0).astype(int)  # TODO: plain/bidirectional: LSTM, GRU, SimpleRNN
+    core_layers_genes = np.around(x[21:24], decimals=0).astype(int)  # TODO: plain/bidirectional: LSTM, GRU, SimpleRNN
     layer_types = ['LSTM', 'BiLSTM', 'GRU', 'BiGRU', 'SimpleRNN', 'BiSimpleRNN']
-    print("--- Rank {}: Layer Types: {} {} {}"
-          .format(rank, layer_types[core_layers_randoms[0]], layer_types[core_layers_randoms[1]],
-                  layer_types[core_layers_randoms[2]]))
+    print("--- Rank {}: Layer Types: {}->{}->{}"
+          .format(rank, layer_types[core_layers_genes[0]], layer_types[core_layers_genes[1]],
+                  layer_types[core_layers_genes[2]]))
 
     print("--- Rank {}: batch_size: {}, epoch_size: {} Optimizer: {}, LSTM Unit sizes: {} "
           "Batch Normalization/Gaussian Noise: {}"
           .format(rank, x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
+
+
+    layer_initializer_genes = np.around(x[24:27], decimals=0).astype(int)  # layer initializers, normal/uniform he/lecun #  TODO: layer initializers
+    layer_initializers = ['he_normal', 'lecun_normal', 'glorot_normal', 'random_normal', 'truncated_normal',
+                          'he_uniform', 'lecun_uniform', 'random_uniform'
+                          'zeros', 'ones']
+    print("--- Rank {}: Layer initializers: {}->{}->{}"
+          .format(rank, layer_initializers[layer_initializer_genes[0]], layer_initializers[layer_initializer_genes[1]],
+                  layer_initializers[layer_initializer_genes[2]]))
 
     x_data, x_data_holdout = x_data[:-365], x_data[-365:]
     y_data, y_data_holdout = y_data[:-365], y_data[-365:]
@@ -249,16 +257,17 @@ def train_model(x, *args):
                 l1_l2_randoms[2, 0], l1_l2_randoms[0, 1])
 
         # 1st base layer
+        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[0]]  # TODO: layer initializer
         # lstm_kwargs['name'] = "size:{}".format(units1)  # TODO: tf.keras layer name
-        if core_layers_randoms[2] == 0:
+        if core_layers_genes[2] == 0:
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
-        elif core_layers_randoms[2] == 1:
+        elif core_layers_genes[2] == 1:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_randoms[2] == 2:
+        elif core_layers_genes[2] == 2:
             model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_randoms[2] == 3:
+        elif core_layers_genes[2] == 3:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_randoms[2] == 4:
+        elif core_layers_genes[2] == 4:
             model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         else:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
@@ -268,6 +277,7 @@ def train_model(x, *args):
             model.add(tf.keras.layers.BatchNormalization())
 
         # 2nd base layer
+        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[1]]  # TODO: layer initializer
         lstm_kwargs['units'] = units2
         lstm_kwargs['dropout'] = dropout2
         lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
@@ -282,15 +292,15 @@ def train_model(x, *args):
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
         # 2nd base layer
-        if core_layers_randoms[2] == 0:
+        if core_layers_genes[2] == 0:
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
-        elif core_layers_randoms[2] == 1:
+        elif core_layers_genes[2] == 1:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_randoms[2] == 2:
+        elif core_layers_genes[2] == 2:
             model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_randoms[2] == 3:
+        elif core_layers_genes[2] == 3:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_randoms[2] == 4:
+        elif core_layers_genes[2] == 4:
             model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         else:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
@@ -300,6 +310,7 @@ def train_model(x, *args):
             model.add(tf.keras.layers.BatchNormalization())
 
         # 3rd base layer
+        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[2]]  # TODO: layer initializer
         lstm_kwargs['units'] = units3
         lstm_kwargs['dropout'] = dropout3
         lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
@@ -314,15 +325,15 @@ def train_model(x, *args):
         if regularizer_chance_randoms[8] < regularizer_chance:
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
-        if core_layers_randoms[2] == 0:
+        if core_layers_genes[2] == 0:
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
-        elif core_layers_randoms[2] == 1:
+        elif core_layers_genes[2] == 1:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_randoms[2] == 2:
+        elif core_layers_genes[2] == 2:
             model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_randoms[2] == 3:
+        elif core_layers_genes[2] == 3:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_randoms[2] == 4:
+        elif core_layers_genes[2] == 4:
             model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         else:
             model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
