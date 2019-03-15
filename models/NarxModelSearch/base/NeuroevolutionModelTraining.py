@@ -139,8 +139,7 @@ def train_model(x, *args):
 
     layer_initializer_genes = np.around(x[24:27], decimals=0).astype(int)  # layer initializers, normal/uniform he/lecun #  TODO: layer initializers
     layer_initializers = ['he_normal', 'lecun_normal', 'glorot_normal', 'random_normal', 'truncated_normal',
-                          'he_uniform', 'lecun_uniform', 'random_uniform'
-                          'zeros', 'ones']
+                          'he_uniform', 'lecun_uniform', 'random_uniform', 'zeros', 'ones']
     print("--- Rank {}: Layer initializers: {}->{}->{}"
           .format(rank, layer_initializers[layer_initializer_genes[0]], layer_initializers[layer_initializer_genes[1]],
                   layer_initializers[layer_initializer_genes[2]]))
