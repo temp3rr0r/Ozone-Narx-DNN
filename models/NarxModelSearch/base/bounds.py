@@ -1,7 +1,6 @@
 
 # Model Search Space bounds
-# TODO: Add weights initializer search: https://keras.io/initializers/
-bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)  # TODO: reduced batch size to try avoiding OOM
+bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (350, 600), (0, 4),  # , 5)    # epoch_size, optimizer
           # (1023, 1024), (1023, 1024), (1023, 1024),  # units
           (64, 512), (64, 512), (64, 512),

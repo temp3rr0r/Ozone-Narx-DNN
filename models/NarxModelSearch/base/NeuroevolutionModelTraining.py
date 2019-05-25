@@ -172,69 +172,6 @@ def train_model(x, *args):
 
         # dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
-        # # create model  # TODO: Naive LSTM
-        # model = tf.keras.models.Sequential()
-        # lstm_kwargs = {'units': 16, 'return_sequences': False,
-        #                'implementation': 2}
-        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
-        #     x_data.shape[1], x_data.shape[2])))  # input_shape: rows: n, timestep: 1, features: m
-        # model.add(tf.keras.layers.Dense(y_data.shape[1]))
-        # model.compile(loss='mean_squared_error', optimizer=optimizer)
-
-        # # create model  # TODO: 1 lstm 1 dense, highly diverse
-        # model = tf.keras.models.Sequential()
-        # lstm_kwargs = {'units': units1,
-        #                'dropout': dropout1,
-        #                'recurrent_dropout': recurrent_dropout1,
-        #                'return_sequences': True,
-        #                'implementation': 2,
-        #                "input_shape" : (x_data.shape[1], x_data.shape[2])
-        #                }
-        # # lstm_kwargs['return_sequences'] = False
-        # lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout2, dropout2)  # TODO: mini rand: 50% for (0 - 0.01)
-        # if use_gaussian_noise3 > 0.5:
-        #     lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(recurrent_dropout3, dropout3)
-        # if use_gaussian_noise2 > 0.5:
-        #     lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(noise_stddev2, noise_stddev3)
-        # # if np.random.uniform(0, 1) > 0.5:
-        # #     lstm_kwargs['stateful'] = True
-        # #     batch_input_shape = (batch_size, timesteps, data_dim)
-        # #     lstm_kwargs['batch_input_shape'] = (x_data.shape[1], x_data.shape[2])
-        # # model.add(tf.keras.layers.CuDNNLSTM(**lstm_kwargs, )  # TODO: test speed
-        # # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.CuDNNLSTM(**lstm_kwargs)))  # TODO: test speed
-        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))  # TODO: test speed
-        # lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
-        # lstm_kwargs['units'] = units3
-        # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        # # model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(
-        # #     x_data.shape[1], x_data.shape[2])
-        #     # ,merge_mode=random.choice(['sum', 'mul', 'concat', 'ave', None])
-        #       # input_shape: rows: n, timestep: 1, features: m
-        # if useBatchNormalization2 > 0.5:
-        #     model.add(tf.keras.layers.AlphaDropout(np.random.uniform(0.001, 0.1)))
-        # if useBatchNormalization3 > 0.5:
-        #     model.add(tf.keras.layers.GaussianDropout(np.random.uniform(0.001, 0.1)))
-        # if use_gaussian_noise1 > 0.5:
-        #     model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
-        # if useBatchNormalization1 > 0.5:
-        #     model.add(tf.keras.layers.BatchNormalization())
-        # model.add(tf.keras.layers.Dense(units2, activation=random.choice(
-        #     ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
-        #      "linear"])))  # TODO: test with 2 extra dense layers
-        # model.add(tf.keras.layers.Dense(y_data.shape[1]))
-        # if multi_gpu:
-        #     model = tf.keras.utils.multi_gpu_model(model, gpus=2)
-        #
-        # if optimizer == 'amsgrad':  # TODO: test amsgrad, special version of adam
-        #     model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
-        # else:
-        #     model.compile(loss='mean_squared_error', optimizer=optimizer)
-
-        # TODO: 6 layer large model
-
-        # TODO: test different initializers
-        # TODO: layer type in bounds
-
         # create model
         model = tf.keras.models.Sequential()
         lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
@@ -242,7 +179,7 @@ def train_model(x, *args):
                        'implementation': 2,
                        # 'kernel_regularizer': l2(0.01),
                        # 'activity_regularizer': l2(0.01),
-                       # 'bias_regularizer': l2(0.01)    # TODO: test with kernel, activity, bias regularizers
+                       # 'bias_regularizer': l2(0.01)
                        }
         # Local mutation
         if regularizer_chance_randoms[0] < regularizer_chance:
