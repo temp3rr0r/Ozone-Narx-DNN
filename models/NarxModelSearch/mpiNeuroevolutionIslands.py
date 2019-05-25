@@ -1,7 +1,7 @@
 from __future__ import print_function
 from base.ModelSearch import random_model_search, \
     differential_evolution_model_search, basin_hopping_model_search, \
-    simplicial_homology_global_optimization_model_search, \
+    simplicial_homology_global_optimization_model_search, local_model_search, \
     particle_swarm_optimization_model_search, bounds, get_random_model, dual_annealing_model_search
 import time
 from mpi4py import MPI
@@ -39,6 +39,8 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
             total_message_count += sg_message_count
         elif islands_in[i] == "da":
             total_message_count += da_message_count
+        elif islands_in[i] == "ls":
+            total_message_count += rand_message_count
 
     return int(total_message_count)
 
@@ -47,8 +49,9 @@ with open('settings/data_manipulation.json') as f:
     data_manipulation = json.load(f)
 modelLabel = data_manipulation["modelLabel"]
 
-# First island in vector is not considered
+# First island in vector is not considered= True
 islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
+islands = ['ls'] * 10  # TODO: local search
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -169,5 +172,7 @@ else:  # Worker Node
             dual_annealing_model_search(data_manipulation)
         elif island == 'sg':
             simplicial_homology_global_optimization_model_search(data_manipulation)
+        elif island == 'ls':
+            local_model_search(data_manipulation)  # TODO: test local search
 
         print("--- Done({})!".format(island))

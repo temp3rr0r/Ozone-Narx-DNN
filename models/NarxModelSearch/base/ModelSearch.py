@@ -9,6 +9,42 @@ from GlobalOptimizationAlgorithms.pyswarm.pso import pso
 from base.ModelRequester import train_model_requester_rabbit_mq
 import numpy as np
 from base.bounds import bounds, ub, lb
+from scipy.optimize import minimize
+
+
+def local_model_search(data_manipulation=None):
+
+    local_search_method = "L-BFGS-B"  # TODO: Use other bounded methods like: 'trust-constr', 'SLSQP', 'TNC', 'L-BFGS-B'
+
+    print("\n=== {}\n".format(local_search_method))
+
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'ls'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    baseMpi.train_model.data_manipulation = data_manipulation
+    x0 = np.array(get_random_model())
+    bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
+
+    # minimizer_kwargs = dict(
+    #     # method="TNC",  # TODO: TNC and L-BFGS-B only for constraint bounded local optimization?
+    #     method="L-BFGS-B", jac=True,  # TODO: normalize data
+    #     bounds=bounds,  # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
+    # )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
+    # res = basinhopping(
+    #     # baseMpi.train_model,
+    #     train_model_requester_rabbit_mq,
+    #     # baseMpi.trainModelTester,  # TODO: call fast dummy func
+    #     x0, minimizer_kwargs=minimizer_kwargs, niter=iterations, data_manipulation=data_manipulation)
+
+    res = minimize(
+        x0=x0,
+        fun=train_model_requester_rabbit_mq,
+        method=local_search_method,
+        bounds=bounds)
+
+    print(res)
 
 
 def basin_hopping_model_search(data_manipulation=None):
