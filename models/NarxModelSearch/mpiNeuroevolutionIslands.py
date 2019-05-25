@@ -49,8 +49,16 @@ with open('settings/data_manipulation.json') as f:
     data_manipulation = json.load(f)
 modelLabel = data_manipulation["modelLabel"]
 
+# TODO: read last best model parameters for local search
+import os
+if os.path.exists("foundModels/best_model_parameters.pkl"):
+    import pandas as pd
+    best_model_parameters_df = pd.read_pickle("foundModels/best_model_parameters.pkl")
+    data_manipulation["best_model_parameters"] = best_model_parameters_df["best_model_parameters"]
+    print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
+
 # First island in vector is not considered= True
-islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
+# islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
 islands = ['ls'] * 10  # TODO: local search
 
 comm = MPI.COMM_WORLD

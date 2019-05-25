@@ -494,6 +494,11 @@ def train_model(x, *args):
 
         original_df2 = pd.DataFrame({"full_{}_rank{}_parameters".format(modelLabel, rank): [full_model_parameters]})
         original_df2.to_pickle("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, rank))
+
+        # TODO: store as best model parameters
+        best_model_parameters_df = pd.DataFrame({"best_model_parameters": [full_model_parameters]})
+        best_model_parameters_df.to_pickle("foundModels/best_model_parameters.pkl")
+
         model.summary()  # print layer shapes and model parameters
 
         # Plot history

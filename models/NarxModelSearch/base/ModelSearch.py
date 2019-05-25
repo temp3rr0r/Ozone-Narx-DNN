@@ -24,25 +24,37 @@ def local_model_search(data_manipulation=None):
     baseMpi.train_model.label = 'ls'
     baseMpi.train_model.folds = data_manipulation["folds"]
     baseMpi.train_model.data_manipulation = data_manipulation
-    x0 = np.array(get_random_model())
+
+    # TODO: read last best model parameters for local search
+    import os
+    if os.path.exists("foundModels/best_model_parameters.pkl"):
+        import pandas as pd
+        best_model_parameters_df = pd.read_pickle("foundModels/best_model_parameters.pkl")
+        data_manipulation["best_model_parameters"] = best_model_parameters_df["best_model_parameters"]
+        x0 = np.array(data_manipulation["best_model_parameters"])[0]
+        print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
+        print("x0: {}".format(x0))  # TODO: x0 MUST be from the best model so far
+    else:
+        x0 = np.array(get_random_model())
+
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
 
-    # minimizer_kwargs = dict(
-    #     # method="TNC",  # TODO: TNC and L-BFGS-B only for constraint bounded local optimization?
-    #     method="L-BFGS-B", jac=True,  # TODO: normalize data
-    #     bounds=bounds,  # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
-    # )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
-    # res = basinhopping(
-    #     # baseMpi.train_model,
-    #     train_model_requester_rabbit_mq,
-    #     # baseMpi.trainModelTester,  # TODO: call fast dummy func
-    #     x0, minimizer_kwargs=minimizer_kwargs, niter=iterations, data_manipulation=data_manipulation)
+    minimizer_kwargs = dict(
+        # method="TNC",  # TODO: TNC and L-BFGS-B only for constraint bounded local optimization?
+        method="L-BFGS-B", jac=True,  # TODO: normalize data
+        bounds=bounds,  # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
+    )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
+
+    options = dict(maxfun=iterations)
 
     res = minimize(
         x0=x0,
         fun=train_model_requester_rabbit_mq,
+        # fun=baseMpi.train_model,
         method=local_search_method,
-        bounds=bounds)
+        bounds=bounds,
+        options=options
+    )
 
     print(res)
 
