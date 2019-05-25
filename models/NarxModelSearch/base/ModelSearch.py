@@ -12,11 +12,11 @@ from base.bounds import bounds, ub, lb
 from scipy.optimize import minimize
 
 
+def local_exposer_train_model_requester_rabbit_mq(x):
+    return train_model_requester_rabbit_mq(x)[0]  # TODO: should return MSE only
+
+
 def local_model_search(data_manipulation=None):
-
-    local_search_method = "L-BFGS-B"  # TODO: Use other bounded methods like: 'trust-constr', 'SLSQP', 'TNC', 'L-BFGS-B'
-
-    print("\n=== {}\n".format(local_search_method))
 
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]
@@ -39,18 +39,27 @@ def local_model_search(data_manipulation=None):
 
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
 
-    minimizer_kwargs = dict(
-        # method="TNC",  # TODO: TNC and L-BFGS-B only for constraint bounded local optimization?
-        method="L-BFGS-B", jac=True,  # TODO: normalize data
-        bounds=bounds,  # TODO: check minimisers: https://docs.scipy.org/doc/scipy/reference/optimize.html
-    )  # TODO: test method = "SLSQP". TODO: test Jacobian methods from minimizers
-
+    # TODO: Use other bounded methods like: 'trust-constr', 'SLSQP', 'TNC', 'L-BFGS-B'
+    local_search_method = "L-BFGS-B"
     options = dict(maxfun=iterations)
+    if data_manipulation["rank"] % 10 == 1:
+        local_search_method = "TNC"
+        options = None
+    elif data_manipulation["rank"] % 10 == 2:
+        local_search_method = "L-BFGS-B"
+        options = dict(maxfun=iterations)
+    elif data_manipulation["rank"] % 10 == 3:
+        local_search_method = "SLSQP"
+        options = None
+    elif data_manipulation["rank"] % 10 == 4:
+        local_search_method = "trust-constr"
+        options = None
+    print("\n=== {}\n".format(local_search_method))
 
     res = minimize(
         x0=x0,
-        fun=train_model_requester_rabbit_mq,
-        # fun=baseMpi.train_model,
+        fun=local_exposer_train_model_requester_rabbit_mq,
+        # fun=train_model_requester_rabbit_mq,
         method=local_search_method,
         bounds=bounds,
         options=options
