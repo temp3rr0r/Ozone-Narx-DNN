@@ -13,8 +13,7 @@ from scipy.optimize import minimize
 
 
 def local_exposer_train_model_requester_rabbit_mq(x):
-    return train_model_requester_rabbit_mq(x)[0]  # TODO: should return MSE only
-
+    return train_model_requester_rabbit_mq(x)[0]  # Should return MSE only
 
 def local_model_search(data_manipulation=None):
 
@@ -25,7 +24,7 @@ def local_model_search(data_manipulation=None):
     baseMpi.train_model.folds = data_manipulation["folds"]
     baseMpi.train_model.data_manipulation = data_manipulation
 
-    # TODO: read last best model parameters for local search
+    # Read last best model parameters for local search
     import os
     if os.path.exists("foundModels/best_model_parameters.pkl"):
         import pandas as pd
@@ -39,27 +38,28 @@ def local_model_search(data_manipulation=None):
 
     bounds = [(low, high) for low, high in zip(lb, ub)]  # rewrite the bounds in the way required by L-BFGS-B
 
-    # TODO: Use other bounded methods like: 'trust-constr', 'SLSQP', 'TNC', 'L-BFGS-B'
+    # Bounded local optimizers
     local_search_method = "L-BFGS-B"
     options = dict(maxfun=iterations)
     if data_manipulation["rank"] % 10 == 1:
-        local_search_method = "TNC"
-        options = None
-    elif data_manipulation["rank"] % 10 == 2:
         local_search_method = "L-BFGS-B"
         options = dict(maxfun=iterations)
-    elif data_manipulation["rank"] % 10 == 3:
+    elif data_manipulation["rank"] % 10 == 2:
         local_search_method = "SLSQP"
-        options = None
+        options = dict(maxiter=iterations)
+    elif data_manipulation["rank"] % 10 == 3:
+        local_search_method = "TNC"
+        options = dict(maxiter=iterations)
     elif data_manipulation["rank"] % 10 == 4:
         local_search_method = "trust-constr"
-        options = None
+        options = dict(maxiter=iterations)
+
     print("\n=== {}\n".format(local_search_method))
 
     res = minimize(
         x0=x0,
         fun=local_exposer_train_model_requester_rabbit_mq,
-        # fun=train_model_requester_rabbit_mq,
+        # fun=baseMpi.ackley,  # TODO: for testing
         method=local_search_method,
         bounds=bounds,
         options=options
