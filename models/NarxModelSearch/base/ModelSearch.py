@@ -1,5 +1,7 @@
 from __future__ import print_function
+import os
 import random
+import pandas as pd
 from GlobalOptimizationAlgorithms.DifferentialEvolution import differential_evolution
 from GlobalOptimizationAlgorithms.SimplicialHomologyGlobalOptimization import shgo
 from GlobalOptimizationAlgorithms.DualAnnealing import dual_annealing
@@ -13,7 +15,13 @@ from scipy.optimize import minimize
 
 
 def local_exposer_train_model_requester_rabbit_mq(x):
+    """
+    Encapsulates train_model_requester_rabbit_mq, in order to expose the MSE only of the function return.
+    :param x: Full model parameters
+    :return: Float scale MSE.
+    """
     return train_model_requester_rabbit_mq(x)[0]  # Should return MSE only
+
 
 def local_model_search(data_manipulation=None):
 
@@ -25,14 +33,12 @@ def local_model_search(data_manipulation=None):
     baseMpi.train_model.data_manipulation = data_manipulation
 
     # Read last best model parameters for local search
-    import os
     if os.path.exists("foundModels/best_model_parameters.pkl"):
-        import pandas as pd
         best_model_parameters_df = pd.read_pickle("foundModels/best_model_parameters.pkl")
         data_manipulation["best_model_parameters"] = best_model_parameters_df["best_model_parameters"]
         x0 = np.array(data_manipulation["best_model_parameters"])[0]
         print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
-        print("x0: {}".format(x0))  # TODO: x0 MUST be from the best model so far
+        print("x0: {}".format(x0))
     else:
         x0 = np.array(get_random_model())
 
@@ -59,7 +65,7 @@ def local_model_search(data_manipulation=None):
     res = minimize(
         x0=x0,
         fun=local_exposer_train_model_requester_rabbit_mq,
-        # fun=baseMpi.ackley,  # TODO: for testing
+        # fun=baseMpi.ackley,  # for testing
         method=local_search_method,
         bounds=bounds,
         options=options
@@ -189,7 +195,7 @@ def dual_annealing_model_search(data_manipulation=None):
         accept=accept,
         restart_temp_ratio=restart_temp_ratio,
         maxiter=iterations,
-        no_local_search=True,  # TODO: no local search
+        no_local_search=True,
         # polish=polish
         x0=x0,
         data_manipulation=data_manipulation)  # TODO: test other DA params
@@ -233,7 +239,7 @@ def differential_evolution_model_search(data_manipulation=None):
         train_model_requester_rabbit_mq,
         # baseMpi.train_model,
         bounds, popsize=agents, maxiter=iterations,
-        polish=polish, strategy=strategy, data_manipulation=data_manipulation)  # TODO: test other DE params
+        polish=polish, strategy=strategy, data_manipulation=data_manipulation)
 
     print_optimum(xopt1, xopt1)
 

@@ -8,7 +8,7 @@ from base.NeuroevolutionModelTraining import train_model
 def train_model_requester_rabbit_mq(x):
     """
     Sends model training request to the Rabbit MQ message broker. Also block-waits for response.
-    :param x: None.
+    :param x: Full model parameters.
     :return: None.
     """
     start_time = time.time()  # training time per model
