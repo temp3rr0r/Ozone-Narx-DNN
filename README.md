@@ -1,4 +1,4 @@
-# Modelling of air-quality in Belgium for forecasting purposes using Deep Neural Networks 
+# Air-quality forecasting in Belgium using Deep Neural Networks, Neuroevolution and distributed Island T​ranspeciation
 
 ## CONTEXT
 Forecasting of air pollutants, like the low-level (tropospheric) Ozone & Particulate Matter (PM), which can accumulate and potentially harm natural ecosystems and human health.
