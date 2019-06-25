@@ -302,6 +302,108 @@ def particle_swarm_optimization_model_search(data_manipulation=None, iterations=
     print_optimum(xopt1, fopt1)
 
 
+def list_to_bayesian_optmization_pbounds_dictionary(list_values, dictionary_indices):
+    returning_dictionary = {}
+    print("dictionary_indices: {}".format(dictionary_indices))
+    list_index = 0
+    for dictionary_index in dictionary_indices:
+        returning_dictionary[dictionary_index] = list_values[list_index]
+        list_index += 1
+    return returning_dictionary
+
+
+def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
+    from bayes_opt import BayesianOptimization
+    from bayes_opt import UtilityFunction
+
+    # TODO: bayesian optimization init
+    pbounds = {}
+    pbound_idx = 0
+    for bound in bounds:
+        pbound_idx = pbound_idx + 1
+        pbounds["x{}".format(pbound_idx)] = bound
+    optimizer = BayesianOptimization(
+        f=None,
+        pbounds=pbounds,
+        verbose=2,
+        random_state=1,
+    )
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those?
+
+    iterations = data_manipulation["iterations"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'bo'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+
+    min_mean_mse = 3000.0
+    max_mean_mse = -1
+    best_rand_agent = None
+    worst_rand_agent = None
+    swap = False
+    suggestion = False
+    k = data_manipulation["swapEvery"]
+    for i in range(iterations):
+        data_manipulation["iteration"] = i
+        baseMpi.train_model.data_manipulation = data_manipulation
+
+        # x = np.array(get_random_model())
+        # TODO: get next list of params
+        if suggestion:  # TODO: received candidate model, suggested it in bayesian optimization
+            # next_list = [21.0, 440, 0.0, 477.94477243642075, 64.0, 64.0, 0.01, 0.04621180938412835,
+            #              0.048467420303749884,
+            #              0.01, 0.04996100829587216, 0.25, 0.01, 1.0, 0.01, 1.0, 1.0, 0.45479139193597523, 0.0, 0.0, 1.0,
+            #              5.0, 5.0, 5.0,
+            #              9.0, 9.0, 0.0]
+            # received_agent = data_master_to_worker["agent"]
+            # worst_rand_agent = received_agent
+            next_list = worst_rand_agent  # TODO: the received data_master_to_worker["agent"]
+
+            next_point = list_to_bayesian_optmization_pbounds_dictionary(next_list, pbounds.keys())
+            suggestion = False
+        else:
+            next_point = optimizer.suggest(utility)
+        x = np.array(list(next_point.values()))
+
+        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
+        # TODO: register sample & result
+        target = mean_mse
+        optimizer.register(params=next_point, target=target)
+
+        if mean_mse < min_mean_mse:  # Update best found agent
+            best_rand_agent = x
+            min_mean_mse = mean_mse
+            print("=== Bayesian Optimization island {}, new min_mean_mse: {}, {}".format(data_worker_to_master["rank"], min_mean_mse,
+                                                                        best_rand_agent))
+        if mean_mse > max_mean_mse:
+            worst_rand_agent = x
+            max_mean_mse = mean_mse
+            print("=== Bayesian Optimization island {}, new max_mean_mse: {}, {}".format(data_worker_to_master["rank"], max_mean_mse,
+                                                                        worst_rand_agent))
+        # Always send the best agent back
+        # Worker to master
+        data_worker_to_master["mean_mse"] = min_mean_mse
+        data_worker_to_master["agent"] = best_rand_agent
+        comm = data_manipulation["comm"]
+        req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+        req.wait()
+        # Master to worker
+        data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+        # Replace worst agent
+        if i % k == 0 and i > 0:  # Send back found agent
+            swap = True
+        if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
+            print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+                data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
+                data_master_to_worker["iteration"]))
+            received_agent = data_master_to_worker["agent"]
+            worst_rand_agent = received_agent
+            swap = False
+            suggestion = True
+
+    print("=== Bayesian Optimization island {}, max Mse: {}, min Mse: {}, {}, {}"
+          .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
+
+
 def random_model_search(data_manipulation=None, iterations=100):
 
     iterations = data_manipulation["iterations"]
