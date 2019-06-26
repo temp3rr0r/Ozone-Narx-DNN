@@ -307,7 +307,6 @@ def particle_swarm_optimization_model_search(data_manipulation=None, iterations=
 
 def list_to_bayesian_optimization_pbounds_dictionary(list_values, dictionary_keys):
     returning_dictionary = {}
-    print("dictionary_indices: {}".format(dictionary_keys))
     list_index = 0
     for dictionary_index in dictionary_keys:
         returning_dictionary[dictionary_index] = list_values[list_index]
@@ -323,7 +322,7 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
     baseMpi.train_model.folds = data_manipulation["folds"]
     rank = data_manipulation["rank"]
 
-    # TODO: bayesian optimization init
+    # Init bayesian optimization
     pbounds = {}
     pbound_idx = 0
     init_var_name = 'a'
@@ -335,7 +334,7 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         f=None,
         pbounds=pbounds,
         verbose=2,
-        random_state=rank,  # TODO: rank as random seed
+        random_state=rank,  # Rank as random seed
     )
     utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those? based on local rank
 
@@ -350,8 +349,7 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         data_manipulation["iteration"] = i
         baseMpi.train_model.data_manipulation = data_manipulation
 
-        # x = np.array(get_random_model())
-        # TODO: get next list of params
+        # Get next list of params
         if suggestion:  # Received candidate model, suggested it in bayesian optimization
             next_list = worst_rand_agent  # The received best neighbouring data_master_to_worker["agent"]
             next_point = list_to_bayesian_optimization_pbounds_dictionary(next_list, pbounds.keys())
@@ -362,7 +360,7 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         x = np.array(list(next_point.values()))  # TODO: Still throws list index out of range exception?
 
         mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)  # TODO: test with model validity checker
-        # Register sample & result
+        # Register x & mse to the Bayesian Optimizer
         target = mean_mse
         try:
             optimizer.register(params=next_point, target=-target)  # Negative: default bo tries to maximize
@@ -372,13 +370,13 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         if mean_mse < min_mean_mse:  # Update best found agent
             best_rand_agent = x
             min_mean_mse = mean_mse
-            print("=== Bayesian Optimization island {}, new min_mean_mse: {}, {}".format(data_worker_to_master["rank"], min_mean_mse,
-                                                                        best_rand_agent))
+            print("=== Bayesian Optimization island {}, new min_mean_mse: {}, {}"
+                  .format(data_worker_to_master["rank"], min_mean_mse, best_rand_agent))
         if mean_mse > max_mean_mse:
             worst_rand_agent = x
             max_mean_mse = mean_mse
-            print("=== Bayesian Optimization island {}, new max_mean_mse: {}, {}".format(data_worker_to_master["rank"], max_mean_mse,
-                                                                        worst_rand_agent))
+            print("=== Bayesian Optimization island {}, new max_mean_mse: {}, {}"
+                  .format(data_worker_to_master["rank"], max_mean_mse, worst_rand_agent))
         # Always send the best agent back
         # Worker to master
         data_worker_to_master["mean_mse"] = min_mean_mse
@@ -403,22 +401,19 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
     print("=== Bayesian Optimization island {}, max Mse: {}, min Mse: {}, {}, {}"
           .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
 
-    print(optimizer.max)  # TODO: check
+    print(optimizer.max)
 
 
 def black_box_function_ga(individual):
 
-    # x = np.array(get_random_model()) # TODO:
     x = individual.copy()
-    # print("individual ", individual)
     for idx in range(len(x)):  # TODO: what if it goes in [-inf, 0) or (1, +inf]?
         x[idx] = x[idx] * (bounds[idx][1] - bounds[idx][0]) + bounds[idx][0]
     x = np.array(x)
-    # print("un-normalized x ", x)
 
     mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
     black_box_function_ga.data["evaluation"] += 1
-    i = black_box_function_ga.data["evaluation"]
+    i = black_box_function_ga.data["evaluation"]  # iteration -> Generation. evaluation -> individual's MSE
 
     if mean_mse < black_box_function_ga.min_mean_mse:  # Update best found agent
         black_box_function_ga.best_rand_agent = x
@@ -447,28 +442,21 @@ def black_box_function_ga(individual):
     k = black_box_function_ga.k
     if i % k == 0 and i > 0:  # Send back found agent
         black_box_function_ga.swap = True
-        print("=== SWAP")  # TODO:
-    if black_box_function_ga.swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
+    if black_box_function_ga.swap and data_master_to_worker["iteration"] >= (int(i / k) * k):  # TODO: evaluation OR iteration?
         print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
             data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
-            data_master_to_worker["iteration"]))
+            data_master_to_worker["iteration"]))  # TODO: evaluation OR iteration?
         received_agent = data_master_to_worker["agent"]
         black_box_function_ga.worst_rand_agent = received_agent
 
-        # TODO: Island swap worst individual
+        # Island swap worst individual within the GA population internal storage
         worst = tools.selWorst(black_box_function_ga.pop, k=1)
         worst_index = black_box_function_ga.pop.index(worst[0])
-        print("worst (index: {}): {}".format(worst_index, black_box_function_ga.pop[worst_index]))
-
-        print("range(len(received_agent))", range(len(received_agent)))
-        print("received_agent", received_agent)
         for list_index in range(len(received_agent)):
             black_box_function_ga.pop[worst_index][list_index] = received_agent[list_index]
-        print("previous worst (index: {}): {}".format(worst_index, black_box_function_ga.pop[worst_index]))
-
         black_box_function_ga.swap = False
 
-    return (mean_mse,)
+    return (mean_mse,)  # Return tuple
 
 
 def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
@@ -481,13 +469,13 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     baseMpi.train_model.folds = data_manipulation["folds"]
     k = data_manipulation["swapEvery"]
 
-    # TODO: init GA
+    # Init Genatic Algorithm
     creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
     creator.create("Individual", list, fitness=creator.FitnessMin)
     toolbox = base.Toolbox()
     toolbox.register("attr_float", random.random)
     toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float,
-                     n=len(bounds))  # TODO: param count
+                     n=len(bounds))  # Invididual Genotype length = x's Param count
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
     toolbox.register("evaluate", black_box_function_ga)
     toolbox.register("mate", tools.cxTwoPoint)
@@ -495,7 +483,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     toolbox.register("select", tools.selTournament, tournsize=3)
     black_box_function_ga.pop = toolbox.population(n=agents)
     black_box_function_ga.data = {"evaluation": 0}
-    black_box_function_ga.k = 5
+    black_box_function_ga.k = k  # TODO: check swap every
     black_box_function_ga.comm = comm
     ngen, cxpb, mutpb = iterations, 0.5, 0.2
 
@@ -509,40 +497,20 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
         data_manipulation["iteration"] = i
         baseMpi.train_model.data_manipulation = data_manipulation
 
-        # TODO: GA
+        # GA evaluation of each invididual for the current generation
         print("=== Generation: {}".format(i))
+
         black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
         black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
         invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
         fitnesses = toolbox.map(toolbox.evaluate, invalids)
+
+
         for ind, fit in zip(invalids, fitnesses):
             ind.fitness.values = fit
 
-        # # Always send the best agent back
-        # # Worker to master
-        # data_worker_to_master["mean_mse"] = min_mean_mse
-        # data_worker_to_master["agent"] = best_rand_agent
-        # comm = data_manipulation["comm"]
-        # req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
-        # req.wait()
-        # # Master to worker
-        # data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
-        # # Replace worst agent
-        # if i % k == 0 and i > 0:  # Send back found agent
-        #     swap = True
-        # if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
-        #     print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
-        #         data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
-        #         data_master_to_worker["iteration"]))
-        #     received_agent = data_master_to_worker["agent"]
-        #     worst_rand_agent = received_agent
-        #     swap = False
+    print(tools.selBest(black_box_function_ga.pop, k=1))  # TODO: return pretty: x rescaled to actual bounds
 
-    # print("=== Genetic Algorithm island {}, max Mse: {}, min Mse: {}, {}, {}"
-    #       .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
-
-    print()
-    print(tools.selBest(black_box_function_ga.pop, k=1))
 
 def random_model_search(data_manipulation=None, iterations=100):
 

@@ -68,15 +68,77 @@ black_box_function_ga.pop = toolbox.population(n=4)
 black_box_function_ga.k = 5
 ngen, cxpb, mutpb = 4, 0.5, 0.2
 
+rank = 3
+
 for g in range(ngen):
     # TODO: individual attribs should be float in [0, 1]
     print("=== Generation: {}".format(g))
 
-    black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
-    black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+    # TODO: EA algorithms: https://deap.readthedocs.io/en/master/api/algo.html#complete-algorithms
+    if rank == 1:
+        # TODO: eaSimple
+        # cxpb: Probability of mating 2 individuals
+        # mutpb: Probability of mutating an individual
+        # varAnd: Crossover AND mutation
+        # evaluate(population)
+        # for g in range(ngen):
+        #     population = select(population, len(population))
+        #     offspring = varAnd(population, toolbox, cxpb, mutpb)
+        #     evaluate(offspring)
+        #     population = offspring
 
-    invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
-    fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
+        black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+    elif rank == 2:
+        # TODO: eaMuPlusLambda
+        # cxpb: Probability of mating 2 individuals
+        # mutpb: Probability of mutating an individual
+        # varOr: Crossover AND mutation: crossover, mutation or reproduction
+        # mu: The number of individuals to select for the next generation.
+        # lambda_: The number of children to produce at each generation.
+        # evaluate(population)
+        # for g in range(ngen):
+        #     offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
+        #     evaluate(offspring)
+        #     population = select(population + offspring, mu)
+        mu = int(len(black_box_function_ga.pop) * 1.5)
+        lambda_ = int(len(black_box_function_ga.pop) / 2)
+
+        old_population = black_box_function_ga.pop
+
+        black_box_function_ga.pop = algorithms.varOr(black_box_function_ga.pop, toolbox, lambda_, cxpb, mutpb)
+        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop + old_population, k=mu)
+    elif rank == 3:
+        # TODO: eaMuCommaLambda
+        # cxpb: Probability of mating 2 individuals
+        # mutpb: Probability of mutating an individual
+        # varOr: Crossover AND mutation: crossover, mutation or reproduction
+        # mu: The number of individuals to select for the next generation.
+        # lambda_: The number of children to produce at each generation.
+        # evaluate(population)
+        # for g in range(ngen):
+        #     offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
+        #     evaluate(offspring)
+        #     population = select(offspring, mu)
+        mu = int(len(black_box_function_ga.pop) * 1.5)
+        lambda_ = int(len(black_box_function_ga.pop) / 2)
+
+        old_population = black_box_function_ga.pop
+
+        black_box_function_ga.pop = algorithms.varOr(black_box_function_ga.pop, toolbox, lambda_, cxpb, mutpb)
+        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
+    else:
+        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
+        black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+
     for ind, fit in zip(invalids, fitnesses):
         ind.fitness.values = fit
 
