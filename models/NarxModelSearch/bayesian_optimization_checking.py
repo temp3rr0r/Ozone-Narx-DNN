@@ -36,8 +36,8 @@ optimizer = BayesianOptimization(
 
 utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
 # TODO: try to alter "next"/empty queue/reset queue AND send/receive neighbour
-for i in range(4):
-    if i == 2:
+for i in range(8):
+    if i == 2 or i == 3:
         next_list = [21.0, 440, 0.0, 477.94477243642075, 64.0, 64.0, 0.01, 0.04621180938412835, 0.048467420303749884,
          0.01, 0.04996100829587216, 0.25, 0.01, 1.0, 0.01, 1.0, 1.0, 0.45479139193597523, 0.0, 0.0, 1.0, 5.0, 5.0, 5.0,
          9.0, 9.0, 0.0]
@@ -49,7 +49,12 @@ for i in range(4):
         print("To list: {}".format(next_point.values()))
     nothing, target = black_box_function(list(next_point.values()))
 
-    optimizer.register(params=next_point, target=target)
+    try:
+        optimizer.register(params=next_point, target=-target)  # TODO: negative: default bo tries to maximize
+    except KeyError as ke:
+        print("=== KeyError Exception: {}. Continuing...".format(str(ke)))
+
+
     print(target, next_point)
 
 print()

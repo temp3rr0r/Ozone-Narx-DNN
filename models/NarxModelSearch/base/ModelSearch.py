@@ -317,6 +317,12 @@ def list_to_bayesian_optimization_pbounds_dictionary(list_values, dictionary_key
 
 def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
 
+    iterations = data_manipulation["iterations"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'bo'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    rank = data_manipulation["rank"]
+
     # TODO: bayesian optimization init
     pbounds = {}
     pbound_idx = 0
@@ -327,14 +333,9 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         f=None,
         pbounds=pbounds,
         verbose=2,
-        random_state=1,
+        random_state=rank,  # TODO: rank as random seed
     )
     utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those?
-
-    iterations = data_manipulation["iterations"]
-    baseMpi.train_model.counter = 0  # Function call counter
-    baseMpi.train_model.label = 'bo'
-    baseMpi.train_model.folds = data_manipulation["folds"]
 
     min_mean_mse = 3000.0
     max_mean_mse = -1
@@ -368,7 +369,10 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)  # TODO: test with ackley
         # TODO: register sample & result
         target = mean_mse
-        optimizer.register(params=next_point, target=-target)  # TODO: negative: default bo tries to maximize
+        try:
+            optimizer.register(params=next_point, target=-target)  # TODO: negative: default bo tries to maximize
+        except KeyError as ke:
+            print("=== KeyError Exception: {}. Continuing...".format(str(ke)))
 
         if mean_mse < min_mean_mse:  # Update best found agent
             best_rand_agent = x
@@ -464,13 +468,13 @@ def black_box_function_ga(individual):
         print("range(len(received_agent))", range(len(received_agent)))
         print("received_agent", received_agent)
         for list_index in range(len(received_agent)):
-            print("list_index", list_index)
             black_box_function_ga.pop[worst_index][list_index] = received_agent[list_index]
         print("previous worst (index: {}): {}".format(worst_index, black_box_function_ga.pop[worst_index]))
 
         black_box_function_ga.swap = False
 
     return (mean_mse,)
+
 
 def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
 

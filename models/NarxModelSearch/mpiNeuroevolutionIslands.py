@@ -68,7 +68,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 # islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
 # islands = ['ls'] * 10  # Local search islands
 islands = ['bo'] * 10  # TODO: Bayesian optimization search islands
-islands = ['ga'] * 10  # TODO: Genetic Algorithm search islands
+# islands = ['ga'] * 10  # TODO: Genetic Algorithm search islands
 # islands = ['rand'] * 10
 
 comm = MPI.COMM_WORLD
