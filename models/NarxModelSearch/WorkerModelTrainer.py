@@ -180,8 +180,8 @@ def model_training_callback(ch, method, properties, body):
             channel.queue_declare(queue=results_queue, durable=False)
 
         x = np.array(body["array"])
-        # mse = baseMpi.train_model(x, *args)  # Do train model
-        mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
+        mse = baseMpi.train_model(x, *args)  # Do train model
+        # mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
         print(" [x] mse: ", mse)
 
         ch.basic_ack(delivery_tag=method.delivery_tag)  # Ack receipt of task & work done
@@ -199,7 +199,7 @@ def model_training_callback(ch, method, properties, body):
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-gpu_device = 2  # Set GPU
+gpu_device = 1  # Set GPU
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)

@@ -326,16 +326,18 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
     # TODO: bayesian optimization init
     pbounds = {}
     pbound_idx = 0
-    for bound in bounds:
+    init_var_name = 'a'
+    for bound in bounds:  # Make x -> named dictionary
+        var_name = chr(ord(init_var_name) + pbound_idx)
+        pbounds["{}".format(var_name)] = bound
         pbound_idx = pbound_idx + 1
-        pbounds["x{}".format(pbound_idx)] = bound
     optimizer = BayesianOptimization(
         f=None,
         pbounds=pbounds,
         verbose=2,
         random_state=rank,  # TODO: rank as random seed
     )
-    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those?
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those? based on local rank
 
     min_mean_mse = 3000.0
     max_mean_mse = -1
@@ -350,27 +352,20 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
 
         # x = np.array(get_random_model())
         # TODO: get next list of params
-        if suggestion:  # TODO: received candidate model, suggested it in bayesian optimization
-            # next_list = [21.0, 440, 0.0, 477.94477243642075, 64.0, 64.0, 0.01, 0.04621180938412835,
-            #              0.048467420303749884,
-            #              0.01, 0.04996100829587216, 0.25, 0.01, 1.0, 0.01, 1.0, 1.0, 0.45479139193597523, 0.0, 0.0, 1.0,
-            #              5.0, 5.0, 5.0,
-            #              9.0, 9.0, 0.0]
-            # received_agent = data_master_to_worker["agent"]
-            # worst_rand_agent = received_agent
-            next_list = worst_rand_agent  # TODO: the received data_master_to_worker["agent"]
-
+        if suggestion:  # Received candidate model, suggested it in bayesian optimization
+            next_list = worst_rand_agent  # The received best neighbouring data_master_to_worker["agent"]
             next_point = list_to_bayesian_optimization_pbounds_dictionary(next_list, pbounds.keys())
             suggestion = False
         else:
             next_point = optimizer.suggest(utility)
-        x = np.array(list(next_point.values()))
 
-        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)  # TODO: test with ackley
-        # TODO: register sample & result
+        x = np.array(list(next_point.values()))  # TODO: Still throws list index out of range exception?
+
+        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)  # TODO: test with model validity checker
+        # Register sample & result
         target = mean_mse
         try:
-            optimizer.register(params=next_point, target=-target)  # TODO: negative: default bo tries to maximize
+            optimizer.register(params=next_point, target=-target)  # Negative: default bo tries to maximize
         except KeyError as ke:
             print("=== KeyError Exception: {}. Continuing...".format(str(ke)))
 

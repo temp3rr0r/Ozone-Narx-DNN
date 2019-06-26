@@ -11,9 +11,9 @@ from mpi4py import MPI
 import json
 
 
-def get_total_message_count(islands_in, size_in, data_manipulation_in):
+def estimate_total_message_count(islands_in, size_in, data_manipulation_in):
     """
-    Estimates the total MPI messages needed for the current Island Transpeciation configuration.
+    Tries to estimate the total MPI messages needed for the current Island Transpeciation configuration.
     :param islands_in: Vector of strings, indicating each island type.
     :param size_in: Total island count.
     :param data_manipulation_in: Data object, containing information on islands: agents & iterations.
@@ -27,9 +27,9 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
     ga_message_count = (iterations + 1) * data_manipulation_in["agents"]
     de_message_count = (  # (data_manipulation["iterations"] + 1)
             2 * data_manipulation_in["agents"] * len(bounds))
-    bh_message_count = iterations  # TODO: bh
-    sg_message_count = iterations  # TODO: sg
-    da_message_count = iterations  # TODO: da
+    bh_message_count = iterations
+    sg_message_count = iterations
+    da_message_count = iterations
 
     for i in range(1, size_in):
         if islands_in[i] == "pso":
@@ -54,7 +54,7 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
     return int(total_message_count)
 
 
-with open('settings/data_manipulation.json') as f:
+with open('settings/data_manipulation.json') as f:  # Read the settings json file
     data_manipulation = json.load(f)
 modelLabel = data_manipulation["modelLabel"]
 
@@ -64,7 +64,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
     data_manipulation["best_model_parameters"] = best_model_parameters_df["best_model_parameters"]
     print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
 
-# First island in vector is not considered= True
+# First island in vector is not considered
 # islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
 # islands = ['ls'] * 10  # Local search islands
 islands = ['bo', 'ga', 'bo', 'de', 'pso', 'rand', 'da']  # TODO: Bayesian optimization, Genetic Algorithm search islands
@@ -95,7 +95,7 @@ if rank == 0:  # Master Node
     evaluations = 0
     bestIsland = ""
 
-    totalMessageCount = get_total_message_count(islands, size, data_manipulation)
+    totalMessageCount = estimate_total_message_count(islands, size, data_manipulation)
     print("--- Expecting {} total messages...".format(totalMessageCount))
 
     for messageId in range(totalMessageCount):
@@ -163,7 +163,6 @@ else:  # Worker Node
 
         # TODO: add/test (single or multi-agent) optimizers:
         # TODO: - Reinforcement Learning for continuous + discrete spaces
-        # TODO: - (traditional) Genetic Algorithms
         # TODO: - XGBoost
         # TODO: - Ant Colony Optimization (layer types only or bounded numerical if possible)
         # TODO: - Inductive Learning Programming (Known ts-DL layers/techniques (legends) =(progol)=>
