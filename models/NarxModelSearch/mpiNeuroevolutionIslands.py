@@ -69,6 +69,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 # islands = ['ls'] * 10  # Local search islands
 islands = ['bo', 'ga', 'bo', 'de', 'pso', 'rand', 'da', 'pso']  # TODO: Bayesian optimization, Genetic Algorithm search islands
 
+
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()

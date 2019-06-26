@@ -511,6 +511,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     black_box_function_ga.comm = comm
     ngen, cxpb, mutpb = iterations, 0.5, 0.2
 
+    # TODO:
     if data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
         # TODO: generate/update?
         # TODO: Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
@@ -601,6 +602,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
             invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
             fitnesses = toolbox.map(toolbox.evaluate, invalids)
             black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
+        # TODO:
         elif data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
             # TODO: eaGenerateUpdate
             # for g in range(ngen):
