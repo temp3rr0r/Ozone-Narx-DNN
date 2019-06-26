@@ -21,15 +21,15 @@ def black_box_function_ga(individual):
     # return (x[0] ** 2,)
 
     nothing, target = black_box_function(x)
-    black_box_function_ga.data["iter"] += 1
+    black_box_function_ga.data["evaluation"] += 1
 
     k = 5
-    iteration = black_box_function_ga.data["iter"]
+    evaluation = black_box_function_ga.data["evaluation"]
     best = tools.selBest(black_box_function_ga.pop, k=1)
     # TODO: island communication IO
     # print("best: {}".format(best))
-    if iteration % k == 0:
-        print("--- swap iteration: {}".format(iteration))
+    if evaluation % black_box_function_ga.k == 0:
+        print("--- swap evaluation: {}".format(evaluation))
 
         # print("len(pop)", len(black_box_function_ga.pop))
         # print("pop[0]", black_box_function_ga.pop[0])
@@ -51,12 +51,11 @@ def black_box_function_ga(individual):
     return (target,)
 
 
-black_box_function_ga.data = {"iter": 0}
+black_box_function_ga.data = {"evaluation": 0}
 
 island = "ga"
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMin)
-
 toolbox = base.Toolbox()
 toolbox.register("attr_float", random.random)
 toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=len(bounds))  # TODO: param count
@@ -65,45 +64,38 @@ toolbox.register("evaluate", black_box_function_ga)
 toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
+black_box_function_ga.pop = toolbox.population(n=4)
+black_box_function_ga.k = 5
+ngen, cxpb, mutpb = 4, 0.5, 0.2
 
-if __name__ == "__main__":
-    black_box_function_ga.pop = toolbox.population(n=20)
+for g in range(ngen):
+    # TODO: individual attribs should be float in [0, 1]
+    print("=== Generation: {}".format(g))
 
-    # TODO: find all EA variations -> ~10 GA island versions
-    # TODO: Gray/white box:
-    ngen, cxpb, mutpb = 4, 0.5, 0.2
-    fitnesses = toolbox.map(toolbox.evaluate, black_box_function_ga.pop)
-    for ind, fit in zip(black_box_function_ga.pop, fitnesses):
+    black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
+    black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+
+    invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+    fitnesses = toolbox.map(toolbox.evaluate, invalids)
+    for ind, fit in zip(invalids, fitnesses):
         ind.fitness.values = fit
 
-    for g in range(ngen):
-        # TODO: individual attribs should be float in [0, 1]
-        print("=== Generation: {}".format(g))
+print()
+worst = tools.selWorst(black_box_function_ga.pop, k=1)
+worst_value = black_box_function_ga(worst[0])
+print("Worst: {} = {}".format(worst, worst_value))
 
-        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
-        black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+print()
+best = tools.selBest(black_box_function_ga.pop, k=1)
+best_value = black_box_function_ga(best[0])
+print("Best: {} = {}".format(best, best_value))
 
-        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
-        fitnesses = toolbox.map(toolbox.evaluate, invalids)
-        for ind, fit in zip(invalids, fitnesses):
-            ind.fitness.values = fit
-
-    print()
-    worst = tools.selWorst(black_box_function_ga.pop, k=1)
-    worst_value = black_box_function_ga(worst[0])
-    print("Worst: {} = {}".format(worst, worst_value))
-
-    print()
-    best = tools.selBest(black_box_function_ga.pop, k=1)
-    best_value = black_box_function_ga(best[0])
-    print("Best: {} = {}".format(best, best_value))
-
-    x = best[0].copy()
-    # print("individual ", individual)
-    for i in range(len(x)):
-        x[i] = x[i] * (bounds[i][1] - bounds[i][0]) + bounds[i][0]
-    x = np.array(x)
-    print("un-normalized best: ", x)
+x = best[0].copy()
+# print("individual ", individual)
+for i in range(len(x)):
+    x[i] = x[i] * (bounds[i][1] - bounds[i][0]) + bounds[i][0]
+x = np.array(x)
+print("un-normalized best: ", x)
 
 
-    print('black_box_function_ga.data["iter"]', black_box_function_ga.data["iter"])
+print('black_box_function_ga.data["evaluation"]', black_box_function_ga.data["evaluation"])

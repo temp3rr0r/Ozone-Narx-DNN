@@ -406,6 +406,105 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
     print(optimizer.max)  # TODO: check
 
 
+def black_box_function_ga(individual):
+
+    # x = np.array(get_random_model()) # TODO:
+    x = individual.copy()
+    # print("individual ", individual)
+    for idx in range(len(x)):  # TODO: what if it goes in [-inf, 0) or (1, +inf]?
+        x[idx] = x[idx] * (bounds[idx][1] - bounds[idx][0]) + bounds[idx][0]
+    x = np.array(x)
+    # print("un-normalized x ", x)
+
+    mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
+    black_box_function_ga.data["evaluation"] += 1
+    evaluation = black_box_function_ga.data["evaluation"]
+    if evaluation % black_box_function_ga.k == 0:
+        print("--- swap evaluation: {}".format(evaluation))
+
+    return (mean_mse,)
+
+def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
+    from deap import algorithms, base, creator, tools
+
+    iterations = data_manipulation["iterations"]
+    agents = data_manipulation["agents"]
+    baseMpi.train_model.counter = 0  # Function call counter
+    baseMpi.train_model.label = 'ga'
+    baseMpi.train_model.folds = data_manipulation["folds"]
+    min_mean_mse = 3000.0
+    max_mean_mse = -1
+    best_rand_agent = None
+    worst_rand_agent = None
+    swap = False
+    k = data_manipulation["swapEvery"]
+
+    # TODO: init GA
+    creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+    creator.create("Individual", list, fitness=creator.FitnessMin)
+    toolbox = base.Toolbox()
+    toolbox.register("attr_float", random.random)
+    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float,
+                     n=len(bounds))  # TODO: param count
+    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+    toolbox.register("evaluate", black_box_function_ga)
+    toolbox.register("mate", tools.cxTwoPoint)
+    toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
+    toolbox.register("select", tools.selTournament, tournsize=3)
+    black_box_function_ga.pop = toolbox.population(n=agents)
+    black_box_function_ga.data = {"evaluation": 0}
+    black_box_function_ga.k = 5
+    ngen, cxpb, mutpb = iterations, 0.5, 0.2
+
+    for i in range(iterations):
+        data_manipulation["iteration"] = i
+        baseMpi.train_model.data_manipulation = data_manipulation
+
+        # TODO: GA
+        print("=== Generation: {}".format(i))
+        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
+        black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        for ind, fit in zip(invalids, fitnesses):
+            ind.fitness.values = fit
+
+        # if mean_mse < min_mean_mse:  # Update best found agent
+        #     best_rand_agent = x
+        #     min_mean_mse = mean_mse
+        #     print("=== Genetic Algorithm island {}, new min_mean_mse: {}, {}".format(data_worker_to_master["rank"], min_mean_mse,
+        #                                                                 best_rand_agent))
+        # if mean_mse > max_mean_mse:
+        #     worst_rand_agent = x
+        #     max_mean_mse = mean_mse
+        #     print("=== Genetic Algorithm island {}, new max_mean_mse: {}, {}".format(data_worker_to_master["rank"], max_mean_mse,
+        #                                                                 worst_rand_agent))
+        # # Always send the best agent back
+        # # Worker to master
+        # data_worker_to_master["mean_mse"] = min_mean_mse
+        # data_worker_to_master["agent"] = best_rand_agent
+        # comm = data_manipulation["comm"]
+        # req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
+        # req.wait()
+        # # Master to worker
+        # data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
+        # # Replace worst agent
+        # if i % k == 0 and i > 0:  # Send back found agent
+        #     swap = True
+        # if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
+        #     print("========= Swapping (ranks: from-{}-to-{})... (iteration: {}, every: {}, otherIteration: {})".format(
+        #         data_master_to_worker["fromRank"], data_worker_to_master["rank"], i, k,
+        #         data_master_to_worker["iteration"]))
+        #     received_agent = data_master_to_worker["agent"]
+        #     worst_rand_agent = received_agent
+        #     swap = False
+
+    # print("=== Genetic Algorithm island {}, max Mse: {}, min Mse: {}, {}, {}"
+    #       .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
+
+    print()
+    print(tools.selBest(black_box_function_ga.pop, k=1))
+
 def random_model_search(data_manipulation=None, iterations=100):
 
     iterations = data_manipulation["iterations"]
