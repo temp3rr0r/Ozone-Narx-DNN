@@ -9,10 +9,37 @@ def black_box_function(x):
     # return 33, ackley(x)
     return 33, x[1] ** 2
 
+def feasible(individual):
+    """Feasibility function for the individual. Returns True if feasible False
+    otherwise."""
+    for individual_value in individual:
+        if individual_value < 0.0 or individual_value > 1.0:
+            return False
+    return True
+
+def distance(individual):
+    """A distance function to the feasibility region."""
+    sum_distance = 0
+    for individual_value in individual:
+        if individual_value < 0.0 or individual_value > 1.0:
+            sum_distance += (individual_value - 0.5)**2
+    return sum_distance
+
+
 def black_box_function_ga(individual):
     if island == "ga" or island == "sg":  # TODO: rescale-encapsulate to NAS Ozone DNN space
         x = individual.copy()
-        # print("individual ", individual)
+
+        print("individual ", individual)
+        for idx in range(len(x)):
+            if x[idx] < 0:
+                x[idx] = 0
+                print("ok1")
+            if x[idx] > 1:
+                x[idx] = 1
+                print("ok2")
+
+        print("individual ", individual)
         for idx in range(len(x)):  # TODO: what if it goes in [-inf, 0) or (1, +inf]?
             x[idx] = x[idx] * (bounds[idx][1] - bounds[idx][0]) + bounds[idx][0]
         x = np.array(x)
@@ -68,7 +95,7 @@ black_box_function_ga.pop = toolbox.population(n=4)
 black_box_function_ga.k = 5
 ngen, cxpb, mutpb = 4, 0.5, 0.2
 
-rank = 2
+rank = 4
 
 if rank == 4:
     # TODO: generate/update?
@@ -78,7 +105,7 @@ if rank == 4:
     # mu: The number of individuals to select for the next generation.
     # lambda_: The number of children to produce at each generation.
     lambda_ = int(4 + 1 * np.log(len(black_box_function_ga.pop)))
-    strategy = cma.Strategy(centroid=np.random.uniform(0, 1, len(bounds)), sigma=3.0, lambda_=lambda_)
+    strategy = cma.Strategy(centroid=np.random.uniform(0, 1, len(bounds)), sigma=2.0, lambda_=lambda_)
     toolbox.register("generate", strategy.generate, creator.Individual)
     toolbox.register("update", strategy.update)
     hof = tools.HallOfFame(1)
