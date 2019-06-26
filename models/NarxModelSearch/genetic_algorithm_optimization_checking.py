@@ -9,7 +9,7 @@ def black_box_function(x):
     # return 33, ackley(x)
     return 33, x[1] ** 2
 
-def feasible(individual):  # TODO: out of bounds penalty
+def get_feasible(individual):  # TODO: out of bounds penalty
     for idx in range(len(individual)):
         if individual[idx] < 0:
             individual[idx] = 0.0
@@ -17,7 +17,7 @@ def feasible(individual):  # TODO: out of bounds penalty
             individual[idx] = 1.0
     return individual
 
-def feasibility(individual):  # TODO: out of bounds penalty
+def is_feasible(individual):  # TODO: out of bounds penalty
     """Feasibility function for the individual. Returns True if feasible False
     otherwise."""
     for individual_value in individual:
@@ -85,7 +85,7 @@ else:
     toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("evaluate", black_box_function_ga)
-toolbox.decorate("evaluate", tools.ClosestValidPenalty(feasibility, feasible, 1.0))  # TODO: out of bounds penalty
+toolbox.decorate("evaluate", tools.ClosestValidPenalty(is_feasible, get_feasible, 1.0))  # TODO: out of bounds penalty
 toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("select", tools.selTournament, tournsize=3)
 black_box_function_ga.pop = toolbox.population(n=4)

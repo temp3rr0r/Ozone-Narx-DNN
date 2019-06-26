@@ -8,7 +8,7 @@ from GlobalOptimizationAlgorithms.DualAnnealing import dual_annealing
 from GlobalOptimizationAlgorithms.BasinHopping import basinhopping
 from bayes_opt import BayesianOptimization
 from bayes_opt import UtilityFunction
-from deap import algorithms, base, creator, tools
+from deap import algorithms, base, creator, tools, cma
 from base import NeuroevolutionModelTraining as baseMpi
 from GlobalOptimizationAlgorithms.pyswarm.pso import pso
 from base.ModelRequester import train_model_requester_rabbit_mq
@@ -404,6 +404,24 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
     print(optimizer.max)
 
 
+def get_feasible(individual):
+    for idx in range(len(individual)):
+        if individual[idx] < 0:
+            individual[idx] = 0.0
+        if individual[idx] > 1:
+            individual[idx] = 1.0
+    return individual
+
+
+def is_feasible(individual):
+    """Feasibility function for the individual. Returns True if feasible False
+    otherwise."""
+    for individual_value in individual:
+        if individual_value < 0.0 or individual_value > 1.0:
+            return False
+    return True
+
+
 def black_box_function_ga(individual):
 
     x = individual.copy()
@@ -475,7 +493,11 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     toolbox = base.Toolbox()
     toolbox.register("attr_float", random.random)
     toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float,
-                     n=len(bounds))  # Invididual Genotype length = x's Param count
+                     n=len(bounds))  # Individual Genotype length = x's Param count
+    if data_manipulation["rank"] > 4:
+        toolbox.register("mutate", tools.mutPolynomialBounded, low=0.0, up=1.0, eta=20.0, indpb=1.0 / len(bounds))
+    else:
+        toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
     toolbox.register("evaluate", black_box_function_ga)
     toolbox.register("mate", tools.cxTwoPoint)
@@ -486,6 +508,24 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     black_box_function_ga.k = k  # TODO: check swap every
     black_box_function_ga.comm = comm
     ngen, cxpb, mutpb = iterations, 0.5, 0.2
+
+    if data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
+        # TODO: generate/update?
+        # TODO: Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
+        # centroid: An iterable object that indicates where to start the evolution.
+        # sigma: The initial standard deviation of the distribution.
+        # mu: The number of individuals to select for the next generation.
+        # lambda_: The number of children to produce at each generation.
+        lambda_ = int(4 + 1 * np.log(len(black_box_function_ga.pop)))
+        strategy = cma.Strategy(centroid=np.random.uniform(0., 1.0, len(bounds)), sigma=3.0, lambda_=lambda_)
+        toolbox.register("generate", strategy.generate, creator.Individual)
+        toolbox.register("update", strategy.update)
+        hof = tools.HallOfFame(1)
+        stats = tools.Statistics(lambda ind: ind.fitness.values)
+        stats.register("avg", np.mean)
+        stats.register("std", np.std)
+        stats.register("min", np.min)
+        stats.register("max", np.max)
 
     black_box_function_ga.min_mean_mse = 3000.0
     black_box_function_ga.max_mean_mse = -1
@@ -500,11 +540,81 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
         # GA evaluation of each invididual for the current generation
         print("=== Generation: {}".format(i))
 
-        black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
-        black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
-        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
-        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        # TODO: EA algorithms: https://deap.readthedocs.io/en/master/api/algo.html#complete-algorithms
+        if data_manipulation["rank"] % 10 == 1 or data_manipulation["rank"] % 10 == 5:
+            # TODO: eaSimple
+            # cxpb: Probability of mating 2 individuals
+            # mutpb: Probability of mutating an individual
+            # varAnd: Crossover AND mutation
+            # evaluate(population)
+            # for g in range(ngen):
+            #     population = select(population, len(population))
+            #     offspring = varAnd(population, toolbox, cxpb, mutpb)
+            #     evaluate(offspring)
+            #     population = offspring
 
+            black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
+            black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+            invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+            fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        elif data_manipulation["rank"] % 10 == 2 or data_manipulation["rank"] % 10 == 6:
+            # TODO: eaMuPlusLambda
+            # cxpb: Probability of mating 2 individuals
+            # mutpb: Probability of mutating an individual
+            # varOr: Crossover AND mutation: crossover, mutation or reproduction
+            # mu: The number of individuals to select for the next generation.
+            # lambda_: The number of children to produce at each generation.
+            # evaluate(population)
+            # for g in range(ngen):
+            #     offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
+            #     evaluate(offspring)
+            #     population = select(population + offspring, mu)
+            lambda_ = int(4 + 3 * np.log(len(black_box_function_ga.pop)))
+            mu = int(lambda_ / 2)
+
+            old_population = black_box_function_ga.pop
+
+            black_box_function_ga.pop = algorithms.varOr(black_box_function_ga.pop, toolbox, lambda_, cxpb, mutpb)
+            invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+            fitnesses = toolbox.map(toolbox.evaluate, invalids)
+            black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop + old_population, k=mu)
+        elif data_manipulation["rank"] % 10 == 3 or data_manipulation["rank"] % 10 == 7:
+            # TODO: eaMuCommaLambda
+            # cxpb: Probability of mating 2 individuals
+            # mutpb: Probability of mutating an individual
+            # varOr: Crossover AND mutation: crossover, mutation or reproduction
+            # mu: The number of individuals to select for the next generation.
+            # lambda_: The number of children to produce at each generation.
+            # evaluate(population)
+            # for g in range(ngen):
+            #     offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
+            #     evaluate(offspring)
+            #     population = select(offspring, mu)
+            lambda_ = int(4 + 3 * np.log(len(black_box_function_ga.pop)))
+            mu = int(lambda_ / 2)
+
+            old_population = black_box_function_ga.pop
+
+            black_box_function_ga.pop = algorithms.varOr(black_box_function_ga.pop, toolbox, lambda_, cxpb, mutpb)
+            invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+            fitnesses = toolbox.map(toolbox.evaluate, invalids)
+            black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
+        elif data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
+            # TODO: eaGenerateUpdate
+            print("eaGenerateUpdate")
+            # for g in range(ngen):
+            #     population = toolbox.generate()
+            #     evaluate(population)
+            #     toolbox.update(population)
+            black_box_function_ga.pop = toolbox.generate()
+            invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+            fitnesses = toolbox.map(toolbox.evaluate, invalids)
+            toolbox.update(black_box_function_ga.pop)
+        else:
+            black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
+            black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
+            invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+            fitnesses = toolbox.map(toolbox.evaluate, invalids)
 
         for ind, fit in zip(invalids, fitnesses):
             ind.fitness.values = fit
