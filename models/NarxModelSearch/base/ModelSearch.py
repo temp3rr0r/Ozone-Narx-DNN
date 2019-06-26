@@ -500,6 +500,8 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
         toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
     toolbox.register("evaluate", black_box_function_ga)
+    toolbox.decorate("evaluate",
+    tools.ClosestValidPenalty(is_feasible, get_feasible, 1.0))  # TODO: out of bounds penalty
     toolbox.register("mate", tools.cxTwoPoint)
     toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
     toolbox.register("select", tools.selTournament, tournsize=3)
@@ -601,7 +603,6 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
             black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
         elif data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
             # TODO: eaGenerateUpdate
-            print("eaGenerateUpdate")
             # for g in range(ngen):
             #     population = toolbox.generate()
             #     evaluate(population)
