@@ -6,6 +6,8 @@ from GlobalOptimizationAlgorithms.DifferentialEvolution import differential_evol
 from GlobalOptimizationAlgorithms.SimplicialHomologyGlobalOptimization import shgo
 from GlobalOptimizationAlgorithms.DualAnnealing import dual_annealing
 from GlobalOptimizationAlgorithms.BasinHopping import basinhopping
+from bayes_opt import BayesianOptimization
+from bayes_opt import UtilityFunction
 from base import NeuroevolutionModelTraining as baseMpi
 from GlobalOptimizationAlgorithms.pyswarm.pso import pso
 from base.ModelRequester import train_model_requester_rabbit_mq
@@ -302,19 +304,17 @@ def particle_swarm_optimization_model_search(data_manipulation=None, iterations=
     print_optimum(xopt1, fopt1)
 
 
-def list_to_bayesian_optmization_pbounds_dictionary(list_values, dictionary_indices):
+def list_to_bayesian_optimization_pbounds_dictionary(list_values, dictionary_keys):
     returning_dictionary = {}
-    print("dictionary_indices: {}".format(dictionary_indices))
+    print("dictionary_indices: {}".format(dictionary_keys))
     list_index = 0
-    for dictionary_index in dictionary_indices:
+    for dictionary_index in dictionary_keys:
         returning_dictionary[dictionary_index] = list_values[list_index]
         list_index += 1
     return returning_dictionary
 
 
 def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
-    from bayes_opt import BayesianOptimization
-    from bayes_opt import UtilityFunction
 
     # TODO: bayesian optimization init
     pbounds = {}
@@ -358,16 +358,16 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
             # worst_rand_agent = received_agent
             next_list = worst_rand_agent  # TODO: the received data_master_to_worker["agent"]
 
-            next_point = list_to_bayesian_optmization_pbounds_dictionary(next_list, pbounds.keys())
+            next_point = list_to_bayesian_optimization_pbounds_dictionary(next_list, pbounds.keys())
             suggestion = False
         else:
             next_point = optimizer.suggest(utility)
         x = np.array(list(next_point.values()))
 
-        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
+        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)  # TODO: test with ackley
         # TODO: register sample & result
         target = mean_mse
-        optimizer.register(params=next_point, target=target)
+        optimizer.register(params=next_point, target=-target)  # TODO: negative: default bo tries to maximize
 
         if mean_mse < min_mean_mse:  # Update best found agent
             best_rand_agent = x
@@ -402,6 +402,8 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
 
     print("=== Bayesian Optimization island {}, max Mse: {}, min Mse: {}, {}, {}"
           .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
+
+    print(optimizer.max)  # TODO: check
 
 
 def random_model_search(data_manipulation=None, iterations=100):

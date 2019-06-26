@@ -4,7 +4,8 @@ import pandas as pd
 from base.ModelSearch import random_model_search, \
     differential_evolution_model_search, basin_hopping_model_search, \
     simplicial_homology_global_optimization_model_search, local_model_search, \
-    particle_swarm_optimization_model_search, bounds, get_random_model, dual_annealing_model_search
+    particle_swarm_optimization_model_search, bounds, get_random_model, \
+    dual_annealing_model_search, bayesian_optimization_model_search
 import time
 from mpi4py import MPI
 import json
@@ -22,6 +23,7 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
     iterations = data_manipulation_in["iterations"]
     pso_message_count = (iterations + 1) * data_manipulation_in["agents"]
     rand_message_count = iterations
+    bo_message_count = iterations
     de_message_count = (  # (data_manipulation["iterations"] + 1)
             2 * data_manipulation_in["agents"] * len(bounds))
     bh_message_count = iterations  # TODO: bh
@@ -35,6 +37,8 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
             total_message_count += de_message_count
         elif islands_in[i] == "rand":
             total_message_count += rand_message_count
+        elif islands_in[i] == "bo":
+            total_message_count += bo_message_count
         elif islands_in[i] == "bh":
             total_message_count += bh_message_count
         elif islands_in[i] == "sg":
@@ -59,7 +63,9 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 
 # First island in vector is not considered= True
 # islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
-islands = ['ls'] * 10  # Local search islands
+# islands = ['ls'] * 10  # Local search islands
+islands = ['bo'] * 10  # TODO: Bayesian optimization search islands
+# islands = ['rand'] * 10
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -170,6 +176,8 @@ else:  # Worker Node
 
         if island == 'rand':
             random_model_search(data_manipulation)
+        elif island == 'bo':
+            bayesian_optimization_model_search(data_manipulation)
         elif island == 'pso':
             particle_swarm_optimization_model_search(data_manipulation)
         elif island == 'de':
