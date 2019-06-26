@@ -6,7 +6,7 @@
     "sendBestAgentFromBuffer": true,
     "master": 0,
     "folds": 5,
-    "iterations": 80,
+    "iterations": 800,
     "agents": 20,
     "storeCheckpoints": false,
     "storePlots": true,

@@ -24,7 +24,7 @@ def get_total_message_count(islands_in, size_in, data_manipulation_in):
     pso_message_count = (iterations + 1) * data_manipulation_in["agents"]
     rand_message_count = iterations
     bo_message_count = iterations
-    ga_message_count = iterations
+    ga_message_count = (iterations + 1) * data_manipulation_in["agents"]
     de_message_count = (  # (data_manipulation["iterations"] + 1)
             2 * data_manipulation_in["agents"] * len(bounds))
     bh_message_count = iterations  # TODO: bh
@@ -67,9 +67,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 # First island in vector is not considered= True
 # islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
 # islands = ['ls'] * 10  # Local search islands
-islands = ['bo'] * 10  # TODO: Bayesian optimization search islands
-# islands = ['ga'] * 10  # TODO: Genetic Algorithm search islands
-# islands = ['rand'] * 10
+islands = ['bo', 'ga', 'bo', 'de', 'pso', 'rand', 'da']  # TODO: Bayesian optimization, Genetic Algorithm search islands
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -165,7 +163,6 @@ else:  # Worker Node
 
         # TODO: add/test (single or multi-agent) optimizers:
         # TODO: - Reinforcement Learning for continuous + discrete spaces
-        # TODO: - Bayesian Optimization (no derivatives needed)
         # TODO: - (traditional) Genetic Algorithms
         # TODO: - XGBoost
         # TODO: - Ant Colony Optimization (layer types only or bounded numerical if possible)
