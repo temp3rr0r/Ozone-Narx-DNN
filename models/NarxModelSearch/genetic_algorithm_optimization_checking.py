@@ -64,30 +64,36 @@ def black_box_function_ga(individual):
         black_box_function_ga.pop[worst_index][2] = 0.5
         print("previous worst (index: {}): {}".format(worst_index, black_box_function_ga.pop[worst_index]))
 
-    return (target,)
+    return target,
 
 
+rank = 8
 black_box_function_ga.data = {"evaluation": 0}
-
 island = "ga"
+
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMin)
 toolbox = base.Toolbox()
 toolbox.register("attr_float", random.random)
 toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=len(bounds))  # TODO: param count
+if rank > 4:
+    # toolbox.register("mutate", tools.mutGaussian, mu=0.0, std=1.0)
+    # toolbox.register("mutate", tools.mutFlipBit, indpb=0.10)
+    # toolbox.register("mutate", tools.mutESLogNormal, c=1, indpb=0.1)
+    toolbox.register("mutate", tools.mutPolynomialBounded, low=0.0, up=1.0, eta=20.0, indpb=1.0 / len(bounds))
+else:
+    toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("evaluate", black_box_function_ga)
 toolbox.decorate("evaluate", tools.ClosestValidPenalty(feasibility, feasible, 1.0))  # TODO: out of bounds penalty
 toolbox.register("mate", tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
 black_box_function_ga.pop = toolbox.population(n=4)
 black_box_function_ga.k = 5
 ngen, cxpb, mutpb = 4, 0.5, 0.2
 
-rank = 4
 
-if rank == 4:
+if rank % 10 == 4 or rank % 10 == 8:
     # TODO: generate/update?
     # TODO: Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
     # centroid: An iterable object that indicates where to start the evolution.
@@ -110,7 +116,7 @@ for g in range(ngen):
     print("=== Generation: {}".format(g))
 
     # TODO: EA algorithms: https://deap.readthedocs.io/en/master/api/algo.html#complete-algorithms
-    if rank == 1:
+    if rank % 10 == 1 or rank % 10 == 5:
         # TODO: eaSimple
         # cxpb: Probability of mating 2 individuals
         # mutpb: Probability of mutating an individual
@@ -126,7 +132,7 @@ for g in range(ngen):
         black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
         invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
         fitnesses = toolbox.map(toolbox.evaluate, invalids)
-    elif rank == 2:
+    elif rank % 10 == 2 or rank % 10 == 6:
         # TODO: eaMuPlusLambda
         # cxpb: Probability of mating 2 individuals
         # mutpb: Probability of mutating an individual
@@ -147,7 +153,7 @@ for g in range(ngen):
         invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
         fitnesses = toolbox.map(toolbox.evaluate, invalids)
         black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop + old_population, k=mu)
-    elif rank == 3:
+    elif rank % 10 == 3 or rank % 10 == 7:
         # TODO: eaMuCommaLambda
         # cxpb: Probability of mating 2 individuals
         # mutpb: Probability of mutating an individual
@@ -168,8 +174,9 @@ for g in range(ngen):
         invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
         fitnesses = toolbox.map(toolbox.evaluate, invalids)
         black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
-    elif rank == 4:
+    elif rank % 10 == 4 or rank % 10 == 8:
         # TODO: eaGenerateUpdate
+        print("eaGenerateUpdate")
         # for g in range(ngen):
         #     population = toolbox.generate()
         #     evaluate(population)
