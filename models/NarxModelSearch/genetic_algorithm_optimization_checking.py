@@ -2,7 +2,7 @@ from base.bounds import bounds
 from base.NeuroevolutionModelTraining import ackley
 import numpy as np
 import random
-from deap import algorithms, base, creator, tools
+from deap import algorithms, base, creator, tools, cma
 
 def black_box_function(x):
     print("x: {}".format(x))
@@ -68,7 +68,25 @@ black_box_function_ga.pop = toolbox.population(n=4)
 black_box_function_ga.k = 5
 ngen, cxpb, mutpb = 4, 0.5, 0.2
 
-rank = 3
+rank = 2
+
+if rank == 4:
+    # TODO: generate/update?
+    # TODO: Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
+    # centroid: An iterable object that indicates where to start the evolution.
+    # sigma: The initial standard deviation of the distribution.
+    # mu: The number of individuals to select for the next generation.
+    # lambda_: The number of children to produce at each generation.
+    lambda_ = int(4 + 1 * np.log(len(black_box_function_ga.pop)))
+    strategy = cma.Strategy(centroid=np.random.uniform(0, 1, len(bounds)), sigma=3.0, lambda_=lambda_)
+    toolbox.register("generate", strategy.generate, creator.Individual)
+    toolbox.register("update", strategy.update)
+    hof = tools.HallOfFame(1)
+    stats = tools.Statistics(lambda ind: ind.fitness.values)
+    stats.register("avg", np.mean)
+    stats.register("std", np.std)
+    stats.register("min", np.min)
+    stats.register("max", np.max)
 
 for g in range(ngen):
     # TODO: individual attribs should be float in [0, 1]
@@ -103,8 +121,8 @@ for g in range(ngen):
         #     offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
         #     evaluate(offspring)
         #     population = select(population + offspring, mu)
-        mu = int(len(black_box_function_ga.pop) * 1.5)
-        lambda_ = int(len(black_box_function_ga.pop) / 2)
+        lambda_ = int(4 + 3 * np.log(len(black_box_function_ga.pop)))
+        mu = int(lambda_ / 2)
 
         old_population = black_box_function_ga.pop
 
@@ -124,8 +142,8 @@ for g in range(ngen):
         #     offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
         #     evaluate(offspring)
         #     population = select(offspring, mu)
-        mu = int(len(black_box_function_ga.pop) * 1.5)
-        lambda_ = int(len(black_box_function_ga.pop) / 2)
+        lambda_ = int(4 + 3 * np.log(len(black_box_function_ga.pop)))
+        mu = int(lambda_ / 2)
 
         old_population = black_box_function_ga.pop
 
@@ -133,6 +151,16 @@ for g in range(ngen):
         invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
         fitnesses = toolbox.map(toolbox.evaluate, invalids)
         black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
+    elif rank == 4:
+        # TODO: eaGenerateUpdate
+        # for g in range(ngen):
+        #     population = toolbox.generate()
+        #     evaluate(population)
+        #     toolbox.update(population)
+        black_box_function_ga.pop = toolbox.generate()
+        invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
+        fitnesses = toolbox.map(toolbox.evaluate, invalids)
+        toolbox.update(black_box_function_ga.pop)
     else:
         black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=len(black_box_function_ga.pop))
         black_box_function_ga.pop = algorithms.varAnd(black_box_function_ga.pop, toolbox, cxpb, mutpb)
