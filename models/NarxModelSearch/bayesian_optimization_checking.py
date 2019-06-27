@@ -19,6 +19,8 @@ def list_to_pbounds_dictionary(list_values, dictionary_indices):
     return returning_dictionary
 
 
+rank = 1
+
 pbounds = {}
 pbound_idx = 0
 init_var_name = 'a'
@@ -31,10 +33,33 @@ optimizer = BayesianOptimization(
     f=None,
     pbounds=pbounds,
     verbose=2,
-    random_state=1,
+    random_state=rank,
 )
 
-utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+
+if rank % 10 == 1:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+elif rank % 10 == 2:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+else:
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+
+
+
 # TODO: try to alter "next"/empty queue/reset queue AND send/receive neighbour
 for i in range(8):
     if i == 2 or i == 3:

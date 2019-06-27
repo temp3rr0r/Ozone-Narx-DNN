@@ -187,6 +187,11 @@ def dual_annealing_model_search(data_manipulation=None):
         visit = 0.01
         accept = -1e4
         restart_temp_ratio = 0.01
+    else:
+        initial_temp = 5230.0
+        visit = 2.62
+        accept = -5.0
+        restart_temp_ratio = 2e-05
 
     xopt1 = dual_annealing(
         # baseMpi.trainModelTester,
@@ -235,6 +240,8 @@ def differential_evolution_model_search(data_manipulation=None):
         strategy = "rand1bin"
     elif data_manipulation["rank"] % 10 == 9:
         strategy = "best2exp"
+    else:
+        strategy = "best1bin"
     print("--- Using strategy: {}".format(strategy))
 
     xopt1 = differential_evolution(
@@ -295,6 +302,10 @@ def particle_swarm_optimization_model_search(data_manipulation=None, iterations=
         omega = 0.01
         phip = 0.01
         phig = 0.01
+    else:
+        omega = 0.5
+        phip = 0.5
+        phig = 0.5
 
     xopt1, fopt1 = pso(
         # baseMpi.trainModelTester,
