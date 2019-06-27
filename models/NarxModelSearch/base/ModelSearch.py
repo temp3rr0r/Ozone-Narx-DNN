@@ -347,7 +347,28 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         verbose=2,
         random_state=rank,  # Rank as random seed
     )
+
     utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those? based on local rank
+    if rank % 10 == 1:  # TODO: Acquisition Function "Upper Confidence Bound". Exploitation.
+        utility = UtilityFunction(kind="ucb", kappa=0.1, xi=0.0)
+    elif rank % 10 == 2:  # TODO: Acquisition Function "Upper Confidence Bound". Exploration.
+        utility = UtilityFunction(kind="ucb", kappa=10, xi=0.0)
+    elif rank % 10 == 3:  # TODO: Acquisition Function "Expected Improvement". Exploitation.
+        utility = UtilityFunction(kind="ei", kappa=0.0, xi=1e-4)
+    elif rank % 10 == 4:  # TODO: Acquisition Function "Expected Improvement". Exploration.
+        utility = UtilityFunction(kind="ei", kappa=0.0,  xi=1e-1)
+    elif rank % 10 == 5:  # TODO: Acquisition Function "Probability of Improvement". Exploitation.
+        utility = UtilityFunction(kind="poi", kappa=0.0,  xi=1e-4)
+    elif rank % 10 == 6:  # TODO: Acquisition Function "Probability of Improvement". Exploration.
+        utility = UtilityFunction(kind="poi", kappa=0.0,  xi=1e-1)
+    elif rank % 10 == 7:  # TODO: Acquisition Function "Upper Confidence Bound".
+        utility = UtilityFunction(kind="ucb", kappa=5.0, xi=0.1)
+    elif rank % 10 == 8:  # TODO: Acquisition Function "Upper Confidence Bound".
+        utility = UtilityFunction(kind="ei", kappa=2.5, xi=1e-4)
+    elif rank % 10 == 9:  # TODO: Acquisition Function "Upper Confidence Bound".
+        utility = UtilityFunction(kind="poi", kappa=2.5, xi=1e-4)
+    else:  # TODO: Acquisition Function "Upper Confidence Bound". Default.
+        utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
 
     min_mean_mse = 3000.0
     max_mean_mse = -1
