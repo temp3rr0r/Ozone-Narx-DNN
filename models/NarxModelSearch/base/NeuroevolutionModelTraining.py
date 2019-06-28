@@ -75,19 +75,15 @@ def train_model(x, *args):
 
     x_data, y_data = args
 
-    # if island == "bh" or island == "sg":  # TODO: un-normalize data
-    #     print("bounds ", data_manipulation["bounds"])
-    #     print("x ", x)
-    #     for i in range(len(x)):
-    #         x[i] = x[i] * (data_manipulation["bounds"][i][1] - data_manipulation["bounds"][i][0]) \
-    #                + data_manipulation["bounds"][i][0]
-    #     x = np.array(x)
-    #     print("un-normalized x ", x)
+    print("=== TODO: Test network blocks (LSTM only for now) ===")
+    x[3:6] = np.array([64, 64, 64])
+    x[21:24] = np.array([0.0, 0.0, 0.0])
+    print("=== x[21:24] = np.array([0, 0, 0, 0]) ===")
 
-    # x = [32.269684115953126, 478.4579158867764, 2.4914987273745344, 291.55476719406147, 32.0, 512.0, 0.0812481431483004,
-    #      0.01, 0.1445004524623349, 0.22335740221774894, 0.03443050512961357, 0.05488258021289669, 1.0,
-    #      0.620275664519184, 0.34191582396595566, 0.9436131979280933, 0.4991752935129543, 0.4678261851228459, 0.0,
-    #      0.355287972380982, 0.0]  # TODO: Temp set the same model to benchmark a specific DNN
+    # x = [10.0, 381.0, 1.0, 189.0, 330.0, 459.0, 0.14577795286152798, 0.2438867127774426, 0.10428557689018715,
+    #      0.1820398297885142, 0.052738261271545545, 0.016683663950627946, 0.45757561288890175, 0.7825187164631381,
+    #      0.688563267376544, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0, 0, 0, 0,
+    #      0, 0]  # TODO: Temp set the same model to benchmark a specific DNN
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
@@ -127,12 +123,13 @@ def train_model(x, *args):
     use_gaussian_noise3 = x[20]
 
     core_layers_genes = np.around(x[21:24], decimals=0).astype(int)  # TODO: plain/bidirectional: LSTM, GRU, SimpleRNN
+
     layer_types = ['LSTM', 'BiLSTM', 'GRU', 'BiGRU', 'SimpleRNN', 'BiSimpleRNN']
     print("--- Rank {}: Layer Types: {}->{}->{}"
           .format(rank, layer_types[core_layers_genes[0]], layer_types[core_layers_genes[1]],
                   layer_types[core_layers_genes[2]]))
 
-    print("--- Rank {}: batch_size: {}, epoch_size: {} Optimizer: {}, LSTM Unit sizes: {} "
+    print("--- Rank {}: batch_size: {}, epoch_size: {} Optimizer: {}, Unit sizes: {} "
           "Batch Normalization/Gaussian Noise: {}"
           .format(rank, x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
 

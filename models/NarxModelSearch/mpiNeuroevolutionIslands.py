@@ -67,10 +67,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 # First island in vector is not considered
 # islands = ['da'] + ['de', 'pso', 'rand'] * 10  # TODO: Why more than 1x Dual Annealing has issues?
 # islands = ['ls'] * 10  # Local search islands
-# islands = ['pso', 'ga', 'bo', 'de', 'rand'] + ['da'] + ['pso', 'ga', 'bo', 'de', 'rand'] * 3  # TODO: Bayesian optimization, Genetic Algorithm search islands
-islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 4  # TODO: Bayesian optimization, Genetic Algorithm search islands
-
-
+islands = ['pso', 'ga', 'bo', 'de', 'rand'] + ['da'] + ['pso', 'ga', 'bo', 'de', 'rand'] * 3  # TODO: Bayesian optimization, Genetic Algorithm search islands
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
