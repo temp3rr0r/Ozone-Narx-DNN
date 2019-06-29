@@ -80,8 +80,8 @@ def train_model(x, *args):
      0.25, 0.12677851439487847, 0.23147568997273035, 0.01, 0.19396586046669612, 1.0, 0.6535668275388125,
      0.16500668136007904, 0.999225537577359, 0.0, 0.20307441174041735, 1.0, 1.0, 0.0, 0.0, 0.5635281795259502,
      1.4141248802054807, 4.763734792829404, 3.0683379620449647, 5.267796469977627])  # TODO: Temp set the same model to benchmark a specific DNN
-    x[2] = x2[2]  # TODO: 2. 21:end hyper params 2. test 0:21.
-    x[6:21] = x2[6:21]
+    x[2] = x2[2]
+    x[12:21] = x2[12:21]  # TODO: Tested: All ~(12:21). With adamax (index: 2) -> Fail. With gaussNoise & batchNorm -> Fail
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
