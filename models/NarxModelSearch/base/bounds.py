@@ -10,7 +10,7 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (0.01, 0.25),  # recurrent_dropout
           (0.01, 0.25),
           (0.01, 0.25),
-          (0.01, 1),  # gaussian noise std
+          (0.01, 1),  # gaussian noise std  # TODO: Gaussian FAULTY (genes: 12:17). DISABLED
           (0.01, 1),
           (0.01, 1),
           (0, 1),  # gaussian_noise

@@ -80,9 +80,9 @@ def train_model(x, *args):
      0.25, 0.12677851439487847, 0.23147568997273035, 0.01, 0.19396586046669612, 1.0, 0.6535668275388125,
      0.16500668136007904, 0.999225537577359, 0.0, 0.20307441174041735, 1.0, 1.0, 0.0, 0.0, 0.5635281795259502,
      1.4141248802054807, 4.763734792829404, 3.0683379620449647, 5.267796469977627])  # TODO: Temp set the same model to benchmark a specific DNN
-    x[2] = x2[2]
-    # x[12:21] = x2[12:21]  # TODO: Tested: All ~(12:21). With adamax (index: 2) -> Fail. With gaussNoise & batchNorm -> Fail
-    x[12:19] = x2[12:19]  # TODO: Test batch norm
+    # x[12:19] = x2[12:19]  # TODO: Tested: All ~(12:19). With adamax (index: 2) -> Fail. With gaussNoise & batchNorm -> Fail
+    # x[12:19] = x2[12:19]  # TODO: Test batchNorm
+    x[12:19] = x2[12:19]  # TODO: Test batchNorm
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
@@ -104,8 +104,9 @@ def train_model(x, *args):
     noise_stddev3 = x[14]
 
     x = np.rint(x).astype(np.int32)
-    optimizers = ['adadelta', 'adagrad', 'nadam', 'adamax',  # TODO: adam has prob with NaNs?
-                  'adam', 'amsgrad']  # , 'rmsprop', 'sgd'] # Avoid loss NaNs, by removing rmsprop & sgd
+    optimizers = ['nadam', 'amsgrad', 'adagrad', 'adadelta', 'adam',  # TODO: test amsgrad & the others
+                  'nadam']  # Avoid loss NaNs, by removing rmsprop, sgd, adamax. TODO: ftrl: needs lr param
+
     batch_size = x[0]
     epoch_size = x[1]
     optimizer = optimizers[x[2]]
@@ -131,7 +132,6 @@ def train_model(x, *args):
     print("--- Rank {}: batch_size: {}, epoch_size: {} Optimizer: {}, Unit sizes: {} "
           "Batch Normalization/Gaussian Noise: {}"
           .format(rank, x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
-
 
     layer_initializer_genes = np.around(x[24:27], decimals=0).astype(int)  # layer initializers, normal/uniform he/lecun #  TODO: layer initializers
     layer_initializers = ['he_normal', 'lecun_normal', 'glorot_normal', 'random_normal', 'truncated_normal',
