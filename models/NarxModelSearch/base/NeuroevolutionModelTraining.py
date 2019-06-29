@@ -80,7 +80,8 @@ def train_model(x, *args):
      0.25, 0.12677851439487847, 0.23147568997273035, 0.01, 0.19396586046669612, 1.0, 0.6535668275388125,
      0.16500668136007904, 0.999225537577359, 0.0, 0.20307441174041735, 1.0, 1.0, 0.0, 0.0, 0.5635281795259502,
      1.4141248802054807, 4.763734792829404, 3.0683379620449647, 5.267796469977627])  # TODO: Temp set the same model to benchmark a specific DNN
-    x[2:21] = x2[2:21]  # TODO: 2. 21:end hyper params 2. test 0:21.
+    x[2] = x2[2]  # TODO: 2. 21:end hyper params 2. test 0:21.
+    x[6:21] = x2[6:21]
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
@@ -102,7 +103,7 @@ def train_model(x, *args):
     noise_stddev3 = x[14]
 
     x = np.rint(x).astype(np.int32)
-    optimizers = ['adadelta', 'adagrad', 'nadam', 'adamax',
+    optimizers = ['adadelta', 'adagrad', 'nadam', 'adamax',  # TODO: adam has prob with NaNs?
                   'adam', 'amsgrad']  # , 'rmsprop', 'sgd'] # Avoid loss NaNs, by removing rmsprop & sgd
     batch_size = x[0]
     epoch_size = x[1]
