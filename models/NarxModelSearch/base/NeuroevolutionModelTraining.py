@@ -81,8 +81,8 @@ def train_model(x, *args):
      0.16500668136007904, 0.999225537577359, 0.0, 0.20307441174041735, 1.0, 1.0, 0.0, 0.0, 0.5635281795259502,
      1.4141248802054807, 4.763734792829404, 3.0683379620449647, 5.267796469977627])  # TODO: Temp set the same model to benchmark a specific DNN
     # x[12:19] = x2[12:19]  # TODO: Tested: All ~(12:19). With adamax (index: 2) -> Fail. With gaussNoise & batchNorm -> Fail
-    # x[12:19] = x2[12:19]  # TODO: Test batchNorm
-    x[12:19] = x2[12:19]  # TODO: Test batchNorm
+    # x[12:19] = x2[12:19]  # TODO: Test batchNorm, da x2
+    x[12:15] = x2[12:15]
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
@@ -98,13 +98,13 @@ def train_model(x, *args):
     recurrent_dropout2 = x[10]
     recurrent_dropout3 = x[11]
 
-    # Gaussian noise
+    # Gaussian noise std
     noise_stddev1 = x[12]
     noise_stddev2 = x[13]
     noise_stddev3 = x[14]
 
     x = np.rint(x).astype(np.int32)
-    optimizers = ['nadam', 'amsgrad', 'adagrad', 'adadelta', 'adam',  # TODO: test amsgrad & the others
+    optimizers = ['nadam', 'amsgrad', 'adagrad', 'adadelta', 'adam',
                   'nadam']  # Avoid loss NaNs, by removing rmsprop, sgd, adamax. TODO: ftrl: needs lr param
 
     batch_size = x[0]
@@ -114,10 +114,12 @@ def train_model(x, *args):
     units2 = x[4]
     units3 = x[5]
 
-    # Batch normalization
+    # Use Batch normalization?
     use_batch_normalization1 = x[15]
     use_batch_normalization2 = x[16]
     use_batch_normalization3 = x[17]
+
+    # Use gaussian noise?
     use_gaussian_noise1 = x[18]
     use_gaussian_noise2 = x[19]
     use_gaussian_noise3 = x[20]
