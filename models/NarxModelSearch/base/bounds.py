@@ -10,8 +10,8 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (0.01, 0.25),  # recurrent_dropout
           (0.01, 0.25),
           (0.01, 0.25),
-          (0.1, 0.5),  # gaussian noise std  # TODO: Gaussian FAULTY (genes: 12:17, 0.01 to 1.0). DISABLED
-          (0.1, 0.5),  # TODO: test std: 0.1 to 0.5
+          (0.1, 0.5),  # gaussian noise std
+          (0.1, 0.5),
           (0.1, 0.5),
           (0, 1),  # batch normalization layers
           (0, 1),

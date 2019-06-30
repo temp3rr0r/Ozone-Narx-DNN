@@ -12,5 +12,6 @@
     "storePlots": true,
     "verbose": 0,
     "fp16": false,
-    "multi_gpu": false
+    "multi_gpu": false,
+    "timesteps": 1
 }

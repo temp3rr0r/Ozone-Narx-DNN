@@ -199,7 +199,7 @@ def model_training_callback(ch, method, properties, body):
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-gpu_device = 3  # Set GPU
+gpu_device = 2  # Set GPU
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)
@@ -261,7 +261,7 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
-# TODO: compare above with calendar data
+# TODO: compare above with calendar data  # TODO: continue THIS
 data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
 data_manipulation["filePrefix"] = "PM10_BETN"
 data_manipulation["mimoOutputs"] = 16

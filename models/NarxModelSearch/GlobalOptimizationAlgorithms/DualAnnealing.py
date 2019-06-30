@@ -197,6 +197,7 @@ class EnergyState(object):
             data_worker_to_master["mean_mse"] = self.ebest
             data_worker_to_master["agent"] = self.xbest
             comm = self.data_manipulation["comm"]
+
             req = comm.isend(data_worker_to_master, dest=0, tag=1)  # Send data async to master
             req.wait()
             # Master to worker
