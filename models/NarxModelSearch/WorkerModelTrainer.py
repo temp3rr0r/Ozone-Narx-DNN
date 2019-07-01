@@ -199,13 +199,14 @@ def model_training_callback(ch, method, properties, body):
         ch.basic_reject(delivery_tag=method.delivery_tag)
 
 
-gpu_device = 1  # Set GPU
+gpu_device = 1  # Set GPU (default: 1)
 
 print("--- Usage:\n\tWorkerModelTrainer.py --gpu <integer (default: 1): 0 to N>\n\tor"
       "\n\tWorkerModelTrainer.py -g <integer (default: 1): 0 to N>")
 if len(sys.argv) == 3:
     if str(sys.argv[1]) in ("--gpu", "-g"):
-            gpu_device = int(sys.argv[2])
+        gpu_device = int(sys.argv[2])
+        print("-- Set to GPU: {}".format(gpu_device))
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)
