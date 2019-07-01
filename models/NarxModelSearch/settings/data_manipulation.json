@@ -7,7 +7,7 @@
     "master": 0,
     "folds": 5,
     "iterations": 800,
-    "agents": 20,
+    "agents": 5,
     "storeCheckpoints": false,
     "storePlots": true,
     "verbose": 0,

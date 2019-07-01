@@ -10,6 +10,8 @@ import time
 from mpi4py import MPI
 import json
 
+print("--- Usage:\n\tmpiexec -n <integer: process count> python mpiNeuroevolutionIslands.py")
+
 
 def estimate_total_message_count(islands_in, size_in, data_manipulation_in):
     """
