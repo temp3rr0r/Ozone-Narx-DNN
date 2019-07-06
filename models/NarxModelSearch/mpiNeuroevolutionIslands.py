@@ -89,7 +89,7 @@ if rank == 0:  # Master Node
 
     swapCounter = 0
     agentBuffer = get_random_model()
-    agentsBuffer = [get_random_model()] * (size - 1)  # Store all island agents
+    agentsBuffer = [get_random_model() for i in range(size - 1)]  # Storage for all island agents
     agentsMse = [mean_mse_threshold] * (size - 1)  # Store all island agents mse
 
     overallMinMse = 10e4
