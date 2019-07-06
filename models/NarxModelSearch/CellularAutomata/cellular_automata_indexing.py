@@ -64,6 +64,7 @@ class CellularAutomataIndexing:
 
         if len(cellular_automata_dimensions) > 1:
             oneD_neighbours = self.get_1D_neighbours(rank, size, cellular_automata_dimensions)
+            print("== oneD_neighbours: {}".format(oneD_neighbours))  # TODO: test
             mu = len(oneD_neighbours)
             s = 1.5  # 1 < s <= 2: 1 means NO pressure at all, 2 means worst aint's selected
             idx = np.random.choice(mu, 1, p=self.get_linear_ranking_selection_probabilities(mu, s))

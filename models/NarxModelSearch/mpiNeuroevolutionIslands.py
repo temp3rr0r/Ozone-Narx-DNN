@@ -141,6 +141,7 @@ if rank == 0:  # Master Node
             # TODO: pick best agent from nD grid
             agent_to_send = cellularAutomataIndexing.get_cellular_automata_linear_selection_neighbour_1D_index(
                 current_rank, size, data_manipulation["cellular_automata_dimensions"], agentsMse)  # TODO: tests
+            print("")
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
                               "mean_mse": agentsMse[agent_to_send],
