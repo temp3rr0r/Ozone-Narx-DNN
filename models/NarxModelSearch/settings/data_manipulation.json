@@ -14,5 +14,5 @@
     "fp16": false,
     "multi_gpu": false,
     "timesteps": 1,
-    "cellular_automata_dimensions": [18]
+    "cellular_automata_dimensions": [3, 3, 3]
 }

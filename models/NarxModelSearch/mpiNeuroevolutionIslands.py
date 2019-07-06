@@ -9,6 +9,7 @@ from base.ModelSearch import random_model_search, \
 import time
 from mpi4py import MPI
 import json
+from CellularAutomata.cellular_automata_indexing import CellularAutomataIndexing
 
 print("--- Usage:\n\tmpiexec -n <integer: process count> python mpiNeuroevolutionIslands.py")
 
@@ -92,6 +93,8 @@ if rank == 0:  # Master Node
     agentsBuffer = [get_random_model() for i in range(size - 1)]  # Storage for all island agents
     agentsMse = [mean_mse_threshold] * (size - 1)  # Store all island agents mse
 
+    cellularAutomataIndexing = CellularAutomataIndexing()  # TODO: test
+
     overallMinMse = 10e4
     evaluations = 0
     bestIsland = ""
@@ -131,9 +134,13 @@ if rank == 0:  # Master Node
         agent_to_send = 0  # Default self for 1 island
         current_rank = data_worker_to_master["rank"]
         if size > 2:  # 2+ islands
-            agent_to_send = current_rank - 2  # Get the best from the previous island  # TODO: list of agents for nD CA neighbours
-            if agent_to_send < 0:  # If first island, get last island from buffer  # TODO: pick best agent from nD grid
-                agent_to_send = size - 2
+            # TODO: nD CA indexing
+            # agent_to_send = current_rank - 2  # Get the best from the previous island
+            # if agent_to_send < 0:  # If first island, get last island from buffer
+            #     agent_to_send = size - 2
+            # TODO: pick best agent from nD grid
+            agent_to_send = cellularAutomataIndexing.get_cellular_automata_linear_selection_neighbour_1D_index(
+                current_rank, size, data_manipulation["cellular_automata_dimensions"], agentsMse)  # TODO: tests
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
                               "mean_mse": agentsMse[agent_to_send],
