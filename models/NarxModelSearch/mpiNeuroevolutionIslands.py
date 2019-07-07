@@ -143,8 +143,8 @@ if rank == 0:  # Master Node
                 current_rank - 1,  # TODO: test current_rank
                 size - 1,  # TODO: test size
                 data_manipulation["cellular_automata_dimensions"], agentsMse)
-            agent_to_send += 1  # TODO: proper?
-            print("")
+            # agent_to_send += 1  # TODO: proper? NO
+            # print("")
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
                               "mean_mse": agentsMse[agent_to_send],
