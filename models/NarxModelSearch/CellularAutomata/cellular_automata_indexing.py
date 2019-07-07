@@ -61,20 +61,27 @@ class CellularAutomataIndexing:
         return np.array(returning_probabilities)
 
     def get_cellular_automata_linear_selection_neighbour_1D_index(self, rank, size, cellular_automata_dimensions, grid_mse_rank_list):
-
         if len(cellular_automata_dimensions) > 1:
-            oneD_neighbours = self.get_1D_neighbours(rank, size, cellular_automata_dimensions)
-            print("== oneD_neighbours: {}".format(oneD_neighbours))  # TODO: test
-            mu = len(oneD_neighbours)
-            s = 1.5  # 1 < s <= 2: 1 means NO pressure at all, 2 means worst aint's selected
-            idx = np.random.choice(mu, 1, p=self.get_linear_ranking_selection_probabilities(mu, s))
-            neighborhood_mse = []
-            for oneD_index in oneD_neighbours:
-                neighborhood_mse.append(grid_mse_rank_list[oneD_index])
-            neighborhood_mse.sort()
-            selected_neighborhood_mse = neighborhood_mse[idx[0]]
+            try:
+                oneD_neighbours = self.get_1D_neighbours(rank, size, cellular_automata_dimensions)
+                print("== oneD_neighbours: {}".format(oneD_neighbours))  # TODO: test
+                mu = len(oneD_neighbours)
+                s = 1.5  # 1 < s <= 2: 1 means NO pressure at all, 2 means worst aint's selected
+                idx = np.random.choice(mu, 1, p=self.get_linear_ranking_selection_probabilities(mu, s))
+                neighborhood_mse = []
+                for oneD_index in oneD_neighbours:
+                    neighborhood_mse.append(grid_mse_rank_list[oneD_index])
+                neighborhood_mse.sort()
+                selected_neighborhood_mse = neighborhood_mse[idx[0]]
+                print("== Selected index: {}".format(grid_mse_rank_list.index(selected_neighborhood_mse)))  # TODO: test
+            except ValueError as ve:
+                print("ValueError exception: {}".format(ve))
+            except Exception as ex:
+                print("Generic exception: {}".format(ex))
             return grid_mse_rank_list.index(selected_neighborhood_mse)
         else:
+            if rank >= size:
+                raise ValueError("Rank {} should be less than size {}.".format(rank, size))
             next_index = rank + 1
             if next_index > size - 1:
                 next_index = 0

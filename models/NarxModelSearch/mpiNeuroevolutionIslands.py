@@ -130,17 +130,20 @@ if rank == 0:  # Master Node
             # print("Abort: mean_mse = {} less than ".format(dataWorkerToMaster["mean_mse"]))
             # comm.Abort()  # TODO: block for func call sync
 
-        # Master to worker  # TODO: 1D island (1 neighbour) TO nD Cellular Automata
+        # Master to worker
         agent_to_send = 0  # Default self for 1 island
         current_rank = data_worker_to_master["rank"]
         if size > 2:  # 2+ islands
-            # TODO: nD CA indexing
+            # TODO: 1D island (1 neighbour) TO nD Cellular Automata
             # agent_to_send = current_rank - 2  # Get the best from the previous island
             # if agent_to_send < 0:  # If first island, get last island from buffer
             #     agent_to_send = size - 2
             # TODO: pick best agent from nD grid
             agent_to_send = cellularAutomataIndexing.get_cellular_automata_linear_selection_neighbour_1D_index(
-                current_rank, size, data_manipulation["cellular_automata_dimensions"], agentsMse)  # TODO: tests
+                current_rank - 1,  # TODO: test current_rank
+                size - 1,  # TODO: test size
+                data_manipulation["cellular_automata_dimensions"], agentsMse)
+            agent_to_send += 1  # TODO: proper?
             print("")
 
         dataMasterToWorker = {"swapAgent": True, "agent": agentsBuffer[agent_to_send],
