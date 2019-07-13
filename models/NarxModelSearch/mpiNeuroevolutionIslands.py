@@ -69,7 +69,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 
 # First island in vector is not considered
 # islands = ['ls'] * 6  # Local search islands
-islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 6  # TODO: DA islands
+islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 6  # TODO: test/debug DA islands
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -134,11 +134,7 @@ if rank == 0:  # Master Node
         agent_to_send = 0  # Default self for 1 island
         current_rank = data_worker_to_master["rank"]
         if size > 2:  # 2+ islands
-            # TODO: 1D island (1 neighbour) TO nD Cellular Automata
-            # agent_to_send = current_rank - 2  # Get the best from the previous island
-            # if agent_to_send < 0:  # If first island, get last island from buffer
-            #     agent_to_send = size - 2
-            # TODO: pick best agent from nD grid neighbors
+            # Pick best agent from nD grid neighbors
             agent_to_send = cellularAutomataIndexing.get_cellular_automata_linear_selection_neighbour_1D_index(
                 current_rank - 1, size - 1, data_manipulation["cellular_automata_dimensions"], agentsMse)
 
@@ -199,6 +195,6 @@ else:  # Worker Node
         elif island == 'sg':
             simplicial_homology_global_optimization_model_search(data_manipulation)
         elif island == 'ls':
-            local_model_search(data_manipulation)  # TODO: test local search
+            local_model_search(data_manipulation)
 
         print("--- Done({})!".format(island))

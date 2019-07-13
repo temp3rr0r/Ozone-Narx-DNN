@@ -129,6 +129,7 @@ def simplicial_homology_global_optimization_model_search(data_manipulation=None)
 
 def dual_annealing_model_search(data_manipulation=None):
 
+    # TODO: test why DA returns NaNs
     iterations = data_manipulation["iterations"]
     agents = data_manipulation["agents"]
     baseMpi.train_model.counter = 0  # Function call counter
@@ -348,26 +349,26 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         random_state=rank,  # Rank as random seed
     )
 
-    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)  # TODO: change those? based on local rank
-    if rank % 10 == 1:  # TODO: Acquisition Function "Upper Confidence Bound". Exploitation.
+    utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
+    if rank % 10 == 1:  # Acquisition Function "Upper Confidence Bound". Exploitation.
         utility = UtilityFunction(kind="ucb", kappa=0.1, xi=0.0)
-    elif rank % 10 == 2:  # TODO: Acquisition Function "Upper Confidence Bound". Exploration.
+    elif rank % 10 == 2:  # Acquisition Function "Upper Confidence Bound". Exploration.
         utility = UtilityFunction(kind="ucb", kappa=10, xi=0.0)
-    elif rank % 10 == 3:  # TODO: Acquisition Function "Expected Improvement". Exploitation.
+    elif rank % 10 == 3:  # Acquisition Function "Expected Improvement". Exploitation.
         utility = UtilityFunction(kind="ei", kappa=0.0, xi=1e-4)
-    elif rank % 10 == 4:  # TODO: Acquisition Function "Expected Improvement". Exploration.
+    elif rank % 10 == 4:  # Acquisition Function "Expected Improvement". Exploration.
         utility = UtilityFunction(kind="ei", kappa=0.0,  xi=1e-1)
-    elif rank % 10 == 5:  # TODO: Acquisition Function "Probability of Improvement". Exploitation.
+    elif rank % 10 == 5:  # Acquisition Function "Probability of Improvement". Exploitation.
         utility = UtilityFunction(kind="poi", kappa=0.0,  xi=1e-4)
-    elif rank % 10 == 6:  # TODO: Acquisition Function "Probability of Improvement". Exploration.
+    elif rank % 10 == 6:  # Acquisition Function "Probability of Improvement". Exploration.
         utility = UtilityFunction(kind="poi", kappa=0.0,  xi=1e-1)
-    elif rank % 10 == 7:  # TODO: Acquisition Function "Upper Confidence Bound".
+    elif rank % 10 == 7:  # Acquisition Function "Upper Confidence Bound".
         utility = UtilityFunction(kind="ucb", kappa=5.0, xi=0.1)
-    elif rank % 10 == 8:  # TODO: Acquisition Function "Upper Confidence Bound".
+    elif rank % 10 == 8:  # Acquisition Function "Upper Confidence Bound".
         utility = UtilityFunction(kind="ei", kappa=2.5, xi=1e-4)
-    elif rank % 10 == 9:  # TODO: Acquisition Function "Upper Confidence Bound".
+    elif rank % 10 == 9:  # Acquisition Function "Upper Confidence Bound".
         utility = UtilityFunction(kind="poi", kappa=2.5, xi=1e-4)
-    else:  # TODO: Acquisition Function "Upper Confidence Bound". Default.
+    else:  # Acquisition Function "Upper Confidence Bound". Default.
         utility = UtilityFunction(kind="ucb", kappa=2.5, xi=0.0)
 
     min_mean_mse = 3000.0
@@ -389,9 +390,9 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
         else:
             next_point = optimizer.suggest(utility)
 
-        x = np.array(list(next_point.values()))  # TODO: Still throws list index out of range exception?
+        x = np.array(list(next_point.values()))
 
-        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)  # TODO: test with model validity checker
+        mean_mse, data_worker_to_master = train_model_requester_rabbit_mq(x)
         # Register x & mse to the Bayesian Optimizer
         target = mean_mse
         try:
@@ -533,7 +534,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
     toolbox.register("evaluate", black_box_function_ga)
     toolbox.decorate("evaluate",
-    tools.ClosestValidPenalty(is_feasible, get_feasible, 1.0))  # TODO: out of bounds penalty
+    tools.ClosestValidPenalty(is_feasible, get_feasible, 1.0))  # Out of bounds penalty
     toolbox.register("mate", tools.cxTwoPoint)
     toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
     toolbox.register("select", tools.selTournament, tournsize=3)
@@ -543,10 +544,8 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
     black_box_function_ga.comm = comm
     ngen, cxpb, mutpb = iterations, 0.5, 0.2
 
-    # TODO:
     if data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
-        # TODO: generate/update?
-        # TODO: Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
+        # Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
         # centroid: An iterable object that indicates where to start the evolution.
         # sigma: The initial standard deviation of the distribution.
         # mu: The number of individuals to select for the next generation.
@@ -575,9 +574,9 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
         # GA evaluation of each invididual for the current generation
         print("=== Generation: {}".format(i))
 
-        # TODO: EA algorithms: https://deap.readthedocs.io/en/master/api/algo.html#complete-algorithms
+        # EA algorithms: https://deap.readthedocs.io/en/master/api/algo.html#complete-algorithms
         if data_manipulation["rank"] % 10 == 1 or data_manipulation["rank"] % 10 == 5:
-            # TODO: eaSimple
+            # eaSimple
             # cxpb: Probability of mating 2 individuals
             # mutpb: Probability of mutating an individual
             # varAnd: Crossover AND mutation
@@ -593,7 +592,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
             invalids = [ind for ind in black_box_function_ga.pop if not ind.fitness.valid]
             fitnesses = toolbox.map(toolbox.evaluate, invalids)
         elif data_manipulation["rank"] % 10 == 2 or data_manipulation["rank"] % 10 == 6:
-            # TODO: eaMuPlusLambda
+            # eaMuPlusLambda
             # cxpb: Probability of mating 2 individuals
             # mutpb: Probability of mutating an individual
             # varOr: Crossover AND mutation: crossover, mutation or reproduction
@@ -614,7 +613,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
             fitnesses = toolbox.map(toolbox.evaluate, invalids)
             black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop + old_population, k=mu)
         elif data_manipulation["rank"] % 10 == 3 or data_manipulation["rank"] % 10 == 7:
-            # TODO: eaMuCommaLambda
+            # eaMuCommaLambda
             # cxpb: Probability of mating 2 individuals
             # mutpb: Probability of mutating an individual
             # varOr: Crossover AND mutation: crossover, mutation or reproduction
@@ -636,7 +635,7 @@ def genetic_algorithm_model_search(data_manipulation=None, iterations=100):
             black_box_function_ga.pop = toolbox.select(black_box_function_ga.pop, k=mu)
         # TODO:
         elif data_manipulation["rank"] % 10 == 4 or data_manipulation["rank"] % 10 == 8:
-            # TODO: eaGenerateUpdate
+            # eaGenerateUpdate
             # for g in range(ngen):
             #     population = toolbox.generate()
             #     evaluate(population)

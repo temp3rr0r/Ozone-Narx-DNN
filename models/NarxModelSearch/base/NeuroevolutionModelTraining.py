@@ -47,17 +47,6 @@ def train_model(x, *args):
     :return: Average validation Mean Squared Error.
     """
 
-    # TODO: Used for rapid distributed island testing
-    # import random
-    # rand_number = random.uniform(150, 500)
-    # if np.isnan(np.array(x)).any() or np.array(x).size == 0:
-    #     train_model.one_nan = True
-    # if not train_model.one_nan:
-    #     print("x: ", x)
-    # else:
-    #     print("\n================\nNans detected\n================\n")
-    # return rand_number
-
     startTime = time.time()  # training time per model
 
     train_model.counter += 1
@@ -75,14 +64,13 @@ def train_model(x, *args):
 
     x_data, y_data = args
 
-    print("=== TODO: Test network blocks (LSTM only for now) ===")
+    # TODO: test 1D convolutional blocks
     # x2 = np.array([31.0, 402.80111162405194, 1.9058202160101727, 487.6506286543307, 124.26215489827942, 512.0, 0.241744517820298,
     #  0.25, 0.12677851439487847, 0.23147568997273035, 0.01, 0.19396586046669612, 1.0, 0.6535668275388125,
     #  0.16500668136007904, 0.999225537577359, 0.0, 0.20307441174041735, 1.0, 1.0, 0.0, 0.0, 0.5635281795259502,
     #  1.4141248802054807, 4.763734792829404, 3.0683379620449647, 5.267796469977627])  # TODO: Temp set the same model to benchmark a specific DNN
     # x[12:15] = x2[12:15]  # TODO: Tested: All ~(12:19). With adamax (index: 2) -> Fail. With gaussNoise & batchNorm -> Fail
-    # TODO: Test: da x3
-    # x[3:6] = np.array([8, 8, 8])  # TODO: test small for da
+    # x[3:6] = np.array([8, 8, 8])
 
     full_model_parameters = np.array(x.copy())
     if data_manipulation["fp16"]:
@@ -105,7 +93,7 @@ def train_model(x, *args):
 
     x = np.rint(x).astype(np.int32)
     optimizers = ['nadam', 'amsgrad', 'adagrad', 'adadelta', 'adam',
-                  'nadam']  # Avoid loss NaNs, by removing rmsprop, sgd, adamax. TODO: ftrl: needs lr param
+                  'nadam']  # Avoid loss NaNs, by removing rmsprop, sgd, adamax. TODO: ftrl: needs lr param (for future)
 
     batch_size = x[0]
     epoch_size = x[1]
@@ -124,7 +112,7 @@ def train_model(x, *args):
     use_gaussian_noise2 = x[19]
     use_gaussian_noise3 = x[20]
 
-    core_layers_genes = np.around(x[21:24], decimals=0).astype(int)  # TODO: plain/bidirectional: LSTM, GRU, SimpleRNN
+    core_layers_genes = np.around(x[21:24], decimals=0).astype(int)
 
     layer_types = ['LSTM', 'BiLSTM', 'GRU', 'BiGRU', 'SimpleRNN', 'BiSimpleRNN']
     print("--- Rank {}: Layer Types: {}->{}->{}"
@@ -135,7 +123,7 @@ def train_model(x, *args):
           "Batch Normalization/Gaussian Noise: {}"
           .format(rank, x[0], x[1], optimizers[x[2]], x[3:6], x[15:21]))
 
-    layer_initializer_genes = np.around(x[24:27], decimals=0).astype(int)  # layer initializers, normal/uniform he/lecun #  TODO: layer initializers
+    layer_initializer_genes = np.around(x[24:27], decimals=0).astype(int)  # Layer Initializers
     layer_initializers = ['he_normal', 'lecun_normal', 'glorot_normal', 'random_normal', 'truncated_normal',
                           'he_uniform', 'lecun_uniform', 'random_uniform', 'zeros', 'ones']
     print("--- Rank {}: Layer initializers: {}->{}->{}"
@@ -191,7 +179,7 @@ def train_model(x, *args):
                 l1_l2_randoms[2, 0], l1_l2_randoms[0, 1])
 
         # 1st base layer
-        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[0]]  # TODO: layer initializer
+        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[0]]  # Layer initializer
         # lstm_kwargs['name'] = "size:{}".format(units1)  # TODO: tf.keras layer name
         if core_layers_genes[2] == 0:
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
@@ -211,11 +199,11 @@ def train_model(x, *args):
             model.add(tf.keras.layers.BatchNormalization())
 
         # 2nd base layer
-        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[1]]  # TODO: layer initializer
+        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[1]]  # Layer initializer
         lstm_kwargs['units'] = units2
         lstm_kwargs['dropout'] = dropout2
         lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # TODO: Local mutation
+        # Local Random mutation
         if regularizer_chance_randoms[3] < regularizer_chance:
             lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
@@ -244,12 +232,12 @@ def train_model(x, *args):
             model.add(tf.keras.layers.BatchNormalization())
 
         # 3rd base layer
-        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[2]]  # TODO: layer initializer
+        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[2]]  # Layer initializer
         lstm_kwargs['units'] = units3
         lstm_kwargs['dropout'] = dropout3
         lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
         lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
-        # TODO: Local mutation
+        # Local random mutation
         if regularizer_chance_randoms[6] < regularizer_chance:
             lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[6, 0], l1_l2_randoms[6, 1])
