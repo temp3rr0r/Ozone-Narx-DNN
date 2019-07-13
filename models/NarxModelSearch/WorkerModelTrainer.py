@@ -268,10 +268,15 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
+# TODO: compare above with calendar data
+# data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
+# data_manipulation["filePrefix"] = "PM10_BETN"
+# data_manipulation["mimoOutputs"] = 16
+
 # TODO: compare above with calendar data  # TODO: continue THIS
-data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
-data_manipulation["filePrefix"] = "PM10_BETN"
-data_manipulation["mimoOutputs"] = 16
+data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
+data_manipulation["filePrefix"] = "O3_BETN"
+data_manipulation["mimoOutputs"] = 46
 
 # data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
 # data_manipulation["filePrefix"] = "O3_BETN"

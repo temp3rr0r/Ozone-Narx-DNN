@@ -1,19 +1,22 @@
 import pandas as pd
+import numpy as np
 # fromFileName = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
 # fromFileName = "ALL_BE_51vars_O3_O3-1_19900101To20121231"
 # fromFileName = "ALL_BE_51vars_PM10_PM10-1_19940101To20121231"
 # fromFileName = "BETN073"
 # fromFileName = "BETN073_BG"
 
-metric = "PM10"
+metric = "O3"
 fromFileName = ""
 if metric == "PM10":
     fromFileName = "PM10_BETN"
 elif metric == "O3":
     fromFileName = "O3_BETN"
 
-ts = pd.DataFrame.from_csv("../data/{}.csv".format(fromFileName))
+ts = pd.read_csv("../data/{}.csv".format(fromFileName))
 toFileName = fromFileName
+
+ts = ts[ts.columns.drop(list(ts.filter(regex='Unnamed')))]  # TODO: With last pandas, need to drop the datetime column
 
 # Normalize/Standardize data before filling them
 standardized_ts = (ts-ts.mean())/ts.std()
