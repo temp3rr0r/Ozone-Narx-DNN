@@ -17,6 +17,8 @@ from base.bounds import bounds, ub, lb
 from scipy.optimize import minimize
 
 
+# TODO: Apply migrate TRUE/FALSE switch (to enable/disable co-evolutionary migrations).
+
 def local_exposer_train_model_requester_rabbit_mq(x):
     """
     Encapsulates train_model_requester_rabbit_mq, in order to expose the MSE only of the function return.

@@ -13,6 +13,7 @@
     "verbose": 0,
     "fp16": false,
     "multi_gpu": false,
+    "migrate": true,
     "timesteps": 1,
     "cellular_automata_dimensions": [27]
 }
