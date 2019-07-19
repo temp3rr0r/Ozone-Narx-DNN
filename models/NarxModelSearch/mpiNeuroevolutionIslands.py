@@ -68,8 +68,8 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
     print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
 
 # First island in vector is not considered
-islands = ['ls'] * 6  # Local search islands
-# islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 6  # TODO: test/debug DA islands
+# islands = ['ls'] * 6  # Local search islands
+islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 6  # TODO: test/debug DA islands
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -156,6 +156,7 @@ else:  # Worker Node
     initData = comm.recv(source=0, tag=0)  # Block wait the init command by the master
     if initData["command"] == "init":
 
+        print("working({})...".format(rank))
         print("working({})...".format(rank))
         island = initData["island"]  # Get the island type from the master
         print("--- Rank {}. Data Received: {}!".format(rank, initData))
