@@ -319,7 +319,7 @@ def train_model(x, *args):
             try:
                 history = model.fit(x_data[train], y_data[train],
                                     verbose=verbosity,
-                                    batch_size=batch_size,
+                                    # batch_size=batch_size,
                                     epochs=epoch_size,
                                     steps_per_epoch=26,  # TODO: tpu steps_per_epoch
                                     validation_data=(x_data[validation], y_data[validation]),
@@ -328,7 +328,7 @@ def train_model(x, *args):
                 print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
                 history = model.fit(x_data[train], y_data[train],
                                     verbose=verbosity,
-                                    batch_size=batch_size,
+                                    # batch_size=batch_size,
                                     epochs=epoch_size,
                                     steps_per_epoch=26,  # TODO: tpu steps_per_epoch
                                     validation_data=(x_data[validation], y_data[validation]),
