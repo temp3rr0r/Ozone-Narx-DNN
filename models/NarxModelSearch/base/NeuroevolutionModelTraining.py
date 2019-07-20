@@ -282,10 +282,6 @@ def train_model(x, *args):
 
             tf.logging.set_verbosity(tf.logging.INFO)
 
-            # TODO: Do convert to tpu model
-            model = tf.contrib.tpu.keras_to_tpu_model(model, strategy=tf.contrib.tpu.TPUDistributionStrategy(
-                tf.contrib.cluster_resolver.TPUClusterResolver(TF_MASTER)))
-
             if optimizer == 'amsgrad':  # Adam variant: amsgrad (boolean), "On the Convergence of Adam and Beyond".
                 model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
             else:
