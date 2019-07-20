@@ -158,177 +158,193 @@ def train_model(x, *args):
 
         # dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
-        # create model
-        model = tf.keras.models.Sequential()
-        lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
-                       'return_sequences': True,
-                       'implementation': 2,
-                       # 'kernel_regularizer': l2(0.01),
-                       # 'activity_regularizer': l2(0.01),
-                       # 'bias_regularizer': l2(0.01)
-                       }
-        # Local mutation
-        if regularizer_chance_randoms[0] < regularizer_chance:
-            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[0, 0], l1_l2_randoms[0, 1])
-        if regularizer_chance_randoms[1] < regularizer_chance:
-            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[1, 0], l1_l2_randoms[2, 1])
-        if regularizer_chance_randoms[2] < regularizer_chance:
-            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[2, 0], l1_l2_randoms[0, 1])
+        # TODO: use TPU strategy + model convert to TPU
+        TF_MASTER = "grpc://10.240.1.2:8470"
+        resolver = tf.contrib.cluster_resolver.TPUClusterResolver(TF_MASTER)
+        tf.contrib.distribute.initialize_tpu_system(resolver)
+        strategy = tf.contrib.distribute.TPUStrategy(resolver)
+        with strategy.scope():
 
-        # 1st base layer
-        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[0]]  # Layer initializer
-        # lstm_kwargs['name'] = "size:{}".format(units1)  # TODO: tf.keras layer name
-        if core_layers_genes[2] == 0:
-            model.add(tf.keras.layers.LSTM(**lstm_kwargs))
-        elif core_layers_genes[2] == 1:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_genes[2] == 2:
-            model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_genes[2] == 3:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_genes[2] == 4:
-            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
-        else:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
-        if use_gaussian_noise1 < 0.5:
-            model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
-        if use_batch_normalization1 < 0.5:
-            model.add(tf.keras.layers.BatchNormalization())
+            # create model
+            model = tf.keras.models.Sequential()
+            lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+                           'return_sequences': True,
+                           'implementation': 2,
+                           # 'kernel_regularizer': l2(0.01),
+                           # 'activity_regularizer': l2(0.01),
+                           # 'bias_regularizer': l2(0.01)
+                           }
+            # Local mutation
+            if regularizer_chance_randoms[0] < regularizer_chance:
+                lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[0, 0], l1_l2_randoms[0, 1])
+            if regularizer_chance_randoms[1] < regularizer_chance:
+                lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[1, 0], l1_l2_randoms[2, 1])
+            if regularizer_chance_randoms[2] < regularizer_chance:
+                lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[2, 0], l1_l2_randoms[0, 1])
 
-        # 2nd base layer
-        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[1]]  # Layer initializer
-        lstm_kwargs['units'] = units2
-        lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
-        # Local Random mutation
-        if regularizer_chance_randoms[3] < regularizer_chance:
-            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
-        if regularizer_chance_randoms[4] < regularizer_chance:
-            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
-        if regularizer_chance_randoms[5] < regularizer_chance:
-            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
-        # 2nd base layer
-        if core_layers_genes[2] == 0:
-            model.add(tf.keras.layers.LSTM(**lstm_kwargs))
-        elif core_layers_genes[2] == 1:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_genes[2] == 2:
-            model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_genes[2] == 3:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_genes[2] == 4:
-            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
-        else:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
-        if use_gaussian_noise2 < 0.5:
-            model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
-        if use_batch_normalization2 < 0.5:
-            model.add(tf.keras.layers.BatchNormalization())
+            # 1st base layer
+            lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[0]]  # Layer initializer
+            # lstm_kwargs['name'] = "size:{}".format(units1)  # TODO: tf.keras layer name
+            if core_layers_genes[2] == 0:
+                model.add(tf.keras.layers.LSTM(**lstm_kwargs, input_shape=(x_data.shape[1], x_data.shape[2])))
+            elif core_layers_genes[2] == 1:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs), input_shape=(x_data.shape[1], x_data.shape[2])))
+            elif core_layers_genes[2] == 2:
+                model.add(tf.keras.layers.GRU(**lstm_kwarg, input_shape=(x_data.shape[1], x_data.shape[2])))
+            elif core_layers_genes[2] == 3:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs), input_shape=(x_data.shape[1], x_data.shape[2])))
+            elif core_layers_genes[2] == 4:
+                model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs, input_shape=(x_data.shape[1], x_data.shape[2])))
+            else:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)), input_shape=(x_data.shape[1], x_data.shape[2]))
 
-        # 3rd base layer
-        lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[2]]  # Layer initializer
-        lstm_kwargs['units'] = units3
-        lstm_kwargs['dropout'] = dropout3
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
-        # Local random mutation
-        if regularizer_chance_randoms[6] < regularizer_chance:
-            lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[6, 0], l1_l2_randoms[6, 1])
-        if regularizer_chance_randoms[7] < regularizer_chance:
-            lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[7, 0], l1_l2_randoms[7, 1])
-        if regularizer_chance_randoms[8] < regularizer_chance:
-            lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
-                l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
-        if core_layers_genes[2] == 0:
-            model.add(tf.keras.layers.LSTM(**lstm_kwargs))
-        elif core_layers_genes[2] == 1:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_genes[2] == 2:
-            model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_genes[2] == 3:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_genes[2] == 4:
-            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
-        else:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
+            if use_gaussian_noise1 < 0.5:
+                model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
+            if use_batch_normalization1 < 0.5:
+                model.add(tf.keras.layers.BatchNormalization())
 
-        if use_gaussian_noise3 < 0.5:
-            model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
-        if use_batch_normalization3 < 0.5:
-            model.add(tf.keras.layers.BatchNormalization())
+            # 2nd base layer
+            lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[1]]  # Layer initializer
+            lstm_kwargs['units'] = units2
+            lstm_kwargs['dropout'] = dropout2
+            lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+            # Local Random mutation
+            if regularizer_chance_randoms[3] < regularizer_chance:
+                lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[3, 0], l1_l2_randoms[3, 1])
+            if regularizer_chance_randoms[4] < regularizer_chance:
+                lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[4, 0], l1_l2_randoms[4, 1])
+            if regularizer_chance_randoms[5] < regularizer_chance:
+                lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
+            # 2nd base layer
+            if core_layers_genes[2] == 0:
+                model.add(tf.keras.layers.LSTM(**lstm_kwargs))
+            elif core_layers_genes[2] == 1:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+            elif core_layers_genes[2] == 2:
+                model.add(tf.keras.layers.GRU(**lstm_kwargs))
+            elif core_layers_genes[2] == 3:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
+            elif core_layers_genes[2] == 4:
+                model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
+            else:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
+            if use_gaussian_noise2 < 0.5:
+                model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
+            if use_batch_normalization2 < 0.5:
+                model.add(tf.keras.layers.BatchNormalization())
 
-        # model.add(tf.keras.layers.Dense(y_data.shape[1], activation=random.choice(
-        #     ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
-        #      "linear"])))  # TODO: test with 2 extra dense layers
-        model.add(tf.keras.layers.Dense(y_data.shape[1]))
-        if multi_gpu:
-            model = tf.keras.utils.multi_gpu_model(model, gpus=2)
+            # 3rd base layer
+            lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[2]]  # Layer initializer
+            lstm_kwargs['units'] = units3
+            lstm_kwargs['dropout'] = dropout3
+            lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+            lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
+            # Local random mutation
+            if regularizer_chance_randoms[6] < regularizer_chance:
+                lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[6, 0], l1_l2_randoms[6, 1])
+            if regularizer_chance_randoms[7] < regularizer_chance:
+                lstm_kwargs['bias_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[7, 0], l1_l2_randoms[7, 1])
+            if regularizer_chance_randoms[8] < regularizer_chance:
+                lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
+                    l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
+            if core_layers_genes[2] == 0:
+                model.add(tf.keras.layers.LSTM(**lstm_kwargs))
+            elif core_layers_genes[2] == 1:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
+            elif core_layers_genes[2] == 2:
+                model.add(tf.keras.layers.GRU(**lstm_kwargs))
+            elif core_layers_genes[2] == 3:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
+            elif core_layers_genes[2] == 4:
+                model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
+            else:
+                model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
 
-        if optimizer == 'amsgrad':  # Adam variant: amsgrad (boolean), "On the Convergence of Adam and Beyond".
-            model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
-        else:
-            model.compile(loss='mean_squared_error', optimizer=optimizer)
+            if use_gaussian_noise3 < 0.5:
+                model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
+            if use_batch_normalization3 < 0.5:
+                model.add(tf.keras.layers.BatchNormalization())
 
-        current_fold += 1  # TODO: train, trainValidation, validation
-        print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
+            # model.add(tf.keras.layers.Dense(y_data.shape[1], activation=random.choice(
+            #     ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
+            #      "linear"])))  # TODO: test with 2 extra dense layers
+            model.add(tf.keras.layers.Dense(y_data.shape[1]))
+            if multi_gpu:
+                model = tf.keras.utils.multi_gpu_model(model, gpus=2)
 
-        early_stop = [
-            tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
-            tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, mode='auto',
-                                                 cooldown=1, verbose=1),
-            tf.keras.callbacks.TerminateOnNaN()
-        ]
+            tf.logging.set_verbosity(tf.logging.INFO)
 
-        # try:  # TODO: Use dev set
-        #     history = model.fit(x_data[train], y_data[train],
-        #                         verbose=verbosity,
-        #                         batch_size=batch_size,
-        #                         epochs=epoch_size,
-        #                         validation_data=(x_data[dev], y_data[dev]),
-        #                         callbacks=early_stop)
-        # except ValueError:
-        #     print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
-        #     history = model.fit(x_data[train], y_data[train],
-        #                         verbose=verbosity,
-        #                         batch_size=batch_size,
-        #                         epochs=epoch_size,
-        #                         validation_data=(x_data[dev], y_data[dev]),
-        #                         callbacks=early_stop)
-        try:
-            history = model.fit(x_data[train], y_data[train],
-                                verbose=verbosity,
-                                batch_size=batch_size,
-                                epochs=epoch_size,
-                                validation_data=(x_data[validation], y_data[validation]),
-                                callbacks=early_stop)
-        except ValueError:
-            print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
-            history = model.fit(x_data[train], y_data[train],
-                                verbose=verbosity,
-                                batch_size=batch_size,
-                                epochs=epoch_size,
-                                validation_data=(x_data[validation], y_data[validation]),
-                                callbacks=early_stop)
-        except:
-            print("--- Rank {}: Exception: Returning max float value for this iteration.".format(rank))
-            delete_model(model)
+            # TODO: Do convert to tpu model
+            model = tf.contrib.tpu.keras_to_tpu_model(model, strategy=tf.contrib.tpu.TPUDistributionStrategy(
+                tf.contrib.cluster_resolver.TPUClusterResolver(TF_MASTER)))
 
-            return sys.float_info.max
+            if optimizer == 'amsgrad':  # Adam variant: amsgrad (boolean), "On the Convergence of Adam and Beyond".
+                model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(amsgrad=True))
+            else:
+                model.compile(loss='mean_squared_error', optimizer=optimizer)
 
-        prediction = model.predict(x_data[validation])
-        train_prediction = model.predict(x_data[train])
-        # dev_prediction = model.predict(x_data[dev])
-        y_validation = y_data[validation]
-        y_train = y_data[train]
-        # y_dev = y_data[dev]
+            current_fold += 1  # TODO: train, trainValidation, validation
+            print("--- Rank {}: Current Fold: {}/{}".format(rank, current_fold, totalFolds))
+
+            early_stop = [
+                tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto'),
+                tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, mode='auto',
+                                                     cooldown=1, verbose=1),
+                tf.keras.callbacks.TerminateOnNaN()
+            ]
+
+            # try:  # TODO: Use dev set
+            #     history = model.fit(x_data[train], y_data[train],
+            #                         verbose=verbosity,
+            #                         batch_size=batch_size,
+            #                         epochs=epoch_size,
+            #                         validation_data=(x_data[dev], y_data[dev]),
+            #                         callbacks=early_stop)
+            # except ValueError:
+            #     print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
+            #     history = model.fit(x_data[train], y_data[train],
+            #                         verbose=verbosity,
+            #                         batch_size=batch_size,
+            #                         epochs=epoch_size,
+            #                         validation_data=(x_data[dev], y_data[dev]),
+            #                         callbacks=early_stop)
+            try:
+                history = model.fit(x_data[train], y_data[train],
+                                    verbose=verbosity,
+                                    batch_size=batch_size,
+                                    epochs=epoch_size,
+                                    steps_per_epoch=26,  # TODO: tpu steps_per_epoch
+                                    validation_data=(x_data[validation], y_data[validation]),
+                                    callbacks=early_stop)
+            except ValueError:
+                print("--- Rank {}: Value Error exception: Model fit exception. Trying again...".format(rank))
+                history = model.fit(x_data[train], y_data[train],
+                                    verbose=verbosity,
+                                    batch_size=batch_size,
+                                    epochs=epoch_size,
+                                    steps_per_epoch=26,  # TODO: tpu steps_per_epoch
+                                    validation_data=(x_data[validation], y_data[validation]),
+                                    callbacks=early_stop)
+            except:
+                print("--- Rank {}: Exception: Returning max float value for this iteration.".format(rank))
+                delete_model(model)
+
+                return sys.float_info.max
+
+            prediction = model.predict(x_data[validation])
+            train_prediction = model.predict(x_data[train])
+            # dev_prediction = model.predict(x_data[dev])
+            y_validation = y_data[validation]
+            y_train = y_data[train]
+            # y_dev = y_data[dev]
 
         if data_manipulation["scale"] == 'standardize':
             sensor_mean = pd.read_pickle(directory + filePrefix + "_ts_mean.pkl")
