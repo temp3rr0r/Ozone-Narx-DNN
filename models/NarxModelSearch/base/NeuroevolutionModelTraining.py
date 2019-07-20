@@ -316,8 +316,8 @@ def train_model(x, *args):
                 history = model.fit(x_data[train], y_data[train],
                                     verbose=verbosity,
                                     # batch_size=batch_size,
-                                    epochs=epoch_size,
-                                    steps_per_epoch=26,  # TODO: tpu steps_per_epoch
+                                    epochs=int(epoch_size / 8) * 8,
+                                    steps_per_epoch=int(epoch_size / 8),  # TODO: tpu steps_per_epoch
                                     validation_data=(x_data[validation], y_data[validation]),
                                     callbacks=early_stop)
             except ValueError:
@@ -325,8 +325,8 @@ def train_model(x, *args):
                 history = model.fit(x_data[train], y_data[train],
                                     verbose=verbosity,
                                     # batch_size=batch_size,
-                                    epochs=epoch_size,
-                                    steps_per_epoch=26,  # TODO: tpu steps_per_epoch
+                                    epochs=int(epoch_size / 8) * 8,
+                                    steps_per_epoch=int(epoch_size / 8),  # TODO: tpu steps_per_epoch
                                     validation_data=(x_data[validation], y_data[validation]),
                                     callbacks=early_stop)
             except:
