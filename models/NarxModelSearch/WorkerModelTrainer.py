@@ -29,7 +29,28 @@ def init_gpu(gpu_rank):
     :return: None.
     """
 
-    if gpu_rank == 1:  # Rank per gpu
+    if gpu_rank == 0:  # Rank per gpu
+        # TODO: use TPU
+        import distutils
+        if distutils.version.LooseVersion(tf.__version__) < '1.14':
+            raise Exception(
+                'This notebook is compatible with TensorFlow 1.14 or higher, for TensorFlow 1.13 or lower please use the previous version at https://github.com/tensorflow/tpu/blob/r1.13/regression_sine_data_with_keras.ipynb')
+        use_tpu = True  # @param {type:"boolean"}
+
+        if use_tpu:
+            assert 'COLAB_TPU_ADDR' in os.environ, 'Missing TPU; did you request a TPU in Notebook Settings?'
+
+        if 'COLAB_TPU_ADDR' in os.environ:
+            TF_MASTER = 'grpc://{}'.format(os.environ['COLAB_TPU_ADDR'])
+        else:
+            TF_MASTER = ''
+
+        with tf.Session(TF_MASTER) as session:
+            print('List of devices:')
+            pprint.pprint(session.list_devices())
+        exit()
+
+    elif gpu_rank == 1:  # Rank per gpu
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     elif gpu_rank == 2:
