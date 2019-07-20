@@ -31,6 +31,7 @@ def init_gpu(gpu_rank):
 
     if gpu_rank == 0:  # Rank per gpu
         # TODO: use TPU
+        import tensorflow as tf
         import distutils
         import pprint
         if distutils.version.LooseVersion(tf.__version__) < '1.14':
