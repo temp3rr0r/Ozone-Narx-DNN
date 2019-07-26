@@ -566,26 +566,34 @@ def train_model_tester3(x, *args):
     x_data, y_data = args
     full_model_parameters = x.copy()
 
-    # mean_mse = ackley([x[12], x[13]])  # TODO: test deap benchmarks
-    dict_test_fitness_functions = {
+    # TODO: test deap benchmarks
+    objective_test_functions = {
+        # Single Objective Continuous
         "ackley": {"range": [-15, 30], "function_call": benchmarks.ackley},
+        "bohachevsky": {"range": [-100, 100], "function_call": benchmarks.bohachevsky},  # TODO: probs
         "himmelblau": {"range": [-6, 6], "function_call": benchmarks.himmelblau},
-        "bohachevsky": {"range": [-100, 100], "function_call": benchmarks.bohachevsky},
         "griewank": {"range": [-600, 600], "function_call": benchmarks.griewank},
-        "h1": {"range": [-100, 100], "function_call": benchmarks.h1},
-        "rastrigin": {"range": [-100, 100], "function_call": benchmarks.rastrigin},
-        "rosenbrock": {"range": [-100, 100], "function_call": benchmarks.rosenbrock},
+        "h1": {"range": [-100, 100], "function_call": benchmarks.h1},  # Maximization
+        "rastrigin": {"range": [-5.12, 5.12], "function_call": benchmarks.rastrigin},
+        "rosenbrock": {"range": [-3, 3], "function_call": benchmarks.rosenbrock},  # TODO: probs  # Arbitrary bounds
         "schaffer": {"range": [-100, 100], "function_call": benchmarks.schaffer},
-        "schwefel": {"range": [-500, 500], "function_call": benchmarks.schwefel}
+        "schwefel": {"range": [-500, 500], "function_call": benchmarks.schwefel},
+
+        "cigar": {"range": [-100, 100], "function_call": benchmarks.cigar},  # TODO: probs  # Arbitrary bounds
+        "plane": {"range": [-100, 100], "function_call": benchmarks.plane},  # Arbitrary bounds
+        "sphere": {"range": [-100, 100], "function_call": benchmarks.sphere},  # TODO: probs # Arbitrary bounds
+        "rand": {"range": [-100, 100], "function_call": benchmarks.rand}  # Arbitrary bounds
     }
 
-    last_genes_count = -3
-    test_fitness_function = "himmelblau"
+    last_genes_count = -10  # Count of genes to use as input (from end).
+    test_fitness_function = "schwefel"  # Fitness function to check.
 
-    scaler = MinMaxScaler(feature_range=dict_test_fitness_functions[test_fitness_function]["range"])
-    scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-    scaled_x = scaler.transform([x[last_genes_count:]])
-    mean_mse = dict_test_fitness_functions[test_fitness_function]["function_call"](scaled_x[0])[0]
+    scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])
+    scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))  # Train scaling from bounds
+    scaled_x = scaler.transform([x[last_genes_count:]])  # Do scale
+    mean_mse = objective_test_functions[test_fitness_function]["function_call"](scaled_x[0])[0]
+    if test_fitness_function == "h1":  # h1 is maximizing
+        mean_mse *= -1
 
     verbose = False
     if verbose:
@@ -594,6 +602,7 @@ def train_model_tester3(x, *args):
         print("scaler: ", scaler)
     print("scaled_x: {}".format(scaled_x))
 
+    # Plot new Min
     if mean_mse < train_model.train_model_tester3:
         train_model.train_model_tester3 = mean_mse
         train_model.train_model_tester3mse_island = island
@@ -604,7 +613,7 @@ def train_model_tester3(x, *args):
         train_model.train_model_tester3mse_island, test_fitness_function,
         train_model.train_model_tester3))
 
-    time.sleep(0.5)
+    time.sleep(0.05)
 
     train_model.counter += 1
     endTime = time.time()
