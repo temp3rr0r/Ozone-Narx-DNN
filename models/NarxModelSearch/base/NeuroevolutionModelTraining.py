@@ -566,7 +566,7 @@ def train_model_tester3(x, *args):
     x_data, y_data = args
     full_model_parameters = x.copy()
 
-    # TODO: test deap benchmarks
+    # Deap test objective functions: https://deap.readthedocs.io/en/master/api/benchmarks.html
     objective_test_functions = {
         # Single Objective Continuous
         "ackley": {"range": [-15, 30], "function_call": benchmarks.ackley},
@@ -613,7 +613,7 @@ def train_model_tester3(x, *args):
         train_model.train_model_tester3mse_island, test_fitness_function,
         train_model.train_model_tester3))
 
-    time.sleep(0.05)
+    time.sleep(0.005)
 
     train_model.counter += 1
     endTime = time.time()

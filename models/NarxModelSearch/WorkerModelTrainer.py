@@ -185,8 +185,8 @@ def model_training_callback(ch, method, properties, body):
             channel.queue_declare(queue=results_queue, durable=False)
 
         x = np.array(body["array"])
-        # mse = baseMpi.train_model(x, *args)  # Do train model
-        mse = baseMpi.train_model_tester3(x, *args)  # TODO: ackley for island communications tests
+        mse = baseMpi.train_model(x, *args)  # Do train model
+        # mse = baseMpi.train_model_tester3(x, *args)  # Objective function tests: ackley, schwefel etc...
         print(" [x] mse: ", mse)
 
         ch.basic_ack(delivery_tag=method.delivery_tag)  # Ack receipt of task & work done
