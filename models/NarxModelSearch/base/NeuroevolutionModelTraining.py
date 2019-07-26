@@ -566,88 +566,26 @@ def train_model_tester3(x, *args):
     x_data, y_data = args
     full_model_parameters = x.copy()
 
-    # TODO: func to optimize
-    # timeToSleep = np.random.uniform(0, 0.01)
-    # time.sleep(timeToSleep)
-    # mean_mse = 333.33 + timeToSleep
-
     # mean_mse = ackley([x[12], x[13]])  # TODO: test deap benchmarks
-    # mean_mse = benchmarks.ackley([x[25], x[26]])[0]  # x in [-15, 30]
-    # mean_mse = benchmarks.bohachevsky(x[-3:])[0]  # x in [-100, 100]
-    # mean_mse = benchmarks.schwefel(x[-3:])[0]  # x in [-100, 100]
-    # mean_mse = benchmarks.griewank(x[-3:])[0]  # x in [-100, 100]
-    # mean_mse = - benchmarks.h1(x[-3:])[0]  # x in [-100, 100]
-
-    # x = [234, 1234, 1234, 5, 0, 9, 4.5]
-    last_genes_count = -3
-    test_fitness_function = "ackley"
-
     dict_test_fitness_functions = {
-        "himmelblau": [-6, 6],
-        "ackley": [-15, 30],
+        "ackley": {"range": [-15, 30], "function_call": benchmarks.ackley},
+        "himmelblau": {"range": [-6, 6], "function_call": benchmarks.himmelblau},
+        "bohachevsky": {"range": [-100, 100], "function_call": benchmarks.bohachevsky},
+        "griewank": {"range": [-600, 600], "function_call": benchmarks.griewank},
+        "h1": {"range": [-100, 100], "function_call": benchmarks.h1},
+        "rastrigin": {"range": [-100, 100], "function_call": benchmarks.rastrigin},
+        "rosenbrock": {"range": [-100, 100], "function_call": benchmarks.rosenbrock},
+        "schaffer": {"range": [-100, 100], "function_call": benchmarks.schaffer},
+        "schwefel": {"range": [-500, 500], "function_call": benchmarks.schwefel}
     }
 
-    if test_fitness_function == "himmelblau":
-        function_x_range = [-6, 6]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.himmelblau(scaled_x[0])[0]
-    elif test_fitness_function == "ackley":
-        function_x_range = [-15, 30]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.ackley(scaled_x[0])[0]
-    elif test_fitness_function == "bohachevsky":
-        function_x_range = [-100, 100]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.bohachevsky(scaled_x[0])[0]
-    elif test_fitness_function == "griewank":
-        function_x_range = [-600, 600]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.griewank(scaled_x[0])[0]
-    elif test_fitness_function == "h1":
-        function_x_range = [-100, 100]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = - benchmarks.h1(scaled_x[0])[0]
-    elif test_fitness_function == "rastrigin":
-        function_x_range = [-100, 100]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.rastrigin(scaled_x[0])[0]
-    elif test_fitness_function == "rosenbrock":
-        function_x_range = [-100, 100]  # No actual range, we go -inf, inf
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.rosenbrock(scaled_x[0])[0]
-    elif test_fitness_function == "schaffer":
-        function_x_range = [-100, 100]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.schaffer(scaled_x[0])[0]
-    elif test_fitness_function == "schwefel":
-        function_x_range = [-500, 500]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.schwefel(scaled_x[0])[0]
-    else:
-        #  Default himmelblau
-        function_x_range = [-6, 6]
-        scaler = MinMaxScaler(feature_range=function_x_range)
-        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
-        scaled_x = scaler.transform([x[last_genes_count:]])
-        mean_mse = benchmarks.himmelblau(scaled_x[0])[0]
+    last_genes_count = -3
+    test_fitness_function = "himmelblau"
+
+    scaler = MinMaxScaler(feature_range=dict_test_fitness_functions[test_fitness_function]["range"])
+    scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
+    scaled_x = scaler.transform([x[last_genes_count:]])
+    mean_mse = dict_test_fitness_functions[test_fitness_function]["function_call"](scaled_x[0])[0]
 
     verbose = False
     if verbose:
@@ -656,18 +594,16 @@ def train_model_tester3(x, *args):
         print("scaler: ", scaler)
     print("scaled_x: {}".format(scaled_x))
 
-
     if mean_mse < train_model.train_model_tester3:
         train_model.train_model_tester3 = mean_mse
         train_model.train_model_tester3mse_island = island
         print("\t\t--- NEW min_mean_mse({}): {} {:.2f}".format(
             train_model.train_model_tester3mse_island, test_fitness_function,
             train_model.train_model_tester3))
-        # print("\t\t--- NEW min_mean_mse: {:.2f}".format(train_model.train_model_tester3))
     print("\t\t=== min_mean_mse({}): {} {:.2f}".format(
         train_model.train_model_tester3mse_island, test_fitness_function,
         train_model.train_model_tester3))
-    # print("\t\t=== min_mean_mse: {:.2f}".format(train_model.train_model_tester3))
+
     time.sleep(0.5)
 
     train_model.counter += 1
