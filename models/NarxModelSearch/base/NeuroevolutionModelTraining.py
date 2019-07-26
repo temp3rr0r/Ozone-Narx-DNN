@@ -542,7 +542,11 @@ def ackley(x):
     arg2 = 0.5 * (np.cos(2. * np.pi * x[0]) + np.cos(2. * np.pi * x[1]))
     return -20. * np.exp(arg1) - np.exp(arg2) + 20. + np.e
 
-
+from deap import benchmarks  # TODO: test functions
+train_model.train_model_tester3 = np.inf
+train_model.train_model_tester3mse_island = ""
+# TODO: minmaxscaling for the Deap benchmark functions
+from sklearn.preprocessing import MinMaxScaler
 def train_model_tester3(x, *args):
     """
     Fake model training, for testing communication and workers. Tries to find ackley function minimum.
@@ -566,7 +570,38 @@ def train_model_tester3(x, *args):
     # timeToSleep = np.random.uniform(0, 0.01)
     # time.sleep(timeToSleep)
     # mean_mse = 333.33 + timeToSleep
-    mean_mse = ackley([x[12], x[13]])
+
+    # mean_mse = ackley([x[12], x[13]])  # TODO: test deap benchmarks
+    # mean_mse = benchmarks.ackley([x[25], x[26]])[0]  # x in [-15, 30]
+    # mean_mse = benchmarks.bohachevsky(x[-3:])[0]  # x in [-100, 100]
+    # mean_mse = benchmarks.schwefel(x[-3:])[0]  # x in [-100, 100]
+    # mean_mse = benchmarks.griewank(x[-3:])[0]  # x in [-100, 100]
+    # mean_mse = - benchmarks.h1(x[-3:])[0]  # x in [-100, 100]
+
+    # x = [234, 1234, 1234, 5, 0, 9, 4.5]
+    last_genes_count = -4
+    test_fitness_function = "himmelblau"
+
+    if test_fitness_function == "himmelblau":
+        function_x_range = [-100, 100]
+
+        scaler = MinMaxScaler(feature_range=function_x_range)
+        scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))
+        scaled_x = scaler.transform([x[last_genes_count:]])
+        print("x[{}:]: {}".format(last_genes_count, x[last_genes_count:]))
+        print("data_manipulation[\"bounds\"]: {}".format(data_manipulation["bounds"][last_genes_count:]))
+        print("scaled_x: {}".format(scaled_x))
+        print("scaler: ", scaler)
+        mean_mse = benchmarks.himmelblau(scaled_x[0])[0]  # x in [-100, 100]
+
+    if mean_mse < train_model.train_model_tester3:
+        train_model.train_model_tester3 = mean_mse
+        train_model.train_model_tester3mse_island = island
+        print("\t\t--- NEW min_mean_mse({}): {:.2f}".format(train_model.train_model_tester3mse_island, train_model.train_model_tester3))
+        # print("\t\t--- NEW min_mean_mse: {:.2f}".format(train_model.train_model_tester3))
+    print("\t\t=== min_mean_mse({}): {:.2f}".format(train_model.train_model_tester3mse_island, train_model.train_model_tester3))
+    # print("\t\t=== min_mean_mse: {:.2f}".format(train_model.train_model_tester3))
+    time.sleep(0.5)
 
     train_model.counter += 1
     endTime = time.time()

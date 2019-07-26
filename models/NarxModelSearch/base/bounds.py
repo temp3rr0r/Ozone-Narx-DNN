@@ -24,7 +24,13 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (0, 5),
           (0, 9),  # layer initializers, normal/uniform he/lecun,...
           (0, 9),
-          (0, 9)]
+          (0, 9)
+            # (-6, 6), # TODO: DEAP benchmark params
+            # (-6, 6),
+            # (-6, 6)
+          ]
+
+# bounds = [(-100, 100)] * 27 # TODO: DEAP benchmark params
 
 # Model Search Space bounds
 lb, ub = zip(*bounds)
