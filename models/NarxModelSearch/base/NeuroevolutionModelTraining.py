@@ -149,7 +149,7 @@ def train_model(x, *args):
     regularizer_chance = 0.1
     regularizer_chance_randoms = np.random.rand(9)
 
-    l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
+    l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))  # TODO: store random local mutation in CSV
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?

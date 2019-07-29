@@ -211,7 +211,7 @@ print("--- Usage:\n\tWorkerModelTrainer.py --gpu <integer (default: 1): 0 to N>\
 if len(sys.argv) == 3:
     if str(sys.argv[1]) in ("--gpu", "-g"):
         gpu_device = int(sys.argv[2])
-        print("-- Set to GPU: {}".format(gpu_device))
+        print("-- Set to GPU: {}".format(gpu_device))  # TODO: Store gpu_device -> CSV field
 
 print("--- Loading GPU {}...".format(gpu_device))
 init_gpu(gpu_device)
