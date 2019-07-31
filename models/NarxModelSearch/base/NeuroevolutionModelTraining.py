@@ -265,6 +265,7 @@ def train_model(x, *args):
         if use_batch_normalization3 < 0.5:
             model.add(tf.keras.layers.BatchNormalization())
 
+        # TODO: Genes: activation function
         # model.add(tf.keras.layers.Dense(y_data.shape[1], activation=random.choice(
         #     ["tanh", "softmax", "elu", "selu", "softplus", "relu", "softsign", "hard_sigmoid",
         #      "linear"])))  # TODO: test with 2 extra dense layers
