@@ -236,7 +236,7 @@ def train_model(x, *args):
         lstm_kwargs['units'] = units3
         lstm_kwargs['dropout'] = dropout3
         lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
-        lstm_kwargs['return_sequences'] = False  # Last layer should return sequences
+        lstm_kwargs['return_sequences'] = False  # Last layer should not return sequences
         # Local random mutation
         if regularizer_chance_randoms[6] < regularizer_chance:
             lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
