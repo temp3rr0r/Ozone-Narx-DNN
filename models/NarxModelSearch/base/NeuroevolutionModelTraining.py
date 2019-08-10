@@ -9,7 +9,6 @@ import tensorflow as tf
 import pandas as pd
 import gc
 from sklearn.model_selection import TimeSeriesSplit, train_test_split
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 
 def symmetric_mean_absolute_percentage_error(a, b):
@@ -396,8 +395,6 @@ def train_model(x, *args):
         rmse = sqrt(mse)
         print("--- Rank {}: Validation RMSE: {}".format(rank, rmse))
 
-        # smape = 0.01 * (100 / len(y_validation) * np.sum(2 * np.abs(prediction - y_validation) /
-        #                                                  (np.abs(y_validation) + np.abs(prediction))))  # TODO: test from function
         smape = symmetric_mean_absolute_percentage_error(y_validation, prediction)
         print("--- Rank {}: Validation SMAPE: {}".format(rank, smape))
         smape_scores.append(smape)
@@ -417,8 +414,6 @@ def train_model(x, *args):
         full_rmse = sqrt(mean_squared_error(full_prediction, full_expected_ts))
         print("--- Rank {}: Full Data RMSE: {}".format(rank, full_rmse))
 
-        # full_smape = 0.01 * (100 / len(full_expected_ts) * np.sum(
-        #     2 * np.abs(full_prediction - full_expected_ts) / (np.abs(full_expected_ts) + np.abs(full_prediction))))  # TODO: test from function
         full_smape = symmetric_mean_absolute_percentage_error(full_expected_ts, full_prediction)
         print('--- Rank {}: Full Data SMAPE: {}'.format(rank, full_smape))
 
@@ -476,20 +471,15 @@ def train_model(x, *args):
 
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
     print('--- Rank {}: Holdout Data RMSE: {}'.format(rank, holdout_rmse))
-    # holdout_smape = 0.01 * (100/len(y_data_holdout) * np.sum(2 * np.abs(holdout_prediction - y_data_holdout) /
-    #                                                          (np.abs(y_data_holdout) + np.abs(holdout_prediction))))  # TODO: test from function
     holdout_smape = symmetric_mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
 
     print('--- Rank {}: Holdout Data SMAPE: {}'.format(rank, holdout_smape))
-    # holdout_mape = np.mean(np.abs((y_data_holdout - holdout_prediction) / y_data_holdout))  # TODO: test from function
     holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
 
     print('--- Rank {}: Holdout Data MAPE: {}'.format(rank, holdout_mape))
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
     print('--- Rank {}: Holdout Data MSE: {}'.format(rank, holdout_mse))
     # Index Of Agreement: https://cirpwiki.info/wiki/Statistics#Index_of_Agreement
-    # holdout_ioa = 1 - (np.sum((y_data_holdout - holdout_prediction) ** 2)) / (np.sum(
-    #     (np.abs(holdout_prediction - np.mean(y_data_holdout)) + np.abs(y_data_holdout - np.mean(y_data_holdout))) ** 2))  # TODO: test from function
     holdout_ioa = index_of_agreement(y_data_holdout, holdout_prediction)
 
     print('--- Rank {}: Holdout Data IOA: {}'.format(rank, holdout_ioa))
@@ -538,8 +528,8 @@ def train_model(x, *args):
                         .format(modelLabel, train_model.counter, i,
                                 np.round(holdout_mse, 2),
                                 np.round(holdout_rmse, 2),
-                                np.round(holdout_mape * 100, 2),
-                                np.round(holdout_smape * 100, 2),
+                                np.round(holdout_mape, 2),
+                                np.round(holdout_smape, 2),
                                 np.round(holdout_ioa * 100, 2)))
                 pyplot.plot(y_data_holdout[:, i], label='expected')
                 pyplot.plot(holdout_prediction[:, i], label='prediction')
