@@ -283,11 +283,17 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 46
 
-# TODO: SINGLE station Calendar
+# SINGLE station Calendar
 data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
 data_manipulation["filePrefix"] = "O3_BETN"
 data_manipulation["mimoOutputs"] = 1
 
+# TODO: all-background-station Calendar
+data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"
+data_manipulation["filePrefix"] = "O3_BETN"
+data_manipulation["mimoOutputs"] = 18
+
+# all-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 46
