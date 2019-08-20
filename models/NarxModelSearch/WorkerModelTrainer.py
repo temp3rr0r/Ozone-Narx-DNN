@@ -64,78 +64,92 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     :param gpu_rank: The rank of the worker/gpu.
     :return: Input and expected data matrices.
     """
+    use_pandas = True  # TODO: for Hassio, use pandas to remove columns
 
-    if data_manipulation["scale"] == 'standardize':
-        r = np.genfromtxt(directory + file_prefix + "_ts_standardized.csv", delimiter=',')
-    elif data_manipulation["scale"] == 'normalize':
-        r = np.genfromtxt(directory + file_prefix + "_ts_normalized.csv", delimiter=',')
+    if not use_pandas:
+        if data_manipulation["scale"] == 'standardize':
+            r = np.genfromtxt(directory + file_prefix + "_ts_standardized.csv", delimiter=',')
+        elif data_manipulation["scale"] == 'normalize':
+            r = np.genfromtxt(directory + file_prefix + "_ts_normalized.csv", delimiter=',')
+        else:
+            r = np.genfromtxt(directory + file_prefix + "_ts.csv", delimiter=',')
+        r = np.delete(r, [0], axis=1)  # Remove dates
+
+        if data_manipulation["fp16"]:
+            r.astype(np.float16, casting='unsafe')
+
+        # TODO: test 1 station only printouts
+        # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
+
+        # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
+        # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
+
+        # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
+        # r = r[1:(365+60):]
+        # r = np.delete(r, range(5, 50), axis=1)
+
+        # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
+        # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+        # row2010_12_31 = 7670
+        # r = r[row2000_01_01:row2010_12_31, :]
+
+        # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
+        # row2010_12_31 = 7670
+        # r = r[0:row2010_12_31, :]
+
+        # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
+        # row2000_01_01 = 3653 - 1
+        # r = r[row2000_01_01:-1, :]
+
+        # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags.
+        # TODO: O3_BETN016 -> 7, 104(lag 0, lag 1) O3_BETN066 -> 22, 119 O3_BETN073 -> 24, 121 O3_BETN121 -> 29, 126. Weather vars: 46 - 96
+        # stations_range = [24, 121]  # Only BETN073 and lag-1
+        # stations_range = [7, 22, 24, 29, 121, 104, 119, 126]  # 4 stations & lag-1:_BETN016, BETN066, BETN073, O3_BETN121
+        # weather_variables_range = np.array(range(46, 96 + 1))
+        # columns_range = np.append(stations_range, weather_variables_range)
+        # r = r[:, columns_range]
+
+        # TODO: greatly decrease r length for testing: 2014-2017 training, 2018 for testing
+        # row2014_01_01 = 8777 - 1
+        # r = r[row2014_01_01:-1, :]
+
+        # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+        # TODO: O3 from 1990
+        # row2010_01_01 = 7307 - 1
+        # r = r[row2010_01_01:-1, :]
+
+        # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+        # TODO: PM10 from 1995
+        # row2010_01_01 = 5481 - 1
+
+        # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+        # TODO: O3 from 1995
+        # row2010_01_01 = 7307 - 1
+
+        # r = r[row2010_01_01:-1, :]
+
+        print("r[0, 0]", r[0, 0])
+        print("r[-1, 0]", r[-1, 0])
+
+        max_len = r.shape[1] - 1
+        print('Variables: {}'.format(max_len))
+        print('TimeSteps: {}'.format(r.shape[0]))
+        x_data = r[:, mimo_outputs:max_len + 1]
+        y_data_in = r[:, 0:mimo_outputs]
     else:
-        r = np.genfromtxt(directory + file_prefix + "_ts.csv", delimiter=',')
-    r = np.delete(r, [0], axis=1)  # Remove dates
-
-    if data_manipulation["fp16"]:
-        r.astype(np.float16, casting='unsafe')
-
-    # TODO: test 1 station only printouts
-    # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
-
-    # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-    # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
-
-    # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
-    # r = r[1:(365+60):]
-    # r = np.delete(r, range(5, 50), axis=1)
-
-    # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-    # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-    # row2010_12_31 = 7670
-    # r = r[row2000_01_01:row2010_12_31, :]
-
-    # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
-    # row2010_12_31 = 7670
-    # r = r[0:row2010_12_31, :]
-
-    # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
-    # row2000_01_01 = 3653 - 1
-    # r = r[row2000_01_01:-1, :]
-
-    # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags.
-    # TODO: O3_BETN016 -> 7, 104(lag 0, lag 1) O3_BETN066 -> 22, 119 O3_BETN073 -> 24, 121 O3_BETN121 -> 29, 126. Weather vars: 46 - 96
-    # stations_range = [24, 121]  # Only BETN073 and lag-1
-    # stations_range = [7, 22, 24, 29, 121, 104, 119, 126]  # 4 stations & lag-1:_BETN016, BETN066, BETN073, O3_BETN121
-    # weather_variables_range = np.array(range(46, 96 + 1))
-    # columns_range = np.append(stations_range, weather_variables_range)
-    # r = r[:, columns_range]
-
-    # TODO: greatly decrease r length for testing: 2014-2017 training, 2018 for testing
-    # row2014_01_01 = 8777 - 1
-    # r = r[row2014_01_01:-1, :]
-
-    # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-    # TODO: O3 from 1990
-    # row2010_01_01 = 7307 - 1
-    # r = r[row2010_01_01:-1, :]
-
-    # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-    # TODO: PM10 from 1995
-    # row2010_01_01 = 5481 - 1
-
-    # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-    # TODO: O3 from 1995
-    row2010_01_01 = 7307 - 1
-
-    r = r[row2010_01_01:-1, :]
-
-    print("r[0, 0]", r[0, 0])
-    print("r[-1, 0]", r[-1, 0])
-
-    max_len = r.shape[1] - 1
-    print('Variables: {}'.format(max_len))
-    print('TimeSteps: {}'.format(r.shape[0]))
-    x_data = r[:, mimo_outputs:max_len + 1]
-    y_data_in = r[:, 0:mimo_outputs]
-    print("x_data shape: ".format(x_data.shape))
-    print("y_data shape: ".format(y_data_in.shape))
+        # TODO: pandas select mimo outputs
+        df = pd.read_csv(directory + file_prefix + "_ts_standardized.csv")
+        mimo_columns = ["sensor.flower1_conductivity", "sensor.flower1_temperature", "sensor.flower1_moisture",
+                        "sensor.flower1_battery", "sensor.flower1_light_intensity"]
+        x_data_df = df.copy()
+        x_data_df = x_data_df.drop(columns=mimo_columns)
+        x_data_df = x_data_df.drop(columns=["datetime"])
+        # x_data = x_data_df.to_numpy()
+        # y_data_in = df[mimo_columns].to_numpy()
+        x_data = x_data_df.as_matrix()
+        y_data_in = df[mimo_columns].to_numpy()
+        print("x_data shape: {}".format(x_data.shape))
+        print("y_data shape: {}".format(y_data_in.shape))
 
     # TODO: more time-steps instead of 1?
     y_data_in = np.array(y_data_in)
@@ -288,10 +302,15 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 1
 
-# TODO: all-background-station Calendar
-data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"
+# # all-background-station Calendar
+# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 18
+
+# TODO: Hassio
+data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1/"
 data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 18
+data_manipulation["mimoOutputs"] = 5
 
 # all-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
