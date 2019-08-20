@@ -144,10 +144,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
         x_data_df = df.copy()
         x_data_df = x_data_df.drop(columns=mimo_columns)
         x_data_df = x_data_df.drop(columns=["datetime"])
-        # x_data = x_data_df.to_numpy()
-        # y_data_in = df[mimo_columns].to_numpy()
-        x_data = x_data_df.as_matrix()
-        y_data_in = df[mimo_columns].to_numpy()
+        x_data = x_data_df.values
+        y_data_in = df[mimo_columns].values
         print("x_data shape: {}".format(x_data.shape))
         print("y_data shape: {}".format(y_data_in.shape))
 
@@ -307,8 +305,13 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 18
 
-# TODO: Hassio
-data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1/"
+# TODO: Hassio hourly
+# data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 5
+
+# TODO: Hassio daily
+data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_daily/"
 data_manipulation["filePrefix"] = "O3_BETN"
 data_manipulation["mimoOutputs"] = 5
 

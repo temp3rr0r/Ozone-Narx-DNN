@@ -173,10 +173,14 @@ def train_model(x, *args):
 
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))  # TODO: store random local phenotypic mutation in CSV
 
+    reduced_validation_365_days = False  # TODO: DON'T reduce validation to 365 days
+
+
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
 
-        train, validation = reduce_time_series_validation_fold_size(train, validation)
+        if reduced_validation_365_days:  # TODO: DON'T reduce validation to 365 days
+            train, validation = reduce_time_series_validation_fold_size(train, validation)
 
         # dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
