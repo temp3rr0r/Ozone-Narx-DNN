@@ -306,14 +306,14 @@ if data_manipulation["fp16"]:
 # data_manipulation["mimoOutputs"] = 18
 
 # TODO: Hassio hourly
-# data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
-# data_manipulation["filePrefix"] = "O3_BETN"
-# data_manipulation["mimoOutputs"] = 5
-
-# TODO: Hassio daily
-data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_daily/"
+data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
 data_manipulation["filePrefix"] = "O3_BETN"
 data_manipulation["mimoOutputs"] = 5
+
+# TODO: Hassio daily
+# data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_daily/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 5
 
 # all-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
