@@ -170,11 +170,10 @@ def train_model(x, *args):
     # Phenotypic Mutation, using random uniform.
     min_regularizer = 0.0
     max_regularizer = 0.01
-    regularizer_chance = 0.1
-    regularizer_chance_randoms = np.random.rand(9)
+    regularizer_chance = 0.1  # Mutation chance threshold
+    regularizer_chance_randoms = np.random.rand(9)  # Mutation probabilities
 
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))  # TODO: store random local phenotypic mutation in CSV
-
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?

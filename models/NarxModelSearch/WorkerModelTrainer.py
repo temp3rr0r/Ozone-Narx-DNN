@@ -171,8 +171,10 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
         print("y_data shape: {}".format(y_data_in.shape))
 
     y_data_in = np.array(y_data_in)
-    # x_data_3d_in = x_data.reshape(x_data.shape[0], timesteps, x_data.shape[1])  # to 3D [samples, timesteps, features]
-    x_data_3d_in, y_data_in = get_data_3d_lags(x_data, y_data_in, lags=timesteps)  # TODO: Test 8-24h lags or 3-7days
+    x_data_3d_in, y_data_in = get_data_3d_lags(x_data, y_data_in, lags=timesteps)  # 3D: [samples, timesteps, features]
+
+    print("x_data_3d_in shape: {}".format(x_data_3d_in.shape))
+    print("y_data_in shape: {}".format(y_data_in.shape))
 
     # Normalize + standardize
     if not os.path.exists("foundModels/min_mse.pkl"):
