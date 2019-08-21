@@ -3,12 +3,46 @@ import sys
 import time
 import numpy as np
 from math import sqrt
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 from matplotlib import pyplot
 import tensorflow as tf
 import pandas as pd
 import gc
 from sklearn.model_selection import TimeSeriesSplit, train_test_split
+
+
+def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
+    """
+    Mean Absolute Scaled Error (MASE) [1]: MAE / MAE_Naive_lag.
+    [1] Hyndman RJ, Koehler AB. Another look at measures of forecast accuracy. International Journal of Forecasting.
+    2006;22(4):679–688. 10.1016/j.ijforecast.2006.03.001
+    :param expected: 1D or nD array of expected values
+    :param predicted: 1D or nD array of predicted values
+    :param naive_lags: Lags to scale for. Default 1 for non-stationary data.
+    :return: 1D or nD Mean Absolute Scaled Error (MASE).
+    """
+    return 100 * (mean_absolute_error(
+        expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0])))
+
+
+def mimo_shift(array, lags, fill_value=np.nan):
+    """
+    Shift the 1D or nD time-series by num steps. Returns the Naive-lag time-series.
+    :param array: 1D or nD input array.
+    :param lags: Steps to shift/lag.
+    :param fill_value: Value to fill in the first lag steps that are empty.
+    :return: 1D or nD naive-lag time-series.
+    """
+    result = np.empty_like(array)
+    if lags > 0:
+        result[:lags] = fill_value
+        result[lags:] = array[:-lags]
+    elif lags < 0:
+        result[lags:] = fill_value
+        result[:lags] = array[-lags:]
+    else:
+        result[:] = array
+    return result
 
 
 def symmetric_mean_absolute_percentage_error(a, b):
@@ -162,6 +196,7 @@ def train_model(x, *args):
     # timeSeriesCrossValidation = KFold(n_splits=totalFolds)
 
     smape_scores = []
+    mase_scores = []
     mse_scores = []
     train_mse_scores = []
     # dev_mse_scores = []
@@ -402,6 +437,10 @@ def train_model(x, *args):
         print("--- Rank {}: Validation SMAPE: {}".format(rank, smape))
         smape_scores.append(smape)
 
+        mase = mean_absolute_scaled_error(y_validation, prediction)  # TODO: mase
+        print("--- Rank {}: Validation MASE: {}".format(rank, mase))
+        mase_scores.append(mase)
+
         full_x = x_data.copy()
         full_y = y_data.copy()
         full_prediction = model.predict(x_data)  # TODO: evaluate vs predict?
@@ -419,6 +458,9 @@ def train_model(x, *args):
 
         full_smape = symmetric_mean_absolute_percentage_error(full_expected_ts, full_prediction)
         print('--- Rank {}: Full Data SMAPE: {}'.format(rank, full_smape))
+
+        full_mase = mean_absolute_scaled_error(full_expected_ts, full_prediction)  # TODO: mase
+        print('--- Rank {}: Full Data MASE: {}'.format(rank, full_mase))
 
         if current_fold < totalFolds - 1:
             delete_model(model)
@@ -459,6 +501,12 @@ def train_model(x, *args):
     std_smape = np.std(smape_scores)
     print("--- Rank {}: Cross validation, Validation Data SMAPE: {} +/- {}".format(rank, round(mean_smape * 100, 2),
                                                                                    round(std_smape * 100, 2)))
+
+    mean_mase = np.mean(mase_scores)
+    std_mase = np.std(mase_scores)
+    print("--- Rank {}: Cross validation, Validation Data MASE: {} +/- {}".format(rank, round(mean_mase * 100, 2),  # TODO: mase
+                                                                                   round(std_mase * 100, 2)))
+
     min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
 
     holdout_prediction = model.predict(x_data_holdout)
@@ -478,6 +526,11 @@ def train_model(x, *args):
 
     print('--- Rank {}: Holdout Data SMAPE: {}'.format(rank, holdout_smape))
     holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
+
+    holdout_mase = mean_absolute_scaled_error(y_data_holdout, holdout_prediction)  # TODO: test mase
+    print('--- Rank {}: Holdout Data MASE: {}'.format(rank, holdout_mase))
+    holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
+    print("\n\n\nok1\n\n\n MASE: {}\n\n\n".format(holdout_mase))
 
     print('--- Rank {}: Holdout Data MAPE: {}'.format(rank, holdout_mape))
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
@@ -527,12 +580,14 @@ def train_model(x, *args):
             # Plot test data
             for i in range(holdout_prediction.shape[1]):
                 pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
-                pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, SMAPE: {}%, IOA: {}%)"
+                pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
+                             "SMAPE: {}%, MASE: {}%, IOA: {}%)"
                         .format(modelLabel, train_model.counter, i,
                                 np.round(holdout_mse, 2),
                                 np.round(holdout_rmse, 2),
                                 np.round(holdout_mape, 2),
                                 np.round(holdout_smape, 2),
+                                np.round(holdout_mase, 2),
                                 np.round(holdout_ioa * 100, 2)))
                 pyplot.plot(y_data_holdout[:, i], label='expected')
                 pyplot.plot(holdout_prediction[:, i], label='prediction')
