@@ -13,7 +13,7 @@ from sklearn.model_selection import TimeSeriesSplit, train_test_split
 
 def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     """
-    Mean Absolute Scaled Error (MASE) [1]: MAE / MAE_Naive_lag.
+    Mean Absolute Scaled Error (MASE) [1]: 100 * (MAE / MAE_Naive_lag).
     [1] Hyndman RJ, Koehler AB. Another look at measures of forecast accuracy. International Journal of Forecasting.
     2006;22(4):679–688. 10.1016/j.ijforecast.2006.03.001
     :param expected: 1D or nD array of expected values
