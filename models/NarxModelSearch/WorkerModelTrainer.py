@@ -55,7 +55,28 @@ def init_gpu(gpu_rank):
         os.environ["CUDA_VISIBLE_DEVICES"] = "7"
 
 
-def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
+def get_data_3d_lags(x_data_in, y_data_in, lags=7):
+    """
+    Receives single-slice x,y data and adds repeating timesteps (lags).
+    :param x_data_in: 2D numpy array of [samples, variables]
+    :param y_data_in: 2D numpy array of [output1, output2, ...]
+    :param lags: How many timesteps (lags) to add in each slice.
+    :return: Two outputs: 3D numpy array of X [timesteps, lags, variables] and lagged Y [output1, output2, ...].
+    """
+    nb_samples = x_data_in.shape[0] - lags + 1
+    num_features = x_data_in.shape[1]
+    x_data_reshaped = np.zeros((nb_samples, lags, num_features))
+    y_data_reshaped = np.zeros((nb_samples, y_data_in.shape[1]))
+
+    for i in range(nb_samples):
+        y_position = i + lags
+        x_data_reshaped[i] = x_data_in[i:y_position]
+        y_data_reshaped[i] = y_data_in[y_position - 1]
+
+    return x_data_reshaped, y_data_reshaped
+
+
+def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
     """
     Reads time-series & variableCSV data from the disk and returns input & expected data matrices.
     :param directory: The directory path to read data from.
@@ -139,8 +160,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
     else:
         # TODO: pandas select mimo outputs
         df = pd.read_csv(directory + file_prefix + "_ts_standardized.csv")
-        mimo_columns = ["sensor.flower1_conductivity", "sensor.flower1_temperature", "sensor.flower1_moisture",
-                        "sensor.flower1_battery", "sensor.flower1_light_intensity"]
+        mimo_columns = ["sensor.flower1_moisture", "sensor.flower1_conductivity", "sensor.flower1_temperature",
+                        "sensor.flower1_light_intensity"]
         x_data_df = df.copy()
         x_data_df = x_data_df.drop(columns=mimo_columns)
         x_data_df = x_data_df.drop(columns=["datetime"])
@@ -149,12 +170,11 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
         print("x_data shape: {}".format(x_data.shape))
         print("y_data shape: {}".format(y_data_in.shape))
 
-    # TODO: more time-steps instead of 1?
     y_data_in = np.array(y_data_in)
-    x_data_3d_in = x_data.reshape(x_data.shape[0], 1, x_data.shape[1])  # reshape to 3D[samples, timesteps, features]
+    # x_data_3d_in = x_data.reshape(x_data.shape[0], timesteps, x_data.shape[1])  # to 3D [samples, timesteps, features]
+    x_data_3d_in, y_data_in = get_data_3d_lags(x_data, y_data_in, lags=timesteps)  # TODO: Test 8-24h lags or 3-7days
 
-    # TODO: normalize + standardize
-
+    # Normalize + standardize
     if not os.path.exists("foundModels/min_mse.pkl"):
         min_mse = sys.float_info.max
         print("Previous min_mse: {}".format(min_mse))
@@ -165,8 +185,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1):
         print("Previous min_mse: {}".format(min_mse))
 
         if os.path.exists("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, gpu_rank)):
-            full_model_parameters = pd.read_pickle("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel,
-                                                                                                      gpu_rank))[
+            full_model_parameters = pd.read_pickle(
+                "foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, gpu_rank))[
                 'full_{}_rank{}_parameters'.format(modelLabel, gpu_rank)][0]
             print("Previous full_{}_parameters: {}".format(modelLabel, full_model_parameters))
 
@@ -308,7 +328,7 @@ if data_manipulation["fp16"]:
 # TODO: Hassio hourly
 data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
 data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 5
+data_manipulation["mimoOutputs"] = 4
 
 # TODO: Hassio daily
 # data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_daily/"
@@ -337,7 +357,7 @@ data_manipulation["mimoOutputs"] = 5
 
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],
-                              data_manipulation["mimoOutputs"])
+                              data_manipulation["mimoOutputs"], timesteps=data_manipulation["timesteps"])
 
 data_manipulation["rank"] = gpu_device
 data_manipulation["bounds"] = bounds  # TODO: add bounds from modelsearch

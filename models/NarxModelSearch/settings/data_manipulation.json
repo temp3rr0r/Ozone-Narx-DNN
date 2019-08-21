@@ -14,6 +14,6 @@
     "fp16": false,
     "multi_gpu": false,
     "migrate": true,
-    "timesteps": 1,
+    "timesteps": 8,
     "cellular_automata_dimensions": [3, 3, 3]
 }

@@ -152,8 +152,10 @@ def train_model(x, *args):
           .format(rank, layer_initializers[layer_initializer_genes[0]], layer_initializers[layer_initializer_genes[1]],
                   layer_initializers[layer_initializer_genes[2]]))
 
-    x_data, x_data_holdout = x_data[:-365], x_data[-365:]
-    y_data, y_data_holdout = y_data[:-365], y_data[-365:]
+    holdout_max_validation_length = 24 * 7  # hours or 365 days  # TODO: DON'T reduce validation to 365 days.
+
+    x_data, x_data_holdout = x_data[:-holdout_max_validation_length], x_data[-holdout_max_validation_length:]
+    y_data, y_data_holdout = y_data[:-holdout_max_validation_length], y_data[-holdout_max_validation_length:]
 
     totalFolds = modelFolds
     timeSeriesCrossValidation = TimeSeriesSplit(n_splits=totalFolds)
@@ -173,14 +175,12 @@ def train_model(x, *args):
 
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))  # TODO: store random local phenotypic mutation in CSV
 
-    reduced_validation_365_days = False  # TODO: DON'T reduce validation to 365 days
-
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
 
-        if reduced_validation_365_days:  # TODO: DON'T reduce validation to 365 days
-            train, validation = reduce_time_series_validation_fold_size(train, validation)
+        train, validation = reduce_time_series_validation_fold_size(
+            train, validation, max_validation_length=holdout_max_validation_length)  # 24 or 48 (hours) or 365 (days)
 
         # dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
