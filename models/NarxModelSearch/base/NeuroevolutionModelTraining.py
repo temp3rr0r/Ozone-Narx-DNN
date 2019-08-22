@@ -437,7 +437,7 @@ def train_model(x, *args):
         print("--- Rank {}: Validation SMAPE: {}".format(rank, smape))
         smape_scores.append(smape)
 
-        mase = mean_absolute_scaled_error(y_validation, prediction)  # TODO: mase
+        mase = mean_absolute_scaled_error(y_validation, prediction)
         print("--- Rank {}: Validation MASE: {}".format(rank, mase))
         mase_scores.append(mase)
 
@@ -459,7 +459,7 @@ def train_model(x, *args):
         full_smape = symmetric_mean_absolute_percentage_error(full_expected_ts, full_prediction)
         print('--- Rank {}: Full Data SMAPE: {}'.format(rank, full_smape))
 
-        full_mase = mean_absolute_scaled_error(full_expected_ts, full_prediction)  # TODO: mase
+        full_mase = mean_absolute_scaled_error(full_expected_ts, full_prediction)
         print('--- Rank {}: Full Data MASE: {}'.format(rank, full_mase))
 
         if current_fold < totalFolds - 1:
@@ -504,7 +504,7 @@ def train_model(x, *args):
 
     mean_mase = np.mean(mase_scores)
     std_mase = np.std(mase_scores)
-    print("--- Rank {}: Cross validation, Validation Data MASE: {} +/- {}".format(rank, round(mean_mase * 100, 2),  # TODO: mase
+    print("--- Rank {}: Cross validation, Validation Data MASE: {} +/- {}".format(rank, round(mean_mase * 100, 2),
                                                                                    round(std_mase * 100, 2)))
 
     min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
@@ -527,10 +527,9 @@ def train_model(x, *args):
     print('--- Rank {}: Holdout Data SMAPE: {}'.format(rank, holdout_smape))
     holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
 
-    holdout_mase = mean_absolute_scaled_error(y_data_holdout, holdout_prediction)  # TODO: test mase
+    holdout_mase = mean_absolute_scaled_error(y_data_holdout, holdout_prediction)
     print('--- Rank {}: Holdout Data MASE: {}'.format(rank, holdout_mase))
     holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
-    print("\n\n\nok1\n\n\n MASE: {}\n\n\n".format(holdout_mase))
 
     print('--- Rank {}: Holdout Data MAPE: {}'.format(rank, holdout_mape))
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
@@ -546,8 +545,9 @@ def train_model(x, *args):
         # holdoutMse, holdoutIoa, full_pso_parameters
         file.write("{},{},{},{},{},{},{},{},{},{},{},{},\"{}\"\n"
                    .format(str(int(time.time())), str(train_model.counter), str(rank),
-                           str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse), str(holdout_smape),
-                           str(holdout_mape), str(holdout_mse), str(holdout_ioa), full_model_parameters.tolist()))
+                           str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse),
+                           str(holdout_smape), str(holdout_mape), str(holdout_mse), str(holdout_ioa),
+                           full_model_parameters.tolist()))
 
     if mean_mse < min_mse:
         print("--- Rank {}: New min_mse: {}".format(rank, mean_mse))
