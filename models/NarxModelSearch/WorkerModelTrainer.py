@@ -257,6 +257,7 @@ print("--- Loading simulation settings...")
 with open('settings/data_manipulation.json') as f:
     data_manipulation = json.load(f)
 modelLabel = data_manipulation["modelLabel"]
+data_manipulation["gpuDevice"] = gpu_device
 
 if data_manipulation["fp16"]:
     import tensorflow as tf

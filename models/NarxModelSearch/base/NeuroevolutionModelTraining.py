@@ -643,8 +643,8 @@ def train_model(x, *args):
         # timesteps, swapEvery, cellular_automata_dimensions, agents
         # folds, cvMaseMean, cvMaseStd, holdoutMase, mutationProbabilityThreshold, mutationProbabilities
         # l1_l2_randoms, elapsedTime, full_mase, full_smape, full_rmse,
-        # full_mae, full_ioa, full_mse holdout_mae, holdout_max_validation_length
-        file.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n"
+        # full_mae, full_ioa, full_mse holdout_mae, holdout_max_validation_length, gpu_device
+        file.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n"
                    .format(str(data_manipulation["timesteps"]),  # lag
                            str(data_manipulation["swapEvery"]),  # migration period in #fitness evaluations
                            str(data_manipulation["cellular_automata_dimensions"]),  # CA
@@ -664,7 +664,8 @@ def train_model(x, *args):
                            str(full_ioa),
                            str(full_mse),
                            str(holdout_mae),
-                           str(holdout_max_validation_length)
+                           str(holdout_max_validation_length),
+                           str(data_manipulation["gpuDevice"])
                            ))
 
     return mean_mse
