@@ -47,10 +47,10 @@ def mimo_shift(array, lags, fill_value=np.nan):
 
 def symmetric_mean_absolute_percentage_error(a, b):
     """
-    Calculates sMAPE
+    Calculates symmetric Mean Absolute Percentage Error (sMAPE).
     :param a: actual values
     :param b: predicted values
-    :return: sMAPE
+    :return: sMAPE float.
     """
     a = np.reshape(a, (-1,))
     b = np.reshape(b, (-1,))
@@ -58,11 +58,23 @@ def symmetric_mean_absolute_percentage_error(a, b):
 
 
 def mean_absolute_percentage_error(y_true, y_pred):
+    """
+    Calculates Mean Absolute Percentage Error (MAPE).
+    :param y_true: actual values
+    :param y_pred: predicted values
+    :return: MAPE float.
+    """
     y_true, y_pred = np.array(y_true), np.array(y_pred)
     return np.mean(np.abs((y_true - y_pred) / y_true)) * 100  # In %
 
 
 def index_of_agreement(validation, prediction):
+    """
+    Calculates Index Of Agreement (IOA).
+    :param validation: actual values
+    :param prediction: predicted values
+    :return: IOA float.
+    """
     return 1 - (np.sum((validation - prediction) ** 2)) / (np.sum((np.abs(prediction -
       np.mean(validation)) + np.abs(validation - np.mean(validation))) ** 2))
 
@@ -186,7 +198,7 @@ def train_model(x, *args):
           .format(rank, layer_initializers[layer_initializer_genes[0]], layer_initializers[layer_initializer_genes[1]],
                   layer_initializers[layer_initializer_genes[2]]))
 
-    holdout_max_validation_length = 24 * 7  # hours or 365 days  # TODO: DON'T reduce validation to 365 days.
+    holdout_max_validation_length = 365  # hours or 365 days
 
     x_data, x_data_holdout = x_data[:-holdout_max_validation_length], x_data[-holdout_max_validation_length:]
     y_data, y_data_holdout = y_data[:-holdout_max_validation_length], y_data[-holdout_max_validation_length:]
@@ -208,7 +220,7 @@ def train_model(x, *args):
     regularizer_chance = 0.1  # Mutation chance threshold
     regularizer_chance_randoms = np.random.rand(9)  # Mutation probabilities
 
-    l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))  # TODO: store random local phenotypic mutation in CSV
+    l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
@@ -456,6 +468,15 @@ def train_model(x, *args):
         full_rmse = sqrt(mean_squared_error(full_prediction, full_expected_ts))
         print("--- Rank {}: Full Data RMSE: {}".format(rank, full_rmse))
 
+        full_mse = mean_squared_error(full_prediction, full_expected_ts)
+        print("--- Rank {}: Full Data MSE: {}".format(rank, full_mse))
+
+        full_mae = mean_absolute_error(full_prediction, full_expected_ts)
+        print("--- Rank {}: Full Data MAE: {}".format(rank, full_mae))
+
+        full_ioa = index_of_agreement(full_prediction, full_expected_ts)
+        print("--- Rank {}: Full Data IOA: {}".format(rank, full_ioa))
+
         full_smape = symmetric_mean_absolute_percentage_error(full_expected_ts, full_prediction)
         print('--- Rank {}: Full Data SMAPE: {}'.format(rank, full_smape))
 
@@ -522,22 +543,26 @@ def train_model(x, *args):
 
     holdout_rmse = sqrt(mean_squared_error(holdout_prediction, y_data_holdout))
     print('--- Rank {}: Holdout Data RMSE: {}'.format(rank, holdout_rmse))
-    holdout_smape = symmetric_mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
 
+    holdout_mae = mean_absolute_error(holdout_prediction, y_data_holdout)
+    print('--- Rank {}: Holdout Data MAE: {}'.format(rank, holdout_mae))
+
+    holdout_smape = symmetric_mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
     print('--- Rank {}: Holdout Data SMAPE: {}'.format(rank, holdout_smape))
-    holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
 
     holdout_mase = mean_absolute_scaled_error(y_data_holdout, holdout_prediction)
     print('--- Rank {}: Holdout Data MASE: {}'.format(rank, holdout_mase))
-    holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
 
+    holdout_mape = mean_absolute_percentage_error(y_data_holdout, holdout_prediction)
     print('--- Rank {}: Holdout Data MAPE: {}'.format(rank, holdout_mape))
+
     holdout_mse = mean_squared_error(holdout_prediction, y_data_holdout)
     print('--- Rank {}: Holdout Data MSE: {}'.format(rank, holdout_mse))
+
     # Index Of Agreement: https://cirpwiki.info/wiki/Statistics#Index_of_Agreement
     holdout_ioa = index_of_agreement(y_data_holdout, holdout_prediction)
-
     print('--- Rank {}: Holdout Data IOA: {}'.format(rank, holdout_ioa))
+
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
         # Data to store:
         # datetime, iteration, gpu, cvMseMean, cvMseStd
@@ -611,6 +636,37 @@ def train_model(x, *args):
     delete_model(model)
 
     endTime = time.time()
+
+    # TODO: extra stats without interrupting existing
+    with open('logs/{}RunsExtra.csv'.format(modelLabel), 'a') as file:
+        # Data to store:
+        # timesteps, swapEvery, cellular_automata_dimensions, agents
+        # folds, cvMaseMean, cvMaseStd, holdoutMase, mutationProbabilityThreshold, mutationProbabilities
+        # l1_l2_randoms, elapsedTime, full_mase, full_smape, full_rmse,
+        # full_mae, full_ioa, full_mse holdout_mae, holdout_max_validation_length
+        file.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n"
+                   .format(str(data_manipulation["timesteps"]),  # lag
+                           str(data_manipulation["swapEvery"]),  # migration period in #fitness evaluations
+                           str(data_manipulation["cellular_automata_dimensions"]),  # CA
+                           str(data_manipulation["agents"]),
+                           str(data_manipulation["folds"]),
+                           str(mean_mase),  # Cross-validation mean MASE
+                           str(std_mase),  # Cross-validation std MASE
+                           str(holdout_mase),
+                           str(regularizer_chance),  # Mutation probability threshold
+                           str(regularizer_chance_randoms),  # Mutation probabilities
+                           str(l1_l2_randoms),
+                           str(endTime - startTime),
+                           str(full_mase),
+                           str(full_smape),
+                           str(full_rmse),
+                           str(full_mae),
+                           str(full_ioa),
+                           str(full_mse),
+                           str(holdout_mae),
+                           str(holdout_max_validation_length)
+                           ))
+
     return mean_mse
 
 

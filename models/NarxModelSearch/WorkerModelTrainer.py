@@ -85,7 +85,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
     :param gpu_rank: The rank of the worker/gpu.
     :return: Input and expected data matrices.
     """
-    use_pandas = True  # TODO: for Hassio, use pandas to remove columns
+    use_pandas = False  # TODO: for Hassio, use pandas to remove columns
 
     if not use_pandas:
         if data_manipulation["scale"] == 'standardize':
@@ -137,7 +137,6 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
         # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
         # TODO: O3 from 1990
         # row2010_01_01 = 7307 - 1
-        # r = r[row2010_01_01:-1, :]
 
         # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
         # TODO: PM10 from 1995
@@ -146,8 +145,12 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
         # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
         # TODO: O3 from 1995
         # row2010_01_01 = 7307 - 1
-
         # r = r[row2010_01_01:-1, :]
+
+        # TODO: greatly decrease r length for testing: 2005-2017 training, 2018 for testing
+        # TODO: O3 from 1995
+        row2005_01_01 = 5481 - 1
+        r = r[row2005_01_01:-1, :]
 
         print("r[0, 0]", r[0, 0])
         print("r[-1, 0]", r[-1, 0])
@@ -313,9 +316,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["mimoOutputs"] = 16
 
 # Calendar
-# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
-# data_manipulation["filePrefix"] = "O3_BETN"
-# data_manipulation["mimoOutputs"] = 46
+data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
+data_manipulation["filePrefix"] = "O3_BETN"
+data_manipulation["mimoOutputs"] = 46
 
 # # SINGLE station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
@@ -327,17 +330,17 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 18
 
-# TODO: Hassio hourly
-data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
-data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 4
+# Hassio hourly
+# data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 4
 
 # TODO: Hassio daily
 # data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_daily/"
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 5
 
-# all-station Calendar
+# all-station NO Calendar
 # data_manipulation["directory"] = "data/O3_BETN_1990To2019/"
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 46
