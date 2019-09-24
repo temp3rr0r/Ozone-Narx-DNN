@@ -25,6 +25,7 @@ Iterative hyperparameter optimizers can be parallelized and hybrid DNN accelerat
 
 The “survival of the fattest” side-effect of meta-learning (model size versus training speed trade-off) is auto-regulated, via the asynchronous Cellular Automata distributed communication.
 
+Figure: Aggregated (country-scale) Ozone predictions for Belgium 2018:
 ![alt text](models/NarxModelSearch/pics/ozone2018.png "2018 Ozone predictions")
 
 ### Keywords
