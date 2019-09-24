@@ -1,5 +1,14 @@
 # Air-quality forecasting in Belgium using Deep Neural Networks, Neuroevolution and distributed Island Transpeciation
 
+#### Konstantinos Theodorakos  
+*Katholieke Universiteit Leuven*  
+*Student of the Master Artificial Intelligence: Engineering and Computer Science*  
+*Faculty of Engineering Science*  
+*Departments of Computer Science & Electrical Engineering, ESAT-STADIUS*  
+*Kasteelpark Arenberg 10*  
+*Leuven (Heverlee), Belgium*  
+*Email: madks@hotmail.com*
+
 # Abstract
 
 Air pollution is the cause of around 400.000 premature deaths per year and is the largest health risk in Europe [GdLO+18]. The most dangerous pollutants in Europe are Particulate Matter, Nitrous Oxides and ground-level Ozone (O3).
