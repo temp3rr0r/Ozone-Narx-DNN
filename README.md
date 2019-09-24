@@ -37,6 +37,28 @@ Figure: Next-day, aggregated (country-scale) Particulate Matter 10μm prediction
 ### Keywords
 neural architecture search, deep neural networks, forecasting, air quality, ozone, particulate matter, MIMO, NARX
 
+## Further information
+
+Full thesis text: https://1drv.ms/b/s!AgM7aH_rFcPzgrtlG3u5O2VN9mz8BQ
+
+Thesis presentation:  https://1drv.ms/b/s!AgM7aH_rFcPzgrtwjkHnwpYpU-2bYQ
+
+Thesis submitted for the degree of Master of Science in Artificial Intelligence, option Engineering and Computer Science
+
+Thesis supervisor: Prof. dr. ir. Johan Suykens
+
+Assessors: Prof. dr. Dirk Roose, Prof. dr. Karl Meerbergen
+
+Mentors: Dr. Oscar Mauricio Agudelo,  MSc Joachim Schreur
+
+Ozone Narx DNN
+Copyright (c) 2018-2019, Konstantinos Theodorakos (email: madks@hotmail.com).
+All rights reserved.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 ### REFERENCES
 
 [GdLO+18] Cristina Guerreiro, Frank de Leeuw, Alberto Gonzlez Ortiz, Mar Viana, and Augustin Colette. Air quality in Europe 2018 report. Technical report, 2018.
@@ -60,23 +82,3 @@ neural architecture search, deep neural networks, forecasting, air quality, ozon
 [FDRG+12] Felix-Antoine Fortin, Franois-Michel De Rainville, Marc-Ande Gardner, Marc Parizeau, and Christian Gagne. DEAP: Evolutionary algorithms made easy. Journal of Machine Learning Research, 2012.
 
 [KE95] J. Kennedy and R. Eberhart. Particle swarm optimization. In Proceedings of ICNN’95 - International Conference on Neural Networks, volume 4, pages 1942–1948. IEEE, 1995.
-
-Full thesis text: https://1drv.ms/b/s!AgM7aH_rFcPzgrtlG3u5O2VN9mz8BQ
-
-Thesis presentation:  https://1drv.ms/b/s!AgM7aH_rFcPzgrtwjkHnwpYpU-2bYQ
-
-Thesis submitted for the degree of Master of Science in Artificial Intelligence, option Engineering and Computer Science
-
-Thesis supervisor: Prof. dr. ir. Johan Suykens
-
-Assessors: Prof. dr. Dirk Roose, Prof. dr. Karl Meerbergen
-
-Mentors: Dr. Oscar Mauricio Agudelo,  MSc Joachim Schreur
-
-Ozone Narx DNN
-Copyright (c) 2018-2019, Konstantinos Theodorakos (email: madks@hotmail.com).
-All rights reserved.
-
-This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
