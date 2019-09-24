@@ -4,28 +4,28 @@
 
 Air pollution is the cause of around 400.000 premature deaths per year and is the largest health risk in Europe [GdLO+18]. The most dangerous pollutants in Europe are Particulate Matter, Nitrous Oxides and ground-level Ozone (O3).
 
-![alt text](models\NarxModelSearch\pics\pollution.png "Ozone pollution")
+![alt text](models/NarxModelSearch/pics/pollution.png "Ozone pollution")
 
 Multiple-Input Multiple-Output (MIMO), Nonlinear Auto-Regressive exogenous (NARX) Deep Neural Networks (DNN) for air-quality forecasting is an "all-in-one" modelling architecture that can predict next-day ozone and particulate matter concentrations, at a country level. The DNNs we developed, managed to successfully predict one day before, an "inform-public" ozone alert level in Belgium for 2012. For Particulate Matter (PM) 10 μm forecasting, stations with high population densities that are located in industrial regions, are harder to predict. In terms of data, DNN predictions improve with: data standardization, adding weather/atmospheric variables and cyclical calendar features.
 
-![alt text](models\NarxModelSearch\pics\mimoNarx1.png "MIMO NARX")
+![alt text](models/NarxModelSearch/pics/mimoNarx1.png "MIMO NARX")
 
 To improve the forecasting performance of DNNs, we developed "island transpeciation", a technique that finds architectures and optimizes hyperparameters. 
 
-![alt text](models\NarxModelSearch\pics\transpeciation0.png "Transpeciation")
+![alt text](models/NarxModelSearch/pics/transpeciation0.png "Transpeciation")
 
 Island transpeciation is a co-evolutionary meta-learning method, that combines Neural Architecture Search, Neuroevolution and Global/Local optimizers. Island transpeciation can generate more accurate DNN models and architectures than naive variants and with fewer iterations than random search. 
 In terms of neural architecture search, highly diverse global optimizers can co-evolve architectures via cooperation and competition.
 
-![alt text](models\NarxModelSearch\pics\traspeciation1.png "Island Transpeciation")
+![alt text](models/NarxModelSearch/pics/traspeciation1.png "Island Transpeciation")
 
 Iterative hyperparameter optimizers can be parallelized and hybrid DNN accelerator resources can be combined with fault tolerance via distributed control. 
 
-![alt text](models\NarxModelSearch\pics\implementation1.png "Implementation")
+![alt text](models/NarxModelSearch/pics/implementation1.png "Implementation")
 
 The “survival of the fattest” side-effect of meta-learning (model size versus training speed trade-off) is auto-regulated, via the asynchronous Cellular Automata distributed communication.
 
-![alt text](models\NarxModelSearch\pics\ozone2018.png "2018 Ozone predictions")
+![alt text](models/NarxModelSearch/pics/ozone2018.png "2018 Ozone predictions")
 
 ### Keywords
 neural architecture search, deep neural networks, forecasting, air quality, ozone, particulate matter, MIMO, NARX
