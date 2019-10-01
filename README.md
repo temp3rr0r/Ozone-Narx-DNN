@@ -9,6 +9,19 @@
 *Leuven (Heverlee), Belgium*  
 *Email: madks@hotmail.com*
 
+## How to cite Island Transpeciation
+Authors of scientific papers including methods/techniques inspired by Island Transpeciation are encouraged to cite this MSc thesis as follows:
+
+```xml
+@mastersthesis{mastersthesisIslandTranspeciation,
+  author       = {Konstantinos Theodorakos}, 
+  title        = {Air-quality forecasting in Belgium using Deep Neural Networks, Neuroevolution and distributed Island Transpeciation.},
+  school       = {Katholieke Universiteit Leuven. Faculty of Engineering Science. Department of Electrical Engineering. ESAT-STADIUS.},
+  year         = {2019},
+  month        = {September}
+}
+```
+
 # Abstract
 
 Air pollution is the cause of around 400.000 premature deaths per year and is the largest health risk in Europe [GdLO+18]. The most dangerous pollutants in Europe are Particulate Matter, Nitrous Oxides and ground-level Ozone (O3).
