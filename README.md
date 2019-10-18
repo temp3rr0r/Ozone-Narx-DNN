@@ -38,7 +38,7 @@ To improve the forecasting performance of DNNs, we developed "island transpeciat
 ![alt text](models/NarxModelSearch/pics/transpeciation0.png "Transpeciation")
 
 Island transpeciation is a co-evolutionary meta-learning method, that combines Neural Architecture Search, Neuroevolution and Global/Local optimizers. Island transpeciation can generate more accurate DNN models and architectures than naive variants and with fewer iterations than random search. 
-In terms of neural architecture search, highly diverse global optimizers can co-evolve architectures via cooperation and competition.
+In terms of neural architecture search, highly diverse global optimizers can co-evolve architectures via cooperation and competition. In a few words, island transpeciation utilizes the generalized island model [IZ12] paradigm, to improve overall algorithmic performance.
 
 ![alt text](models/NarxModelSearch/pics/traspeciation1.png "Island Transpeciation")
 
@@ -104,3 +104,5 @@ You should have received a copy of the GNU General Public License along with thi
 [FDRG+12] Felix-Antoine Fortin, Franois-Michel De Rainville, Marc-Ande Gardner, Marc Parizeau, and Christian Gagne. DEAP: Evolutionary algorithms made easy. Journal of Machine Learning Research, 2012.
 
 [KE95] J. Kennedy and R. Eberhart. Particle swarm optimization. In Proceedings of ICNN’95 - International Conference on Neural Networks, volume 4, pages 1942–1948. IEEE, 1995.
+
+[IZ12] Izzo, D., Ruciński, M., & Biscani, F. (2012). The generalized Island model. Studies in Computational Intelligence, 415(January 2012), 151–169. https://doi.org/10.1007/978-3-642-28789-3-7
