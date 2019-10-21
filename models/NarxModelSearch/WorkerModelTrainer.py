@@ -28,31 +28,9 @@ def init_gpu(gpu_rank):
     :param gpu_rank: Mapping from "rank" to GPU id (hardware).
     :return: None.
     """
-
-    if gpu_rank == 1:  # Rank per gpu
+    if 1 <= gpu_rank <= 8:  # Rank per gpu
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-    elif gpu_rank == 2:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-    elif gpu_rank == 3:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "2"
-    elif gpu_rank == 4:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "3"
-    elif gpu_rank == 5:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "4"
-    elif gpu_rank == 6:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "5"
-    elif gpu_rank == 7:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "6"
-    elif gpu_rank == 8:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_rank - 1)
 
 
 def get_data_3d_lags(x_data_in, y_data_in, lags=7):
@@ -86,6 +64,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
     :return: Input and expected data matrices.
     """
     use_pandas = False  # TODO: for Hassio, use pandas to remove columns
+    reduce_ts_length = False  # TODO: enable for air quality
 
     if not use_pandas:
         if data_manipulation["scale"] == 'standardize':
@@ -105,53 +84,58 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
         # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
         # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
 
-        # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
-        # r = r[1:(365+60):]
-        # r = np.delete(r, range(5, 50), axis=1)
+        if reduce_ts_length:
+            # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
+            # r = r[1:(365+60):]
+            # r = np.delete(r, range(5, 50), axis=1)
 
-        # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-        # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-        # row2010_12_31 = 7670
-        # r = r[row2000_01_01:row2010_12_31, :]
+            # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
+            # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+            # row2010_12_31 = 7670
+            # r = r[row2000_01_01:row2010_12_31, :]
 
-        # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
-        # row2010_12_31 = 7670
-        # r = r[0:row2010_12_31, :]
+            # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
+            # row2010_12_31 = 7670
+            # r = r[0:row2010_12_31, :]
 
-        # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
-        # row2000_01_01 = 3653 - 1
-        # r = r[row2000_01_01:-1, :]
+            # TODO: greatly decrease r length for testing: 2000-2012 training, 2013 for testing
+            # row2000_01_01 = 3653 - 1
+            # r = r[row2000_01_01:-1, :]
 
-        # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags.
-        # TODO: O3_BETN016 -> 7, 104(lag 0, lag 1) O3_BETN066 -> 22, 119 O3_BETN073 -> 24, 121 O3_BETN121 -> 29, 126. Weather vars: 46 - 96
-        # stations_range = [24, 121]  # Only BETN073 and lag-1
-        # stations_range = [7, 22, 24, 29, 121, 104, 119, 126]  # 4 stations & lag-1:_BETN016, BETN066, BETN073, O3_BETN121
-        # weather_variables_range = np.array(range(46, 96 + 1))
-        # columns_range = np.append(stations_range, weather_variables_range)
-        # r = r[:, columns_range]
+            # TODO: BETN073 training from O3_BETN016, BETN066, BETN073, O3_BETN121. Remove all other stations and lags.
+            # TODO: O3_BETN016 -> 7, 104(lag 0, lag 1) O3_BETN066 -> 22, 119 O3_BETN073 -> 24, 121 O3_BETN121 -> 29, 126. Weather vars: 46 - 96
+            # stations_range = [24, 121]  # Only BETN073 and lag-1
+            # stations_range = [7, 22, 24, 29, 121, 104, 119, 126]  # 4 stations & lag-1:_BETN016, BETN066, BETN073, O3_BETN121
+            # weather_variables_range = np.array(range(46, 96 + 1))
+            # columns_range = np.append(stations_range, weather_variables_range)
+            # r = r[:, columns_range]
 
-        # TODO: greatly decrease r length for testing: 2014-2017 training, 2018 for testing
-        # row2014_01_01 = 8777 - 1
-        # r = r[row2014_01_01:-1, :]
+            # TODO: greatly decrease r length for testing: 2014-2017 training, 2018 for testing
+            # row2014_01_01 = 8777 - 1
+            # r = r[row2014_01_01:-1, :]
 
-        # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-        # TODO: O3 from 1990
-        # row2010_01_01 = 7307 - 1
+            # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+            # TODO: O3 from 1990
+            # row2010_01_01 = 7307 - 1
 
-        # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-        # TODO: PM10 from 1995
-        # row2010_01_01 = 5481 - 1
+            # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+            # TODO: PM10 from 1995
+            # row2010_01_01 = 5481 - 1
 
-        # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
-        # TODO: O3 from 1995
-        # row2010_01_01 = 7307 - 1
-        # r = r[row2010_01_01:-1, :]
+            # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
+            # TODO: O3 from 1995
+            # row2010_01_01 = 7307 - 1
+            # r = r[row2010_01_01:-1, :]
 
-        # TODO: greatly decrease r length for testing: 2005-2017 training, 2018 for testing
-        # TODO: O3 from 1995
-        row2005_01_01 = 5481 - 1
-        r = r[row2005_01_01:-1, :]
+            # TODO: greatly decrease r length for testing: 2005-2017 training, 2018 for testing
+            # TODO: O3 from 1995
+            row2005_01_01 = 5481 - 1
+            r = r[row2005_01_01:-1, :]
+        else:  # Remove first row of CSV columns for numpy
+            row2 = 2 - 1
+            r = r[row2:-1, :]
 
+        print(data_manipulation["scale"])
         print("r[0, 0]", r[0, 0])
         print("r[-1, 0]", r[-1, 0])
 
@@ -316,10 +300,10 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "PM10_BETN"
 # data_manipulation["mimoOutputs"] = 16
 
-# Calendar
-data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
-data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 46
+# # Calendar  # TODO: last
+# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 46
 
 # # SINGLE station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
@@ -360,6 +344,17 @@ data_manipulation["mimoOutputs"] = 46
 # data_manipulation["directory"] = "data/PM1083stations51vars/"
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20190125"
 # data_manipulation["mimoOutputs"] = 83
+
+# # SINGLE Collision avoidance
+# data_manipulation["directory"] = "data/CollisionAvoidance_8hour_resampled/"
+# data_manipulation["filePrefix"] = "df_interpol_resampled"
+# data_manipulation["mimoOutputs"] = 1
+
+# SINGLE Collision avoidance
+data_manipulation["directory"] = "data/CollisionAvoidance/"
+data_manipulation["filePrefix"] = "df_train_data"
+data_manipulation["mimoOutputs"] = 1
+
 
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],

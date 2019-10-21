@@ -13,7 +13,7 @@ from sklearn.model_selection import TimeSeriesSplit, train_test_split
 
 def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     """
-    Mean Absolute Scaled Error (MASE) [1]: 100 * (MAE / MAE_Naive_lag).
+    Mean Absolute Scaled Error (MASE) [1]: MAE / MAE_Naive_lag.
     [1] Hyndman RJ, Koehler AB. Another look at measures of forecast accuracy. International Journal of Forecasting.
     2006;22(4):679–688. 10.1016/j.ijforecast.2006.03.001
     :param expected: 1D or nD array of expected values
@@ -21,8 +21,8 @@ def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     :param naive_lags: Lags to scale for. Default 1 for non-stationary data.
     :return: 1D or nD Mean Absolute Scaled Error (MASE).
     """
-    return 100 * (mean_absolute_error(
-        expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0])))
+    return mean_absolute_error(
+        expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0]))
 
 
 def mimo_shift(array, lags, fill_value=np.nan):
@@ -87,7 +87,7 @@ def delete_model(model):
     """
     # Memory handling
     del model  # Manually delete model
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
     tf.keras.backend.clear_session()
     gc.collect()
 
@@ -726,7 +726,7 @@ def train_model_tester3(x, *args):
         "rand": {"range": [-100, 100], "function_call": benchmarks.rand}  # Arbitrary bounds
     }
 
-    last_genes_count = -10  # Count of genes to use as input (from end).
+    last_genes_count = -2  # Count of genes to use as input (from end).
     test_fitness_function = "schwefel"  # Fitness function to check.
 
     scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])

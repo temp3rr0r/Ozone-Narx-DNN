@@ -12,6 +12,7 @@ if metric == "PM10":
     fromFileName = "PM10_BETN"
 elif metric == "O3":
     fromFileName = "O3_BETN"
+fromFileName = "df_train_data"
 
 ts = pd.read_csv("../data/{}.csv".format(fromFileName))
 toFileName = fromFileName
@@ -52,3 +53,5 @@ print(sensor_mean)
 print(sensor_std)
 print(sensor_min)
 print(sensor_max)
+
+print("Done!")
