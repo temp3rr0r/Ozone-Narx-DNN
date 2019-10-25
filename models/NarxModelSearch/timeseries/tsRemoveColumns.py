@@ -7,12 +7,12 @@ import pandas as pd
 # fromFileName = "ALL_BE_51vars_calendar_PM10_PM10-1_19950101To20181231"
 fromFileName = "ALL_BE_51vars_calendar_O3_O3-7_19900101To20181231"
 fromFileName = "ALL_BE_51vars_calendar_O3_O3-7_19900101To20181231"
-# fromFileName = "df_interpol_resampled_8h_test"
+fromFileName = "df_no_TN_remove_low_risk_lag4_test_data"
 ts = pd.read_csv("../data/{}.csv".format(fromFileName))
 # toFileName = fromFileName
 
 metric = "O3"
-metric = "df_train_data"
+metric = "df_no_TN_remove_low_risk_lag4_test_data"
 
 if metric == "PM10":
     toFileName = "PM10_BETN"
@@ -63,10 +63,10 @@ elif metric == "O3":
     ts = ts[ts.columns.drop(list(ts.filter(regex='Unnamed')))]
     ts.to_csv("../data/{}.csv".format(toFileName), sep=',')
 
-elif metric == "df_train_data":
+elif metric == "df_no_TN_remove_low_risk_lag4_test_data":
 
-    toFileName = "df_interpol_resampled_8h_test"
-    ts = ts[ts.columns.drop("c_object_type_TBA")]
+    toFileName = "df_no_TN_remove_low_risk_lag4_test_data"
+    ts.pop("event_id")
     # ts.to_csv("../data/{}.csv".format(toFileName), sep=',')
     ts.to_csv("../data/{}.csv".format(toFileName), index=False, sep=',', encoding='utf-8')
 

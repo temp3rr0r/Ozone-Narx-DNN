@@ -350,11 +350,20 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "df_interpol_resampled"
 # data_manipulation["mimoOutputs"] = 1
 
-# SINGLE Collision avoidance
-data_manipulation["directory"] = "data/CollisionAvoidance/"
-data_manipulation["filePrefix"] = "df_train_data"
-data_manipulation["mimoOutputs"] = 1
+# 8h resampling
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_special_lag1resampled8Htrain_test_data"
+# data_manipulation["mimoOutputs"] = 6
 
+# # 50/50 Risky/Non-risky events, 8h resampling
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_special_lag1resampled8Htrain_test_data"
+# data_manipulation["mimoOutputs"] = 6
+
+# 100/0 Risky/Non-risky events, 0% -30.0 risk steps, MISO, NO resampling, no simulations, 4-step lag
+data_manipulation["directory"] = "data/CollisionAvoidance/"
+data_manipulation["filePrefix"] = "df_no_TN_remove_low_risk_lag4_train_data"
+data_manipulation["mimoOutputs"] = 1
 
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],

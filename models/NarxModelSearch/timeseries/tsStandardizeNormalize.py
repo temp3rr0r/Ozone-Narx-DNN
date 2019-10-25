@@ -12,7 +12,7 @@ if metric == "PM10":
     fromFileName = "PM10_BETN"
 elif metric == "O3":
     fromFileName = "O3_BETN"
-fromFileName = "df_train_data"
+fromFileName = "df_no_TN_remove_low_risk_lag4_test_data"
 
 ts = pd.read_csv("../data/{}.csv".format(fromFileName))
 toFileName = fromFileName
