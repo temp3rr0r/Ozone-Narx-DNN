@@ -24,7 +24,7 @@ Authors of scientific papers including methods/techniques inspired by Island Tra
 
 # Abstract
 
-Air pollution is the cause of around 400.000 premature deaths per year and is the largest health risk in Europe [GdLO+18]. The most dangerous pollutants in Europe are Particulate Matter, Nitrous Oxides and ground-level Ozone (O3).
+Air pollution is the cause of around 400.000 premature deaths per year and is the largest health risk in Europe [GdLO+18]. The most dangerous pollutants in Europe are Particulate Matter, Nitrogen Oxides and ground-level Ozone (O3).
 
 ![alt text](models/NarxModelSearch/pics/pm10_1.png "PM10 pollution")
 ![alt text](models/NarxModelSearch/pics/pollution.png "Ozone pollution")
