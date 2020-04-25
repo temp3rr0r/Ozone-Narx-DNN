@@ -251,9 +251,10 @@ if data_manipulation["fp16"]:
 
 # Choose data
 
-# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-# data_manipulation["filePrefix"] = "BETN073"
-# data_manipulation["mimoOutputs"] = 1
+# TODO: rerun small experiments vs rand search
+data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+data_manipulation["filePrefix"] = "BETN073"
+data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
@@ -305,7 +306,7 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 46
 
-# # SINGLE station Calendar
+# SINGLE station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 1
@@ -360,10 +361,35 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "df_special_lag1resampled8Htrain_test_data"
 # data_manipulation["mimoOutputs"] = 6
 
-# 100/0 Risky/Non-risky events, 0% -30.0 risk steps, MISO, NO resampling, no simulations, 4-step lag
-data_manipulation["directory"] = "data/CollisionAvoidance/"
-data_manipulation["filePrefix"] = "df_no_TN_remove_low_risk_lag4_train_data"
-data_manipulation["mimoOutputs"] = 1
+# # 100/0 Risky/Non-risky events, 0% -30.0 risk steps, MISO, NO resampling, no simulations, 4-step lag
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_no_TN_remove_low_risk_lag4_train_data"
+# data_manipulation["mimoOutputs"] = 1
+
+# # Future 6 steps MIMO 7. 0% Non-risky events/-30.0 risk steps, NO resampling/simulations, 4-step lag
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_future_steps_lag4_train_data"
+# data_manipulation["mimoOutputs"] = 7
+
+# # Future steps 6 MISO. 0% Non-risky events/-30.0 risk steps, NO resampling/simulations, 4-step lag
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_MISO_future_steps_lag4_train_data"
+# data_manipulation["mimoOutputs"] = 1
+
+# # # Future 4 steps MIMO 5. 0% Non-risky events/-30.0 risk steps, NO resampling/simulations, 4-step lag
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_MIMO_future_steps_lag4_train_data"
+# data_manipulation["mimoOutputs"] = 5
+
+# # NOW Future 4 steps MIMO 5. 0% Non-risky events/-30.0 risk steps, NO resampling/simulations, 4-step lag
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_MIMO_now_future_steps_lag4_train_data"
+# data_manipulation["mimoOutputs"] = 3
+
+# NOW Future 4 steps MIMO 5. 0% Non-risky events/-30.0 risk steps, NO resampling/simulations, 4-step lag
+# data_manipulation["directory"] = "data/CollisionAvoidance/"
+# data_manipulation["filePrefix"] = "df_no_TN_remove_low_risk_lag4_train_data_future+1"
+# data_manipulation["mimoOutputs"] = 2
 
 print("--- Loading data...")
 x_data_3d, y_data = load_data(data_manipulation["directory"], data_manipulation["filePrefix"],
