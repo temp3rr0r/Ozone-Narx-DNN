@@ -182,7 +182,7 @@ def train_model(x, *args):
 
     core_layers_genes = np.around(x[21:24], decimals=0).astype(int)
 
-    layer_types = ['LSTM', 'BiLSTM', 'GRU', 'BiGRU', 'SimpleRNN', 'BiSimpleRNN']
+    layer_types = ['LSTM', 'GRU', 'SimpleRNN']
     print("--- Rank {}: Layer Types: {}->{}->{}"
           .format(rank, layer_types[core_layers_genes[0]], layer_types[core_layers_genes[1]],
                   layer_types[core_layers_genes[2]]))
@@ -222,7 +222,7 @@ def train_model(x, *args):
 
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
 
-    reduce_time_series_validation_length = False  # TODO: don't reduce the validation size for each fold
+    reduce_time_series_validation_length = True
 
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
@@ -256,18 +256,12 @@ def train_model(x, *args):
         # 1st base layer
         lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[0]]  # Layer initializer
         # lstm_kwargs['name'] = "size:{}".format(units1)  # TODO: tf.keras layer name
-        if core_layers_genes[0] == 0:
+        if core_layers_genes[0] == 0:  # No bidirectional layers
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
         elif core_layers_genes[0] == 1:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_genes[0] == 2:
             model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_genes[0] == 3:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_genes[0] == 4:
-            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         else:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
+            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         if use_gaussian_noise1 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev1))
         if use_batch_normalization1 < 0.5:
@@ -289,18 +283,12 @@ def train_model(x, *args):
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[5, 0], l1_l2_randoms[5, 1])
         # 2nd base layer
-        if core_layers_genes[1] == 0:
+        if core_layers_genes[1] == 0:  # No bidirectional layers
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
         elif core_layers_genes[1] == 1:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_genes[1] == 2:
             model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_genes[1] == 3:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_genes[1] == 4:
-            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         else:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
+            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         if use_gaussian_noise2 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev2))
         if use_batch_normalization2 < 0.5:
@@ -322,19 +310,12 @@ def train_model(x, *args):
         if regularizer_chance_randoms[8] < regularizer_chance:
             lstm_kwargs['kernel_regularizer'] = tf.keras.regularizers.l1_l2(
                 l1_l2_randoms[8, 0], l1_l2_randoms[8, 1])
-        if core_layers_genes[2] == 0:
+        if core_layers_genes[2] == 0:  # No bidirectional layers
             model.add(tf.keras.layers.LSTM(**lstm_kwargs))
         elif core_layers_genes[2] == 1:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(**lstm_kwargs)))
-        elif core_layers_genes[2] == 2:
             model.add(tf.keras.layers.GRU(**lstm_kwargs))
-        elif core_layers_genes[2] == 3:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.GRU(**lstm_kwargs)))
-        elif core_layers_genes[2] == 4:
-            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         else:
-            model.add(tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(**lstm_kwargs)))
-
+            model.add(tf.keras.layers.SimpleRNN(**lstm_kwargs))
         if use_gaussian_noise3 < 0.5:
             model.add(tf.keras.layers.GaussianNoise(noise_stddev3))
         if use_batch_normalization3 < 0.5:
