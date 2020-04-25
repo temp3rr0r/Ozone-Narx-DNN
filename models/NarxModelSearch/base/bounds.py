@@ -19,9 +19,9 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (0, 1),  # gaussian noise layer layers
           (0, 1),
           (0, 1),
-          (0, 5),  # base layer types (plain/bidirectional: LSTM, GRU, Simple RNN)
-          (0, 5),
-          (0, 5),
+          (0, 2),  # base layer types (plain: LSTM, GRU, Simple RNN)
+          (0, 2),
+          (0, 2),
           (0, 9),  # layer initializers, normal/uniform he/lecun,...
           (0, 9),
           (0, 9)]
