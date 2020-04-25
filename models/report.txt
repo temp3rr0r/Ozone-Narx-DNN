@@ -1,0 +1,394 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 46 files
+Detected 2 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: NarxModelSearch\GlobalOptimizationAlgorithms\BasinHopping.py
+--------------------------------------------------------------------------------
+NarxModelSearch\GlobalOptimizationAlgorithms\BasinHopping.py:726:4: WARNING: (Manual check required) upgrading scipy.optimize.minimize may require renaming or removing call arguments, but it was passed variable-length *args or **kwargs. The upgrade script cannot handle these automatically.
+--------------------------------------------------------------------------------
+File: NarxModelSearch\GlobalOptimizationAlgorithms\SimplicialHomologyGlobalOptimization.py
+--------------------------------------------------------------------------------
+NarxModelSearch\GlobalOptimizationAlgorithms\SimplicialHomologyGlobalOptimization.py:1172:15: WARNING: (Manual check required) upgrading minimize may require renaming or removing call arguments, but it was passed variable-length *args or **kwargs. The upgrade script cannot handle these automatically.
+================================================================================
+Detailed log follows:
+
+================================================================================
+================================================================================
+Input tree: 'NarxModelSearch'
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\mpiNeuroevolutionIslands.py'
+ outputting to 'NarxModelSearch2\\mpiNeuroevolutionIslands.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\WorkerModelTrainer.py'
+ outputting to 'NarxModelSearch2\\WorkerModelTrainer.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\__init__.py'
+ outputting to 'NarxModelSearch2\\__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\base\\bounds.py'
+ outputting to 'NarxModelSearch2\\base\\bounds.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\base\\ModelRequester.py'
+ outputting to 'NarxModelSearch2\\base\\ModelRequester.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\base\\ModelSearch.py'
+ outputting to 'NarxModelSearch2\\base\\ModelSearch.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\base\\NeuroevolutionModelTraining.py'
+ outputting to 'NarxModelSearch2\\base\\NeuroevolutionModelTraining.py'
+--------------------------------------------------------------------------------
+
+90:4: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\CellularAutomata\\cellular_automata_indexing.py'
+ outputting to 'NarxModelSearch2\\CellularAutomata\\cellular_automata_indexing.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\CellularAutomata\\test_cellular_automata_indexing.py'
+ outputting to 'NarxModelSearch2\\CellularAutomata\\test_cellular_automata_indexing.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\Fp16Tests\\kerasCreateTfTrain.py'
+ outputting to 'NarxModelSearch2\\Fp16Tests\\kerasCreateTfTrain.py'
+--------------------------------------------------------------------------------
+
+39:55: INFO: Renamed 'tf.global_variables' to 'tf.compat.v1.global_variables'
+41:44: INFO: Renamed 'tf.global_variables' to 'tf.compat.v1.global_variables'
+46:23: INFO: Renamed 'tf.graph_util.convert_variables_to_constants' to 'tf.compat.v1.graph_util.convert_variables_to_constants'
+96:0: INFO: Renamed 'tf.train.write_graph' to 'tf.io.write_graph'
+99:5: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+102:9: INFO: Renamed 'tf.gfile.GFile' to 'tf.io.gfile.GFile'
+103:20: INFO: Renamed 'tf.GraphDef' to 'tf.compat.v1.GraphDef'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\Fp16Tests\\pytorchLstm.py'
+ outputting to 'NarxModelSearch2\\Fp16Tests\\pytorchLstm.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\GlobalOptimizationAlgorithms\\BasinHopping.py'
+ outputting to 'NarxModelSearch2\\GlobalOptimizationAlgorithms\\BasinHopping.py'
+--------------------------------------------------------------------------------
+
+726:4: WARNING: (Manual check required) upgrading scipy.optimize.minimize may require renaming or removing call arguments, but it was passed variable-length *args or **kwargs. The upgrade script cannot handle these automatically.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\GlobalOptimizationAlgorithms\\DifferentialEvolution.py'
+ outputting to 'NarxModelSearch2\\GlobalOptimizationAlgorithms\\DifferentialEvolution.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\GlobalOptimizationAlgorithms\\DualAnnealing.py'
+ outputting to 'NarxModelSearch2\\GlobalOptimizationAlgorithms\\DualAnnealing.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\GlobalOptimizationAlgorithms\\SimplicialHomologyGlobalOptimization.py'
+ outputting to 'NarxModelSearch2\\GlobalOptimizationAlgorithms\\SimplicialHomologyGlobalOptimization.py'
+--------------------------------------------------------------------------------
+
+1172:15: WARNING: (Manual check required) upgrading minimize may require renaming or removing call arguments, but it was passed variable-length *args or **kwargs. The upgrade script cannot handle these automatically.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\GlobalOptimizationAlgorithms\\__init__.py'
+ outputting to 'NarxModelSearch2\\GlobalOptimizationAlgorithms\\__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\GlobalOptimizationAlgorithms\\pyswarm\\pso.py'
+ outputting to 'NarxModelSearch2\\GlobalOptimizationAlgorithms\\pyswarm\\pso.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag1_hourly\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag1_hourly\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag1_hourly\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag1_hourly\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag3_hourly\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag3_hourly\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag3_hourly\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\12CA3x3x3_5Agents_hassio_calendar_lag3_hourly\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_20AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_20AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_20AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_20AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\EC2\\1xV100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\EC2\\1xV100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\EC2\\4xV100a\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\EC2\\4xV100a\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\VSC\\P100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_16_stations_calendar\\VSC\\P100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_1_station_calendar\\EC2\\4xV100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_1_station_calendar\\EC2\\4xV100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_1_station_calendar\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_1_station_calendar\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_1_station_calendar\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_1_station_calendar\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\EC2\\4xV100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\EC2\\4xV100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\P100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\P100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18CellularAutomata3DGrid3x3x3_5AgentsO3_1994-2018_background_rural_stations\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\EC2\\1xV100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\EC2\\1xV100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\EC2\\4xV100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\EC2\\4xV100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands20AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands5AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands5AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands5AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands5AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\18Islands5AgentsO3_1994-2018_16_stations_calendar\\VSC\\P100\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\18Islands5AgentsO3_1994-2018_16_stations_calendar\\VSC\\P100\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\5CellularAutomata3DGrid2x3x5_20AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\5CellularAutomata3DGrid2x3x5_20AgentsO3_1994-2018_16_stations_calendar\\local\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\runs\\5CellularAutomata3DGrid2x3x5_20AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+ outputting to 'NarxModelSearch2\\runs\\5CellularAutomata3DGrid2x3x5_20AgentsO3_1994-2018_16_stations_calendar\\TX2\\foundModels\\minMseReader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\timeseries\\tsRemoveColumns.py'
+ outputting to 'NarxModelSearch2\\timeseries\\tsRemoveColumns.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'NarxModelSearch\\timeseries\\tsStandardizeNormalize.py'
+ outputting to 'NarxModelSearch2\\timeseries\\tsStandardizeNormalize.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+

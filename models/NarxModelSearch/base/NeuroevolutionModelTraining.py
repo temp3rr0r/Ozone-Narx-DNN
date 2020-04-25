@@ -13,7 +13,7 @@ from sklearn.model_selection import TimeSeriesSplit, train_test_split
 
 def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     """
-    Mean Absolute Scaled Error (MASE) [1]: 100 * (MAE / MAE_Naive_lag).
+    Mean Absolute Scaled Error (MASE) [1]: MAE / MAE_Naive_lag.
     [1] Hyndman RJ, Koehler AB. Another look at measures of forecast accuracy. International Journal of Forecasting.
     2006;22(4):679–688. 10.1016/j.ijforecast.2006.03.001
     :param expected: 1D or nD array of expected values
@@ -21,8 +21,8 @@ def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     :param naive_lags: Lags to scale for. Default 1 for non-stationary data.
     :return: 1D or nD Mean Absolute Scaled Error (MASE).
     """
-    return 100 * (mean_absolute_error(
-        expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0])))
+    return mean_absolute_error(
+        expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0]))
 
 
 def mimo_shift(array, lags, fill_value=np.nan):
@@ -87,7 +87,7 @@ def delete_model(model):
     """
     # Memory handling
     del model  # Manually delete model
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
     tf.keras.backend.clear_session()
     gc.collect()
 
@@ -222,11 +222,14 @@ def train_model(x, *args):
 
     l1_l2_randoms = np.random.uniform(low=min_regularizer, high=max_regularizer, size=(9, 2))
 
+    reduce_time_series_validation_length = False  # TODO: don't reduce the validation size for each fold
+
     for train, validation in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: test train/dev/validation
     # for train, validation_full in timeSeriesCrossValidation.split(x_data, y_data):  # TODO: Nested CV?
 
-        train, validation = reduce_time_series_validation_fold_size(
-            train, validation, max_validation_length=holdout_max_validation_length)  # 24 or 48 (hours) or 365 (days)
+        if reduce_time_series_validation_length:
+            train, validation = reduce_time_series_validation_fold_size(
+                train, validation, max_validation_length=holdout_max_validation_length)  # 24 or 48 (hours) or 365 (days)
 
         # dev, validation = train_test_split(validation_full, test_size=0.1, shuffle=False)  # TODO: 50-50 for dev/val
 
@@ -606,7 +609,7 @@ def train_model(x, *args):
             for i in range(holdout_prediction.shape[1]):
                 pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
                 pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
-                             "SMAPE: {}%, MASE: {}%, IOA: {}%)"
+                             "SMAPE: {}%, MASE: {}, IOA: {}%)"
                         .format(modelLabel, train_model.counter, i,
                                 np.round(holdout_mse, 2),
                                 np.round(holdout_rmse, 2),
@@ -726,7 +729,7 @@ def train_model_tester3(x, *args):
         "rand": {"range": [-100, 100], "function_call": benchmarks.rand}  # Arbitrary bounds
     }
 
-    last_genes_count = -10  # Count of genes to use as input (from end).
+    last_genes_count = -2  # Count of genes to use as input (from end).
     test_fitness_function = "schwefel"  # Fitness function to check.
 
     scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])
