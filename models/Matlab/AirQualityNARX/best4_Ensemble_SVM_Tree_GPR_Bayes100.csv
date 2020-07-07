@@ -1,0 +1,5 @@
+model_name,model_type,cross_validation,cross_validation_folds,pca,optimizer,optimizer_iterations,train_years,train_rmse,train_rsquared,train_mse,train_mae,training_time(secs)
+"bestTreeBayes100","Optimizable Tree",1,10,1,0,"bayesian",100,"2000-2009",17.15,0.68,293.13,12.956,147.72
+"bestEnsembleBayes100","Optimizable Ensemble",1,10,0,"bayesian",100,"2000-2009",16.782,0.69,281.63,12.737,877.99
+"bestGPRBayes100","Optimizable GPR",1,10,0,"bayesian",100,"2000-2009",16.888,0.69,285.19,12.879,16692
+"bestSVMayes100","Optimizable SVM",1,10,0,"bayesian",100,"2000-2009",16.989,0.68,288.62,12.763,388.77

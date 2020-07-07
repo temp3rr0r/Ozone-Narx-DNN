@@ -1,0 +1,23 @@
+Bayesian hyperparameter Optimization (100 iterations) on:
+1. Tree.
+2. Tree ensemble.
+3. Support Vector Machines (SVM)
+4. Gaussian Process Regression (GPR)
+
+Expected
+---
+VarName2
+
+Predictors (7)
+---
+VarName3-VarName9
+
+Train years (2000-2009, BETN073_ts_standardized.csv)
+---
+Indices:
+B3653:I7305
+
+Test years (2010, BETN073_ts_standardized.csv)
+---
+Indices:
+B7306:I7676
