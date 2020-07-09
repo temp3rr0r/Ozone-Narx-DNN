@@ -1,0 +1,31 @@
+EEA
+===
+Verified measurement:
+"Data has gone through full quality assurance and quality control by data provider/owner. Data is considered verified and can be formally used for its reporting purposes." [4] [6]
+
+Valid measurement:
+Data above detection limit and not due to station maintenance or calibration [5].
+
+Ozone:
+Daily maximum of 8h Moving Average (MA), of at least 18 valid 8h MA [3].
+
+PM10:
+Daily average (24-hour mean) of at least 18 valid hourly values [1] [2].
+
+
+[1] ETC Aggregation.
+[2] https://dd.eionet.europa.eu/vocabularyconcept/aq/aggregationprocess/P1D/view
+[3] https://dd.eionet.europa.eu/vocabularyconcept/aq/aggregationprocess/P8H-dmax/view
+[4] https://dd.eionet.europa.eu/vocabulary/aq/observationverification
+[5] https://dd.eionet.europa.eu/vocabulary/aq/observationvalidity
+[6] https://dd.eionet.europa.eu/vocabularyconcept/aq/observationverification/1/view?facet=HTML+Representation
+
+ECMWF
+===
+
+4D-Variational data assimilation (code CY41R2) of ECMWF’s Integrated Forecast System (IFS) [1] [2]
+
+
+[1] https://www.ecmwf.int/en/publications/ifs-documentation
+[2] https://confluence.ecmwf.int/display/CKB/ERA5%3A+data+documentation#ERA5:datadocumentation-TheIFSanddataassimilation
+[3] https://www.ecmwf.int/file/37988/download?token=SXGCaqlK p7-14
