@@ -26,7 +26,7 @@ function naive1(y_test, year, station)
     MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
     sMAPE = mean(2.*abs(y_test_matrix-y_test_prediction) ./ (abs(y_test_matrix) + abs(y_test_prediction)));
     IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-    disp("Naive-1 (" + year + ", " + station + ") MAPE: " + round(MAPE * 100, 2) + "%, sMAPE: " + round(sMAPE * 100, 2) + "%, MSE: " + round(MSE, 2) + " IOA: " + round(IOA * 100, 2) + "%")
+    disp("Naive-1 (" + year + ", " + station + ") MAPE: " + round(MAPE * 100, 2) + "%, MSE: " + round(MSE, 2) + ", sMAPE: " + round(sMAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "%")
 end
 %%
 
