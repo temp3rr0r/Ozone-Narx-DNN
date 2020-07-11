@@ -214,7 +214,7 @@ def train_model(x, *args):
     # dev_mse_scores = []
     current_fold = 0
 
-    # Phenotypic Mutation, using random uniform.
+    # Phenotypic Mutation, using random uniform. To simulate Phenotypic Plasticity adaptations.
     min_regularizer = 0.0
     max_regularizer = 0.01
     regularizer_chance = 0.1  # Mutation chance threshold

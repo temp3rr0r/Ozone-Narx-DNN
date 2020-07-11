@@ -69,8 +69,8 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 
 # First island in vector is not considered
 # islands = ['ls'] * 6  # Local search islands
-islands = ['rand', 'ga', 'bo', 'de', 'pso'] * 7  # TODO: test/debug DA islands
-# islands = ['de'] * 40  # TODO: test/debug DA islands
+# islands = ['rand', 'ga', 'bo', 'de', 'pso'] * 7  # TODO: test/debug DA islands
+islands = ['bo'] * 8  # TODO: test/debug DA islands
 # islands = ['pso', 'ga', 'bo', 'de', 'rand', 'ls'] * 7  # TODO: LS island =OUT=> global islands
 
 comm = MPI.COMM_WORLD
