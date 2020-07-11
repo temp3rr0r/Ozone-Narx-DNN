@@ -23,9 +23,12 @@ Daily average (24-hour mean) of at least 18 valid hourly values [1] [2].
 ECMWF
 ===
 
-4D-Variational data assimilation (code CY41R2) of ECMWF’s Integrated Forecast System (IFS) [1] [2]
+4D-Variational data assimilation (code CY41R2) of ECMWF’s Integrated Forecast System (IFS) [1] [2]:
 
+"This job step also performs screening (i.e. blacklisting, thinning and quality control against the background) of observations..."
 
 [1] https://www.ecmwf.int/en/publications/ifs-documentation
 [2] https://confluence.ecmwf.int/display/CKB/ERA5%3A+data+documentation#ERA5:datadocumentation-TheIFSanddataassimilation
 [3] https://www.ecmwf.int/file/37988/download?token=SXGCaqlK p7-14
+
+We decided not to remove outliers because there is already quality control by EEA and ECMWF.
