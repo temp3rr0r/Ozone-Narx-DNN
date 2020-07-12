@@ -182,6 +182,10 @@ def train_model(x, *args):
 
     core_layers_genes = np.around(x[21:24], decimals=0).astype(int)
 
+    # TODO: Use the same evolved core layer gene on all layers
+    # core_layers_genes[1] = core_layers_genes[0]
+    # core_layers_genes[2] = core_layers_genes[0]
+
     layer_types = ['LSTM', 'GRU', 'SimpleRNN']
     print("--- Rank {}: Layer Types: {}->{}->{}"
           .format(rank, layer_types[core_layers_genes[0]], layer_types[core_layers_genes[1]],
