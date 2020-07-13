@@ -222,7 +222,7 @@ def model_training_callback(ch, method, properties, body):
 
     except ValueError as ev:  # Handle exceptions
         print(" [x] Exception, sending rejection: %s" % str(ev))
-        ch.basic_reject(delivery_tag=method.delivery_tag)
+        ch.basic_reject(delivery_tag=method.delivery_tag)  # Sends NACK on failure or process cancellation :)
 
 
 gpu_device = 1  # Set GPU (default: 1)
