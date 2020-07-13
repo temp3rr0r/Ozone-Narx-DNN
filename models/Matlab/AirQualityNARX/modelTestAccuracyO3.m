@@ -6,15 +6,19 @@ T = readtable('6vars/BETN073.csv');
 X_test = T(7306:7676, 3:9);
 y_test = T(7306:7676, 2);
 
-
 %% Load training data
 % Indices: B3653:I7305
 X_train = T(3653:7305, 3:9);
 y_train = T(3653:7305, 2);
-
+X_train_matrix = table2array(X_train);
+y_train_matrix = table2array(y_train);
+X_train_matrix_normalized = normalize(table2array(X_train));
+y_train_matrix_normalized = normalize(table2array(y_train));
 %%
 X_test_matrix = table2array(X_test);
 y_test_matrix = table2array(y_test);
+X_test_matrix_normalized = normalize(table2array(X_test));
+y_test_matrix_normalized = normalize(table2array(y_test));
 
 %%
 X_test.Properties.VariableNames{'Var3'} = 'VarName3';
@@ -62,6 +66,42 @@ IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 
 
+%% Average GPU DNN training Execution time
+boRuns2 = readtable('../../NarxModelSearch/logs/boRuns.csv');
+disp(round(mean(diff(table2array(boRuns2(:,1))))/3600, 2) + " hours +/- " + round(std(diff(table2array(boRuns2(:,1)))/3600), 2) + ' hours')
+
+%% Train/test autocorrelation & partial correlation
+figure;
+subplot(2,1,1)
+autocorr(y_train_matrix_normalized);
+subplot(2,1,2)
+parcorr(y_train_matrix_normalized);
+figure;
+subplot(2,1,1)
+autocorr(y_test_matrix_normalized);
+subplot(2,1,2)
+parcorr(y_test_matrix_normalized);
+%% Train/test difference
+figure;
+subplot(2,1,1);
+plot(diff(y_train_matrix_normalized));
+title("Train difference");
+subplot(2,1,2)
+plot(diff(y_test_matrix_normalized));
+title("Test difference");
+%% Train/test DIFFERENCE autocorrelation & partial correlation
+figure;
+subplot(2,1,1)
+autocorr(diff(y_train_matrix_normalized));
+subplot(2,1,2)
+parcorr(diff(y_train_matrix_normalized));
+figure;
+subplot(2,1,1)
+autocorr(diff(y_test_matrix_normalized));
+subplot(2,1,2)
+parcorr(diff(y_test_matrix_normalized));
+%%
+close all;
 %%
 function ioa = index_of_agreement(validation, prediction)
     
