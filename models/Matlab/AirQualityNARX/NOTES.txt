@@ -19,3 +19,28 @@ Indices: B3653:I7305
 Test years (2010, BETN073_ts_standardized.csv)
 ---
 Indices: B7306:I7676
+
+
+4stations51vars
+===
+BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101.csv
+
+Train: 3653 7305
+Test: 7306 7670
+r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
+
+BETN
+---
+B,   C,   E, BE, BF,  BH
+12, 66, 121, 12, 66, 121
+
+D , BG
+73, 73
+
+Specific:
+y D3653:D7305
+X F3653:BD7305, BG3653:BG7305
+Indices: D3653:D7305, F3653:BD7305, BG3653:BG7305
+10-fold Cross Validation
+
+

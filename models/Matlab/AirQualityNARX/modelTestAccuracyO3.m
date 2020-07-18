@@ -67,7 +67,8 @@ disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% 
 
 
 %% Average GPU DNN training Execution time
-boRuns2 = readtable('../../NarxModelSearch/logs/boRuns.csv');
+%boRuns2 = readtable('../../NarxModelSearch/logs/boRuns.csv');
+boRuns2 = readtable('C:/Users/temp3rr0r/PycharmProjects/Ozone-Narx-DNN/models/NarxModelSearch/logs/boRuns.csv');
 disp(round(mean(diff(table2array(boRuns2(:,1))))/3600, 2) + " hours +/- " + round(std(diff(table2array(boRuns2(:,1)))/3600), 2) + ' hours')
 
 %% Train/test autocorrelation & partial correlation
@@ -81,6 +82,35 @@ subplot(2,1,1)
 autocorr(y_test_matrix_normalized);
 subplot(2,1,2)
 parcorr(y_test_matrix_normalized);
+%% Spectral Analysis model estimation -> Bode -> Resonance freqs(amplitude) & Phase roll-off (delays)
+betn_iddata = iddata(y_train_matrix_normalized, X_train_matrix_normalized, 1);
+mdl_spa = spa(betn_iddata); % Spectral analysis model
+figure
+bode(mdl_spa); % Resonant frequencies (magnitude), Delays (phase roll-off)
+% Resonant freq: 0.221 rad/sample
+% No phase roll-off (gradual lowering/delay)
+
+%% Impulse response model estimation -> step function -> delay estimation
+Mimp = impulseest(betn_iddata, 60);
+step(Mimp) % Overshooting & overdumping
+% Mostly over-dumping
+% u5 has some overshooting
+%% Delay estimation (via ARX)
+poles = 4;
+zeros = 4;
+min_delay = 0;
+max_delay = 3;
+max_tests = 5000;
+betn_iddata_100 = iddata(y_train_matrix_normalized(300:360), X_train_matrix_normalized(300:360, :), 1);
+delayest(betn_iddata_100, poles, zeros, min_delay, max_delay, max_tests)
+
+%% ARX Model order estimation (all permutations vs MDL/AIC/MinError
+disp('ARX Model order estimation, all inputs');
+NN1 = struc(1:3, 1:3, 1:3); % Permutations (poles, zeros, delays)
+for i = 1:7
+    selstruc(arxstruc(betn_iddata(:, :, i), betn_iddata(:, :, i), NN1))
+end
+
 %% Train/test difference
 figure;
 subplot(2,1,1);
