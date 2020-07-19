@@ -2,8 +2,8 @@
 
 %% Load test data
 T = readtable('6vars/BETN073.csv');
-X_test = T(7306:7676, 3:9);
-y_test = T(7306:7676, 2);
+X_test = T(7306:7670, 3:9);
+y_test = T(7306:7670, 2);
 %% Load training data
 % Indices: B3653:I7305
 X_train = T(3653:7305, 3:9);

@@ -2,8 +2,8 @@
 
 %% Load test data
 T = readtable('4stations51vars/BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101.csv');
-X_test = T(7306:7670, [6:57, 59]);
-y_test = T(7306:7670, 5);
+X_test = T(7306:7676, [6:57, 59]);
+y_test = T(7306:7676, 5);
 %% Load training data
 % r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
 % Indices: D3653:D7305, F3653:BD7305, BG3653:BG7305
@@ -40,6 +40,14 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Naive-1 MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 
+%% Naive-1
+disp("10-fold cross-validation");
+y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("Naive-1 MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+
+
 %% Tree
 load('trainedTreeBo350_51vars.mat');
 y_test_prediction = trainedTreeBO350_51vars.predictFcn(X_test);
@@ -65,38 +73,8 @@ y_test_prediction = trainedExponentialGPRBO350_51vars.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
-%% Train/test autocorrelation & partial correlation
-figure;
-subplot(2,1,1)
-autocorr(y_train_matrix_normalized);
-subplot(2,1,2)
-parcorr(y_train_matrix_normalized);
-figure;
-subplot(2,1,1)
-autocorr(y_test_matrix_normalized);
-subplot(2,1,2)
-parcorr(y_test_matrix_normalized);
-%% Train/test difference
-figure;
-subplot(2,1,1);
-plot(diff(y_train_matrix_normalized));
-title("Train difference");
-subplot(2,1,2)
-plot(diff(y_test_matrix_normalized));
-title("Test difference");
-%% Train/test DIFFERENCE autocorrelation & partial correlation
-figure;
-subplot(2,1,1)
-autocorr(diff(y_train_matrix_normalized));
-subplot(2,1,2)
-parcorr(diff(y_train_matrix_normalized));
-figure;
-subplot(2,1,1)
-autocorr(diff(y_test_matrix_normalized));
-subplot(2,1,2)
-parcorr(diff(y_test_matrix_normalized));
-%%
-close all;
+
+
 %%
 function ioa = index_of_agreement(validation, prediction)
     
