@@ -1,7 +1,7 @@
 %% Test error of Bayesian Optimized: SVM, GPR, Tree, Ensemble models
 
 %% Load test data
-T = readtable('6vars/BETN073.csv');
+T = readtable('../../NarxModelSearch/data/6vars/BETN073.csv');
 X_test = T(7306:7670, 3:9);
 y_test = T(7306:7670, 2);
 %% Load training data
@@ -65,8 +65,7 @@ disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% 
 
 
 %% Average GPU DNN training Execution time
-%boRuns2 = readtable('../../NarxModelSearch/logs/boRuns.csv');
-boRuns2 = readtable('C:/Users/temp3rr0r/PycharmProjects/Ozone-Narx-DNN/models/NarxModelSearch/logs/boRuns.csv');
+boRuns2 = readtable('../../NarxModelSearch/logs/boRuns.csv');
 disp(round(mean(diff(table2array(boRuns2(:,1))))/3600, 2) + " hours +/- " + round(std(diff(table2array(boRuns2(:,1)))/3600), 2) + ' hours')
 
 %% Train/test autocorrelation & partial correlation

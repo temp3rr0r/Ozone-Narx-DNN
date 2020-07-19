@@ -1,11 +1,10 @@
 %% Test error of Bayesian Optimized: SVM, GPR, Tree, Ensemble models
 
 %% Load test data
-T = readtable('4stations51vars/BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101.csv');
+T = readtable('../../NarxModelSearch/data/4stations51vars/BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101.csv');
 X_test = T(7306:7670, [6:57, 59]);
 y_test = T(7306:7670, 5);
 %% Load training data
-% r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts
 % Indices: D3653:D7305, F3653:BD7305, BG3653:BG7305
 X_train = T(3653:7305, [6:57, 59]);
 y_train = T(3653:7305, 5);
