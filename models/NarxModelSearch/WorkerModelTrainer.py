@@ -64,7 +64,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
     :return: Input and expected data matrices.
     """
     use_pandas = False  # TODO: for Hassio, use pandas to remove columns
-    reduce_ts_length = False  # TODO: enable for air quality
+    reduce_ts_length = True  # TODO: enable for air quality
 
     if not use_pandas:
         if data_manipulation["scale"] == 'standardize':
@@ -124,8 +124,8 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
 
             # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
             # TODO: O3 from 1995
-            row2010_01_01 = 7307 - 1
-            r = r[row2010_01_01:-1, :]
+            # row2010_01_01 = 7307 - 1
+            # r = r[row2010_01_01:-1, :]
 
             # TODO: greatly decrease r length for testing: 2005-2017 training, 2018 for testing
             # TODO: O3 from 1995

@@ -27,85 +27,103 @@ X_test.Properties.VariableNames{'O3_BETN073_1'} = 'O3_BETN0731';
 %% Naive-1
 disp("10-fold cross-validation");
 y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));  % Root Mean Squared Error
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Naive-1 MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
-%%
-%resid(y_test_matrix, y_test_prediction)
-
+disp("Naive-1" + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
 %% Tree
 load('trainedTreeBO350_59vars.mat');
 y_test_prediction = trainedTreeBO350_59vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));  % Root Mean Squared Error
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Tree MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
-
+disp("Tree" + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 30 iters)")
 %% Ensemble
-load('trainedTreeBO350_59vars.mat');
-y_test_prediction = trainedTreeBO350_59vars.predictFcn(X_test);
+load('trainedEnsembleBO350_59vars.mat');
+y_test_prediction = trainedEnsembleBO350_59vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));  % Root Mean Squared Error
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Ensemble MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+disp("Ensemble" + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 100 iters)")
 %% SVM
 load('trainedMediumGaussianSVM_59vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));  % Root Mean Squared Error
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("SVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
-
+disp("Medium Gaussian SVM" + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel out of all)")
 %% GPR
 load('trainedRationalQuadraticGPR_59vars.mat');
 y_test_prediction = trainedRationalQuadraticGPR_59vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));  % Root Mean Squared Error
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+disp("Rational Quadratic GPR " + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel out of all)")
+%% LSSVM
+train = false;
+show_plots = false;
+addpath('LSSVMlabv1_8_R2009b_R2011a');
 
-%% LSSVM classification
-X = 2.*rand(100,2)-1;
-Y = sign(sin(X(:,1))+X(:,2));
-gam = 10;
-sig2 = 0.4;
-type = 'classification';
-[alpha, b] = trainlssvm({X, Y, type, gam, sig2, 'RBF_kernel'});
-plotlssvm({X,Y,type,gam,sig2, 'RBF_kernel'},{alpha,b});
+X = X_train_matrix_normalized;
+Y = y_train_matrix_normalized;
+X(isnan(X)) = 0; % Remove NaNs (from division with std of zero)
+Y(isnan(Y)) = 0;
 
-%% LSSVM regression 0
-X = [linspace(-1,1,50) linspace(-1,1,50)]';
-Y = (15*(X.^2-1).^2.*X.^4).*exp(-X)+normrnd(0,0.1,length(X),1);
-type = 'function estimation';
-[gam,sig2] = tunelssvm({X,Y,type,[],[],'RBF_kernel'},'simplex', 'leaveoneoutlssvm',{'mse'});
-[alpha,b] = trainlssvm({X,Y,type,gam,sig2,'RBF_kernel'});
-plotlssvm({X,Y,type,gam,sig2,'RBF_kernel'},{alpha,b});
-%% Train LSSVM regression
-X = X_train_matrix(:, :);
-Y = y_train_matrix(:);
-type = 'f';
-[gam,sig2] = tunelssvm({X,Y,type,[],[],'RBF_kernel'},'simplex', 'crossvalidatelssvm',{10, 'mse'});
-[alpha,b] = trainlssvm({X,Y,type,gam,sig2,'RBF_kernel'});
-%%
-plotlssvm({X,Y,type,gam,sig2,'RBF_kernel'},{alpha,b});
-%% Train LSSVM
-Xs = X_test_matrix;
+if train == true
+    % Train LSSVM regression
+    type = 'f';
+    kernel = 'RBF_kernel';
+    [gam,sig2] = tunelssvm({X,Y,type,[],[],kernel}, 'simplex', 'crossvalidatelssvm',{10, 'mse'});
+    [alpha,b] = trainlssvm({X,Y,type,gam,sig2,'RBF_kernel'});
+    if show_plots
+        plotlssvm({X,Y,type,gam,sig2,'RBF_kernel'},{alpha,b});
+    end
+    % Store model as struct
+    trainedLSSVM_59vars = struct('type', type, 'gam', gam, 'sig2', sig2,...
+        'kernel', kernel, 'alpha', alpha, 'b', b);
+    save('trainedLSSVM_59vars.mat', 'trainedLSSVM_59vars');    
+end 
+% Test LSSVM
+Xs = X_test_matrix_normalized;
 Ys = y_test_matrix;
-Yt = simlssvm({X,Y,type,gam,sig2,'RBF_kernel','preprocess'},{alpha,b},Xs);
+Xs(isnan(Xs))=0; % Remove NaNs
+Ys(isnan(Ys))=0;
+
+load('trainedLSSVM_59vars.mat');
+type = trainedLSSVM_59vars.type;
+gam = trainedLSSVM_59vars.gam;
+sig2 = trainedLSSVM_59vars.sig2;
+kernel = trainedLSSVM_59vars.kernel;
+
+Yt = simlssvm({X,Y,trainedLSSVM_59vars.type,trainedLSSVM_59vars.gam, ...
+    trainedLSSVM_59vars.sig2,trainedLSSVM_59vars.kernel,'preprocess'},...
+    {trainedLSSVM_59vars.alpha, trainedLSSVM_59vars.b},Xs);
+Yt = Yt .* std(y_train_matrix) + mean(y_train_matrix); % Remove standardization
+if show_plots
+    plot(1:length(Yt), Ys, 1:length(Yt), Yt);
+end
 RMSE = sqrt(mean((Yt - Ys).^2));  % Root Mean Squared Error
 MAE = mean(abs(Yt - Ys));  % Root Mean Squared Error
 MSE = mean((Yt - Ys).^2);  % Mean Squared Error
 MAPE = mean((abs(Yt - Ys))./Ys);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("LSSVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + " MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
-%% LSSVM
-load('trainedMediumGaussianSVM_59vars.mat');
-y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("LSSVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+disp("LSSVM" + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
 %% FS-LSSVM
 load('trainedMediumGaussianSVM_59vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("FS-LSSVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+disp("FS-LSSVM" + char(10) + " MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
 %% Train/test autocorrelation & partial correlation
 figure;
 subplot(2,1,1)
