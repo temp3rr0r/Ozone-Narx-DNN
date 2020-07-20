@@ -30,6 +30,8 @@ y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Naive-1 MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+%%
+%resid(y_test_matrix, y_test_prediction)
 
 %% Tree
 load('trainedTreeBO350_59vars.mat');
@@ -45,24 +47,31 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 %% SVM
-load('trainedSVMBO350_59vars.mat');
-y_test_prediction = trainedSVMBO350_59vars.predictFcn(X_test);
+load('trainedMediumGaussianSVM_59vars.mat');
+y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("SVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 
-%% Gaussian SVM
-load('trainedSVMBO350_59vars.mat');
-y_test_prediction = trainedSVMBO350_59vars.predictFcn(X_test);
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Gaussian SVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 %% GPR
 load('trainedRationalQuadraticGPR_59vars.mat');
 y_test_prediction = trainedRationalQuadraticGPR_59vars.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+
+%% LSSVM
+load('trainedMediumGaussianSVM_59vars.mat');
+y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("LSSVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+%% FS-LSSVM
+load('trainedMediumGaussianSVM_59vars.mat');
+y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("FS-LSSVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 %% Train/test autocorrelation & partial correlation
 figure;
 subplot(2,1,1)
