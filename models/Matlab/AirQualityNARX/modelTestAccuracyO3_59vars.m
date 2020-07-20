@@ -60,6 +60,40 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("GPR MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
 
+%% LSSVM classification
+X = 2.*rand(100,2)-1;
+Y = sign(sin(X(:,1))+X(:,2));
+gam = 10;
+sig2 = 0.4;
+type = 'classification';
+[alpha, b] = trainlssvm({X, Y, type, gam, sig2, 'RBF_kernel'});
+plotlssvm({X,Y,type,gam,sig2, 'RBF_kernel'},{alpha,b});
+
+%% LSSVM regression 0
+X = [linspace(-1,1,50) linspace(-1,1,50)]';
+Y = (15*(X.^2-1).^2.*X.^4).*exp(-X)+normrnd(0,0.1,length(X),1);
+type = 'function estimation';
+[gam,sig2] = tunelssvm({X,Y,type,[],[],'RBF_kernel'},'simplex', 'leaveoneoutlssvm',{'mse'});
+[alpha,b] = trainlssvm({X,Y,type,gam,sig2,'RBF_kernel'});
+plotlssvm({X,Y,type,gam,sig2,'RBF_kernel'},{alpha,b});
+%% Train LSSVM regression
+X = X_train_matrix(:, :);
+Y = y_train_matrix(:);
+type = 'f';
+[gam,sig2] = tunelssvm({X,Y,type,[],[],'RBF_kernel'},'simplex', 'crossvalidatelssvm',{10, 'mse'});
+[alpha,b] = trainlssvm({X,Y,type,gam,sig2,'RBF_kernel'});
+%%
+plotlssvm({X,Y,type,gam,sig2,'RBF_kernel'},{alpha,b});
+%% Train LSSVM
+Xs = X_test_matrix;
+Ys = y_test_matrix;
+Yt = simlssvm({X,Y,type,gam,sig2,'RBF_kernel','preprocess'},{alpha,b},Xs);
+RMSE = sqrt(mean((Yt - Ys).^2));  % Root Mean Squared Error
+MAE = mean(abs(Yt - Ys));  % Root Mean Squared Error
+MSE = mean((Yt - Ys).^2);  % Mean Squared Error
+MAPE = mean((abs(Yt - Ys))./Ys);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("LSSVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + " MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
 %% LSSVM
 load('trainedMediumGaussianSVM_59vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
