@@ -130,6 +130,7 @@ parcorr(diff(y_test_matrix_normalized));
 %%
 close all;
 %%
+
 function ioa = index_of_agreement(validation, prediction)
     
     % Calculates Index Of Agreement (IOA).
