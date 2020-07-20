@@ -44,9 +44,16 @@ y_test_prediction = trainedTreeBO350_59vars.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+%% SVM
+load('trainedSVMBO350_59vars.mat');
+y_test_prediction = trainedSVMBO350_59vars.predictFcn(X_test);
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("SVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
+
 %% Gaussian SVM
-load('trainedMediumGaussianSVM_59vars.mat');
-y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
+load('trainedSVMBO350_59vars.mat');
+y_test_prediction = trainedSVMBO350_59vars.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Gaussian SVM MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
