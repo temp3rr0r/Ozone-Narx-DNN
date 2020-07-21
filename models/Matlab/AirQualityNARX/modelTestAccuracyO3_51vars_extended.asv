@@ -3,13 +3,17 @@
 %T = readtable('../../NarxModelSearch/data/4stations51vars/BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101_ts.csv');
 %X_test = T(7306:7670, [6:57, 59]);
 %y_test = T(7306:7670, 5);
-T = readtable('pandas_data.csv');
-X_test = T(end-365:end, 2:50);
-y_test = T(end-365:end, 1);
+T = readtable('data_51vars_comparisons.csv');
+X_test = T(end-365:end, 3:54);
+y_test = T(end-365:end, 2);
+show_plots = false;
 %% Load training data
 % Indices: D3653:D7305, F3653:BD7305, BG3653:BG7305
-X_train = T(3653:7305, [6:57, 59]);
-y_train = T(3653:7305, 5);
+% X_train = T(3653:7305, [6:57, 59]);
+% y_train = T(3653:7305, 5);
+% Indices: B2:BB3654
+X_train = T(2:end-365, 3:54);
+y_train = T(2:end-365, 2);
 X_train_matrix = table2array(X_train);
 y_train_matrix = table2array(y_train);
 X_train_matrix_normalized = normalize(table2array(X_train));
@@ -20,20 +24,19 @@ y_test_matrix = table2array(y_test);
 X_test_matrix_normalized = normalize(table2array(X_test));
 y_test_matrix_normalized = normalize(table2array(y_test));
 
-%%
-for i = 6:57
-    X_test.Properties.VariableNames{char('Var' + string(i))} = char('VarName' + string(i));
-end 
-%%
-i = 59;
-X_test.Properties.VariableNames{char('Var' + string(i))} = char('VarName' + string(i));
-i = 41;
-X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e05');
-i = 45;
-X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e13');
-i = 49;
-X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e1');
-
+% %%
+% for i = 6:57
+%     X_test.Properties.VariableNames{char('Var' + string(i))} = char('VarName' + string(i));
+% end 
+% %%
+% i = 59;
+% X_test.Properties.VariableNames{char('Var' + string(i))} = char('VarName' + string(i));
+% i = 41;
+% X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e05');
+% i = 45;
+% X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e13');
+% i = 49;
+% X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e1');
 %% Naive-1
 disp("10-fold cross-validation");
 y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
@@ -46,6 +49,13 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Naive-1" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
+%%
+if show_plots
+    plot(y_test_matrix);
+    hold on;
+    plot(y_test_prediction);
+    legend({'expected', 'predicted'});
+end
 %% Tree
 load('trainedTreeBo350_51vars.mat');
 y_test_prediction = trainedTreeBO350_51vars.predictFcn(X_test);
@@ -92,7 +102,6 @@ IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Rational Quadratic GPR" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel out of all)")
 %% LSSVM
 train = false;
-show_plots = false;
 addpath('LSSVMlabv1_8_R2009b_R2011a');
 
 X = X_train_matrix_normalized;

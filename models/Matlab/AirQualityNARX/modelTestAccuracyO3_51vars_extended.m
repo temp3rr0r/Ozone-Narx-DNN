@@ -11,7 +11,7 @@ show_plots = false;
 % Indices: D3653:D7305, F3653:BD7305, BG3653:BG7305
 % X_train = T(3653:7305, [6:57, 59]);
 % y_train = T(3653:7305, 5);
-% Indices: D3653:D7305, F3653:BD7305, BG3653:BG7305
+% Indices: B2:BB3654
 X_train = T(2:end-365, 3:54);
 y_train = T(2:end-365, 2);
 X_train_matrix = table2array(X_train);
@@ -37,6 +37,10 @@ y_test_matrix_normalized = normalize(table2array(y_test));
 % X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e13');
 % i = 49;
 % X_test.Properties.VariableNames{char('VarName' + string(i))} = char('e1');
+%%
+for i = 3:54
+    X_test.Properties.VariableNames{char('Var' + string(i))} = char('VarName' + string(i));
+end 
 %% Naive-1
 disp("10-fold cross-validation");
 y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
@@ -79,8 +83,8 @@ sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
 %% SVM
-load('trainedGaussianSVMBO350_51vars.mat');
-y_test_prediction = trainedGaussianSVMBO350_51vars.predictFcn(X_test);
+load('trainedMediumGaussianSVM_51vars.mat');
+y_test_prediction = trainedMediumGaussianSVM_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
 MAE = mean(abs(y_test_prediction - y_test_matrix));
 MASE = MAE/MAE_naive_1;
