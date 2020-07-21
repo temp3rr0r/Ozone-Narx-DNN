@@ -15,5 +15,5 @@
     "multi_gpu": false,
     "migrate": true,
     "timesteps": 1,
-    "cellular_automata_dimensions": [3, 3, 3]
+    "cellular_automata_dimensions": [18]
 }

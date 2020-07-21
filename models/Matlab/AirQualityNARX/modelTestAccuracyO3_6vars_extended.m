@@ -12,6 +12,7 @@ X_train_matrix = table2array(X_train);
 y_train_matrix = table2array(y_train);
 X_train_matrix_normalized = normalize(table2array(X_train));
 y_train_matrix_normalized = normalize(table2array(y_train));
+
 %%
 X_test_matrix = table2array(X_test);
 y_test_matrix = table2array(y_test);

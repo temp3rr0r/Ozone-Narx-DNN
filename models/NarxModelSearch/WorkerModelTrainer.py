@@ -252,9 +252,9 @@ if data_manipulation["fp16"]:
 # Choose data
 
 # TODO: rerun small experiments vs rand search
-# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-# data_manipulation["filePrefix"] = "BETN073"
-# data_manipulation["mimoOutputs"] = 1
+data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+data_manipulation["filePrefix"] = "BETN073"
+data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
@@ -306,10 +306,10 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 46
 
-# TODO: SINGLE station Calendar
-data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
-data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 1
+# SINGLE station Calendar
+# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 1
 
 # # all-background-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"
