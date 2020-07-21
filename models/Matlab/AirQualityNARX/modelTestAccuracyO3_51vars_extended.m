@@ -61,7 +61,7 @@ if show_plots
     legend({'expected', 'predicted'});
 end
 %% Tree
-load('trainedTreeBo350_51vars.mat');
+load('trainedTreeBO350_51vars.mat');
 y_test_prediction = trainedTreeBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
 MAE = mean(abs(y_test_prediction - y_test_matrix));
@@ -71,7 +71,7 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Tree" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
-%% Ensemble
+%% Ensemble TODO
 load('trainedEnsembleBO350_51vars.mat');
 y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
@@ -82,7 +82,7 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
-%% SVM
+%% SVM TODO
 load('trainedMediumGaussianSVM_51vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
@@ -93,7 +93,7 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Medium Gaussian SVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel)")
-%% GPR
+%% GPR TODO
 load('trainedExponentialGPRBO350_51vars.mat');
 y_test_prediction = trainedExponentialGPRBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
@@ -155,7 +155,7 @@ sMAPE = symmetric_MAPE(Ys, Yt);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("LSSVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
 
-%% FS-LSSVM
+%% FS-LSSVM TODO
 % load('trainedMediumGaussianSVM_59vars.mat');
 % y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
 % RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
