@@ -61,8 +61,8 @@ if show_plots
     legend({'expected', 'predicted'});
 end
 %% BO Tree
-load('trainedTreeBO350_51vars.mat');
-y_test_prediction = trainedTreeBO350_51vars.predictFcn(X_test);
+load('trainedEnsembleBO350_51vars.mat');
+y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
 MAE = mean(abs(y_test_prediction - y_test_matrix));
 MASE = MAE/MAE_naive_1;
@@ -70,7 +70,7 @@ MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("BO Tree" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+disp("BO Ensemble" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
 %% BO Ensemble TODO
 load('trainedEnsembleBO350_51vars.mat');
 y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
