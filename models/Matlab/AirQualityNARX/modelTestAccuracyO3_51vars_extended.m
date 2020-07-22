@@ -60,7 +60,7 @@ if show_plots
     plot(y_test_prediction);
     legend({'expected', 'predicted'});
 end
-%% Tree
+%% BO Tree
 load('trainedTreeBO350_51vars.mat');
 y_test_prediction = trainedTreeBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
@@ -71,7 +71,7 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Tree" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
-%% Ensemble TODO
+%% BO Ensemble TODO
 load('trainedEnsembleBO350_51vars.mat');
 y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
@@ -82,7 +82,7 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
-%% SVM TODO
+%% Specific SVM
 load('trainedMediumGaussianSVM_51vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
@@ -93,9 +93,9 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Medium Gaussian SVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel)")
-%% GPR TODO
-load('trainedExponentialGPRBO350_51vars.mat');
-y_test_prediction = trainedExponentialGPRBO350_51vars.predictFcn(X_test);
+%% BO SVM
+load('trainedSVMBO350_51vars.mat');
+y_test_prediction = trainedSVMBO350_51vars.predictFcn(X_test);
 RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
 MAE = mean(abs(y_test_prediction - y_test_matrix));
 MASE = MAE/MAE_naive_1;
@@ -103,7 +103,40 @@ MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Rational Quadratic GPR" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel out of all)")
+disp("SVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+%% Specific Linear regression
+load('trainedInteractionLInearRegression_51vars.mat');
+y_test_prediction = trainedInteractionLInearRegression_51vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));
+MASE = MAE/MAE_naive_1;
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("Interactions Linear Regression" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+%% Coarse Tree
+load('trainedCoarseTree_51vars.mat');
+y_test_prediction = trainedCoarseTree_51vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));
+MASE = MAE/MAE_naive_1;
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("Coarse Tree" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+%% Specific GPR
+load('trainedExponentialGPR_51vars.mat');
+y_test_prediction = trainedExponentialGPR_51vars.predictFcn(X_test);
+RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+MAE = mean(abs(y_test_prediction - y_test_matrix));
+MASE = MAE/MAE_naive_1;
+MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
+MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
+IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+disp("Exponential GPR" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best kernel out of all)")
 %% LSSVM
 train = false;
 addpath('LSSVMlabv1_8_R2009b_R2011a');
