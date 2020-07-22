@@ -82,7 +82,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
         # r = np.delete(r, [1, 2, 3], axis=1)  # Remove all other ts
 
         # TODO: BETN073 only training. Removing stations 12, 66, 121 (and lags-1 of those)
-        # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
+        r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
 
         if reduce_ts_length:
             # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
@@ -252,9 +252,9 @@ if data_manipulation["fp16"]:
 # Choose data
 
 # TODO: rerun small experiments vs rand search
-data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-data_manipulation["filePrefix"] = "BETN073"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+# data_manipulation["filePrefix"] = "BETN073"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
@@ -264,9 +264,9 @@ data_manipulation["mimoOutputs"] = 1
 # data_manipulation["filePrefix"] = "BETN073_BG"
 # data_manipulation["mimoOutputs"] = 1
 
-# data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
-# data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
-# data_manipulation["mimoOutputs"] = 1
+data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
+data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
+data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/4stations51vars/"  # Lerp on missing values, comparable with other thesis
 # data_manipulation["filePrefix"] = "BETN_12_66_73_121_51vars_O3_O3-1_19900101To2000101"
