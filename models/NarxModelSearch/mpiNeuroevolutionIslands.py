@@ -68,8 +68,9 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
     print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
 
 # First island in vector is not considered
-islands = ['ls'] * 6  # Local search islands
+# islands = ['ls'] * 6  # Local search islands
 # islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 7  # TODO: test/debug DA islands
+islands = ['rand'] * 7
 # islands = ['bo'] * 8  # TODO: test/debug DA islands
 # islands = ['pso', 'ga', 'bo', 'de', 'rand', 'ls'] * 7  # TODO: LS island =OUT=> global islands
 
@@ -83,7 +84,8 @@ if rank == 0:  # Master Node
     swappedAgent = -1  # Rand init buffer agent
     startTime = time.time()
     totalSecondsWork = 0
-    mean_mse_threshold = 3000.0
+    mean_mse_threshold = data_manipulation["min_mse_threshold"]  # TODO:
+    max_evaluations_threshold = data_manipulation["iterations"]  # TODO: Max 350 global and 150 local fitness evaluations
 
     for worker in range(1, size):  # Init workers
         initDataToWorkers = {"command": "init", "island": islands[worker]}
@@ -128,9 +130,15 @@ if rank == 0:  # Master Node
 
             print("--- New overall min MSE: {} ({}: {}) (overall: {})".format(
                 overallMinMse, data_worker_to_master["island"], data_worker_to_master["iteration"], evaluations))
-        # if dataWorkerToMaster["mean_mse"] <= mean_mse_threshold:  # TODO: stop condition if mean_mse <= threshold
-            # print("Abort: mean_mse = {} less than ".format(dataWorkerToMaster["mean_mse"]))
-            # comm.Abort()  # TODO: block for func call sync
+
+        # if data_worker_to_master["mean_mse"] <= mean_mse_threshold:  # Stop condition if mean_mse <= threshold
+        #     print("Abort: mean_mse = {} less than {} threshold".format(data_worker_to_master["mean_mse"], mean_mse_threshold))
+        #     # TODO: store file on abort
+        #     comm.Abort()
+        if evaluations >= max_evaluations_threshold:  # TODO: stop condition if too many evaluations
+            print("Abort: evaluations = {} more than maximum {}".format(evaluations, max_evaluations_threshold))
+            # TODO: store file on abort
+            comm.Abort()
 
         # Master to worker
         agent_to_send = 0  # Default self for 1 island

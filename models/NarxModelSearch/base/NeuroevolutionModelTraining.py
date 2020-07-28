@@ -715,7 +715,7 @@ def train_model_tester3(x, *args):
     }
 
     last_genes_count = -2  # Count of genes to use as input (from end).
-    test_fitness_function = "schwefel"  # Fitness function to check.
+    test_fitness_function = "ackley"  # Fitness function to check.
 
     scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])
     scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))  # Train scaling from bounds
@@ -724,7 +724,7 @@ def train_model_tester3(x, *args):
     if test_fitness_function == "h1":  # h1 is maximizing
         mean_mse *= -1
 
-    verbose = False
+    verbose = True
     if verbose:
         print("x[{}:]: {}".format(last_genes_count, x[last_genes_count:]))
         print("data_manipulation[\"bounds\"]: {}".format(data_manipulation["bounds"][last_genes_count:]))

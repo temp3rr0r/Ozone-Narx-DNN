@@ -722,6 +722,27 @@ def get_random_model():
              random.randint(lb[21], ub[21]), random.randint(lb[22], ub[22]), random.randint(lb[23], ub[23]),  # base layer types
              random.randint(lb[24], ub[24]), random.randint(lb[25], ub[25]), random.randint(lb[26], ub[26])]  # layer initializers, normal/uniform he/lecun
 
+    # return [random.uniform(lb[0], ub[0]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1]),  # batch_size
+    #          random.uniform(lb[1], ub[1])]  # layer initializers, normal/uniform he/lecun
+
 
 def print_optimum(xopt1, fopt1):
     print('The optimum is at:')

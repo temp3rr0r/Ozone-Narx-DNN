@@ -1,9 +1,12 @@
 bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (350, 600),  # epoch_size
           (0, 4),  # optimizer
-          (64, 512),  # units
-          (64, 512),
-          (64, 512),
+          # (64, 512),  # units
+          # (64, 512),
+          # (64, 512),
+          (64, 128),  # TODO: units, smaller models
+          (64, 128),
+          (64, 128),
           (0.01, 0.25),  # dropout
           (0.01, 0.25),
           (0.01, 0.25),
@@ -25,6 +28,27 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (0, 9),  # layer initializers, normal/uniform he/lecun,...
           (0, 9),
           (0, 9)]
+
+# bounds = [(0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1),
+#           (0, 1)]  # TODO: 20D benchmarks
 
 # Model Search Space bounds
 lb, ub = zip(*bounds)
