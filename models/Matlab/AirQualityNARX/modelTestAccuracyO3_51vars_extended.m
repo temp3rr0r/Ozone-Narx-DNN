@@ -45,15 +45,10 @@ end
 %% Naive-1
 disp("10-fold cross-validation");
 y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
 MAE = mean(abs(y_test_prediction - y_test_matrix));
 MAE_naive_1 = MAE;
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Naive-1" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Naive-1");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %%
 if show_plots
     plot(y_test_matrix);
@@ -64,80 +59,38 @@ end
 %% BO Tree
 load('trainedEnsembleBO350_51vars.mat');
 y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("BO Ensemble" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "BO Ensemble (Bayesian optimization 350 iters)");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% Specific Ensemble
 load('trainedBaggedTrees_51vars.mat');
 y_test_prediction = trainedBaggedTrees_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Bagged Trees" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best single ensemble)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Bagged Trees (best single ensemble)");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% Specific SVM
 load('trainedMediumGaussianSVM_51vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Medium Gaussian SVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best single SVM)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Medium Gaussian SVM (best single SVM)");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% BO SVM
 load('trainedSVMBO350_51vars.mat');
 y_test_prediction = trainedSVMBO350_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("BO SVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "BO SVM (Bayesian optimization 350 iters)");
+% plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% Specific Linear regression
 load('trainedInteractionLInearRegression_51vars.mat');
 y_test_prediction = trainedInteractionLInearRegression_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Interactions Linear Regression" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best single Linear Regression)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Interactions Linear Regression (best single Linear Regression)");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% Coarse Tree
 load('trainedCoarseTree_51vars.mat');
 y_test_prediction = trainedCoarseTree_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Coarse Tree" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best single Tree)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Coarse Tree (best single Tree)");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% Specific GPR
 load('trainedExponentialGPR_51vars.mat');
 y_test_prediction = trainedExponentialGPR_51vars.predictFcn(X_test);
-RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
-MAE = mean(abs(y_test_prediction - y_test_matrix));
-MASE = MAE/MAE_naive_1;
-MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
-MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
-sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("Exponential GPR" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (best single GPR)")
+print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Exponential GPR (best single GPR)");
+plot_auto_correlations(y_test_prediction, y_test_matrix);
 %% LSSVM
 train = false;
 addpath('LSSVMlabv1_8_R2009b_R2011a');
@@ -180,14 +133,9 @@ Yt = Yt .* std(y_train_matrix) + mean(y_train_matrix); % Remove standardization
 if show_plots
     plot(1:length(Yt), Ys, 1:length(Yt), Yt);
 end
-RMSE = sqrt(mean((Yt - Ys).^2));  % Root Mean Squared Error
-MAE = mean(abs(Yt - Ys));
-MASE = MAE/MAE_naive_1;
-MSE = mean((Yt - Ys).^2);  % Mean Squared Error
-MAPE = mean((abs(Yt - Ys))./Ys);
-sMAPE = symmetric_MAPE(Ys, Yt);
-IOA = index_of_agreement(y_test_matrix, y_test_prediction);
-disp("LSSVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2))
+
+print_results(Yt, y_test_matrix, MAE_naive_1, "LSSVM (best single GPR)");
+plot_auto_correlations(Yt, y_test_matrix);
 
 % %% FS-LSSVM TODO
 % train = false;
@@ -478,8 +426,75 @@ disp("LSSVM" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE 
 % title(['Approximation by fixed size LS-SVM based on maximal entropy: ' num2str(crit)]);
 % hold off;  
 %%
-close all;
+% % close all;
 %%
+function plot_auto_correlations(y_test_prediction, y_test_matrix)
+
+    figure;
+    subplot(3,2,1)
+    autocorr(y_test_matrix);
+    title("Expected Autocorrelation");
+    subplot(3,2,2)
+    parcorr(y_test_matrix);
+    title("Expected Partial AutoCorrelation Function (PACF)");
+    
+    subplot(3,2,3)
+    autocorr(y_test_prediction);
+    title("Prediction Autocorrelation");
+    subplot(3,2,4)
+    parcorr(y_test_prediction);
+    title("Prediction Partial AutoCorrelation Function (PACF)");
+    
+    resids = y_test_prediction - y_test_matrix;    
+    subplot(3,2,5)
+    autocorr(resids);
+    title("Residuals Autocorrelation");
+    subplot(3,2,6)
+    parcorr(resids);
+    title("Residuals Partial AutoCorrelation Function (PACF)");
+    
+%     figure;
+%     subplot(2,1,1)
+%     autocorr(y_test_matrix);
+%     title("Expected Autocorrelation");
+%     subplot(2,1,2)
+%     parcorr(y_test_matrix);
+%     title("Expected Partial AutoCorrelation Function (PACF)");
+%     
+%     figure;
+%     subplot(2,1,1)
+%     autocorr(y_test_prediction);
+%     title("Prediction Autocorrelation");
+%     subplot(2,1,2)
+%     parcorr(y_test_prediction);
+%     title("Prediction Partial AutoCorrelation Function (PACF)");
+%     
+%     resids = y_test_prediction - y_test_matrix;
+%     figure;
+%     subplot(2,1,1)
+%     autocorr(resids);
+%     title("Residuals Autocorrelation");
+%     subplot(2,1,2)
+%     parcorr(resids);
+%     title("Residuals Partial AutoCorrelation Function (PACF)");
+end
+
+
+function print_results(y_test_prediction, y_test_matrix, MAE_naive_1, model_name)
+    RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
+    MAE = mean(abs(y_test_prediction - y_test_matrix));
+    MASE = MAE/MAE_naive_1;
+    MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
+    MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
+    sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
+    IOA = index_of_agreement(y_test_matrix, y_test_prediction);
+    disp(model_name);
+    disp(" MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2)...
+        + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + ...
+        round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + ...
+        round(RMSE, 2) + " MAE: " + round(MAE, 2))
+end
+
 function smape = symmetric_MAPE(y, f)
     smape = 2.0*mean(abs(y-f)./(abs(y)+abs(f)));
 end
