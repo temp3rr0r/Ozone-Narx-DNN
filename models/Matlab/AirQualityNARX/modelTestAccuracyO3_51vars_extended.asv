@@ -47,7 +47,9 @@ y_test_prediction = [y_test_matrix(1); y_test_matrix(1:end-1)];
 MAE = mean(abs(y_test_prediction - y_test_matrix));
 MAE_naive_1 = MAE;
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Naive-1");
-plot_auto_correlations(y_test_prediction, y_test_matrix);
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "Naive-1");
+end
 %%
 if show_plots
     plot(y_test_matrix);
@@ -59,17 +61,23 @@ end
 load('trainedEnsembleBO350_51vars.mat');
 y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "BO Ensemble (Bayesian optimization 350 iters)");
-plot_auto_correlations(y_test_prediction, y_test_matrix, "BO Ensemble");
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "BO Ensemble");
+end
 %% Specific Ensemble
 load('trainedBaggedTrees_51vars.mat');
 y_test_prediction = trainedBaggedTrees_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Bagged Trees (best single ensemble)");
-plot_auto_correlations(y_test_prediction, y_test_matrix);
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "Bagged Trees");
+end
 %% Specific SVM
 load('trainedMediumGaussianSVM_51vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Medium Gaussian SVM (best single SVM)");
-plot_auto_correlations(y_test_prediction, y_test_matrix);
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "Medium Gaussian SVM");
+end
 %% BO SVM
 load('trainedSVMBO350_51vars.mat');
 y_test_prediction = trainedSVMBO350_51vars.predictFcn(X_test);
@@ -79,17 +87,23 @@ print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "BO SVM (Bayesian o
 load('trainedInteractionLInearRegression_51vars.mat');
 y_test_prediction = trainedInteractionLInearRegression_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Interactions Linear Regression (best single Linear Regression)");
-plot_auto_correlations(y_test_prediction, y_test_matrix);
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "Interactions Linear Regression");
+end
 %% Coarse Tree
 load('trainedCoarseTree_51vars.mat');
 y_test_prediction = trainedCoarseTree_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Coarse Tree (best single Tree)");
-plot_auto_correlations(y_test_prediction, y_test_matrix);
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "Coarse Tree");
+end
 %% Specific GPR
 load('trainedExponentialGPR_51vars.mat');
 y_test_prediction = trainedExponentialGPR_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Exponential GPR (best single GPR)");
-plot_auto_correlations(y_test_prediction, y_test_matrix);
+if show_plots
+    plot_auto_correlations(y_test_prediction, y_test_matrix, "Exponential GPR");
+end
 %% LSSVM
 train = false;
 addpath('LSSVMlabv1_8_R2009b_R2011a');
@@ -134,7 +148,9 @@ if show_plots
 end
 
 print_results(Yt, y_test_matrix, MAE_naive_1, "LSSVM (best single GPR)");
-plot_auto_correlations(Yt, y_test_matrix);
+if show_plots
+    plot_auto_correlations(Yt, y_test_matrix, "LSSVM");
+end
 
 % %% FS-LSSVM TODO
 % train = false;
@@ -432,25 +448,25 @@ function plot_auto_correlations(y_test_prediction, y_test_matrix, model_name)
     figure;
     subplot(3,2,1)
     autocorr(y_test_matrix);
-    title(model_name + "Expected Autocorrelation");
+    title(model_name + ": Expected Autocorrelation");
     subplot(3,2,2)
     parcorr(y_test_matrix);
-    title(model_name + "Expected Partial AutoCorrelation Function (PACF)");
+    title(model_name + ": Expected Partial AutoCorrelation Function (PACF)");
     
     subplot(3,2,3)
     autocorr(y_test_prediction);
-    title(model_name + "Prediction Autocorrelation");
+    title(model_name + ": Prediction Autocorrelation");
     subplot(3,2,4)
     parcorr(y_test_prediction);
-    title(model_name + "Prediction Partial AutoCorrelation Function (PACF)");
+    title(model_name + ": Prediction Partial AutoCorrelation Function (PACF)");
     
     resids = y_test_prediction - y_test_matrix;    
     subplot(3,2,5)
     autocorr(resids);
-    title(model_name + "Residuals Autocorrelation");
+    title(model_name + ": Residuals Autocorrelation");
     subplot(3,2,6)
     parcorr(resids);
-    title(model_name + "Residuals Partial AutoCorrelation Function (PACF)");
+    title(model_name + ": Residuals Partial AutoCorrelation Function (PACF)");
 end
 
 
@@ -458,6 +474,10 @@ function print_results(y_test_prediction, y_test_matrix, MAE_naive_1, model_name
     RMSE = sqrt(mean((y_test_prediction - y_test_matrix).^2));  % Root Mean Squared Error
     MAE = mean(abs(y_test_prediction - y_test_matrix));
     MASE = MAE/MAE_naive_1;
+    
+    epsilon_t = 
+    MASE2 = MAE/MAE_naive_1;
+    
     MSE = mean((y_test_prediction - y_test_matrix).^2);  % Mean Squared Error
     MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
     sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
