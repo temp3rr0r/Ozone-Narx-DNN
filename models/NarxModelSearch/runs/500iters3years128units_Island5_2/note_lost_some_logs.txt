@@ -1,0 +1,1 @@
+During a spot request of a p3.8xlarge (4x V100), the initial best model (first hour) and some logs are lost. From four islands. Not a big issue though, because the master process "mpiNeuroevolutionIsland.py" is that keeps the island progress (of all the 5 islands).
