@@ -4,7 +4,7 @@ close all;
 %% FFMI
 % PDF
 x = 10:.1:100;
-y = normpdf(x,19.7,2.5);
+y = normpdf(x,19.7, 3.3370);
 figure
 plot(x, y);
 xlabel('FFMI');
@@ -20,7 +20,7 @@ title('FFMI CDF');
 %% FMI
 % PDF
 x = 0:.1:50;
-y = normpdf(x,5,1.4);
+y = normpdf(x,5, 3.3085);
 figure
 plot(x, y);
 xlabel('FMI');
@@ -36,9 +36,9 @@ title('FMI CDF');
 %% Bivariate Normal Distribution PDF/CDF
 % https://nl.mathworks.com/help/stats/multivariate-normal-distribution.html
 mu = [19.7 5];
-covariance_FFMI_FMI = 1.0;
-variance_FFMI = 1.1; % 2.5
-variance_FMI = 1.1; % 1.4
+covariance_FFMI_FMI = 3.3;
+variance_FFMI = 3.3370; % 2.5
+variance_FMI = 3.3; % 1.4
 sigma = [variance_FFMI covariance_FFMI_FMI; covariance_FFMI_FMI variance_FMI];
 % Create a grid of evenly spaced points in two-dimensional space.
 x1 = 10:0.2:100;
@@ -135,16 +135,16 @@ end
 % [x, fval] = fminunc(f,x0,options)
 clc;
 
-fun1([2.5, 1.4, 0.01])
+fun1([ 3.3370    3.3085    3.3])
 
 % lb = [1.0, 1.1, 0.01];
 % ub = [3.5, 2.9, 1];
 
 lb = [3.3370, 3.3085, 0.01];
-ub = [3.3370, 3.3085, 1];
+ub = [3.3370, 3.3085, 3.3];
 
 nvars = length(lb);
-options = optimoptions('particleswarm','SwarmSize',100,'FunctionTolerance',10e-9, 'MaxStallIterations', 200);
+options = optimoptions('particleswarm','SwarmSize',100,'FunctionTolerance',10e-9, 'MaxStallIterations', 20);
 
 [x,fval,exitflag] = particleswarm(@fun1,nvars,lb,ub, options)
 %%
