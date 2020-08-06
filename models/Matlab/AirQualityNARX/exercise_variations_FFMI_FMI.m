@@ -1,17 +1,21 @@
 %% Distribution function tool
 %disttool
 close all;
+clear;
+clc;
 %% FFMI
 % PDF
-x = 10:.1:100;
-y = normpdf(x,19.7, 3.3370);
+x = 10:.05:30;
+% y = normpdf(x, 19.7, 2.2561); % 30-39
+y = normpdf(x, 19.8, 3.2115); % 20-80
+
 figure
 plot(x, y);
 xlabel('FFMI');
 ylabel('PDF');
 title('FFMI PDF');
 % CDF
-cd = cumsum(y) ./10;
+cd = cumsum(y) ./sum(y);
 figure
 plot(x,cd)
 xlabel('FFMI');
@@ -19,15 +23,18 @@ ylabel('CDF');
 title('FFMI CDF');
 %% FMI
 % PDF
-x = 0:.1:50;
-y = normpdf(x,5, 3.3085);
+x = 0:.05:15;
+
+%y = normpdf(x, 5, 3.4283); % 30-39
+y = normpdf(x, 5.6, 4.5062); % 20-80
+
 figure
 plot(x, y);
 xlabel('FMI');
 ylabel('CDF');
 title('FMI PDF');
 % CDF
-cd = cumsum(y)./10;
+cd = cumsum(y)./sum(y);
 figure
 plot(x,cd)
 xlabel('FMI');
@@ -35,11 +42,21 @@ ylabel('CDF');
 title('FMI CDF');
 %% Bivariate Normal Distribution PDF/CDF
 % https://nl.mathworks.com/help/stats/multivariate-normal-distribution.html
-mu = [19.7 5];
-covariance_FFMI_FMI = 3.3;
-variance_FFMI = 3.3370; % 2.5
-variance_FMI = 3.3; % 1.4
+
+% 30-39
+% mu = [19.7 5];    
+% covariance_FFMI_FMI = 2.7;
+% variance_FFMI = 2.2561; % 2.5
+% variance_FMI = 3.4283; % 1.4
+% 20-80
+mu = [19.8 5.6];  
+covariance_FFMI_FMI = 2.7;
+variance_FFMI = 3.2115;
+variance_FMI = 4.5062;
+
+
 sigma = [variance_FFMI covariance_FFMI_FMI; covariance_FFMI_FMI variance_FMI];
+
 % Create a grid of evenly spaced points in two-dimensional space.
 x1 = 10:0.2:100;
 x2 = 0:0.2:50;
@@ -106,81 +123,40 @@ ylabel('FMI')
 title('Contour PDF')
 colorbar;
 
-%% TODO: LS fit mu, covariances, std
-
-X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
-y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
-
-mu = [19.7 5];
-covariance_FFMI_FMI = 1.0;
-variance_FFMI = 2.5; % 2.5
-variance_FMI = 1.4; % 1.4
-sigma = [variance_FFMI covariance_FFMI_FMI; covariance_FFMI_FMI variance_FMI];
-
-expected_ps = zeros(1, length(y_expected));
-ps = zeros(1, length(y_expected));
-
-for i = 1:length(y_expected)
-    current_FFMI = X_expected(i, 1);
-    current_FMI = X_expected(i, 2)
-    expected_p = y_expected(i);
-    [p,err] = mvncdf([current_FFMI current_FMI], mu, sigma);        
-    expected_ps(i) = expected_p;
-    ps(i) = p;
-end
-
 %%
 % x0 = [-.5; 0];
 % options = optimoptions('fminunc','Algorithm','quasi-newton');
 % [x, fval] = fminunc(f,x0,options)
 clc;
 
-fun1([ 3.3370    3.3085    3.3])
+fun1([ 3.2115     4.5062   2.7])
 
-% lb = [1.0, 1.1, 0.01];
-% ub = [3.5, 2.9, 1];
-
-lb = [3.3370, 3.3085, 0.01];
-ub = [3.3370, 3.3085, 3.3];
+% 30-38
+% lb = [2.2561, 3.4283, 0.01];
+% ub = [2.2561, 3.4283, 2.7];
+% 20-80
+lb = [3.2115 , 4.5062, 0.01];
+ub = [3.2115 , 4.5062, 2.7];
 
 nvars = length(lb);
-options = optimoptions('particleswarm','SwarmSize',100,'FunctionTolerance',10e-9, 'MaxStallIterations', 20);
+options = optimoptions('particleswarm','SwarmSize',200,'FunctionTolerance',10e-9, 'MaxStallIterations', 20);
 
-[x,fval,exitflag] = particleswarm(@fun1,nvars,lb,ub, options)
-%%
-fun1([    1.1000    1.1000    1.0000])
- 
- %% FFMI
-% PDF
-x = 10:.1:100;
-y = normpdf(x,19.7,2.5);
-figure
-plot(x, y);
-xlabel('FFMI');
-ylabel('PDF');
-title('FFMI PDF');
-% CDF
-cd = cumsum(y) ./10;
-figure
-plot(x,cd)
-xlabel('FFMI');
-ylabel('CDF');
-title('FFMI CDF');
+[x,fval,exitflag] = particleswarm(@fun1,nvars,lb,ub, options) 
 %% 1D FFMI
 clc;
 
-fun_FFMI([3.3370    0         0])
+fun_FFMI([3.2115    0         0])
 
 lb = [1.0, 0.0, 0.0];
 ub = [5.5, 0.0, 0.0];
 nvars = length(lb);
 options = optimoptions('particleswarm','SwarmSize',100,'FunctionTolerance',10e-6, 'MaxStallIterations', 20);
 
-[x,fval,exitflag] = particleswarm(@fun_FFMI,nvars,lb,ub, options)%%
-%% 1D FMI
+[x,fval,exitflag] = particleswarm(@fun_FFMI,nvars,lb,ub, options)
+%% 1D FMI PSO
 clc;
 
-fun_FMI([0.0   3.3085     0])
+fun_FMI([0.0   4.5062     0])
 
 lb = [0.0, 1.1, 0.0];
 ub = [0.0, 5, 0.0];
@@ -188,11 +164,48 @@ nvars = length(lb);
 options = optimoptions('particleswarm','SwarmSize',100,'FunctionTolerance',10e-6, 'MaxStallIterations', 20);
 
 [x,fval,exitflag] = particleswarm(@fun_FMI,nvars,lb,ub, options)
+
+%% 1D FMI Simulated Annealing
+clc;
+
+fun_FMI([0.0   4.5062     0])
+lb = [0.0, 1.1, 0.0];
+ub = [0.0, 5, 0.0];
+nvars = length(lb);
+x0 = (lb+ub)./2;
+options = optimoptions('simulannealbnd','FunctionTolerance',10e-6);
+[x,fval,exitflag] = simulannealbnd(@fun_FMI,x0,lb,ub, options)
+
+%% 1D FMI fminsearch Find minimum of unconstrained multivariable function using derivative-free method
+clc;
+fun_FMI([0.0   4.5062     0])
+lb = [0.0, 1.1, 0.0];
+ub = [0.0, 5, 0.0];
+nvars = length(lb);
+x0 = (lb+ub)./2;
+[x,fval,exitflag] = fminsearch(@fun_FMI, x0)
+%% 1D FFMI fminsearch Find minimum of unconstrained multivariable function using derivative-free method
+clc;
+fun_FFMI([3.2115    0         0])
+lb = [1.0, 0.0, 0.0];
+ub = [5.5, 0.0, 0.0];
+nvars = length(lb);
+x0 = (lb+ub)./2;
+[x,fval,exitflag] = fminsearch(@fun_FFMI, x0)
  %%
  function out1 = fun_FMI(x_1)        
-    mu = [19.7 5];    
-    X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
-    y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
+    % 30-39
+%     mu = [19.7 5];    
+    % 20-80
+    mu = [19.8 5.6];    
+%     X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
+%     y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
+    % 30-39
+%     X_expected = [16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9];
+%     y_expected = [0.1; 0.25; 0.5; 0.75; 0.9];
+    % 20-80
+    X_expected = [17.6 3.1; 18.7 4.2; 19.8 5.6; 21 7; 22.5 8.8];
+    y_expected = [0.1; 0.25; 0.5; 0.75; 0.9];
     
     variance_FFMI = x_1(1);
     variance_FMI = x_1(2);
@@ -214,9 +227,18 @@ options = optimoptions('particleswarm','SwarmSize',100,'FunctionTolerance',10e-6
 end
  
  function out1 = fun_FFMI(x_1)        
-    mu = [19.7 5];    
-    X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
-    y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
+    % 30-39
+%     mu = [19.7 5];    
+    % 20-80
+    mu = [19.8 5.6];    
+%     X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
+%     y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
+    % 30-39
+%     X_expected = [16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9];
+%     y_expected = [0.1; 0.25; 0.5; 0.75; 0.9];
+    % 20-80
+    X_expected = [17.6 3.1; 18.7 4.2; 19.8 5.6; 21 7; 22.5 8.8];
+    y_expected = [0.1; 0.25; 0.5; 0.75; 0.9];
     
     variance_FFMI = x_1(1);
     variance_FMI = x_1(2);
@@ -238,9 +260,18 @@ end
 end
  
 function out1 = fun1(x_1)        
-    mu = [19.7 5];    
-    X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
-    y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
+    % 30-39
+%     mu = [19.7 5];    
+    % 20-80
+    mu = [19.8 5.6];    
+%     X_expected = [16.2 2.4; 16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9; 24.3 8.7];
+%     y_expected = [0.05; 0.1; 0.25; 0.5; 0.75; 0.9; 0.95];
+    % 30-39
+%     X_expected = [16.4 2.5; 18.7 3.8; 19.7 5; 20.6 6; 24.1 7.9];
+%     y_expected = [0.1; 0.25; 0.5; 0.75; 0.9];
+    % 20-80
+    X_expected = [17.6 3.1; 18.7 4.2; 19.8 5.6; 21 7; 22.5 8.8];
+    y_expected = [0.1; 0.25; 0.5; 0.75; 0.9];
     
     variance_FFMI = x_1(1);
     variance_FMI = x_1(2);
