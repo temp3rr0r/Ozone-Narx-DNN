@@ -69,8 +69,8 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 
 # First island in vector is not considered
 # islands = ['ls'] * 6  # Local search islands
-# islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 7  # TODO: test/debug DA islands
-islands = ['rand'] * 20
+islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 7  # TODO: test/debug DA islands
+# islands = ['rand'] * 20
 # islands = ['bo'] * 7  # TODO: test/debug DA islands
 # islands = ['pso', 'ga', 'bo', 'de', 'rand', 'ls'] * 7  # TODO: LS island =OUT=> global islands
 
