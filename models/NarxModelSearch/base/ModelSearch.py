@@ -64,6 +64,9 @@ def local_model_search(data_manipulation=None):
     elif data_manipulation["rank"] % 10 == 4:
         local_search_method = "trust-constr"
         options = dict(maxiter=iterations)
+		
+	# TODO: Add (and test) four more local_search_methods. TODO: Try to manually constrain them, because they DO get outside of bounds...
+	# TODO: Powell ("bounded" but not really...), Nelder-Mead, CG, COBYLA (doesn't get outside bounds with scipy.optimize.Bounds) (see: https://docs.scipy.org/doc/scipy/reference/optimize.html#local-multivariate-optimization)
 
     print("\n=== {}\n".format(local_search_method))
 
