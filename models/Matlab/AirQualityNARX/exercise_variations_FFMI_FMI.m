@@ -98,8 +98,8 @@ colorbar;
 
 %%
 % Probability over Rectangular Region
-current_FFMI = 23.55706122;
-current_FMI = 9.389877551;
+current_FFMI = 23.82;
+current_FMI = 8.41;
 error = 0.005;
 
 current_FFMI_min = current_FFMI * (1 - error);
