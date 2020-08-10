@@ -16,8 +16,8 @@ rs_train_median = [];
 rs_test_median = [73.96, 73.65, 74.22, 74.01, 74.09];
 
 % TODO: island + LS
-island_train_18islands_LS = [75.13, 75.50, 75.04, 75.01, 75.30];
-island_test_18islands_LS = [76.27, 76.11, 76.10, 76.33, 76.20];
+island_train_18islands_LS = [75.13, 75.04, 75.01, 75.38, 75.18];
+island_test_18islands_LS = [76.20, 76.10, 76.33, 76.20, 76.12]; 
 
 clc;
 disp("Ozone air-quality model search" + char(10) + char(10) + "MISO (BETN073) ozone station." + char(10) + "Training: 2000-2001, testing: 2002, 6 weather variables. " + char(10) + "3-fold time-series cross-validation." + char(10) + "Max neurons per layer: 128." + char(10));
