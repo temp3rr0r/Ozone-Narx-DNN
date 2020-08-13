@@ -32,7 +32,7 @@ clc;
 
 disp("Ozone air-quality model search" + char(10) + char(10) + "MISO (BETN073) ozone station." + char(10) + "Training: 2000-2001, testing: 2002, 6 weather variables. " + char(10) + "3-fold time-series cross-validation." + char(10) + "Max neurons per layer: 128." + char(10));
 
-disp("Best possible Test: " + 76.34 + "%. Best possible Train: " + 75.51 + "%." + char(10));
+disp("Best possible Test: " + 76.34 + "% (BO). Best possible Train: " + 75.51 + "% (islands)." + char(10));
 
 disp("Experiments" + char(10));
 
