@@ -46,8 +46,6 @@ y_test_prediction = trainedEnsembleBayes100.predictFcn(X_test);
 MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% (Bayesian optimization 100 iters)")
-
-
 %% SVM
 load('best_Gaussian_SVM_Bayes100.mat');
 y_test_prediction = trainedGaussianSVMBayes100.predictFcn(X_test);

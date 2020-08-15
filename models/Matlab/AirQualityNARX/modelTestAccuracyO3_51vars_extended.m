@@ -57,10 +57,12 @@ if show_plots
     plot(y_test_prediction);
     legend({'expected', 'predicted'});
 end
-%% BO Tree
+%% BO Ensemble
 load('trainedEnsembleBO350_51vars.mat');
 y_test_prediction = trainedEnsembleBO350_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "BO Ensemble (Bayesian optimization 350 iters)");
+writematrix(y_test_prediction,'ensemble_y_test_prediction.csv')
+writematrix(y_test_matrix,'ensemble_y_test_matrix.csv')
 if show_plots
     plot_auto_correlations(y_test_prediction, y_test_matrix, "BO Ensemble");
 end
@@ -68,6 +70,7 @@ end
 load('trainedBaggedTrees_51vars.mat');
 y_test_prediction = trainedBaggedTrees_51vars.predictFcn(X_test);
 print_results(y_test_prediction, y_test_matrix, MAE_naive_1, "Bagged Trees (best single ensemble)");
+
 if show_plots
     plot_auto_correlations(y_test_prediction, y_test_matrix, "Bagged Trees");
 end
@@ -151,6 +154,9 @@ print_results(Yt, y_test_matrix, MAE_naive_1, "LSSVM (best single GPR)");
 if show_plots
     plot_auto_correlations(Yt, y_test_matrix, "LSSVM");
 end
+
+writematrix(Yt,'LSSVM_y_test_prediction.csv')
+writematrix(y_test_matrix,'LSSVM_y_test_matrix.csv')
 
 % %% FS-LSSVM TODO
 % train = false;

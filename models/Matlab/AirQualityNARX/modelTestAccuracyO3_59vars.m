@@ -58,6 +58,8 @@ MAPE = mean((abs(y_test_prediction - y_test_matrix))./y_test_matrix);
 sMAPE = symmetric_MAPE(y_test_matrix, y_test_prediction);
 IOA = index_of_agreement(y_test_matrix, y_test_prediction);
 disp("Ensemble" + char(10) + " MASE: " + round(MASE, 3) + " sMAPE: " + round(sMAPE * 100, 2) + "% MAPE: " + round(MAPE * 100, 2) + "% IOA: " + round(IOA * 100, 2) + "% MSE: " + round(MSE, 2) + " RMSE: " + round(RMSE, 2) + " MAE: " + round(MAE, 2) + " (Bayesian optimization 350 iters)")
+
+writematrix(y_test_prediction,'ensemble_y_test_prediction.csv') 
 %% SVM
 load('trainedMediumGaussianSVM_59vars.mat');
 y_test_prediction = trainedMediumGaussianSVM_59vars.predictFcn(X_test);
