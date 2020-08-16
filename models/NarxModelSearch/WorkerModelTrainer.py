@@ -94,11 +94,15 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
             # row2010_12_31 = 7670
             # r = r[row2000_01_01:row2010_12_31, :]
 
-            # TODO: greatly decrease r length for testing: 2000-2001 training, 2002 for testing
-            row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-            row2002_12_31 = 4748
-            r = r[row2000_01_01:row2002_12_31, :]
+            # # TODO: greatly decrease r length for testing: 2000-2001 training, 2002 for testing
+            # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+            # row2002_12_31 = 4748
+            # r = r[row2000_01_01:row2002_12_31, :]
 
+            # TODO: greatly decrease r length for testing: 2007-2009 training, 2010 for testing
+            row2007_01_01 = 6210 - 1  # Lerp on missing values, comparable with other thesis
+            row2010_12_31 = 7670
+            r = r[row2007_01_01:row2010_12_31, :]
 
             # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
             # row2010_12_31 = 7670

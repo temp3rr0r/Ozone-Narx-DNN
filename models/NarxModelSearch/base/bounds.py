@@ -4,9 +4,9 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           # (64, 512),  # units
           # (64, 512),
           # (64, 512),
-          (64, 128),  # TODO: units, smaller models
-          (64, 128),
-          (64, 128),
+          (64, 256),  # TODO: units, smaller models
+          (64, 256),
+          (64, 256),
           (0.01, 0.25),  # dropout
           (0.01, 0.25),
           (0.01, 0.25),

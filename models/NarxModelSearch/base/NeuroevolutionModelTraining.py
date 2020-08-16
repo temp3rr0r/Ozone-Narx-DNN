@@ -555,12 +555,12 @@ def train_model(x, *args):
         # Data to store:
         # datetime, iteration, gpu, cvMseMean, cvMseStd
         # cvSmapeMean, cvSmapeStd, holdoutRmse, holdoutSmape, holdoutMape,
-        # holdoutMse, holdoutIoa, full_pso_parameters
-        file.write("{},{},{},{},{},{},{},{},{},{},{},{},\"{}\"\n"
+        # holdoutMse, holdoutIoa, full_pso_parameters, holdoutMase
+        file.write("{},{},{},{},{},{},{},{},{},{},{},{},\"{}\",{}\n"
                    .format(str(int(time.time())), str(train_model.counter), str(rank),
                            str(mean_mse), str(std_mse), str(mean_smape), str(std_smape), str(holdout_rmse),
                            str(holdout_smape), str(holdout_mape), str(holdout_mse), str(holdout_ioa),
-                           full_model_parameters.tolist()))
+                           full_model_parameters.tolist(), str(holdout_mase)))
 
     if mean_mse < min_mse:
         print("--- Rank {}: New min_mse: {}".format(rank, mean_mse))
