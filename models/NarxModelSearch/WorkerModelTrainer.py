@@ -182,12 +182,28 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
     else:
         min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
         print("Previous min_mse: {}".format(min_mse))
-
         if os.path.exists("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, gpu_rank)):
             full_model_parameters = pd.read_pickle(
                 "foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, gpu_rank))[
                 'full_{}_rank{}_parameters'.format(modelLabel, gpu_rank)][0]
             print("Previous full_{}_parameters: {}".format(modelLabel, full_model_parameters))
+
+    # Normalize + standardize
+    if not os.path.exists("foundModels/min_holdout_mse.pkl"):
+        # TODO: holdout
+        min_holdout_mse = sys.float_info.max
+        print("Previous min_holdout_mse: {}".format(min_holdout_mse))
+        original_holdout_df = pd.DataFrame({"min_holdout_mse": [min_holdout_mse]})
+        original_holdout_df.to_pickle("foundModels/min_holdout_mse.pkl")
+
+    else:
+        min_holdout_mse = pd.read_pickle("foundModels/min_holdout_mse.pkl")['min_holdout_mse'][0]
+        print("Previous min holdout_mse: {}".format(min_holdout_mse))
+        if os.path.exists("foundModels/full_{}_rank{}_holdout_parameters.pkl".format(modelLabel, gpu_rank)):
+            full_model_parameters = pd.read_pickle(
+                "foundModels/full_{}_rank{}_holdout_parameters.pkl".format(modelLabel, gpu_rank))[
+                'full_{}_rank{}_holdout_parameters'.format(modelLabel, gpu_rank)][0]
+            print("Previous full_{}_holdout_parameters: {}".format(modelLabel, full_model_parameters))
 
     return x_data_3d_in, y_data_in
 

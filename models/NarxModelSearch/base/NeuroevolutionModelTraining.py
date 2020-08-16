@@ -474,10 +474,16 @@ def train_model(x, *args):
         if current_fold < totalFolds - 1:
             delete_model(model)
 
-    # Plot model architecture
-    if store_plots:
-        tf.keras.utils.plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.
-                                  format(modelLabel, train_model.counter, rank))
+    # Plot model architecture  # TODO: don't plot model architecture, is wrong: plot only ONE block
+    # if store_plots:
+    #     tf.keras.utils.plot_model(model, show_shapes=True, to_file='foundModels/{}Iter{}Rank{}Model.png'.
+    #                               format(modelLabel, train_model.counter, rank))
+    #     # tf.keras.utils.plot_model(model, show_shapes=False, show_layer_names=True, rankdir='TB', expand_nested=False,
+    #     #                           dpi=96, to_file='foundModels/{}Iter{}Rank{}Model2.png'.
+    #     #                           format(modelLabel, train_model.counter, rank))
+    #     # tf.keras.utils.plot_model(model, show_shapes=True, show_layer_names=True, rankdir='TB', expand_nested=True,
+    #     #                           dpi=96, to_file='foundModels/{}Iter{}Rank{}Model3.png'.
+    #     #                           format(modelLabel, train_model.counter, rank))
 
     train_mean_mse = np.mean(train_mse_scores)
     train_std_mse = np.std(train_mse_scores)
@@ -517,7 +523,6 @@ def train_model(x, *args):
                                                                                    round(std_mase * 100, 2)))
 
     min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
-
     holdout_prediction = model.predict(x_data_holdout)
 
     if data_manipulation["scale"] == 'standardize':
@@ -566,14 +571,11 @@ def train_model(x, *args):
         print("--- Rank {}: New min_mse: {}".format(rank, mean_mse))
         original_df1 = pd.DataFrame({"min_mse": [mean_mse]})
         original_df1.to_pickle("foundModels/min_mse.pkl")
-
         original_df2 = pd.DataFrame({"full_{}_rank{}_parameters".format(modelLabel, rank): [full_model_parameters]})
         original_df2.to_pickle("foundModels/full_{}_rank{}_parameters.pkl".format(modelLabel, rank))
-
         # Store as best model parameters for later Local Search
         best_model_parameters_df = pd.DataFrame({"best_model_parameters": [full_model_parameters]})
         best_model_parameters_df.to_pickle("foundModels/best_model_parameters.pkl")
-
         model.summary()  # print layer shapes and model parameters
 
         # Plot history
@@ -586,21 +588,15 @@ def train_model(x, *args):
             pyplot.ylabel("MSE")
             pyplot.grid(True)
             pyplot.legend()
-            # pyplot.show()
             pyplot.savefig("foundModels/{}Iter{}Rank{}History.png".format(modelLabel, train_model.counter, rank))
             pyplot.close()
-
             # Plot test data
             for i in range(holdout_prediction.shape[1]):
                 pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
                 pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
                              "SMAPE: {}%, MASE: {}, IOA: {}%)"
-                        .format(modelLabel, train_model.counter, i,
-                                np.round(holdout_mse, 2),
-                                np.round(holdout_rmse, 2),
-                                np.round(holdout_mape, 2),
-                                np.round(holdout_smape, 2),
-                                np.round(holdout_mase, 2),
+                        .format(modelLabel, train_model.counter, i, np.round(holdout_mse, 2), np.round(holdout_rmse, 2),
+                                np.round(holdout_mape, 2), np.round(holdout_smape, 2), np.round(holdout_mase, 2),
                                 np.round(holdout_ioa * 100, 2)))
                 pyplot.plot(y_data_holdout[:, i], label='expected')
                 pyplot.plot(holdout_prediction[:, i], label='prediction')
@@ -608,7 +604,6 @@ def train_model(x, *args):
                 pyplot.ylabel("Sensor Value")
                 pyplot.grid(True)
                 pyplot.legend()
-                # pyplot.show()
                 pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}Test.png".format(modelLabel, train_model.counter, rank, i))
                 pyplot.close()
             pyplot.close("all")
@@ -621,8 +616,59 @@ def train_model(x, *args):
         model.save_weights("foundModels/bestModelWeights.h5".format(modelLabel))  # serialize weights to HDF5
         print("--- Rank {}: Saved weights to disk".format(rank))
 
-    delete_model(model)
+    # TODO: holdout MSE #min_mse = pd.read_pickle("foundModels/min_mse.pkl")['min_mse'][0]
+    min_holdout_mse = pd.read_pickle("foundModels/min_holdout_mse.pkl")['min_holdout_mse'][0]
+    if holdout_mse < min_holdout_mse:
+        print("--- Rank {}: New min_holdout_mse: {}".format(rank, holdout_mse))
+        original_df1 = pd.DataFrame({"min_holdout_mse": [holdout_mse]})
+        original_df1.to_pickle("foundModels/min_holdout_mse.pkl")
+        original_df2 = pd.DataFrame({"full_{}_rank{}_holdout_parameters".format(modelLabel, rank): [full_model_parameters]})
+        original_df2.to_pickle("foundModels/full_{}_rank{}_holdout_parameters.pkl".format(modelLabel, rank))
+        # Store as best model parameters for later Local Search
+        best_model_parameters_df = pd.DataFrame({"best_holdout_model_parameters": [full_model_parameters]})
+        best_model_parameters_df.to_pickle("foundModels/best_holdout_model_parameters.pkl")
+        model.summary()  # print layer shapes and model parameters
 
+        # Plot history
+        if store_plots:
+            pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
+            pyplot.title(
+                "Rank {}: {} (iter: {}): Training History Last Fold".format(rank, modelLabel, train_model.counter))
+            pyplot.plot(history.history['val_loss'], label='val_loss')
+            pyplot.plot(history.history['loss'], label='loss')
+            pyplot.xlabel("Training Epoch")
+            pyplot.ylabel("MSE")
+            pyplot.grid(True)
+            pyplot.legend()
+            pyplot.savefig("foundModels/{}Iter{}Rank{}History.png".format(modelLabel, train_model.counter, rank))
+            pyplot.close()
+            # Plot test data
+            for i in range(holdout_prediction.shape[1]):
+                pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
+                pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
+                             "SMAPE: {}%, MASE: {}, IOA: {}%)"
+                        .format(modelLabel, train_model.counter, i, np.round(holdout_mse, 2), np.round(holdout_rmse, 2),
+                                np.round(holdout_mape, 2), np.round(holdout_smape, 2), np.round(holdout_mase, 2),
+                                np.round(holdout_ioa * 100, 2)))
+                pyplot.plot(y_data_holdout[:, i], label='expected')
+                pyplot.plot(holdout_prediction[:, i], label='prediction')
+                pyplot.xlabel("Time step")
+                pyplot.ylabel("Sensor Value")
+                pyplot.grid(True)
+                pyplot.legend()
+                pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}HoldoutTest.png".format(modelLabel, train_model.counter, rank, i))
+                pyplot.close()
+            pyplot.close("all")
+
+        # Store model
+        model_json = model.to_json()  # serialize model to JSON
+        with open("foundModels/bestHoldoutModelArchitecture.json".format(modelLabel), "w") as json_file:
+            json_file.write(model_json)
+            print("--- Rank {}: Saved holdout model to disk".format(rank))
+        model.save_weights("foundModels/bestHoldoutModelWeights.h5".format(modelLabel))  # serialize weights to HDF5
+        print("--- Rank {}: Saved holdout weights to disk".format(rank))
+
+    delete_model(model)
     endTime = time.time()
 
     # TODO: extra stats without interrupting existing
@@ -657,7 +703,6 @@ def train_model(x, *args):
                            str(holdout_max_validation_length),
                            str(data_manipulation["gpuDevice"])
                            ))
-
     return mean_mse
 
 

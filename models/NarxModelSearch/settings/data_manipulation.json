@@ -5,7 +5,7 @@
     "swapEvery": 5,
     "sendBestAgentFromBuffer": true,
     "master": 0,
-    "folds": 4,
+    "folds": 3,
     "iterations": 500,
     "min_mse_threshold": 1,
     "agents": 5,
