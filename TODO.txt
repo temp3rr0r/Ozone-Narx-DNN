@@ -1,0 +1,20 @@
+# Air-quality
+
+# Causes:
+0. NO issue. All methods are good for the whole model + configuration.
+1. 128 neurons/layer model size is too low (lower ceiling: model capability limitation).
+2a. 2002 is an outlier year (upper ceiling: max accuracy given data).
+2b. 2000-2001 not enough data to learn a moden (upper ceiling: max accuracy given data).
+
+
+# TODO Remedies:
+1. Remedy for cause 1: 128 neurons -> 256 neuros per layer.
+2a. Remedy for cause 2a: change test year for 2002, to 2010. Why? Because we know the max accuracy CEILING for this TEST year (from previous full model runs). It is higher for sure than the one found in 2002.
+2b. Remedy for cause 2b: add extra 1 training year. So from 2 years training (2000-2001) -> 3 years training (2007-2009).
+
+# Extras TODO: 
+1. Store best TEST error full models also (both best-so-far min Test MSE as pickle & model weights).
+2. Store MASE to CSV also.
+3. Try synthetic SysID data generation:
+	a. Linear Sys Id with additive noise.
+	b. Linear Sys Id with multiplicative noise.
