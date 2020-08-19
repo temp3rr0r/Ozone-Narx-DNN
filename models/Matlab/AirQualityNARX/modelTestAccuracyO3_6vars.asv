@@ -79,8 +79,7 @@ subplot(2,1,2)
 parcorr(y_test_matrix_normalized);
 %% Train PACF camera-ready
 parcorr(y_train_matrix_normalized);
-title('O_3 BETN073 2000-2009: Partial Auto Correlation Function (PACF)', 'Interpreter', 'tex');
-xlabel('Lag (days)');
+title('$O_3$ BETN073 2000-2009: Partial Auto Correlation Function (PACF)");
 %% Spectral Analysis model estimation -> Bode -> Resonance freqs(amplitude) & Phase roll-off (delays)
 betn_iddata = iddata(y_train_matrix_normalized, X_train_matrix_normalized, 1);
 mdl_spa = spa(betn_iddata); % Spectral analysis model
