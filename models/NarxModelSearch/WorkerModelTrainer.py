@@ -90,9 +90,9 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
             # r = np.delete(r, range(5, 50), axis=1)
 
             # # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-            # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-            # row2010_12_31 = 7670
-            # r = r[row2000_01_01:row2010_12_31, :]
+            row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+            row2010_12_31 = 7670
+            r = r[row2000_01_01:row2010_12_31, :]
 
             # # TODO: greatly decrease r length for testing: 2000-2001 training, 2002 for testing
             # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
@@ -100,9 +100,9 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
             # r = r[row2000_01_01:row2002_12_31, :]
 
             # TODO: greatly decrease r length for testing: 2007-2009 training, 2010 for testing
-            row2007_01_01 = 6210 - 1  # Lerp on missing values, comparable with other thesis
-            row2010_12_31 = 7670
-            r = r[row2007_01_01:row2010_12_31, :]
+            # row2007_01_01 = 6210 - 1  # Lerp on missing values, comparable with other thesis
+            # row2010_12_31 = 7670
+            # r = r[row2007_01_01:row2010_12_31, :]
 
             # TODO: Greatly decrease r length for testing: 1990-2009 training, 2010 for testing
             # row2010_12_31 = 7670
@@ -278,9 +278,9 @@ if data_manipulation["fp16"]:
 # Choose data
 
 # TODO: rerun small experiments vs rand search
-data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-data_manipulation["filePrefix"] = "BETN073"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+# data_manipulation["filePrefix"] = "BETN073"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
@@ -333,9 +333,9 @@ data_manipulation["mimoOutputs"] = 1
 # data_manipulation["mimoOutputs"] = 46
 
 # SINGLE station Calendar
-# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
-# data_manipulation["filePrefix"] = "O3_BETN"
-# data_manipulation["mimoOutputs"] = 1
+data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
+data_manipulation["filePrefix"] = "O3_BETN"
+data_manipulation["mimoOutputs"] = 1
 
 # # all-background-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"

@@ -22,7 +22,8 @@ def train_model_requester_rabbit_mq(x):
     # Send to worker
 
     timeout = 3600 * 10  # Timeouts 60 mins * islands
-    params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout)
+    credentials = pika.PlainCredentials("madks", "ma121284")
+    params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)
     connection = pika.BlockingConnection(params)  # Connect with msg broker server
     channel = connection.channel()  # Listen to channels
     channel.queue_declare(queue="task_queue", durable=False)  # Open common task queue
