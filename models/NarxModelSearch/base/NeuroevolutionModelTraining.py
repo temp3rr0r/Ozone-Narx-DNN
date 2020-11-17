@@ -644,6 +644,7 @@ def train_model(x, *args):
             pyplot.close()
             # Plot test data
             for i in range(holdout_prediction.shape[1]):
+
                 pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
                 pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
                              "SMAPE: {}%, MASE: {}, IOA: {}%)"
@@ -657,6 +658,23 @@ def train_model(x, *args):
                 pyplot.grid(True)
                 pyplot.legend()
                 pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}HoldoutTest.png".format(modelLabel, train_model.counter, rank, i))
+                pyplot.close()
+
+                # Camera-ready SVG plot
+                pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
+                station = "BETN073"
+                year = 2010
+                pyplot.title('$O_3$ {} {}: Island DNN (MSE: {}, sMAPE: {}%, MASE: {})'
+                        .format(station, year, np.round(holdout_mse, 2), np.round(holdout_smape, 2), np.round(holdout_mase, 2)))
+                pyplot.plot(y_data_holdout[:, i], label='expected')
+                pyplot.plot(holdout_prediction[:, i], label='predicted')
+                pyplot.xlabel("Day")
+                pyplot.ylabel("max 8h 'r'$O_3$ $[\mu g/m^3$]")
+                pyplot.grid(True)
+                pyplot.legend()
+                pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}HoldoutTestCamera.png".format(modelLabel, train_model.counter, rank, i))
+                pyplot.savefig(
+                    "foundModels/{}Iter{}Rank{}Series{}HoldoutTestCamera.svg".format(modelLabel, train_model.counter, rank, i))
                 pyplot.close()
             pyplot.close("all")
 
