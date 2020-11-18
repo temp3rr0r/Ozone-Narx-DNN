@@ -160,8 +160,7 @@ def train_model(x, *args):
     noise_stddev3 = x[14]
 
     x = np.rint(x).astype(np.int32)
-    optimizers = ['nadam', 'amsgrad', 'adagrad', 'adadelta', 'adam',
-                  'nadam']  # Avoid loss NaNs, by removing rmsprop, sgd, adamax. TODO: ftrl: needs lr param (for future)
+    optimizers = ['nadam', 'amsgrad', 'adagrad', 'adadelta', 'adam']  # Avoid loss NaNs, by removing rmsprop, sgd, adamax. TODO: ftrl: needs lr param (for future)
 
     batch_size = x[0]
     epoch_size = x[1]

@@ -393,7 +393,11 @@ def bayesian_optimization_model_search(data_manipulation=None, iterations=100):
             next_point = list_to_bayesian_optimization_pbounds_dictionary(next_list, pbounds.keys())
             suggestion = False
         else:
-            next_point = optimizer.suggest(utility)
+            try:
+                print(f"=== Does it have PROBS? Nans/INF?  {utility}")
+                next_point = optimizer.suggest(utility)
+            except ValueError as ve:
+                print("=== ValueError as Exception: {}. Continuing...".format(str(ve)))
 
         x = np.array(list(next_point.values()))
 
