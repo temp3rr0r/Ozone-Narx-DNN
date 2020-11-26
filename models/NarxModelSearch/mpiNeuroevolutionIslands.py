@@ -68,9 +68,9 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
     print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
 
 # First island in vector is not considered
-islands = ['ls'] * 7  # Local search islands
+# islands = ['ls'] * 7  # Local search islands
 # islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 7  # TODO: test/debug DA islands
-# islands = ['rand'] * 20
+islands = ['rand'] * 20
 # islands = ['bo'] * 7  # TODO: test/debug DA islands
 # islands = ['pso', 'ga', 'bo', 'de', 'rand', 'ls'] * 7  # TODO: LS island =OUT=> global islands
 
