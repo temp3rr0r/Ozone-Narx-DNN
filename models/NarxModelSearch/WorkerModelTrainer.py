@@ -90,9 +90,9 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
             # r = np.delete(r, range(5, 50), axis=1)
 
             # # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-            row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-            row2010_12_31 = 7670
-            r = r[row2000_01_01:row2010_12_31, :]
+            # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+            # row2010_12_31 = 7670
+            # r = r[row2000_01_01:row2010_12_31, :]
 
             # # TODO: greatly decrease r length for testing: 2000-2001 training, 2002 for testing
             # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
@@ -132,6 +132,7 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
             # TODO: PM10 from 1995
             # row2010_01_01 = 5481 - 1
 
+
             # TODO: greatly decrease r length for testing: 2010-2017 training, 2018 for testing
             # TODO: O3 from 1995
             # row2010_01_01 = 7307 - 1
@@ -141,6 +142,23 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
             # TODO: O3 from 1995
             # row2005_01_01 = 5481 - 1
             # r = r[row2005_01_01:-1, :]
+
+            # # TODO: PM10 83 stations. Train: 2008-2017 Test: 2018 TODO: station 67 has probs
+            # row2008_01_01 = 4750 - 1
+            # row2018_12_31 = 8767
+            # r = r[row2008_01_01:row2018_12_31, :]
+
+            # TODO: PM10 73 stations. Train: 2008-2011 Test: 2012
+            # row2008_01_01 = 4749 - 1
+            # row2012_12_31 = 6575
+            # r = r[row2008_01_01:row2012_12_31, :]
+
+            # TODO: PM10 16 stations. Train: 2008-2011 Test: 2012
+            row2008_01_01 = 4749 - 1
+            row2018_12_31 = 8767
+            r = r[row2008_01_01:row2018_12_31, :]
+
+
         else:  # Remove first row of CSV columns for numpy
             row2 = 2 - 1
             r = r[row2:-1, :]
@@ -323,9 +341,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["mimoOutputs"] = 16
 
 # Calendar
-# data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
-# data_manipulation["filePrefix"] = "PM10_BETN"
-# data_manipulation["mimoOutputs"] = 16
+data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
+data_manipulation["filePrefix"] = "PM10_BETN"
+data_manipulation["mimoOutputs"] = 16
 
 # # Calendar  # TODO: last
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
@@ -333,9 +351,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["mimoOutputs"] = 46
 
 # SINGLE station Calendar
-data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
-data_manipulation["filePrefix"] = "O3_BETN"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
+# data_manipulation["filePrefix"] = "O3_BETN"
+# data_manipulation["mimoOutputs"] = 1
 
 # # all-background-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"
