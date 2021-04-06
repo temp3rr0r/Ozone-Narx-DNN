@@ -668,7 +668,7 @@ def train_model(x, *args):
                 pyplot.plot(y_data_holdout[:, i], label='expected')
                 pyplot.plot(holdout_prediction[:, i], label='predicted')
                 pyplot.xlabel("Day")
-                pyplot.ylabel("max 8h 'r'$O_3$ $[\mu g/m^3$]")
+                pyplot.ylabel("max 8h $O_3$ $[\mu g/m^3$]")
                 pyplot.grid(True)
                 pyplot.legend()
                 pyplot.savefig("foundModels/{}Iter{}Rank{}Series{}HoldoutTestCamera.png".format(modelLabel, train_model.counter, rank, i))
