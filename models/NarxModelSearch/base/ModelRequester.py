@@ -22,8 +22,9 @@ def train_model_requester_rabbit_mq(x):
     # Send to worker
 
     timeout = 3600 * 10  # Timeouts 60 mins * islands
-    credentials = pika.PlainCredentials("madks", "ma121284")
-    params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)
+    credentials = pika.PlainCredentials("madks", "asdf")
+    # params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)  # TODO: check heartbeat_interval -> heartbeat
+    params = pika.ConnectionParameters(heartbeat=timeout, blocked_connection_timeout=timeout, credentials=credentials)
     connection = pika.BlockingConnection(params)  # Connect with msg broker server
     channel = connection.channel()  # Listen to channels
     channel.queue_declare(queue="task_queue", durable=False)  # Open common task queue
@@ -57,7 +58,8 @@ def train_model_requester_rabbit_mq(x):
             ch.basic_reject(delivery_tag=method.delivery_tag)
 
     trained_model_callback.mse = -1.0
-    channel.basic_consume(trained_model_callback, queue=results_queue)  # Listen on unique results channel
+    # channel.basic_consume(trained_model_callback, queue=results_queue)  # Listen on unique results channel # TODO: check TypeError: basic_consume() got multiple values for argument 'queue'
+    channel.basic_consume(queue=results_queue, on_message_callback=trained_model_callback)  # Listen on unique results channel # TODO: check TypeError: basic_consume() got multiple values for argument 'queue'
     channel.start_consuming()  # Start listening for results
     print(" [*] Waiting for messages. To exit press CTRL+C")
     channel.queue_delete(queue=results_queue)  # Delete the results queue

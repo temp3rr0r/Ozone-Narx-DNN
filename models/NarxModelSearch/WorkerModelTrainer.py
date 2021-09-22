@@ -451,16 +451,17 @@ baseMpi.train_model.data_manipulation = data_manipulation
 # baseMpi.train_model.one_nan = False  # TODO: Used for rapid islands distributed testing
 
 timeout = 3600 * 10  # Timeouts 60 mins * islands
-credentials = pika.PlainCredentials("madks", "ma121284")
-params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat_interval=timeout, blocked_connection_timeout=timeout,
-                                   credentials=credentials)
+credentials = pika.PlainCredentials("madks", "asdf")
+# params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)
+params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat=timeout, blocked_connection_timeout=timeout, credentials=credentials)  # TODO: check heartbeat_interval -> heartbeat
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
 channel = connection.channel()  # Listen to channels
 channel.queue_declare(queue="task_queue", durable=False)  # Open common task queue
 channel.basic_qos(prefetch_count=1)  # Allow only 1 task in queue
 results_queues = []  # List of declared results queues
 
-channel.basic_consume(model_training_callback, queue="task_queue")
+# channel.basic_consume(model_training_callback, queue="task_queue")  # TODO: check TypeError: basic_consume() got multiple values for argument 'queue'
+channel.basic_consume(queue="task_queue", on_message_callback=model_training_callback)
 print(" [*] Waiting for messages. To exit press CTRL+C")
 channel.start_consuming()  # Listen for incoming training tasks
 
