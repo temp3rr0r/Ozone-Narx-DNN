@@ -149,6 +149,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
 
     k = data_manipulation["swapEvery"]
     swap = False
+    non_communicating_island = data_manipulation["non_communicating_islands"]
 
     # Calculate objective and constraints for each particle
     if processes > 1:
@@ -218,7 +219,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 # Master to worker
                 data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
                 # Replace worst agent
-                if i % k == 0 and i > 0:  # Send back found agent
+                if i % k == 0 and i > 0 and not non_communicating_island:  # Send back found agent
                     swap = True
                 if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
                     print(
@@ -359,7 +360,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                     # Master to worker
                     data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
                     # Replace worst agent
-                    if i % k == 0 and i > 0:  # Send back found agent
+                    if i % k == 0 and i > 0 and not non_communicating_island:  # Send back found agent
                         swap = True
                     if swap and data_master_to_worker["iteration"] >= (int(i / k) * k):
                         print(

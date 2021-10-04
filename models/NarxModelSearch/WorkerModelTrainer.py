@@ -324,6 +324,7 @@ if data_manipulation["fp16"]:
 # data_manipulation["filePrefix"] = "BETN113_121_132_BG"
 # data_manipulation["mimoOutputs"] = 3
 
+# TODO: 25 stations?
 # data_manipulation["directory"] = "data/24stations51vars/"
 # data_manipulation["filePrefix"] = "ALL_BETN_51vars_O3_O3-1_19900101To2000101"
 # data_manipulation["mimoOutputs"] = 24
@@ -341,9 +342,9 @@ if data_manipulation["fp16"]:
 # data_manipulation["mimoOutputs"] = 16
 
 # Calendar
-data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
-data_manipulation["filePrefix"] = "PM10_BETN"
-data_manipulation["mimoOutputs"] = 16
+# data_manipulation["directory"] = "data/PM10_BETN_calendar_1995To2019/"
+# data_manipulation["filePrefix"] = "PM10_BETN"
+# data_manipulation["mimoOutputs"] = 16
 
 # # Calendar  # TODO: last
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019/"
@@ -351,14 +352,16 @@ data_manipulation["mimoOutputs"] = 16
 # data_manipulation["mimoOutputs"] = 46
 
 # SINGLE station Calendar
-# data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
-# data_manipulation["filePrefix"] = "O3_BETN"
-# data_manipulation["mimoOutputs"] = 1
+data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_single_BETN073/"
+data_manipulation["filePrefix"] = "O3_BETN"
+data_manipulation["mimoOutputs"] = 1
 
 # # all-background-station Calendar
 # data_manipulation["directory"] = "data/O3_BETN_calendar_1995To2019_all-background-rural/"
 # data_manipulation["filePrefix"] = "O3_BETN"
 # data_manipulation["mimoOutputs"] = 18
+
+# HASSIO
 
 # Hassio hourly
 # data_manipulation["directory"] = "data/Hassio_calendar_2018To2019_lag1_hourly/"
@@ -389,6 +392,8 @@ data_manipulation["mimoOutputs"] = 16
 # data_manipulation["directory"] = "data/PM1083stations51vars/"
 # data_manipulation["filePrefix"] = "ALL_BE_51vars_PM10_PM10-1_19940101To20190125"
 # data_manipulation["mimoOutputs"] = 83
+
+# COLLISION AVOIDANCE
 
 # # SINGLE Collision avoidance
 # data_manipulation["directory"] = "data/CollisionAvoidance_8hour_resampled/"

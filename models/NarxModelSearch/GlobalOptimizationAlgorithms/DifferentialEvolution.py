@@ -469,6 +469,7 @@ class DifferentialEvolutionSolver(object):
 
         k = self.data_manipulation["swapEvery"]
         swap = False
+        non_communicating_island = self.data_manipulation["non_communicating_islands"]
 
         # calculate energies to start with
         for index, candidate in enumerate(self.population):
@@ -486,7 +487,7 @@ class DifferentialEvolutionSolver(object):
             # Master to worker
             data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
             # Replace worse agent
-            if index % k == 0 and index > 0:  # Send back found agent
+            if index % k == 0 and index > 0 and not non_communicating_island:  # Send back found agent
                 swap = True
             # If current iteration >= k && received agent iteration >= k -> then swap
             if swap and data_master_to_worker["iteration"] >= (int(index / k) * k):

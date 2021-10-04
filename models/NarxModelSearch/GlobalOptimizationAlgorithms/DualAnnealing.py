@@ -203,7 +203,7 @@ class EnergyState(object):
             # Master to worker
             data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
             # Replace worst agent
-            if self.fitness_evaluations % self.k == 0 and self.fitness_evaluations > 0:  # Send back found agent
+            if self.fitness_evaluations % self.k == 0 and self.fitness_evaluations > 0 and not self.non_communicating_island:  # Send back found agent
                 self.swap = True
             if self.swap and data_master_to_worker["iteration"] >= (int(self.fitness_evaluations / self.k) * self.k):
                 print(
@@ -337,7 +337,7 @@ class StrategyChain(object):
             # Master to worker
             data_master_to_worker = comm.recv(source=0, tag=2)  # Receive data sync (blocking) from master
             # Replace worst agent
-            if self.energy_state.fitness_evaluations % self.energy_state.k == 0 and self.energy_state.fitness_evaluations > 0:  # Send back found agent
+            if self.energy_state.fitness_evaluations % self.energy_state.k == 0 and self.energy_state.fitness_evaluations > 0 and not self.non_communicating_island:  # Send back found agent
                 self.energy_state.swap = True
             if self.energy_state.swap and data_master_to_worker["iteration"] >= (int(self.energy_state.fitness_evaluations / self.energy_state.k) * self.energy_state.k):
                 print(
@@ -690,6 +690,7 @@ def dual_annealing(func, bounds, args=(), maxiter=1000,
     energy_state.fitness_evaluations = 0  # TODO: fitness evaluations
     energy_state.k = data_manipulation["swapEvery"]  # TODO: fitness evaluations
     energy_state.swap = False  # TODO: fitness evaluations
+    energy_state.non_communicating_island = data_manipulation["non_communicating_island"]
 
     # Run the search loop
     need_to_stop = False

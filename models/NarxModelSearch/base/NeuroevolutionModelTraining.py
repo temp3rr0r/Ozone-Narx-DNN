@@ -107,7 +107,8 @@ def reduce_time_series_validation_fold_size(train, validation, max_validation_le
     return train, validation
 
 
-def train_model(x, *args):
+# def train_model(x, *args):
+def train_model2(x, *args):
     """
     Train a deep learning model.
     :param x: Model phenotype.
@@ -733,12 +734,12 @@ def ackley(x):
     arg2 = 0.5 * (np.cos(2. * np.pi * x[0]) + np.cos(2. * np.pi * x[1]))
     return -20. * np.exp(arg1) - np.exp(arg2) + 20. + np.e
 
+
 from deap import benchmarks  # TODO: test functions
-train_model.train_model_tester3 = np.inf
-train_model.train_model_tester3mse_island = ""
-# TODO: minmaxscaling for the Deap benchmark functions
-from sklearn.preprocessing import MinMaxScaler
-def train_model_tester3(x, *args):
+from sklearn.preprocessing import MinMaxScaler  # TODO: minmaxscaling for the Deap benchmark functions
+
+# def train_model_tester3(x, *args):
+def train_model(x, *args):
     """
     Fake model training, for testing communication and workers. Tries to find ackley function minimum.
     :param x: Model phenotype.
@@ -776,8 +777,8 @@ def train_model_tester3(x, *args):
         "rand": {"range": [-100, 100], "function_call": benchmarks.rand}  # Arbitrary bounds
     }
 
-    last_genes_count = -2  # Count of genes to use as input (from end).
-    test_fitness_function = "ackley"  # Fitness function to check.
+    last_genes_count = -1 * data_manipulation["benchmark_dimensions"]  # Count of genes to use as input (from end). TODO: benchmark 50 dimensions
+    test_fitness_function = "ackley"  # "rosenbrock", "rastrigin", "ackley"  # Fitness function to check.
 
     scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])
     scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))  # Train scaling from bounds
@@ -810,3 +811,6 @@ def train_model_tester3(x, *args):
     endTime = time.time()
 
     return mean_mse
+
+train_model.train_model_tester3 = np.inf
+train_model.train_model_tester3mse_island = ""
