@@ -5,8 +5,8 @@
     "swapEvery": 5,
     "sendBestAgentFromBuffer": true,
     "master": 0,
-    "folds": 5,
-    "iterations": 500,
+    "folds": 3,
+    "iterations": 150,
     "min_mse_threshold": 1,
     "agents": 5,
     "storeCheckpoints": false,
@@ -18,5 +18,5 @@
     "timesteps": 1,
     "cellular_automata_dimensions": [3, 3, 3],
     "benchmark_dimensions": 50,
-    "non_communicating_islands": true
+    "non_communicating_islands": false
 }

@@ -107,8 +107,8 @@ def reduce_time_series_validation_fold_size(train, validation, max_validation_le
     return train, validation
 
 
-# def train_model(x, *args):
-def train_model2(x, *args):
+def train_model(x, *args):
+# def train_model2(x, *args):
     """
     Train a deep learning model.
     :param x: Model phenotype.
@@ -738,8 +738,8 @@ def ackley(x):
 from deap import benchmarks  # TODO: test functions
 from sklearn.preprocessing import MinMaxScaler  # TODO: minmaxscaling for the Deap benchmark functions
 
-# def train_model_tester3(x, *args):
-def train_model(x, *args):
+def train_model_tester3(x, *args):
+# def train_model(x, *args):
     """
     Fake model training, for testing communication and workers. Tries to find ackley function minimum.
     :param x: Model phenotype.
@@ -778,7 +778,7 @@ def train_model(x, *args):
     }
 
     last_genes_count = -1 * data_manipulation["benchmark_dimensions"]  # Count of genes to use as input (from end). TODO: benchmark 50 dimensions
-    test_fitness_function = "ackley"  # "rosenbrock", "rastrigin", "ackley"  # Fitness function to check.
+    test_fitness_function = "h1"  # "h1", "rosenbrock", "rastrigin", "ackley"  # Fitness function to check.
 
     scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])
     scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))  # Train scaling from bounds

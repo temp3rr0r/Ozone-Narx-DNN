@@ -30,7 +30,8 @@ def local_exposer_train_model_requester_rabbit_mq(x):
 
 def local_model_search(data_manipulation=None):
 
-    iterations = data_manipulation["iterations"]
+    # iterations = data_manipulation["iterations"]
+    iterations = int(round(data_manipulation["iterations"] / 4.0, 0))  # TODO: 1/4 of iterations: stop
     agents = data_manipulation["agents"]
     baseMpi.train_model.counter = 0  # Function call counter
     baseMpi.train_model.label = 'ls'
@@ -57,13 +58,13 @@ def local_model_search(data_manipulation=None):
         options = dict(maxfun=iterations)
     elif data_manipulation["rank"] % 10 == 2:
         local_search_method = "SLSQP"
-        options = dict(maxiter=iterations)
+        options = dict(maxiter=1)  # 1 iteration == 110 evaluations
     elif data_manipulation["rank"] % 10 == 3:
         local_search_method = "TNC"
-        options = dict(maxiter=iterations)
+        options = dict(maxiter=2)  # 1 iteration == 50 evaluations
     elif data_manipulation["rank"] % 10 == 4:
         local_search_method = "trust-constr"
-        options = dict(maxiter=iterations)
+        options = dict(maxiter=2)  # 1 iteration == 50 evaluations
 		
 	# TODO: Add (and test) four more local_search_methods. TODO: Try to manually constrain them, because they DO get outside of bounds...
 	# TODO: Powell ("bounded" but not really...), Nelder-Mead, CG, COBYLA (doesn't get outside bounds with scipy.optimize.Bounds) (see: https://docs.scipy.org/doc/scipy/reference/optimize.html#local-multivariate-optimization)
@@ -722,18 +723,18 @@ def random_model_search(data_manipulation=None, iterations=100):
           .format(data_worker_to_master["rank"], max_mean_mse, min_mean_mse, worst_rand_agent, best_rand_agent))
 
 def get_random_model():
-    # return [random.randint(lb[0], ub[0]),  # batch_size
-    #          random.randint(lb[1], ub[1]), random.randint(lb[2], ub[2]),  # epoch_size, optimizer
-    #          random.randint(lb[3], ub[3]), random.randint(lb[4], ub[4]), random.randint(lb[5], ub[5]),  # units
-    #          random.uniform(lb[6], ub[6]), random.uniform(lb[7], ub[7]), random.uniform(lb[8], ub[8]),  # dropout
-    #          random.uniform(lb[9], ub[9]), random.uniform(lb[10], ub[10]), random.uniform(lb[11], ub[11]),  # recurrent_dropout
-    #          random.uniform(lb[12], ub[12]), random.uniform(lb[13], ub[13]), random.uniform(lb[14], ub[14]),  # gaussian noise std
-    #          random.randint(lb[15], ub[15]), random.randint(lb[16], ub[16]), random.randint(lb[17], ub[17]),  # gaussian_noise
-    #          random.randint(lb[18], ub[18]), random.randint(lb[19], ub[19]), random.randint(lb[20], ub[20]),  # batch normalization
-    #          random.randint(lb[21], ub[21]), random.randint(lb[22], ub[22]), random.randint(lb[23], ub[23]),  # base layer types
-    #          random.randint(lb[24], ub[24]), random.randint(lb[25], ub[25]), random.randint(lb[26], ub[26])]  # layer initializers, normal/uniform he/lecun
+    return [random.randint(lb[0], ub[0]),  # batch_size
+             random.randint(lb[1], ub[1]), random.randint(lb[2], ub[2]),  # epoch_size, optimizer
+             random.randint(lb[3], ub[3]), random.randint(lb[4], ub[4]), random.randint(lb[5], ub[5]),  # units
+             random.uniform(lb[6], ub[6]), random.uniform(lb[7], ub[7]), random.uniform(lb[8], ub[8]),  # dropout
+             random.uniform(lb[9], ub[9]), random.uniform(lb[10], ub[10]), random.uniform(lb[11], ub[11]),  # recurrent_dropout
+             random.uniform(lb[12], ub[12]), random.uniform(lb[13], ub[13]), random.uniform(lb[14], ub[14]),  # gaussian noise std
+             random.randint(lb[15], ub[15]), random.randint(lb[16], ub[16]), random.randint(lb[17], ub[17]),  # gaussian_noise
+             random.randint(lb[18], ub[18]), random.randint(lb[19], ub[19]), random.randint(lb[20], ub[20]),  # batch normalization
+             random.randint(lb[21], ub[21]), random.randint(lb[22], ub[22]), random.randint(lb[23], ub[23]),  # base layer types
+             random.randint(lb[24], ub[24]), random.randint(lb[25], ub[25]), random.randint(lb[26], ub[26])]  # layer initializers, normal/uniform he/lecun
 
-    return [random.uniform(lb[i], ub[i]) for i in range(50)]  # TODO: benchmark 50 dimensions
+    # return [random.uniform(lb[i], ub[i]) for i in range(50)]  # TODO: benchmark 50 dimensions
 
 
 def print_optimum(xopt1, fopt1):
