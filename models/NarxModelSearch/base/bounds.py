@@ -28,10 +28,12 @@ bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
           (0, 9),
           (0, 9)]
 
+# Benchmark 50 dimensions
+
 # with open('settings/data_manipulation.json') as f:  # Read the settings json file
 #     data_manipulation = json.load(f)
 #
-# bounds = [(0, 1)] * data_manipulation["benchmark_dimensions"]  # TODO: benchmark 50 dimensions
+# bounds = [(0, 1)] * data_manipulation["benchmark_dimensions"]
 
 
 # Model Search Space bounds
