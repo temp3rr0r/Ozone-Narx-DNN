@@ -1,7 +1,7 @@
 # Air-quality forecasting in Belgium using Deep Neural Networks, Neuroevolution and distributed Island Transpeciation
 
 #### Konstantinos Theodorakos  
-*Katholieke Universiteit Leuven*  
+*KU Leuven*  
 *Student of the Master Artificial Intelligence: Engineering and Computer Science*  
 *Faculty of Engineering Science*  
 *Departments of Computer Science & Electrical Engineering, ESAT-STADIUS*  
