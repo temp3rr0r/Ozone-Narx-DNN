@@ -6,7 +6,7 @@
     "sendBestAgentFromBuffer": true,
     "master": 0,
     "folds": 5,
-    "iterations": 50,
+    "iterations": 350,
     "min_mse_threshold": 1,
     "agents": 5,
     "storeCheckpoints": false,
