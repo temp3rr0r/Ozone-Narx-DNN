@@ -295,7 +295,7 @@ if data_manipulation["fp16"]:
 
 # Choose data
 
-# TODO: rerun small experiments vs rand search
+# TODO: Figure  rerun small experiments vs rand search
 data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
 data_manipulation["filePrefix"] = "BETN073"
 data_manipulation["mimoOutputs"] = 1
