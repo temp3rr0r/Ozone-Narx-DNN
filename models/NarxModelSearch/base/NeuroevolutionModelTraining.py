@@ -9,6 +9,63 @@ import tensorflow as tf
 import pandas as pd
 import gc
 from sklearn.model_selection import TimeSeriesSplit, train_test_split
+from base.dm_test import dm_test
+
+
+def diebold_mariano(expected, predicted_1, predicted_2, horizon=1, criterion="MSE", power=4):
+    """
+    Diebold-Mariano Test (1995) with modification suggested by Harvey et. al (1997) to statistically identify forecast
+    accuracy equivalance for 2 sets of predictions  [1] [2].
+
+    # See: https://pkg.robjhyndman.com/forecast/reference/dm.test.html#author
+    # See: https://en.wikipedia.org/wiki/Misuse_of_p-values
+    # References:
+    # [1] Harvey, D., Leybourne, S., & Newbold, P. (1997). Testing the equality of
+    #   prediction mean squared errors. International Journal of forecasting,
+    #   13(2), 281-291.
+    #
+    # [2] Diebold, F. X. and Mariano, R. S. (1995), Comparing predictive accuracy,
+    #   Journal of business & economic statistics 13(3), 253-264.
+
+    :param expected: 1D or nD array of expected values
+    :param predicted_1: 1D or nD array of predicted values from model 1
+    :param predicted_2: 1D or nD array of predicted values from model 2
+    :param horizon: steps-ahead horizon
+    :param criterion: String value from: { "MAD", "MSE", "MAPE", "poly"}. Mean Absolute Deviation (MAD),
+    Mean Squared Error (MSE), Mean Absolute Percentage Error (MAPE), polynomial.
+    :param power: Integer in [1, data length] for polynomial criterion.
+    :return: Tuple of DM statistic, p-value.
+    """
+    rt = dm_test(expected, predicted_1, predicted_2, h=horizon, crit=criterion)
+
+    return rt.DM, rt.p_value
+
+
+def diebold_mariano_naive(expected, predicted, naive_lags=1, horizon=1, criterion="MSE", power=4):
+    """
+    Diebold-Mariano Test (1995) of a model against a naive persistence model [1] [2].
+
+    # See: https://pkg.robjhyndman.com/forecast/reference/dm.test.html#author
+    # See: https://en.wikipedia.org/wiki/Misuse_of_p-values
+    # References:
+    # [1] Harvey, D., Leybourne, S., & Newbold, P. (1997). Testing the equality of
+    #   prediction mean squared errors. International Journal of forecasting,
+    #   13(2), 281-291.
+    #
+    # [2] Diebold, F. X. and Mariano, R. S. (1995), Comparing predictive accuracy,
+    #   Journal of business & economic statistics 13(3), 253-264.
+
+    :param predicted: 1D or nD array of predicted values from mo
+    :param expected: 1D or nD array of expected valuesdel
+    :param naive_lags: Lags to scale for. Default 1 for non-stationary data.
+    :param horizon: steps-ahead horizon
+    :param criterion: String value from: { "MAD", "MSE", "MAPE", "poly"}. Mean Absolute Deviation (MAD),
+    Mean Squared Error (MSE), Mean Absolute Percentage Error (MAPE), polynomial.
+    :param power: Integer in [1, data length] for polynomial criterion.
+    :return: Tuple of DM statistic, p-value.
+    """
+    return diebold_mariano(expected, predicted, mimo_shift(expected, naive_lags, fill_value=expected[0]), horizon,
+                           criterion, power)
 
 
 def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
@@ -23,7 +80,6 @@ def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     """
     return mean_absolute_error(
         expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0]))
-
 
 def mimo_shift(array, lags, fill_value=np.nan):
     """
@@ -556,6 +612,14 @@ def train_model(x, *args):
     holdout_ioa = index_of_agreement(y_data_holdout, holdout_prediction)
     print('--- Rank {}: Holdout Data IOA: {}'.format(rank, holdout_ioa))
 
+    criteria = ["MSE", "MAD", "MAPE", "poly"]  # TODO: Works?
+    holdout_DMs = []
+    for criterion in criteria:  # TODO: Works without python list?
+        holdout_DM = diebold_mariano_naive(y_data_holdout, holdout_prediction, criterion=criterion)
+        print('--- Rank {}: Holdout DM ({}): {} statistic (p-value: {})'
+              .format(rank, criterion, holdout_DM[0], holdout_DM[1]))  # TODO: to csv?
+        holdout_DMs.append(holdout_DM)
+
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
         # Data to store:
         # datetime, iteration, gpu, cvMseMean, cvMseStd
@@ -695,10 +759,16 @@ def train_model(x, *args):
         # timesteps, swapEvery, cellular_automata_dimensions, agents
         # folds, cvMaseMean, cvMaseStd, holdoutMase, mutationProbabilityThreshold, mutationProbabilities
         # l1_l2_randoms, elapsedTime, full_mase, full_smape, full_rmse,
-        # full_mae, full_ioa, full_mse holdout_mae, holdout_max_validation_length, gpu_device
+        # full_mae, full_ioa, full_mse,
+        # holdout_mae,
+        # holdout_DM_MSE_statistic, holdout_DM_MSE_p-value, holdout_DM_MAD_statistic, holdout_DM_MAD_p-value,
+        # holdout_DM_MAPE_statistic, holdout_DM_MAPE_p-value, holdout_DM_poly4_statistic, holdout_DM_poly4_p-value,
+        # holdout_max_validation_length, gpu_device
         file.write('{},{},"{}",{},{},{},{},{},{},'
                    '"{}","{}",'
-                   '{},{},{},{},{},{},{},{},{},{}\n'
+                   '{},{},{},{},{},{},{},{},'
+                   '{},{},{},{},{},{},{},{},'  # TODO: criteria=["MSE", "MAD", "MAPE", "poly"], statistic, p-value
+                   '{},{}\n'
                    .format(str(data_manipulation["timesteps"]),  # lag
                            str(data_manipulation["swapEvery"]),  # migration period in #fitness evaluations
                            str(data_manipulation["cellular_automata_dimensions"]),  # CA
@@ -718,6 +788,16 @@ def train_model(x, *args):
                            str(full_ioa),
                            str(full_mse),
                            str(holdout_mae),
+
+                           str(holdout_DMs[0][0]),  # criteria=["MSE", "MAD", "MAPE", "poly"], statistic, p-value
+                           str(holdout_DMs[0][1]),
+                           str(holdout_DMs[1][0]),
+                           str(holdout_DMs[1][1]),
+                           str(holdout_DMs[2][0]),
+                           str(holdout_DMs[2][1]),
+                           str(holdout_DMs[3][0]),
+                           str(holdout_DMs[3][1]),
+
                            str(holdout_max_validation_length),
                            str(data_manipulation["gpuDevice"])
                            ))

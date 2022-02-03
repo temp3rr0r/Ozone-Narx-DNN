@@ -85,14 +85,20 @@ def load_data(directory, file_prefix, mimo_outputs, gpu_rank=1, timesteps=1):
         # r = np.delete(r, [0, 1, 3, 55, 56, 58], axis=1)  # Remove all other ts  # Lerp on missing values, comparable with other thesis
 
         if reduce_ts_length:
+
+            # # TODO: greatly decrease r length for testing: 2014-2018 training, 2019 for testing
+            row2014_01_01 = 366 - 1  # Lerp on missing values, comparable with other thesis
+            row2019_12_31 = 2557
+            r = r[row2014_01_01:row2019_12_31, :]
+
+            # # # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
+            # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
+            # row2010_12_31 = 7670
+            # r = r[row2000_01_01:row2010_12_31, :]
+
             # TODO: greatly decrease r length for testing (365 days + 2 x X amount) and remove 40 vars
             # r = r[1:(365+60):]
             # r = np.delete(r, range(5, 50), axis=1)
-
-            # # TODO: greatly decrease r length for testing: 2000-2009 training, 2010 for testing
-            row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
-            row2010_12_31 = 7670
-            r = r[row2000_01_01:row2010_12_31, :]
 
             # # TODO: greatly decrease r length for testing: 2000-2001 training, 2002 for testing
             # row2000_01_01 = 3653 - 1  # Lerp on missing values, comparable with other thesis
@@ -295,10 +301,15 @@ if data_manipulation["fp16"]:
 
 # Choose data
 
+# TODO: new country, 3 MIMO, reduced exogenous (corr-based)
+data_manipulation["directory"] = "data/cyprus_reducedExogenous/"  # CY data
+data_manipulation["filePrefix"] = "all_Cyprus_ozone_weather_reducedExogenous_2013To2020"
+data_manipulation["mimoOutputs"] = 3
+
 # TODO: Figure  rerun small experiments vs rand search
-data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
-data_manipulation["filePrefix"] = "BETN073"
-data_manipulation["mimoOutputs"] = 1
+# data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis
+# data_manipulation["filePrefix"] = "BETN073"
+# data_manipulation["mimoOutputs"] = 1
 
 # data_manipulation["directory"] = "data/6vars_ALL/"  # "closest station" data replacement strategy
 # data_manipulation["filePrefix"] = "BETN073_ALL"
