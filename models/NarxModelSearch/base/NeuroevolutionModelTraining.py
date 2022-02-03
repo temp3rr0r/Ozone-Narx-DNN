@@ -64,8 +64,10 @@ def diebold_mariano_naive(expected, predicted, naive_lags=1, horizon=1, criterio
     :param power: Integer in [1, data length] for polynomial criterion.
     :return: Tuple of DM statistic, p-value.
     """
-    return diebold_mariano(expected, predicted, mimo_shift(expected, naive_lags, fill_value=expected[0]), horizon,
-                           criterion, power)
+
+    naive_series = mimo_shift(expected, naive_lags, fill_value=expected[0])
+
+    return diebold_mariano(list(expected), list(naive_series), list(predicted), horizon, criterion, power)
 
 
 def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
@@ -80,6 +82,7 @@ def mean_absolute_scaled_error(expected, predicted, naive_lags=1):
     """
     return mean_absolute_error(
         expected, predicted) / mean_absolute_error(expected, mimo_shift(expected, naive_lags, fill_value=expected[0]))
+
 
 def mimo_shift(array, lags, fill_value=np.nan):
     """
@@ -295,7 +298,8 @@ def train_model(x, *args):
 
         # create model
         model = tf.keras.models.Sequential()
-        lstm_kwargs = {'units': units1, 'dropout': dropout1, 'recurrent_dropout': recurrent_dropout1,
+        lstm_kwargs = {'units': units1, 'dropout': dropout1,
+                       # 'recurrent_dropout': recurrent_dropout1,  # TODO: disable temp
                        'return_sequences': True,
                        'implementation': 2,
                        # 'kernel_regularizer': l2(0.01),
@@ -331,7 +335,7 @@ def train_model(x, *args):
         lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[1]]  # Layer initializer
         lstm_kwargs['units'] = units2
         lstm_kwargs['dropout'] = dropout2
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout2
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout2  # TODO: disable temp
         # Local Random mutation
         if regularizer_chance_randoms[3] < regularizer_chance:
             lstm_kwargs['activity_regularizer'] = tf.keras.regularizers.l1_l2(
@@ -358,7 +362,7 @@ def train_model(x, *args):
         lstm_kwargs['kernel_initializer'] = layer_initializers[layer_initializer_genes[2]]  # Layer initializer
         lstm_kwargs['units'] = units3
         lstm_kwargs['dropout'] = dropout3
-        lstm_kwargs['recurrent_dropout'] = recurrent_dropout3
+        # lstm_kwargs['recurrent_dropout'] = recurrent_dropout3  # TODO: disable temp
         lstm_kwargs['return_sequences'] = False  # Last layer should not return sequences
         # Local random mutation
         if regularizer_chance_randoms[6] < regularizer_chance:
@@ -612,12 +616,16 @@ def train_model(x, *args):
     holdout_ioa = index_of_agreement(y_data_holdout, holdout_prediction)
     print('--- Rank {}: Holdout Data IOA: {}'.format(rank, holdout_ioa))
 
-    criteria = ["MSE", "MAD", "MAPE", "poly"]  # TODO: Works?
+    criteria = ["MSE", "MAD", "MAPE", "poly"]
     holdout_DMs = []
-    for criterion in criteria:  # TODO: Works without python list?
-        holdout_DM = diebold_mariano_naive(y_data_holdout, holdout_prediction, criterion=criterion)
-        print('--- Rank {}: Holdout DM ({}): {} statistic (p-value: {})'
-              .format(rank, criterion, holdout_DM[0], holdout_DM[1]))  # TODO: to csv?
+    y_data_holdout_DM = y_data_holdout.transpose()
+    holdout_prediction_DM = holdout_prediction.transpose()
+    outputs_count = y_data_holdout_DM.shape[0]
+    criterion = "MSE"  # Temp, use only MSE criterion
+    for output_id in range(outputs_count):
+        holdout_DM = diebold_mariano_naive(y_data_holdout_DM[output_id], holdout_prediction_DM[output_id], criterion=criterion)
+        print('--- Rank {}: Output {} Holdout DM ({}): {} statistic (p-value: {})'
+              .format(rank, criterion, output_id, round(holdout_DM[0], 2), holdout_DM[1]))
         holdout_DMs.append(holdout_DM)
 
     with open('logs/{}Runs.csv'.format(modelLabel), 'a') as file:
@@ -711,10 +719,12 @@ def train_model(x, *args):
 
                 pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
                 pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
-                             "SMAPE: {}%, MASE: {}, IOA: {}%)"
+                             "SMAPE: {}%, MASE: {}, IOA: {}%, DM: {}$(p-value: {})$"
                         .format(modelLabel, train_model.counter, i, np.round(holdout_mse, 2), np.round(holdout_rmse, 2),
                                 np.round(holdout_mape, 2), np.round(holdout_smape, 2), np.round(holdout_mase, 2),
-                                np.round(holdout_ioa * 100, 2)))
+                                np.round(holdout_ioa * 100, 2),
+                                np.round(holdout_DMs[i][0], 2), np.round(holdout_DMs[i][1], 6),
+                             ))
                 pyplot.plot(y_data_holdout[:, i], label='expected')
                 pyplot.plot(holdout_prediction[:, i], label='prediction')
                 pyplot.xlabel("Time step")
@@ -726,7 +736,7 @@ def train_model(x, *args):
 
                 # Camera-ready SVG plot
                 pyplot.figure(figsize=(8, 6))  # Resolution 800 x 600
-                station = "BETN073"
+                station = f"Series {i}"
                 year = 2010
                 pyplot.title('$O_3$ {} {}: Island DNN (MSE: {}, sMAPE: {}%, MASE: {})'
                         .format(station, year, np.round(holdout_mse, 2), np.round(holdout_smape, 2), np.round(holdout_mase, 2)))
@@ -767,7 +777,7 @@ def train_model(x, *args):
         file.write('{},{},"{}",{},{},{},{},{},{},'
                    '"{}","{}",'
                    '{},{},{},{},{},{},{},{},'
-                   '{},{},{},{},{},{},{},{},'  # TODO: criteria=["MSE", "MAD", "MAPE", "poly"], statistic, p-value
+                   '"{}",'  # criteria=["MSE", "MAD", "MAPE", "poly"], (statistic, p-value). MSE only for now, all series
                    '{},{}\n'
                    .format(str(data_manipulation["timesteps"]),  # lag
                            str(data_manipulation["swapEvery"]),  # migration period in #fitness evaluations
@@ -778,8 +788,8 @@ def train_model(x, *args):
                            str(std_mase),  # Cross-validation std MASE
                            str(holdout_mase),
                            str(regularizer_chance),  # Mutation probability threshold
-                           str(regularizer_chance_randoms),  # Mutation probabilities
-                           str(l1_l2_randoms),
+                           str(regularizer_chance_randoms.tolist()),  # Mutation probabilities
+                           str(l1_l2_randoms.tolist()),
                            str(endTime - startTime),
                            str(full_mase),
                            str(full_smape),
@@ -788,16 +798,7 @@ def train_model(x, *args):
                            str(full_ioa),
                            str(full_mse),
                            str(holdout_mae),
-
-                           str(holdout_DMs[0][0]),  # criteria=["MSE", "MAD", "MAPE", "poly"], statistic, p-value
-                           str(holdout_DMs[0][1]),
-                           str(holdout_DMs[1][0]),
-                           str(holdout_DMs[1][1]),
-                           str(holdout_DMs[2][0]),
-                           str(holdout_DMs[2][1]),
-                           str(holdout_DMs[3][0]),
-                           str(holdout_DMs[3][1]),
-
+                           str(holdout_DMs),  # criteria=["MSE", "MAD", "MAPE", "poly"], (statistic, p-value). MSE only
                            str(holdout_max_validation_length),
                            str(data_manipulation["gpuDevice"])
                            ))

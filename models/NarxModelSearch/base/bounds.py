@@ -1,15 +1,15 @@
 import json
 
 bounds = [(7, 1 * 31),  # batch_size (~ #days: week, month, year)
-          (350, 600),  # epoch_size
+          (350, 600),  # (5, 10),  # (350, 600)  # epoch_size
           (0, 4),  # optimizer
-          (64, 512),  # units
-          (64, 512),
-          (64, 512),
+          (64, 512),  # (8, 64),  # (64, 512)  # units
+          (64, 512),  # (8, 64),  # (64, 512)
+          (64, 512),  # (8, 64),  # (64, 512)
           (0.01, 0.25),  # dropout
           (0.01, 0.25),
           (0.01, 0.25),
-          (0.01, 0.25),  # recurrent_dropout
+          (0.01, 0.25),  # recurrent_dropout  # TODO: disabled for MT, CY
           (0.01, 0.25),
           (0.01, 0.25),
           (0.1, 0.5),  # gaussian noise std
