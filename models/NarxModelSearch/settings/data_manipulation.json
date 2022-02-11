@@ -6,7 +6,7 @@
     "sendBestAgentFromBuffer": true,
     "master": 0,
     "folds": 5,
-    "iterations": 50,
+    "iterations": 2000,
     "min_mse_threshold": 1,
     "agents": 5,
     "storeCheckpoints": false,
@@ -17,6 +17,10 @@
     "migrate": true,
     "timesteps": 1,
     "cellular_automata_dimensions": [3, 3, 3],
+    "experiment_type": "all_types",
     "benchmark_dimensions": 50,
+    "benchmark_function": "rosenbrock",
+    "do_benchmark": true,
+    "shuffle_islands": true,
     "non_communicating_islands": false
 }

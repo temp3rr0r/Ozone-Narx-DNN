@@ -1,5 +1,7 @@
 from __future__ import print_function
 import os
+import random
+import sys
 import pandas as pd
 from base.ModelSearch import random_model_search, \
     differential_evolution_model_search, basin_hopping_model_search, \
@@ -11,7 +13,14 @@ from mpi4py import MPI
 import json
 from CellularAutomata.cellular_automata_indexing import CellularAutomataIndexing
 
-print("--- Usage:\n\tmpiexec -n <integer: process count> python mpiNeuroevolutionIslands.py")
+experiment_type = "all_islands"  # Set experiment_type (default: "all_islands")
+
+print("--- Usage:\n\tmpiexec -n <integer: process count> python mpiNeuroevolutionIslands.py --experiment <string (default: 'all_islands'): string>\n\tor"
+      "\n\t n\tmpiexec -n <integer: process count> python mpiNeuroevolutionIslands.py -e <string (default: 'all_islands'): string>")
+if len(sys.argv) == 3:
+    if str(sys.argv[1]) in ("--experiment", "-e"):
+        experiment_type = str(sys.argv[2])
+        print("-- Set to experiment: {}".format(experiment_type))  # TODO: Store gpu_device -> CSV field
 
 
 def estimate_total_message_count(islands_in, size_in, data_manipulation_in):
@@ -68,11 +77,56 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
     print("data_manipulation['best_model_parameters']: {}".format(data_manipulation["best_model_parameters"]))
 
 # First island in vector is not considered
-# islands = ['ls'] * 7  # Local search islands
-islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 7  # TODO: test/debug DA islands
-# islands = ['rand'] * 20
-# islands = ['bo'] * 7  # TODO: test/debug DA islands
+
+# TODO: test/debug DA islands
+# islands = ['rand', 'ga', 'bo', 'de', 'pso']  # For 4 workers
+# islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 9  # TODO: x 9 for 40 workers.
 # islands = ['pso', 'ga', 'bo', 'de', 'rand', 'ls'] * 7  # TODO: LS island =OUT=> global islands
+# pre_islands = ['ls']  # 5x Local search islands
+# pre_islands = ['rand']  # 1x Random search islands
+# pre_islands = ['pso'] * 5  # TODO: test BO, PSO, DE, GA ONLY
+
+
+if experiment_type == "all_types":
+    pre_islands = ['pso', 'ga', 'bo', 'de', 'rand']
+elif experiment_type == "noPSO":
+    pre_islands = ['ga', 'bo', 'de', 'rand']  # minus PSO
+elif experiment_type == "noGA":
+    pre_islands = ['pso', 'bo', 'de', 'rand']  # minus GA
+elif experiment_type == "noBO":
+    pre_islands = ['pso', 'ga', 'de', 'rand']  # minus BO
+elif experiment_type == "noDE":
+    pre_islands = ['pso', 'ga', 'bo', 'rand']  # minus DE
+elif experiment_type == "noRand":
+    pre_islands = ['pso', 'ga', 'bo', 'de']  # minus Rand
+elif experiment_type == "onlyPSO":
+    pre_islands = ['pso'] * 5  # PSO only
+elif experiment_type == "onlyGA":
+    pre_islands = ['ga'] * 5  # GA only
+elif experiment_type == "onlyBO":
+    pre_islands = ['bo'] * 5  # BO only
+elif experiment_type == "onlyDE":
+    pre_islands = ['de'] * 5  # DE only
+elif experiment_type == "onlyRand":
+    pre_islands = ['rand'] * 5  # Rand only
+elif experiment_type == "onlyLS":
+    pre_islands = ['ls'] * 5  # TODO: LS only
+
+if data_manipulation["shuffle_islands"]:
+    random.shuffle(pre_islands)  # Mix the island types
+islands = pre_islands * 6  # Communicating/non-communicating transpeciation: 8, 16, 24 islands
+
+if experiment_type == "2_BO_PSO_RAND_1_GA_DE":  # 8 islands: 2x {BO, PSO, Rand} islands and 1x {GA, DE} islands
+    pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'rand']
+    random.shuffle(pre_islands)
+    islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
+elif experiment_type == "3_BO_2_PSO_1_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PSO} islands and 1x {Rand, GA, DE} islands
+    pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'bo']
+    random.shuffle(pre_islands)
+    islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
+
+data_manipulation["experiment_type"] = experiment_type
+print("Experiment type:", experiment_type)
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -81,8 +135,9 @@ name = MPI.Get_processor_name()
 
 if rank == 0:  # Master Node
 
+    startTime = time.time()  # training time per full search
+
     swappedAgent = -1  # Rand init buffer agent
-    startTime = time.time()
     totalSecondsWork = 0
     mean_mse_threshold = data_manipulation["min_mse_threshold"]  # TODO:
     max_evaluations_threshold = data_manipulation["iterations"]  # TODO: Max 350 global and 150 local fitness evaluations
@@ -122,7 +177,7 @@ if rank == 0:  # Master Node
         agentsMse[data_worker_to_master["rank"] - 1] = data_worker_to_master["mean_mse"]
 
         evaluations += 1
-        if data_worker_to_master["mean_mse"] < overallMinMse:
+        if overallMinMse > data_worker_to_master["mean_mse"] > 0:
             overallMinMse = data_worker_to_master["mean_mse"]
             bestIsland = data_worker_to_master["island"]
             if data_manipulation["sendBestAgentFromBuffer"]:
@@ -133,11 +188,44 @@ if rank == 0:  # Master Node
 
         # if data_worker_to_master["mean_mse"] <= mean_mse_threshold:  # Stop condition if mean_mse <= threshold
         #     print("Abort: mean_mse = {} less than {} threshold".format(data_worker_to_master["mean_mse"], mean_mse_threshold))
-        #     # TODO: store file on abort
         #     comm.Abort()
         if evaluations >= max_evaluations_threshold:  # TODO: stop condition if too many evaluations
             print("Abort: evaluations = {} more than maximum {}".format(evaluations, max_evaluations_threshold))
-            # TODO: store file on abort
+
+            if data_manipulation["do_benchmark"]:
+                endTime = time.time()
+
+                with open('logs/benchmarkResults.csv'.format(modelLabel), 'a') as file:
+                    if data_manipulation["non_communicating_islands"]:
+                        communication = "non_communicating_islands"
+                    else:
+                        communication = "communicating_islands"
+
+                    # datetime, overallMinMse,
+                    # benchmark_function, island_count,
+                    # non_communicating_islands,
+                    # iterations, benchmark_dimensions,
+                    # swapEvery,
+                    # elapsedTime,
+                    # cellular_automata_dimensions,
+                    # shuffle_islands,
+                    # experiment_type,
+                    # islands
+                    file.write(
+                        '{},{},"{}",{},"{}",{},{},{},{},"{}","{}","{}","{}"\n'.format(
+                            str(int(time.time())), str(round(overallMinMse, 2)),
+                            data_manipulation["benchmark_function"], str(size-1),
+                            communication,
+                            str(data_manipulation["iterations"]), str(data_manipulation["benchmark_dimensions"]),
+                            str(data_manipulation["swapEvery"]),
+                            str(round(endTime - startTime, 2)),
+                            str(data_manipulation["cellular_automata_dimensions"]),
+                            str(data_manipulation["shuffle_islands"]),
+                            str(data_manipulation["experiment_type"]),
+                            str(islands[1:size])
+                            ))
+
+            # TODO: do send abort command to all processes
             comm.Abort()
 
         # Master to worker

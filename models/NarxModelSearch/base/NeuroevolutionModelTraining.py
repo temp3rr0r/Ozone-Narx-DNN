@@ -62,7 +62,7 @@ def diebold_mariano_naive(expected, predicted, naive_lags=1, horizon=1, criterio
     :param criterion: String value from: { "MAD", "MSE", "MAPE", "poly"}. Mean Absolute Deviation (MAD),
     Mean Squared Error (MSE), Mean Absolute Percentage Error (MAPE), polynomial.
     :param power: Integer in [1, data length] for polynomial criterion.
-    :return: Tuple of DM statistic, p-value.
+    :return: Tuple of DM statistic, p-value. Positive = 2nd series more accurate than 1st.
     """
 
     naive_series = mimo_shift(expected, naive_lags, fill_value=expected[0])
@@ -166,8 +166,8 @@ def reduce_time_series_validation_fold_size(train, validation, max_validation_le
     return train, validation
 
 
-def train_model(x, *args):
-# def train_model2(x, *args):
+# def train_model(x, *args):
+def train_model2(x, *args):
     """
     Train a deep learning model.
     :param x: Model phenotype.
@@ -719,7 +719,7 @@ def train_model(x, *args):
 
                 pyplot.figure(figsize=(16, 12))  # Resolution 800 x 600
                 pyplot.title("{} (iter: {}): Test data - Series {} (MSE: {}, RMSE: {}, MAPE: {}%, "
-                             "SMAPE: {}%, MASE: {}, IOA: {}%, DM: {}$(p-value: {})$"
+                             "SMAPE: {}%, MASE: {}, IOA: {}%, DM (vs Naive-1): {} (p-value: {})"
                         .format(modelLabel, train_model.counter, i, np.round(holdout_mse, 2), np.round(holdout_rmse, 2),
                                 np.round(holdout_mape, 2), np.round(holdout_smape, 2), np.round(holdout_mase, 2),
                                 np.round(holdout_ioa * 100, 2),
@@ -819,8 +819,8 @@ def ackley(x):
 from deap import benchmarks  # TODO: test functions
 from sklearn.preprocessing import MinMaxScaler  # TODO: minmaxscaling for the Deap benchmark functions
 
-def train_model_tester3(x, *args):
-# def train_model(x, *args):
+# def train_model_tester3(x, *args):
+def train_model(x, *args):
     """
     Fake model training, for testing communication and workers. Tries to find ackley function minimum.
     :param x: Model phenotype.
@@ -836,6 +836,7 @@ def train_model_tester3(x, *args):
     island = data_manipulation["island"]
     rank = data_manipulation["rank"]
     master = data_manipulation["master"]
+    test_fitness_function = data_manipulation["benchmark_function"]
     x_data, y_data = args
     full_model_parameters = x.copy()
 
@@ -858,8 +859,9 @@ def train_model_tester3(x, *args):
         "rand": {"range": [-100, 100], "function_call": benchmarks.rand}  # Arbitrary bounds
     }
 
-    last_genes_count = -1 * data_manipulation["benchmark_dimensions"]  # Count of genes to use as input (from end). TODO: benchmark 50 dimensions
-    test_fitness_function = "h1"  # "h1", "rosenbrock", "rastrigin", "ackley"  # Fitness function to check.
+    last_genes_count = -1 * data_manipulation["benchmark_dimensions"]  # Count of genes to use as input (from end)
+    # test_fitness_function = "h1"  # "h1", "rosenbrock", "rastrigin", "ackley"  # Fitness function to check.
+    # test_fitness_function = "ackley"  # "h1", "rosenbrock", "rastrigin", "ackley"  # Fitness function to check.
 
     scaler = MinMaxScaler(feature_range=objective_test_functions[test_fitness_function]["range"])
     scaler.fit(list(zip(*data_manipulation["bounds"][last_genes_count:])))  # Train scaling from bounds
@@ -882,9 +884,9 @@ def train_model_tester3(x, *args):
         print("\t\t--- NEW min_mean_mse({}): {} {:.2f}".format(
             train_model.train_model_tester3mse_island, test_fitness_function,
             train_model.train_model_tester3))
-    print("\t\t=== min_mean_mse({}): {} {:.2f}".format(
-        train_model.train_model_tester3mse_island, test_fitness_function,
-        train_model.train_model_tester3))
+    print("\t\t=== min_mean_mse({}, dims: {}): {} {:.2f}".format(
+        train_model.train_model_tester3mse_island, data_manipulation["benchmark_dimensions"], test_fitness_function,
+        round(train_model.train_model_tester3, 2)))
 
     time.sleep(0.005)
 

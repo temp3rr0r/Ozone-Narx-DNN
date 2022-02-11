@@ -301,7 +301,12 @@ if data_manipulation["fp16"]:
 
 # Choose data
 
-# TODO: new country, 3 MIMO, reduced exogenous (corr-based)
+# TODO: Malta, 5 MIMO, reduced exogenous (corr-based)
+# data_manipulation["directory"] = "data/malta_reducedExogenous/"  # MT data
+# data_manipulation["filePrefix"] = "all_Malta_ozone_weather_reducedExogenous_2013To2020"
+# data_manipulation["mimoOutputs"] = 5
+
+# TODO: Cyprus, 3 MIMO, reduced exogenous (corr-based)
 data_manipulation["directory"] = "data/cyprus_reducedExogenous/"  # CY data
 data_manipulation["filePrefix"] = "all_Cyprus_ozone_weather_reducedExogenous_2013To2020"
 data_manipulation["mimoOutputs"] = 3
@@ -467,7 +472,7 @@ baseMpi.train_model.data_manipulation = data_manipulation
 # baseMpi.train_model.one_nan = False  # TODO: Used for rapid islands distributed testing
 
 timeout = 3600 * 10  # Timeouts 60 mins * islands
-credentials = pika.PlainCredentials("madks", "asdf")
+# credentials = pika.PlainCredentials("madks", "asdf")
 # params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)
 params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat=timeout, blocked_connection_timeout=timeout, credentials=credentials)  # TODO: check heartbeat_interval -> heartbeat
 connection = pika.BlockingConnection(params)  # Connect with msg broker server
