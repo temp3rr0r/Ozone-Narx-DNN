@@ -302,14 +302,14 @@ if data_manipulation["fp16"]:
 # Choose data
 
 # TODO: Malta, 5 MIMO, reduced exogenous (corr-based)
-# data_manipulation["directory"] = "data/malta_reducedExogenous/"  # MT data
-# data_manipulation["filePrefix"] = "all_Malta_ozone_weather_reducedExogenous_2013To2020"
-# data_manipulation["mimoOutputs"] = 5
+data_manipulation["directory"] = "data/malta_reducedExogenous/"  # MT data
+data_manipulation["filePrefix"] = "all_Malta_ozone_weather_reducedExogenous_2013To2020"
+data_manipulation["mimoOutputs"] = 3
 
 # TODO: Cyprus, 3 MIMO, reduced exogenous (corr-based)
-data_manipulation["directory"] = "data/cyprus_reducedExogenous/"  # CY data
-data_manipulation["filePrefix"] = "all_Cyprus_ozone_weather_reducedExogenous_2013To2020"
-data_manipulation["mimoOutputs"] = 3
+# data_manipulation["directory"] = "data/cyprus_reducedExogenous/"  # CY data
+# data_manipulation["filePrefix"] = "all_Cyprus_ozone_weather_reducedExogenous_2013To2020"
+# data_manipulation["mimoOutputs"] = 3
 
 # TODO: Figure  rerun small experiments vs rand search
 # data_manipulation["directory"] = "data/6vars/"  # Lerp on missing values, comparable with other thesis

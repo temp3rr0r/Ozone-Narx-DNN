@@ -86,7 +86,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 # pre_islands = ['rand']  # 1x Random search islands
 # pre_islands = ['pso'] * 5  # TODO: test BO, PSO, DE, GA ONLY
 
-
+pre_islands = []
 if experiment_type == "all_types":
     pre_islands = ['pso', 'ga', 'bo', 'de', 'rand']
 elif experiment_type == "noPSO":
@@ -124,6 +124,10 @@ elif experiment_type == "3_BO_2_PSO_1_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PS
     pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'bo']
     random.shuffle(pre_islands)
     islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
+elif experiment_type == "4_BO_1_PSO_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PSO} islands and 1x {Rand, GA, DE} islands
+    pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'bo', 'bo']
+    random.shuffle(pre_islands)
+    islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
 
 data_manipulation["experiment_type"] = experiment_type
 print("Experiment type:", experiment_type)
@@ -154,7 +158,7 @@ if rank == 0:  # Master Node
 
     cellularAutomataIndexing = CellularAutomataIndexing()  # 1D <-> nD Cellular Automata grid indexing
 
-    overallMinMse = 10e4
+    overallMinMse = 3000000.0
     evaluations = 0
     bestIsland = ""
 

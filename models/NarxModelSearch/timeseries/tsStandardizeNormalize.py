@@ -15,8 +15,8 @@ elif metric == "O3":
 # fromFileName = "df_no_TN_remove_low_risk_lag4_train_data_future+1"
 # fromFileName = "all_Malta_ozone_weather_2013To2020"
 # fromFileName = "all_Cyprus_ozone_weather_2013To2020"
-# fromFileName = "all_Malta_ozone_weather_reducedExogenous_2013To2020"
-fromFileName = "all_Cyprus_ozone_weather_reducedExogenous_2013To2020"
+fromFileName = "all_Malta_ozone_weather_reducedExogenous_2013To2020"
+# fromFileName = "all_Cyprus_ozone_weather_reducedExogenous_2013To2020"
 
 ts = pd.read_csv("../data/{}.csv".format(fromFileName))
 toFileName = fromFileName
