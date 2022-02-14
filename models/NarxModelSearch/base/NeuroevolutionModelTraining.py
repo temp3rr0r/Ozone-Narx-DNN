@@ -166,8 +166,8 @@ def reduce_time_series_validation_fold_size(train, validation, max_validation_le
     return train, validation
 
 
-# def train_model(x, *args):
-def train_model2(x, *args):
+def train_model(x, *args):
+# def train_model2(x, *args):
     """
     Train a deep learning model.
     :param x: Model phenotype.
@@ -819,8 +819,8 @@ def ackley(x):
 from deap import benchmarks  # TODO: test functions
 from sklearn.preprocessing import MinMaxScaler  # TODO: minmaxscaling for the Deap benchmark functions
 
-# def train_model_tester3(x, *args):
-def train_model(x, *args):
+def train_model_tester3(x, *args):
+# def train_model(x, *args):
     """
     Fake model training, for testing communication and workers. Tries to find ackley function minimum.
     :param x: Model phenotype.

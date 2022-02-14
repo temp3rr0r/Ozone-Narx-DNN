@@ -304,7 +304,7 @@ if data_manipulation["fp16"]:
 # TODO: Malta, 5 MIMO, reduced exogenous (corr-based)
 data_manipulation["directory"] = "data/malta_reducedExogenous/"  # MT data
 data_manipulation["filePrefix"] = "all_Malta_ozone_weather_reducedExogenous_2013To2020"
-data_manipulation["mimoOutputs"] = 3
+data_manipulation["mimoOutputs"] = 3  # 5 -> 3: Removed MT03, MT05 (dupliates since 2017 + in another island)
 
 # TODO: Cyprus, 3 MIMO, reduced exogenous (corr-based)
 # data_manipulation["directory"] = "data/cyprus_reducedExogenous/"  # CY data
