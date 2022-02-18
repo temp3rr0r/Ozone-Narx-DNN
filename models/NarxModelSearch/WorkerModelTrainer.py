@@ -473,6 +473,7 @@ baseMpi.train_model.data_manipulation = data_manipulation
 
 timeout = 3600 * 10  # Timeouts 60 mins * islands
 # credentials = pika.PlainCredentials("madks", "asdf")
+credentials = pika.PlainCredentials("temp3rr0r", "asdf")
 # params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)
 params = pika.ConnectionParameters(host="temp3rr0r-pc", heartbeat=timeout, blocked_connection_timeout=timeout, credentials=credentials)  # TODO: check heartbeat_interval -> heartbeat
 connection = pika.BlockingConnection(params)  # Connect with msg broker server

@@ -20,7 +20,7 @@
     "experiment_type": "all_types",
     "benchmark_dimensions": 50,
     "benchmark_function": "ackley",
-    "do_benchmark": false,
+    "do_benchmark": true,
     "shuffle_islands": true,
-    "non_communicating_islands": false
+    "non_communicating_islands": true
 }

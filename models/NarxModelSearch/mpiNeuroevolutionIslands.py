@@ -81,7 +81,7 @@ if os.path.exists("foundModels/best_model_parameters.pkl"):
 # MIMO models
 
 # islands = ['rand', 'ga', 'bo', 'de', 'pso']  # For 4 workers
-islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 9  # TODO: x 9 for 40 workers.
+# islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 9  # TODO: x 9 for 40 workers.
 # islands = ['pso', 'ga', 'bo', 'de', 'rand', 'ls'] * 7  # TODO: LS island =OUT=> global islands
 # pre_islands = ['ls']  # 5x Local search islands
 # pre_islands = ['rand']  # 1x Random search islands
@@ -90,48 +90,48 @@ islands = ['pso', 'ga', 'bo', 'de', 'rand'] * 9  # TODO: x 9 for 40 workers.
 
 # Math benchmarks
 
-# pre_islands = []
-# if experiment_type == "all_types":
-#     pre_islands = ['pso', 'ga', 'bo', 'de', 'rand']
-# elif experiment_type == "noPSO":
-#     pre_islands = ['ga', 'bo', 'de', 'rand']  # minus PSO
-# elif experiment_type == "noGA":
-#     pre_islands = ['pso', 'bo', 'de', 'rand']  # minus GA
-# elif experiment_type == "noBO":
-#     pre_islands = ['pso', 'ga', 'de', 'rand']  # minus BO
-# elif experiment_type == "noDE":
-#     pre_islands = ['pso', 'ga', 'bo', 'rand']  # minus DE
-# elif experiment_type == "noRand":
-#     pre_islands = ['pso', 'ga', 'bo', 'de']  # minus Rand
-# elif experiment_type == "onlyPSO":
-#     pre_islands = ['pso'] * 5  # PSO only
-# elif experiment_type == "onlyGA":
-#     pre_islands = ['ga'] * 5  # GA only
-# elif experiment_type == "onlyBO":
-#     pre_islands = ['bo'] * 5  # BO only
-# elif experiment_type == "onlyDE":
-#     pre_islands = ['de'] * 5  # DE only
-# elif experiment_type == "onlyRand":
-#     pre_islands = ['rand'] * 5  # Rand only
-# elif experiment_type == "onlyLS":
-#     pre_islands = ['ls'] * 5  # TODO: LS only
-#
-# if data_manipulation["shuffle_islands"]:
-#     random.shuffle(pre_islands)  # Mix the island types
-# islands = pre_islands * 6  # Communicating/non-communicating transpeciation: 8, 16, 24 islands
-#
-# if experiment_type == "2_BO_PSO_RAND_1_GA_DE":  # 8 islands: 2x {BO, PSO, Rand} islands and 1x {GA, DE} islands
-#     pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'rand']
-#     random.shuffle(pre_islands)
-#     islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
-# elif experiment_type == "3_BO_2_PSO_1_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PSO} islands and 1x {Rand, GA, DE} islands
-#     pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'bo']
-#     random.shuffle(pre_islands)
-#     islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
-# elif experiment_type == "4_BO_1_PSO_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PSO} islands and 1x {Rand, GA, DE} islands
-#     pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'bo', 'bo']
-#     random.shuffle(pre_islands)
-#     islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
+pre_islands = []
+if experiment_type == "all_types":
+    pre_islands = ['pso', 'ga', 'bo', 'de', 'rand']
+elif experiment_type == "noPSO":
+    pre_islands = ['ga', 'bo', 'de', 'rand']  # minus PSO
+elif experiment_type == "noGA":
+    pre_islands = ['pso', 'bo', 'de', 'rand']  # minus GA
+elif experiment_type == "noBO":
+    pre_islands = ['pso', 'ga', 'de', 'rand']  # minus BO
+elif experiment_type == "noDE":
+    pre_islands = ['pso', 'ga', 'bo', 'rand']  # minus DE
+elif experiment_type == "noRand":
+    pre_islands = ['pso', 'ga', 'bo', 'de']  # minus Rand
+elif experiment_type == "onlyPSO":
+    pre_islands = ['pso'] * 5  # PSO only
+elif experiment_type == "onlyGA":
+    pre_islands = ['ga'] * 5  # GA only
+elif experiment_type == "onlyBO":
+    pre_islands = ['bo'] * 5  # BO only
+elif experiment_type == "onlyDE":
+    pre_islands = ['de'] * 5  # DE only
+elif experiment_type == "onlyRand":
+    pre_islands = ['rand'] * 5  # Rand only
+elif experiment_type == "onlyLS":
+    pre_islands = ['ls'] * 5  # TODO: LS only
+
+if data_manipulation["shuffle_islands"]:
+    random.shuffle(pre_islands)  # Mix the island types
+islands = pre_islands * 9   # TODO: x9 for 40 workers # Communicating/non-communicating transpeciation: 8, 16, 24 islands
+
+if experiment_type == "2_BO_PSO_RAND_1_GA_DE":  # 8 islands: 2x {BO, PSO, Rand} islands and 1x {GA, DE} islands
+    pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'rand']
+    random.shuffle(pre_islands)
+    islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
+elif experiment_type == "3_BO_2_PSO_1_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PSO} islands and 1x {Rand, GA, DE} islands
+    pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'pso', 'bo']
+    random.shuffle(pre_islands)
+    islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
+elif experiment_type == "4_BO_1_PSO_RAND_GA_DE":  # 8 islands: 3x {BO}, 2x {PSO} islands and 1x {Rand, GA, DE} islands
+    pre_islands = ['bo', 'pso', 'rand', 'de', 'ga', 'bo', 'bo', 'bo']
+    random.shuffle(pre_islands)
+    islands = ['pso'] + pre_islands  # First is a dummy island, skipped by the main thread
 
 data_manipulation["experiment_type"] = experiment_type
 print("Experiment type:", experiment_type)

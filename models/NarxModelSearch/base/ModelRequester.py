@@ -23,6 +23,7 @@ def train_model_requester_rabbit_mq(x):
 
     timeout = 3600 * 10  # Timeouts 60 mins * islands
     # credentials = pika.PlainCredentials("madks", "asdf")
+    credentials = pika.PlainCredentials("temp3rr0r", "asdf")
     # params = pika.ConnectionParameters(heartbeat_interval=timeout, blocked_connection_timeout=timeout, credentials=credentials)  # TODO: check heartbeat_interval -> heartbeat
     params = pika.ConnectionParameters(heartbeat=timeout, blocked_connection_timeout=timeout, credentials=credentials)
     connection = pika.BlockingConnection(params)  # Connect with msg broker server

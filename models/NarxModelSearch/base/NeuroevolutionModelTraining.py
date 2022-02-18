@@ -819,8 +819,8 @@ def ackley(x):
 from deap import benchmarks  # TODO: test functions
 from sklearn.preprocessing import MinMaxScaler  # TODO: minmaxscaling for the Deap benchmark functions
 
-def train_model_tester3(x, *args):
-# def train_model(x, *args):
+# def train_model_tester3(x, *args):
+def train_model(x, *args):
     """
     Fake model training, for testing communication and workers. Tries to find ackley function minimum.
     :param x: Model phenotype.
@@ -899,6 +899,8 @@ def train_model_tester3(x, *args):
         train_model.GA_count += 1
     elif island == "de":
         train_model.DE_count += 1
+    elif island == "ls":
+        train_model.LS_count += 1
 
     sleep_seconds = 0.1  # 0.05, 0.1, 0.5, 1.0, 1.5 TODO: intentionally sleep for more.
     # sleep_seconds = 0.5 + train_model.counter / 25.0
@@ -907,7 +909,8 @@ def train_model_tester3(x, *args):
           f"PSO ({train_model.PSO_count}): {round((train_model.PSO_count/train_model.counter) * 100.0)}%, "
           f"RS ({train_model.RS_count}): {round((train_model.RS_count/train_model.counter) * 100.0)}%, "
           f"GA ({train_model.GA_count}): {round((train_model.GA_count/train_model.counter) * 100.0)}%, "
-          f"DE ({train_model.DE_count}): {round((train_model.DE_count/train_model.counter) * 100.0)}%"
+          f"DE ({train_model.DE_count}): {round((train_model.DE_count/train_model.counter) * 100.0)}%, "
+          f"LS ({train_model.LS_count}): {round((train_model.LS_count/train_model.counter) * 100.0)}%"
           f" - sleep ({round(sleep_seconds, 2)} secs)")
     print("\t\t=== min_mean_mse({}, dims: {}): {} {:.2f} ({}-{}: {} iter {})".format(
         train_model.train_model_tester3mse_island, data_manipulation["benchmark_dimensions"], test_fitness_function,
@@ -926,3 +929,4 @@ train_model.PSO_count = 0
 train_model.RS_count = 0
 train_model.GA_count = 0
 train_model.DE_count = 0
+train_model.LS_count = 0
