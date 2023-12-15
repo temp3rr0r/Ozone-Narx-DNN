@@ -10,16 +10,18 @@
 *Email: madks@hotmail.com*
 
 ## How to cite Island Transpeciation
-Authors of scientific papers including methods/techniques inspired by Island Transpeciation are encouraged to cite this MSc thesis as follows:
+Authors of scientific papers including methods/techniques inspired by Island Transpeciation are encouraged to cite this work as follows:
 
 ```xml
-@mastersthesis{mastersthesisIslandTranspeciation,
-  author       = {Konstantinos Theodorakos}, 
-  title        = {Air-quality forecasting in Belgium using Deep Neural Networks, Neuroevolution and distributed Island Transpeciation.},
-  school       = {Katholieke Universiteit Leuven. Faculty of Engineering Science. Department of Electrical Engineering. ESAT-STADIUS.},
-  year         = {2019},
-  month        = {September}
-}
+@ARTICLE{islandTranspeciation,
+  author={Theodorakos, Konstantinos and Mauricio Agudelo, Oscar and Schreurs, Joachim and Suykens, Johan A. K. and De Moor, Bart},
+  journal={IEEE Transactions on Evolutionary Computation}, 
+  title={Island Transpeciation: A Co-Evolutionary Neural Architecture Search, Applied to Country-Scale Air-Quality Forecasting}, 
+  year={2023},
+  volume={27},
+  number={4},
+  pages={878-892},
+  doi={10.1109/TEVC.2022.3189500}}
 ```
 
 # Abstract
