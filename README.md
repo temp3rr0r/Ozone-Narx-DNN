@@ -1,4 +1,4 @@
-# Air-quality forecasting in Belgium using Deep Neural Networks, Neuroevolution and distributed Island Transpeciation
+# Island Transpeciation: A Co-Evolutionary Neural Architecture Search, Applied to Country-Scale Air-Quality Forecasting
 
 #### Konstantinos Theodorakos  
 *KU Leuven*  
