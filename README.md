@@ -4,7 +4,7 @@
 *KU Leuven*  
 *PhD Researcher in Data Science*  
 *Faculty of Engineering Science*  
-*Departments of Electrical Engineering, ESAT-STADIUS & Computer Science*
+*Departments of Electrical Engineering ESAT-STADIUS and Computer Science*
 *Kasteelpark Arenberg 10*  
 *Leuven (Heverlee), Belgium*  
 *Emails: madks@hotmail.com Konstantinos.Theodorakos@esat.kuleuven.be*
