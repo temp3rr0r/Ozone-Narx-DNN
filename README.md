@@ -23,6 +23,7 @@ Authors of scientific papers including methods/techniques inspired by Island Tra
   pages={878-892},
   doi={10.1109/TEVC.2022.3189500}}
 ```
+See publication at *IEEE Transactions on Evolutionary Computation*: https://ieeexplore.ieee.org/document/9820773
 
 # Abstract
 
