@@ -2,12 +2,12 @@
 
 #### Konstantinos Theodorakos  
 *KU Leuven*  
-*PhD Researcher in Data Science and Artificial Intelligence*  
+*PhD Researcher in Data Science*  
 *Faculty of Engineering Science*  
-*Departments of Computer Science & Electrical Engineering, ESAT-STADIUS*  
+*Departments of Electrical Engineering, ESAT-STADIUS & Computer Science*
 *Kasteelpark Arenberg 10*  
 *Leuven (Heverlee), Belgium*  
-*Email: madks@hotmail.com*
+*Emails: madks@hotmail.com Konstantinos.Theodorakos@esat.kuleuven.be*
 
 ## How to cite Island Transpeciation
 Authors of scientific papers including methods/techniques inspired by Island Transpeciation are encouraged to cite this work as follows:
