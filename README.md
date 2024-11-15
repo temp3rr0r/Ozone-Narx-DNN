@@ -2,7 +2,7 @@
 
 #### Konstantinos Theodorakos  
 *KU Leuven*  
-*Student of the Master Artificial Intelligence: Engineering and Computer Science*  
+*PhD Researcher in Data Science and Artificial Intelligence*  
 *Faculty of Engineering Science*  
 *Departments of Computer Science & Electrical Engineering, ESAT-STADIUS*  
 *Kasteelpark Arenberg 10*  
